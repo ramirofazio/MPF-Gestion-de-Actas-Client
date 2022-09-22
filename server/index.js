@@ -9,14 +9,12 @@ const port = 3030;
 (async () => {
   try {
     await db.authenticate(); //Conecta la DB
-    await db.sync(); //Sincroniza las tablas
-    console.log("db connected");
+    await db.sync({ force: true }); //Sincroniza las tablas
+    console.log("--->  DB conectada");
   } catch (error) {
     console.log(error);
   }
 })();
-
-db.authenticate().then(() => {});
 
 //middlewares
 app.use(express.json()); //Recibir info
@@ -26,5 +24,5 @@ app.use(cors()); //habilita otras apps para realizar solicitudes
 app.use("/actas", actas);
 
 app.listen(port, () => {
-  console.log("servidor ejecutandose en el puerto:", port);
+  console.log("---> Server ejecutandose en el puerto:", port);
 });
