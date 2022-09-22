@@ -1,8 +1,8 @@
 const db = require("../db/database");
 const { DataTypes } = require("sequelize");
 
-const Acta = db.define(
-  "Acta",
+const Estado = db.define(
+  "Estado",
   {
     id: {
       type: DataTypes.UUID,
@@ -11,17 +11,13 @@ const Acta = db.define(
       primaryKey: true,
       unique: true,
     },
-    nro_mpf: {
+    nro_precinto_blanco: {
       type: DataTypes.INTEGER,
+      defaultValue: null,
     },
-    nro_cij: {
-      type: DataTypes.INTEGER,
-    },
-    nro_dil: {
-      type: DataTypes.INTEGER,
-    },
-    nro_coop: {
-      type: DataTypes.INTEGER,
+    estado: {
+      type: DataTypes.STRING,
+      defaultValue: "En Proceso",
     },
   },
   {
@@ -29,4 +25,4 @@ const Acta = db.define(
   }
 );
 
-module.exports = Acta;
+module.exports = Estado;
