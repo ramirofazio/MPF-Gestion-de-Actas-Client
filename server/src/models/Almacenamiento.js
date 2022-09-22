@@ -1,16 +1,9 @@
-const db = require("../db/database");
-const { DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = require("../db/database");
 
-const Almacenamiento = db.define(
+const Almacenamiento = sequelize.define(
   "Almacenamiento",
   {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      primaryKey: true,
-      unique: true,
-    },
     marca: {
       type: DataTypes.STRING,
     },

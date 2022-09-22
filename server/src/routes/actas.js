@@ -1,13 +1,14 @@
 const actas = require("express").Router();
 const Acta = require("../models/Acta");
+const Efecto = require("../models/Efecto");
 
 //Muestra todas las actas
 actas.get("/", async (req, res) => {
   try {
-    const actas = await Acta.findAll();
-    res.send(actas);
+    const actas = await Acta.findAll({ include: Efecto });
+    res.json(actas);
   } catch (error) {
-    console.log(error);
+    console.log("this error", error);
   }
 });
 

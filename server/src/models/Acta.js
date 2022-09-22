@@ -1,16 +1,10 @@
-const db = require("../db/database");
 const { DataTypes } = require("sequelize");
+const sequelize = require("../db/database");
+const Efecto = require("./Efecto");
 
-const Acta = db.define(
+const Acta = sequelize.define(
   "Acta",
   {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      primaryKey: true,
-      unique: true,
-    },
     nro_mpf: {
       type: DataTypes.INTEGER,
     },
@@ -28,5 +22,8 @@ const Acta = db.define(
     timestamps: false,
   }
 );
+
+Acta.hasMany(Efecto);
+Efecto.belongsTo(Acta);
 
 module.exports = Acta;

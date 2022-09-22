@@ -1,16 +1,9 @@
-const db = require("../db/database");
-const { DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = require("../db/database");
 
-const Estado = db.define(
+const Estado = sequelize.define(
   "Estado",
   {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      primaryKey: true,
-      unique: true,
-    },
     nro_precinto_blanco: {
       type: DataTypes.INTEGER,
       defaultValue: null,

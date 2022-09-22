@@ -1,18 +1,11 @@
-const db = require("../db/database");
 const { DataTypes } = require("sequelize");
+const sequelize = require("../db/database");
 
-const Efecto = db.define(
+const Efecto = sequelize.define(
   "Efecto",
   {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      primaryKey: true,
-      unique: true,
-    },
     nro_precinto: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
     },
     color_precinto: {
       type: DataTypes.ENUM("rojo", "verde"),
@@ -26,11 +19,8 @@ const Efecto = db.define(
     tipo_extraccion: {
       type: DataTypes.ENUM("fisica", "logica", "otra"),
     },
-    nro_precinto: {
-      type: DataTypes.INTEGER,
-    },
     nro_serie: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
     },
     tipo_desbloqueo: {
       type: DataTypes.ENUM("ninguno", "pin", "patron", "contraseña", "huella", "facial", "otro"),
@@ -39,7 +29,7 @@ const Efecto = db.define(
       type: DataTypes.STRING,
     },
     IMEI: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
     },
     modelo: {
       type: DataTypes.STRING,
