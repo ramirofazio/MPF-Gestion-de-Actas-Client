@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const addActa = Router();
-const { Acta, Efecto } = require("../db");
+const { Acta } = require("../db");
 
 addActa.post("/", async (req, res) => {
   try {

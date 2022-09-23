@@ -32,12 +32,12 @@ const { Acta, Almacenamiento, Efecto, Estado, Sim } = sequelize.models;
 
 Acta.hasMany(Efecto, { foreignKey: "acta_id" });
 Efecto.belongsTo(Acta, { foreignKey: "acta_id" });
-Efecto.hasMany(Almacenamiento, { foreignKey: "almacenamiento_id" });
-Almacenamiento.belongsTo(Efecto, { foreignKey: "almacenamiento_id" });
-Efecto.hasMany(Sim, { foreignKey: "sim_id" });
-Sim.belongsTo(Efecto, { foreignKey: "sim_id" });
-Efecto.hasOne(Estado), { foreignKey: "estado_id" };
-Estado.belongsTo(Efecto, { foreignKey: "estado_id" });
+Efecto.hasMany(Almacenamiento, { foreignKey: "efecto_id" });
+Almacenamiento.belongsTo(Efecto, { foreignKey: "efecto_id" });
+Efecto.hasMany(Sim, { foreignKey: "efecto_id" });
+Sim.belongsTo(Efecto, { foreignKey: "efecto_id" });
+Efecto.hasOne(Estado), { foreignKey: "efecto_id" };
+Estado.belongsTo(Efecto, { foreignKey: "efecto_id" });
 
 // Aca vendrian las relaciones
 // Product.hasOne(Stock);
