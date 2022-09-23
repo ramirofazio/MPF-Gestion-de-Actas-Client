@@ -2,12 +2,14 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Fallback from "./Components/Fallback";
+import NavBar from "./Components/Navbar";
 const Home = lazy(() => import("./Components/Home"));
 
 function App() {
   return (
     <Router>
       <Suspense fallback={<Fallback />}>
+        <NavBar />
         <Routes>
           <Route path="/" exact element={<Home />} />
         </Routes>

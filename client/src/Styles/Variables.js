@@ -1,4 +1,5 @@
 const Variables = {
+
   baseEndpoint: "http://localhost:3030",
 };
 
