@@ -1,9 +1,11 @@
 const router = require("express").Router();
 
 const addActa = require("../controllers/addActa");
-const getActa = require("../controllers/getActa");
+const getActas = require("../controllers/getActas");
+const addEfecto = require("../controllers/addEfecto");
 
 router.use("/addActa", addActa);
-router.use("/getActa", getActa);
+router.use("/addEfecto", addEfecto);
+router.use("/getActas", getActas);
 
 module.exports = router;
