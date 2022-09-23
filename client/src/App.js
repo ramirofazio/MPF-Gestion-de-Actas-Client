@@ -1,11 +1,18 @@
-import React from "react";
-import "./App.css";
+import React, { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import Fallback from "./Components/Fallback";
+const Home = lazy(() => import("./Components/Home"));
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hola</h1>
-    </div>
+    <Router>
+      <Suspense fallback={<Fallback />}>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+        </Routes>
+      </Suspense>
+    </Router>
   );
 }
 
