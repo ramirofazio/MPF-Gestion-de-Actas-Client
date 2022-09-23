@@ -1,11 +1,11 @@
 const getEfectos = require("express").Router();
-const { Efecto, Sim } = require("../db");
+const { Efecto, Sim, Estado, Almacenamiento } = require("../db");
 
 getEfectos.get("/", async (req, res, next) => {
   //Todos los efectos
   try {
     const efectos = await Efecto.findAll({
-      include: [{ model: Sim }],
+      include: [Sim, Estado, Almacenamiento],
     });
     return res.status(200).send(efectos);
   } catch (error) {
@@ -18,7 +18,7 @@ getEfectos.get("/:id", async (req, res) => {
   const efecto_id = req.params.id;
   try {
     const efecto = await Efecto.findByPk(efecto_id, {
-      include: [{ model: Sim }],
+      include: [Sim, Estado, Almacenamiento],
     });
     if (efecto !== null) {
       return res.status(200).send(efecto);
