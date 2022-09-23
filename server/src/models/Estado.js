@@ -1,21 +1,18 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../db/database");
+const { DataTypes } = require("sequelize");
 
-const Estado = sequelize.define(
-  "Estado",
-  {
-    nro_precinto_blanco: {
-      type: DataTypes.INTEGER,
-      defaultValue: null,
+module.exports = (sequelize) => {
+  sequelize.define(
+    "Estado",
+    {
+      nro_precinto_blanco: {
+        type: DataTypes.INTEGER,
+        defaultValue: null,
+      },
+      estado: {
+        type: DataTypes.STRING,
+        defaultValue: "En Proceso",
+      },
     },
-    estado: {
-      type: DataTypes.STRING,
-      defaultValue: "En Proceso",
-    },
-  },
-  {
-    timestamps: false,
-  }
-);
-
-module.exports = Estado;
+    { timestamps: false }
+  );
+};
