@@ -12,25 +12,7 @@ function Show() {
     dispatch(getAllActas());
   }, []);
   console.log(actas);
-  return (
-    <Container>
-      {actas.map((acta) => (
-        <div key={acta.nro_mpf}>
-          <h1>Nro MPF: {acta.nro_mpf}</h1>
-          <h1>Nro DIL: {acta.nro_dil}</h1>
-          <h1>Nro Coop: {acta.nro_coop}</h1>
-          <h1>Nro CIJ: {acta.nro_cij}</h1>
-          <h2>Efectos</h2>
-          {acta.Efectos.map((efecto) => (
-            <div key={efecto.id}>
-              <h1>{efecto.tipo}</h1>
-              <h1>{efecto.nro_precinto}</h1>
-            </div>
-          ))}
-        </div>
-      ))}
-    </Container>
-  );
+  return <Container></Container>;
 }
 
 export default Show;
