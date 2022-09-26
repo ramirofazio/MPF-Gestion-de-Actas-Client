@@ -30,8 +30,8 @@ const NavBarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20vw;
-  height: 100vh;
+  width: 20%;
+  height: 100%;
   position: fixed;
   background: ${Variables.principalColor};
   transition: all 1s ease;

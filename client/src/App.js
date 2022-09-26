@@ -7,8 +7,8 @@ import { getAllActas } from "./redux/actions";
 import Fallback from "./Components/Fallback";
 import NavBar from "./Components/Navbar";
 const Inicio = lazy(() => import("./Components/Inicio"));
-const CrearActa = lazy(() => import("./Components/CrearActa"));
-const Consultas = lazy(() => import("./Components/Consultas"));
+const CrearActa = lazy(() => import("./Components/CrearActa/CrearActa"));
+const Consultas = lazy(() => import("./Components/Consultas/Consultas"));
 
 function App() {
   const dispatch = useDispatch();

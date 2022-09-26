@@ -2,6 +2,9 @@ import { GET_ACTAS } from "./actions";
 
 let initialState = {
   allActas: [],
+  acta: [],
+  bolsa: [],
+  efecto: [],
 };
 
 function reducer(state = initialState, action) {

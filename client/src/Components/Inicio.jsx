@@ -14,4 +14,5 @@ export default Inicio;
 
 const Container = styled.div`
   ${GlobalStyles.container}
+  padding-left: 20%;
 `;
