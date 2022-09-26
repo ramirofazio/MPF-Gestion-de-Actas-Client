@@ -31,6 +31,9 @@ module.exports = (sequelize) => {
       notas: {
         type: DataTypes.STRING,
       },
+      sofware: {
+        type: DataTypes.STRING,
+      },
     },
     { timestamps: false }
   );
