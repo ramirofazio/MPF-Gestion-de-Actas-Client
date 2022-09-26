@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllActas } from "../redux/actions";
 import styled from "styled-components";
+import GlobalStyles from "../Styles/GlobalStyles";
 
-function Show() {
+function Inicio() {
   const dispatch = useDispatch();
 
   const actas = useSelector((state) => state?.allActas);
@@ -12,13 +13,15 @@ function Show() {
     dispatch(getAllActas());
   }, []);
   console.log(actas);
-  return <Container></Container>;
+  return (
+    <Container>
+      <h1>Inicio</h1>
+    </Container>
+  );
 }
 
-export default Show;
+export default Inicio;
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  padding-top: 15vh;
+  ${GlobalStyles.container}
 `;

@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Fallback from "./Components/Fallback";
 import NavBar from "./Components/Navbar";
-const Home = lazy(() => import("./Components/Home"));
+const Inicio = lazy(() => import("./Components/Inicio"));
+const CrearActa = lazy(() => import("./Components/CrearActa"));
+const Consultas = lazy(() => import("./Components/Consultas"));
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
       <Suspense fallback={<Fallback />}>
         <NavBar />
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          <Route path="/" exact element={<Inicio />} />
+          <Route path="/crearActa" exact element={<CrearActa />} />
+          <Route path="/consultas" exact element={<Consultas />} />
         </Routes>
       </Suspense>
     </Router>
