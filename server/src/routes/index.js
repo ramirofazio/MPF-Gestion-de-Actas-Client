@@ -9,6 +9,7 @@ const addEstadoEfecto = require("../controllers/addEstadoEfecto");
 const addEstadoBolsa = require("../controllers/addEstadoBolsa");
 const addAlmacenamiento = require("../controllers/addAlmacenamiento");
 const addBolsa = require("../controllers/addBolsa");
+const addIntegrante = require("../controllers/addIntegrante");
 
 router.use("/addActa", addActa);
 router.use("/getActas", getActas);
@@ -19,5 +20,6 @@ router.use("/addEstadoEfecto", addEstadoEfecto);
 router.use("/addEstadoBolsa", addEstadoBolsa);
 router.use("/addAlmacenamiento", addAlmacenamiento);
 router.use("/addBolsa", addBolsa);
+router.use("/addIntegrante", addIntegrante);
 
 module.exports = router;
