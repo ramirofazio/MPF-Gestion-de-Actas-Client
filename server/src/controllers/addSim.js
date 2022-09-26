@@ -6,7 +6,7 @@ addSim.post("/:id", async (req, res) => {
     const efecto_id = req.params.id;
     const { nro_serie, nro_linea, tipo_extraccion, empresa } = req.body;
     const newSim = await Sim.create({
-      EfectoId: efecto_id,
+      efecto_id: efecto_id,
       nro_serie: nro_serie,
       nro_linea: nro_linea,
       tipo_extraccion: tipo_extraccion,

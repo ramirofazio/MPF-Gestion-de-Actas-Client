@@ -1,5 +1,4 @@
-const { Router } = require("express");
-const addActa = Router();
+const addActa = require("express").Router();
 const { Acta } = require("../db");
 
 addActa.post("/", async (req, res) => {
@@ -11,6 +10,7 @@ addActa.post("/", async (req, res) => {
       nro_dil,
       nro_coop,
     });
+
     return res.status(200).json(newActa);
   } catch (error) {
     console.log(error);

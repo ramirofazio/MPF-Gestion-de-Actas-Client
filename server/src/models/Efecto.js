@@ -4,12 +4,6 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Efecto",
     {
-      nro_precinto: {
-        type: DataTypes.BIGINT,
-      },
-      color_precinto: {
-        type: DataTypes.ENUM("rojo", "verde"),
-      },
       tipo: {
         type: DataTypes.STRING,
       },
@@ -25,9 +19,6 @@ module.exports = (sequelize) => {
       tipo_desbloqueo: {
         type: DataTypes.ENUM("ninguno", "pin", "patron", "contraseña", "huella", "facial", "otro"),
       },
-      notas: {
-        type: DataTypes.STRING,
-      },
       IMEI: {
         type: DataTypes.BIGINT,
       },
@@ -35,6 +26,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
       },
       marca: {
+        type: DataTypes.STRING,
+      },
+      notas: {
         type: DataTypes.STRING,
       },
     },

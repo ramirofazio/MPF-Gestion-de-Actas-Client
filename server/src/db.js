@@ -24,16 +24,20 @@ modelDefiners.forEach((model) => model(sequelize));
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Acta, Almacenamiento, Efecto, Estado, Sim } = sequelize.models;
+const { Acta, Almacenamiento, Efecto, EstadoBolsa, EstadoEfecto, Sim, Bolsa } = sequelize.models;
 
-Acta.hasMany(Efecto, { foreignKey: "acta_id" });
-Efecto.belongsTo(Acta, { foreignKey: "acta_id" });
-Efecto.hasMany(Almacenamiento);
-Almacenamiento.belongsTo(Efecto);
-Efecto.hasMany(Sim);
-Sim.belongsTo(Efecto);
-Efecto.hasOne(Estado);
-Estado.belongsTo(Efecto);
+Acta.hasMany(Bolsa, { foreignKey: "acta_id" });
+Bolsa.belongsTo(Acta, { foreignKey: "acta_id" });
+Bolsa.hasMany(Efecto, { foreignKey: "bolsa_id" });
+Bolsa.hasOne(EstadoBolsa, { foreignKey: "bolsa_id" });
+EstadoBolsa.belongsTo(Bolsa, { foreignKey: "bolsa_id" });
+Efecto.belongsTo(Bolsa, { foreignKey: "bolsa_id" });
+Efecto.hasMany(Almacenamiento, { foreignKey: "efecto_id" });
+Almacenamiento.belongsTo(Efecto, { foreignKey: "efecto_id" });
+Efecto.hasMany(Sim, { foreignKey: "efecto_id" });
+Sim.belongsTo(Efecto, { foreignKey: "efecto_id" });
+Efecto.hasOne(EstadoEfecto, { foreignKey: "efecto_id" });
+EstadoEfecto.belongsTo(Efecto, { foreignKey: "efecto_id" });
 
 // Aca vendrian las relaciones
 // Product.hasOne(Stock);

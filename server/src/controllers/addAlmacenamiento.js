@@ -6,7 +6,7 @@ addAlmacenamiento.post("/:id", async (req, res) => {
     const efecto_id = req.params.id;
     const { marca, modelo, capacidad, tipo_extraccion, tipo_almacenamiento, nro_serie } = req.body;
     const newAlmacenamiento = await Almacenamiento.create({
-      EfectoId: efecto_id,
+      efecto_id: efecto_id,
       marca,
       modelo,
       capacidad,

@@ -3,24 +3,11 @@ const { Efecto } = require("../db");
 
 addEfecto.post("/:id", async (req, res) => {
   try {
-    const acta_id = req.params.id;
-    const {
-      nro_precinto,
-      color_precinto,
-      tipo,
-      color,
-      tipo_extraccion,
-      nro_serie,
-      tipo_desbloqueo,
-      notas,
-      IMEI,
-      modelo,
-      marca,
-    } = req.body;
+    const bolsa_id = req.params.id;
+    const { tipo, color, tipo_extraccion, nro_serie, tipo_desbloqueo, notas, IMEI, modelo, marca } =
+      req.body;
     const newEfecto = await Efecto.create({
-      acta_id: acta_id,
-      nro_precinto: nro_precinto,
-      color_precinto: color_precinto,
+      bolsa_id: bolsa_id,
       tipo: tipo,
       color: color,
       tipo_extraccion: tipo_extraccion,
