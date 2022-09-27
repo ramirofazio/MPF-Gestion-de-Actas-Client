@@ -6,7 +6,7 @@ import { generateDocument } from "./generateDoc";
 function CrearActa() {
   return (
     <Container>
-      <button onClick={generateDocument}></button>
+      <button onClick={generateDocument}>Button</button>
     </Container>
   );
 }

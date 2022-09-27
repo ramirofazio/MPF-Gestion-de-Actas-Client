@@ -4,7 +4,6 @@ import Variables from "../Styles/Variables";
 export const GET_ACTAS = "GET_ACTAS";
 
 export function getAllActas() {
-  console.log("buscando actas...");
   return function (dispatch) {
     axios
       .get(Variables.baseEndpoint + "/getActas")
