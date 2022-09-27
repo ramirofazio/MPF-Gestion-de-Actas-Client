@@ -48,7 +48,7 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   height: 100%;
-  padding-top: 15%;
+  padding-top: 20%;
   padding-inline: 10px;
 `;
 
@@ -57,8 +57,8 @@ const HomeLinks = styled(Link)`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 10%;
-  font-size: 1.3rem;
+  height: 7%;
+  font-size: 1.1rem;
   padding: 20px;
   margin-bottom: 15%;
   border-radius: 10px;
