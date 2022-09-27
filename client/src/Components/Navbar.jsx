@@ -68,7 +68,7 @@ const HomeLinks = styled(Link)`
   transition: all 0.5s ease;
 
   &:hover {
-    background: #ffffffb5;
+    background: ${Variables.secondaryTransparentColor};
   }
 `;
 
