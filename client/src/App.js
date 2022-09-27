@@ -14,15 +14,10 @@ const NumeroCij = lazy(() => import("./Components/Consultas/pages/NumeroCij"));
 
 function App() {
   const dispatch = useDispatch();
-  const actas = useSelector((state) => state.allActas);
 
   useEffect(() => {
     dispatch(getAllActas());
   }, []);
-
-  useEffect(() => {
-    console.log(actas);
-  }, [actas.length]);
 
   return (
     <Router>
