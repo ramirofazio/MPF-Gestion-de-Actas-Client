@@ -15,7 +15,7 @@ function NavBar() {
   return (
     <NavBarContainer selected={selected}>
       <Container>
-        <Logo src={logo} color="#fff" />
+        <Logo src={logo} alt="logo" color="#fff" />
         <HomeLinks to="/">Inicio</HomeLinks>
         <HomeLinks to="/crearActa">Crear Acta</HomeLinks>
         <HomeLinks to="/consultas">Consultas</HomeLinks>

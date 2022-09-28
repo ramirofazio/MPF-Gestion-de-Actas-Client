@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import Variables from "../../Styles/Variables";
 import { DatabaseSearch } from "@styled-icons/fluentui-system-filled/DatabaseSearch";
+import { CalendarSearch } from "@styled-icons/fluentui-system-filled/CalendarSearch";
 
 const { principalColor, secondaryColor, baseTransparentColor } = Variables;
 
@@ -19,16 +20,20 @@ function Consultas() {
       </Header>
       <CardsContainer>
         <Card to="/consultas/todas">
-          <CardTitle>Todas</CardTitle>
-          <Icon />
+          <CardTitle>Todas las Actas</CardTitle>
+          <DbIcon />
+        </Card>
+        <Card to="/consultas/fecha">
+          <CardTitle>Por Fecha</CardTitle>
+          <CalendarIcon />
         </Card>
         <Card to="/consultas/nro_mpf">
-          <CardTitle>Numero MPF</CardTitle>
-          <Icon />
+          <CardTitle>Por Nro MPF</CardTitle>
+          <DbIcon />
         </Card>
         <Card to="/consultas/nro_Cij">
-          <CardTitle>Numero CIJ</CardTitle>
-          <Icon />
+          <CardTitle>Por Nro CIJ</CardTitle>
+          <DbIcon />
         </Card>
       </CardsContainer>
     </Container>
@@ -53,14 +58,14 @@ const Header = styled.div`
   flex: 0.2;
 `;
 
-const Title = styled.h1`
+const Title = styled.span`
   color: ${principalColor};
   font-size: 50px;
   text-decoration: underline;
   text-decoration-thickness: 2px;
 `;
 
-const Description = styled.p`
+const Description = styled.span`
   color: ${secondaryColor};
   text-align: center;
   font-size: 18px;
@@ -98,17 +103,33 @@ const Card = styled(NavLink)`
   }
 `;
 
-const CardTitle = styled.h4`
+const CardTitle = styled.span`
   color: ${secondaryColor};
   font-size: 20px;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 
   ${Card}:hover & {
     font-size: 25px;
   }
 `;
 
-const Icon = styled(DatabaseSearch)`
+const DbIcon = styled(DatabaseSearch)`
+  width: 30px;
+  margin-right: 40px;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+  ${Card}:hover & {
+    width: 40px;
+  }
+`;
+
+const CalendarIcon = styled(CalendarSearch)`
   width: 30px;
   margin-right: 40px;
   color: ${secondaryColor};
