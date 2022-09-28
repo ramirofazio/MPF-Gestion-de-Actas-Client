@@ -7,8 +7,6 @@ getActas.get("/", async (req, res) => {
     console.log("todas");
     const actas = await Acta.findAll({ include: { all: true, nested: true } });
 
-    actas.map((acta) => console.log(acta))
-
     return res.status(200).send(actas);
   } catch (error) {
     console.log(error);
