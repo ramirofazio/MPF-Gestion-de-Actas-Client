@@ -16,7 +16,14 @@ module.exports = (sequelize) => {
       nro_coop: {
         type: DataTypes.INTEGER,
       },
+      estado: {
+        type: DataTypes.STRING,
+        defaultValue: "En Proceso",
+      },
     },
-    { timestamps: false }
+    {
+      createdAt: "created_at",
+      updatedAt: "last_update",
+    }
   );
 };

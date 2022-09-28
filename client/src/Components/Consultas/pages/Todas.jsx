@@ -25,26 +25,34 @@ function Todas() {
         {allActas
           ? allActas.map((acta) => (
               <ActaContainer to="#" key={acta.id}>
-                <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    MPF
-                  </strong>
-                  <br />
-                  {acta.nro_mpf}
-                </Info>
+                {!acta.nro_coop && (
+                  <Info>
+                    <strong
+                      style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
+                    >
+                      MPF
+                    </strong>
+                    <br />
+                    {acta.nro_mpf}
+                  </Info>
+                )}
+                {!acta.nro_mpf && (
+                  <Info>
+                    <strong
+                      style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
+                    >
+                      COOP
+                    </strong>
+                    <br />
+                    {acta.nro_coop}
+                  </Info>
+                )}
                 <Info>
                   <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
                     CIJ
                   </strong>
                   <br />
                   {acta.nro_cij}
-                </Info>
-                <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    COOP
-                  </strong>
-                  <br />
-                  {acta.nro_coop}
                 </Info>
                 <Info>
                   <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
@@ -131,16 +139,18 @@ const ActaContainer = styled(NavLink)`
 `;
 
 const Info = styled.span`
+  flex: 1;
   color: ${secondaryColor};
   text-align: center;
 `;
 
 const Estado = styled.span`
-  color: ${(props) => (props.estado === "En proceso" ? yellowColor : greenColor)};
+  color: ${(props) => (props.estado === "En Proceso" ? yellowColor : greenColor)};
 `;
 
 const Icon = styled(BoxArrowInUpRight)`
   width: 20px;
+  margin-right: 40px;
   color: ${secondaryColor};
   transition: all 0.5s ease;
 
