@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getAllActas } from "../../../redux/actions";
 //Utils
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
@@ -10,9 +12,13 @@ import { BoxArrowInUpRight } from "@styled-icons/bootstrap/BoxArrowInUpRight";
 const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor } = Variables;
 
 function Todas() {
+  const dispatch = useDispatch();
   const allActas = useSelector((state) => state.allActas);
 
-  console.log(allActas);
+  useEffect(() => {
+    dispatch(getAllActas()); // * Pido todas las actas
+  }, []);
+
   return (
     <Container>
       <Header>
