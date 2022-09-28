@@ -4,6 +4,8 @@ const Variables = {
   secondaryColor: "#3B4F5F",
   baseColor: "#ffffff",
   baseTransparentColor: "#ffffffb5",
+  yellowColor: "#947513",
+  greenColor: "#6aa84f",
   //config
   baseEndpoint: "http://localhost:3030",
 };

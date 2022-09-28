@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 //Utils
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { BoxArrowInUpRight } from "@styled-icons/bootstrap/BoxArrowInUpRight";
 //Initializations
-const { principalColor, secondaryColor } = Variables;
+const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor } = Variables;
 
 function Todas() {
   const allActas = useSelector((state) => state.allActas);
 
+  console.log(allActas);
   return (
     <Container>
       <Header>
@@ -21,8 +23,8 @@ function Todas() {
       </Header>
       <CardsContainer>
         {allActas
-          ? allActas.map((acta, index) => (
-              <ActaContainer key={acta.id}>
+          ? allActas.map((acta) => (
+              <ActaContainer to="#" key={acta.id}>
                 <Info>
                   <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
                     MPF
@@ -53,10 +55,10 @@ function Todas() {
                 </Info>
                 <Info>
                   <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    Bolsas
+                    Estado
                   </strong>
                   <br />
-                  {acta.Bolsas.length}
+                  <Estado estado={acta.estado}>{acta.estado}</Estado>
                 </Info>
                 <Icon />
               </ActaContainer>
@@ -108,7 +110,8 @@ const CardsContainer = styled.div`
   max-height: 70%;
 `;
 
-const ActaContainer = styled.div`
+const ActaContainer = styled(NavLink)`
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -119,11 +122,21 @@ const ActaContainer = styled.div`
   margin-top: 5px;
   border: 2px solid ${principalColor};
   border-radius: 5px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    max-height: 15%;
+    background-color: ${baseTransparentColor};
+  }
 `;
 
 const Info = styled.span`
   color: ${secondaryColor};
   text-align: center;
+`;
+
+const Estado = styled.span`
+  color: ${(props) => (props.estado === "En proceso" ? yellowColor : greenColor)};
 `;
 
 const Icon = styled(BoxArrowInUpRight)`
@@ -134,5 +147,9 @@ const Icon = styled(BoxArrowInUpRight)`
   &:hover {
     color: black;
     cursor: pointer;
+  }
+
+  ${ActaContainer}:hover & {
+    width: 30px;
   }
 `;
