@@ -34,6 +34,10 @@ module.exports = (sequelize) => {
       sofware: {
         type: DataTypes.STRING,
       },
+      estado: {
+        type: DataTypes.STRING,
+        defaultValue: "En Proceso",
+      },
     },
     { timestamps: false }
   );

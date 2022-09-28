@@ -13,6 +13,14 @@ module.exports = (sequelize) => {
       notas: {
         type: DataTypes.STRING,
       },
+      nro_precinto_blanco: {
+        type: DataTypes.INTEGER,
+        defaultValue: null,
+      },
+      estado: {
+        type: DataTypes.STRING,
+        defaultValue: "En Proceso",
+      },
     },
     { timestamps: false }
   );

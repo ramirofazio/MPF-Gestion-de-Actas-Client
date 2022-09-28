@@ -1,11 +1,13 @@
 const getActas = require("express").Router();
-const { Acta, Efecto, Sim, EstadoEfecto, EstadoBolsa, Almacenamiento, Bolsa } = require("../db");
+const { Acta } = require("../db");
 
 getActas.get("/", async (req, res) => {
   //Todas las actas
   try {
     console.log("todas");
     const actas = await Acta.findAll({ include: { all: true, nested: true } });
+
+    actas.map((acta) => console.log(acta))
 
     return res.status(200).send(actas);
   } catch (error) {
@@ -18,14 +20,7 @@ getActas.get("/:id", async (req, res) => {
   const acta_id = req.params.id;
   try {
     console.log("acta by PK");
-    const acta = await Acta.findByPk(acta_id, {
-      include: [
-        {
-          model: Bolsa,
-          include: [{ model: Efecto, include: [Sim, EstadoEfecto, Almacenamiento] }],
-        },
-      ],
-    });
+    const acta = await Acta.findByPk(acta_id, { include: { all: true, nested: true } });
     if (acta !== null) {
       return res.status(200).send(acta);
     } else {
