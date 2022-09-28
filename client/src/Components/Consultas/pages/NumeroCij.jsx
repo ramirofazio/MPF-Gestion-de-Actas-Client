@@ -15,6 +15,5 @@ export default NumeroCij;
 
 const Container = styled.div`
   ${GlobalStyles.container}
-  padding-left: 20%;
 `;
 

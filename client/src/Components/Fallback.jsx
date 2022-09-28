@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import GlobalStyles from "../Styles/GlobalStyles";
 import ClipLoader from "react-spinners/ClipLoader";
 
 function Fallback() {
@@ -14,13 +15,8 @@ function Fallback() {
 export default Fallback;
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
+  ${GlobalStyles.container}
   flex-direction: column;
-  padding-left: 20%;
 `;
 
 const Title = styled.h2`

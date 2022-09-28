@@ -82,7 +82,6 @@ export default Todas;
 const Container = styled.div`
   ${GlobalStyles.container}
   flex-direction: column;
-  padding-left: 20%;
 `;
 
 const Header = styled.div`

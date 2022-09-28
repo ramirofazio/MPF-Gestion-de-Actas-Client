@@ -8,8 +8,8 @@ const GlobalStyles = {
     align-items: center;
     width: 100vw;
     height: 100vh;
+    padding-left: 20%;
   `,
- 
 };
 
 export default GlobalStyles;
