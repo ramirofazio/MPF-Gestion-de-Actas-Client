@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import Variables from "../../Styles/Variables";
+import { DatabaseSearch } from "@styled-icons/fluentui-system-filled/DatabaseSearch";
 
 const { principalColor, secondaryColor, baseTransparentColor } = Variables;
 
@@ -19,12 +20,15 @@ function Consultas() {
       <CardsContainer>
         <Card to="/consultas/todas">
           <CardTitle>Todas</CardTitle>
+          <Icon />
         </Card>
         <Card to="/consultas/nro_mpf">
           <CardTitle>Numero MPF</CardTitle>
+          <Icon />
         </Card>
         <Card to="/consultas/nro_Cij">
           <CardTitle>Numero CIJ</CardTitle>
+          <Icon />
         </Card>
       </CardsContainer>
     </Container>
@@ -64,7 +68,7 @@ const Description = styled.p`
 
 const CardsContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 80%;
@@ -73,29 +77,49 @@ const CardsContainer = styled.div`
 `;
 
 const Card = styled(NavLink)`
+  text-decoration: none;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 60%;
   flex: 1;
-  min-width: 40%;
-  max-width: 50%;
-  height: 25%;
-  margin-inline: 20px;
-  border-radius: 15px;
-  text-decoration: none;
+  padding-left: 20px;
+  min-height: 10%;
+  max-height: 15%;
+  margin-top: 5px;
   border: 2px solid ${principalColor};
-  transition: all 0.5s ease;
-  box-shadow: 1px 2px 15px ${secondaryColor};
+  border-radius: 5px;
+  transition: all 0.3s ease;
 
   &:hover {
+    max-height: 18%;
+    width: 70%;
     background-color: ${baseTransparentColor};
-    border: 2px solid ${secondaryColor};
-    box-shadow: none;
   }
 `;
 
 const CardTitle = styled.h4`
   color: ${secondaryColor};
   font-size: 20px;
-  transition: all 1s ease;
+  transition: all 0.5s ease;
+
+  ${Card}:hover & {
+    font-size: 25px;
+  }
+`;
+
+const Icon = styled(DatabaseSearch)`
+  width: 30px;
+  margin-right: 40px;
+  color: ${secondaryColor};
+  transition: all 0.5s ease;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+  ${Card}:hover & {
+    width: 40px;
+  }
 `;
