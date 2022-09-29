@@ -12,7 +12,7 @@ import { generateDocument } from "./generateDoc";
 
 const { principalColor, secondaryColor, baseTransparentColor, redColor } = Variables;
 
-function Consultas() {
+function Actas() {
   return (
     <Container>
       <Header>
@@ -22,15 +22,15 @@ function Consultas() {
         </Description>
       </Header>
       <CardsContainer>
-        <Card to="#">
+        <Card to="/actas/crear">
           <CardTitle>Crear Nueva Acta</CardTitle>
           <CreateIcon />
         </Card>
-        <Card to="#">
+        <Card to="/actas/efectos">
           <CardTitle>Ver Efectos en proceso</CardTitle>
           <SpinnerIcon />
         </Card>
-        <Card to="#" warning={true}>
+        <Card to="/actas/modificar" warning={true}>
           <CardTitle>Modificar un Acta</CardTitle>
           <WarningIcon />
         </Card>
@@ -39,7 +39,7 @@ function Consultas() {
   );
 }
 
-export default Consultas;
+export default Actas;
 
 const Container = styled.div`
   ${GlobalStyles.container}
