@@ -24,8 +24,10 @@ modelDefiners.forEach((model) => model(sequelize));
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Acta, Almacenamiento, Efecto, Sim, Bolsa, Integrante } = sequelize.models;
+const { Acta, Almacenamiento, Efecto, Sim, Bolsa, Integrante, Template } = sequelize.models;
 
+Template.hasMany(Acta, { foreignKey: "template_id" });
+Acta.belongsTo(Template, { foreignKey: "template_id" });
 Acta.hasMany(Bolsa, { foreignKey: "acta_id" });
 Bolsa.belongsTo(Acta, { foreignKey: "acta_id" });
 Acta.hasMany(Integrante, { foreignKey: "acta_id" });
