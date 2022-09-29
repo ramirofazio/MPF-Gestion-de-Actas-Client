@@ -97,7 +97,7 @@ const Card = styled(NavLink)`
 
   &:hover {
     max-height: 18%;
-    width: 70%;
+    width: 65%;
     background-color: ${baseTransparentColor};
   }
 `;
