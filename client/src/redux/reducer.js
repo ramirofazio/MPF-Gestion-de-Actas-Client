@@ -1,10 +1,9 @@
-import { GET_ACTAS } from "./actions";
+import { GET_ACTAS, GET_EFECTOS } from "./actions";
 
 let initialState = {
   allActas: [],
-  acta: [],
-  bolsa: [],
-  efecto: [],
+  allEfectos: [],
+  efectosEnProceso: [],
 };
 
 function reducer(state = initialState, action) {
@@ -13,6 +12,13 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         allActas: action.payload,
+      };
+    case GET_EFECTOS:
+      const efectosEnProceso = action.payload.filter((efecto) => efecto.estado === "En Proceso");
+      return {
+        ...state,
+        allEfectos: action.payload,
+        efectosEnProceso: efectosEnProceso,
       };
     default:
       return state;

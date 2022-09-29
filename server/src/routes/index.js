@@ -8,7 +8,7 @@ const addSim = require("../controllers/addSim");
 const addAlmacenamiento = require("../controllers/addAlmacenamiento");
 const addBolsa = require("../controllers/addBolsa");
 const addIntegrante = require("../controllers/addIntegrante");
-const putEfecto = require("../controllers/putEfecto");
+const updateEfecto = require("../controllers/updateEfecto");
 const addTemplate = require("../controllers/addTemplate");
 const getTemplate = require("../controllers/getTemplate");
 
@@ -20,7 +20,7 @@ router.use("/addSim", addSim);
 router.use("/addAlmacenamiento", addAlmacenamiento);
 router.use("/getActas", getActas);
 router.use("/getEfectos", getEfectos);
-router.use("/putEfecto", putEfecto);
+router.use("/updateEfecto", updateEfecto);
 router.use("/addTemplate", addTemplate);
 router.use("/getTemplate", getTemplate);
 
