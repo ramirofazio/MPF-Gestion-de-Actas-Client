@@ -36,11 +36,11 @@ export function getAllEfectos() {
   };
 }
 
-export function updateEfecto(efectos) {
-  console.log(efectos);
+export function updateEfecto(acta) {
+  console.log(acta);
   return function () {
     axios
-      .post(`${Variables.baseEndpoint}/updateEfecto`, { efectos })
+      .post(`${Variables.baseEndpoint}/updateEfecto`, { acta })
       .then((res) => {
         if (res.status === 200) {
           console.log("Nueva acta creada con efecto Actualizado!");

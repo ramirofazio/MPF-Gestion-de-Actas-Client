@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllEfectos, updateEfecto } from "../../../redux/actions";
+import { getAllActas, getAllEfectos, updateEfecto } from "../../../redux/actions";
 //Utils
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
@@ -12,15 +12,26 @@ const { principalColor, secondaryColor, baseTransparentColor } = Variables;
 function SeeEfectos() {
   const efectosParaCompletar = [];
   const dispatch = useDispatch();
-  const allEfectos = useSelector((state) => state.efectosEnProceso);
+  const efectosEnProceso = useSelector((state) => state.efectosEnProceso);
+  const allActas = useSelector((state) => state.allActas);
 
   useEffect(() => {
-    dispatch(getAllEfectos()); // * Pido todos los efectos
+    dispatch(getAllEfectos());
+    dispatch(getAllActas());
   }, []);
 
   const handleSubmit = () => {
-    dispatch(updateEfecto(efectosParaCompletar));
-    window.location.reload();
+    efectosParaCompletar.map((efId) => {
+      allActas.map((acta) => {
+        acta.Bolsas.map((bolsa) => {
+          bolsa.Efectos.map((ef) => {
+            if (ef.id === efId) {
+              dispatch(updateEfecto(acta));
+            }
+          });
+        });
+      });
+    });
   };
 
   return (
@@ -33,8 +44,8 @@ function SeeEfectos() {
         </Description>
       </Header>
       <CardsContainer>
-        {allEfectos
-          ? allEfectos.map((efecto) => (
+        {efectosEnProceso
+          ? efectosEnProceso.map((efecto) => (
               <ActaContainer to="#" key={efecto.id}>
                 <Info>
                   <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
@@ -65,7 +76,7 @@ function SeeEfectos() {
                   {efecto.modelo}
                 </Info>
                 <CheckBoxContainer>
-                  <CheckBox type="checkbox" onClick={() => efectosParaCompletar.push(efecto)} />
+                  <CheckBox type="checkbox" onClick={() => efectosParaCompletar.push(efecto.id)} />
                 </CheckBoxContainer>
               </ActaContainer>
             ))
