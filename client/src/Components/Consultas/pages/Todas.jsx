@@ -157,7 +157,7 @@ const Icon = styled(BoxArrowInUpRight)`
   width: 20px;
   margin-right: 40px;
   color: ${secondaryColor};
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 
   &:hover {
     color: black;

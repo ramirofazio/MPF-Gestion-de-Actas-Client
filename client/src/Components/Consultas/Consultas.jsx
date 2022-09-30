@@ -96,7 +96,7 @@ const Card = styled(NavLink)`
   transition: all 0.3s ease;
 
   &:hover {
-    max-height: 18%;
+    max-height: 16%;
     width: 65%;
     background-color: ${baseTransparentColor};
   }
@@ -132,7 +132,7 @@ const CalendarIcon = styled(CalendarSearch)`
   width: 30px;
   margin-right: 40px;
   color: ${secondaryColor};
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 
   &:hover {
     color: black;

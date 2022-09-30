@@ -95,7 +95,7 @@ const Card = styled(NavLink)`
   transition: all 0.3s ease;
 
   &:hover {
-    max-height: 18%;
+    max-height: 16%;
     width: 65%;
     background-color: ${baseTransparentColor};
   }

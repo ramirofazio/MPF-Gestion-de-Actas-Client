@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -6,11 +6,11 @@ import { getAllEfectos, updateEfecto } from "../../../redux/actions";
 //Utils
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
-import { Check2Circle } from "@styled-icons/bootstrap/Check2Circle";
 //Initializations
-const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor } = Variables;
+const { principalColor, secondaryColor, baseTransparentColor } = Variables;
 
 function SeeEfectos() {
+  const efectosParaCompletar = [];
   const dispatch = useDispatch();
   const allEfectos = useSelector((state) => state.efectosEnProceso);
 
@@ -18,12 +18,18 @@ function SeeEfectos() {
     dispatch(getAllEfectos()); // * Pido todos los efectos
   }, []);
 
+  const handleSubmit = () => {
+    dispatch(updateEfecto(efectosParaCompletar));
+    window.location.reload();
+  };
+
   return (
     <Container>
       <Header>
         <Title>Efectos en Proceso</Title>
         <Description>
-          En esta sección poder ver todos los Efectos en proceso. <br /> Elegi uno para completarlo.
+          En esta sección poder ver todos los Efectos en proceso. <br /> Selecciona los que quieras
+          completar.
         </Description>
       </Header>
       <CardsContainer>
@@ -58,11 +64,14 @@ function SeeEfectos() {
                   <br />
                   {efecto.modelo}
                 </Info>
-                <CheckIcon onClick={() => dispatch(updateEfecto(efecto))} />
+                <CheckBoxContainer>
+                  <CheckBox type="checkbox" onClick={() => efectosParaCompletar.push(efecto)} />
+                </CheckBoxContainer>
               </ActaContainer>
             ))
           : null}
       </CardsContainer>
+      <Button onClick={handleSubmit}>Completar</Button>
     </Container>
   );
 }
@@ -122,7 +131,8 @@ const ActaContainer = styled.div`
   transition: all 0.3s ease;
 
   &:hover {
-    max-height: 15%;
+    max-height: 12%;
+    width: 102%;
     background-color: ${baseTransparentColor};
   }
 `;
@@ -134,18 +144,33 @@ const Info = styled.span`
   text-transform: capitalize;
 `;
 
-const CheckIcon = styled(Check2Circle)`
-  width: 25px;
-  margin-right: 40px;
-  color: ${yellowColor};
-  transition: all 0.5s ease;
+const CheckBoxContainer = styled.div`
+  flex: 0.4;
+  text-align: center;
+`;
 
+const CheckBox = styled.input`
   &:hover {
-    color: ${greenColor};
     cursor: pointer;
   }
+`;
 
-  ${ActaContainer}:hover & {
-    width: 35px;
+const Button = styled.button`
+  width: auto;
+  height: auto;
+  padding: 10px;
+  padding-inline: 20px;
+  margin-right: 40px;
+
+  border-radius: 10px;
+  border: 2px solid ${principalColor};
+  color: ${secondaryColor};
+  font-size: 15px;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${principalColor};
+    color: #fff;
   }
 `;

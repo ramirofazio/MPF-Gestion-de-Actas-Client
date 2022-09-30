@@ -14,7 +14,7 @@ function reducer(state = initialState, action) {
         allActas: action.payload,
       };
     case GET_EFECTOS:
-      const efectosEnProceso = action.payload.filter((efecto) => efecto.estado === "En Proceso");
+      const efectosEnProceso = action.payload.filter((efecto) => efecto.estado === "en proceso");
       return {
         ...state,
         allEfectos: action.payload,
