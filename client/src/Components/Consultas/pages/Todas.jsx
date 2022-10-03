@@ -150,7 +150,7 @@ const Info = styled.span`
 `;
 
 const Estado = styled.span`
-  color: ${(props) => (props.estado === "En Proceso" ? yellowColor : greenColor)};
+  color: ${(props) => (props.estado === "en proceso" ? yellowColor : greenColor)};
 `;
 
 const Icon = styled(BoxArrowInUpRight)`
