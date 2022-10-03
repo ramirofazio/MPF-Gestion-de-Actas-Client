@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getActasEnProceso } from "../../../../redux/actions";
 //Utils
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
@@ -8,6 +10,12 @@ import Variables from "../../../../Styles/Variables";
 const { principalColor, secondaryColor, baseTransparentColor } = Variables;
 
 function ActasEnProceso() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getActasEnProceso());
+  }, []);
+
   return (
     <Container>
       <Header>
