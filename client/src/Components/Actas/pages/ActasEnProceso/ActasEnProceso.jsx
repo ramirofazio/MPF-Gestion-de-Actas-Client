@@ -31,7 +31,6 @@ function ActasEnProceso() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
   };
 
   return (
@@ -162,7 +161,7 @@ const Title = styled.h1`
 const Description = styled.p`
   color: ${secondaryColor};
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const FilterContainer = styled.div`
@@ -210,7 +209,7 @@ const CardsContainer = styled.div`
   flex: 1;
   margin-bottom: 10px;
   max-height: 60%;
-  border-top: 2px solid ${secondaryColor};
+  border-top: 1px solid ${secondaryColor};
 `;
 
 const ActaContainer = styled(NavLink)`
@@ -238,6 +237,7 @@ const Info = styled.span`
   color: ${secondaryColor};
   text-align: center;
   text-transform: capitalize;
+  font-size: 15px;
 `;
 
 const Icon = styled(BoxArrowInUpRight)`
@@ -249,9 +249,5 @@ const Icon = styled(BoxArrowInUpRight)`
   &:hover {
     color: black;
     cursor: pointer;
-  }
-
-  ${ActaContainer}:hover & {
-    width: 25px;
   }
 `;
