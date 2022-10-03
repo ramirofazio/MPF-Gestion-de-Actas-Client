@@ -1,7 +1,8 @@
-import { GET_ACTAS, GET_EFECTOS } from "./actions";
+import { GET_ACTAS, GET_EFECTOS, GET_ACTAS_EN_PROCESO } from "./actions";
 
 let initialState = {
   allActas: [],
+  actasEnProceso: [],
   allEfectos: [],
   efectosEnProceso: [],
 };
@@ -19,6 +20,11 @@ function reducer(state = initialState, action) {
         ...state,
         allEfectos: action.payload,
         efectosEnProceso: efectosEnProceso,
+      };
+    case GET_ACTAS_EN_PROCESO:
+      return {
+        ...state,
+        actasEnProceso: action.payload,
       };
     default:
       return state;

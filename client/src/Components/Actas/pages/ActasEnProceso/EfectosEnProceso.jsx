@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllActas, getAllEfectos, updateEfecto } from "../../../redux/actions";
+import { getAllActas, getAllEfectos, updateEfecto } from "../../../../redux/actions";
 //Utils
-import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
+import GlobalStyles from "../../../../Styles/GlobalStyles";
+import Variables from "../../../../Styles/Variables";
 //Initializations
 const { principalColor, secondaryColor, baseTransparentColor } = Variables;
 
-function SeeEfectos() {
+function EfectosEnProceso() {
   const efectosParaCompletar = [];
   const dispatch = useDispatch();
   const efectosEnProceso = useSelector((state) => state.efectosEnProceso);
@@ -46,7 +46,7 @@ function SeeEfectos() {
       <CardsContainer>
         {efectosEnProceso
           ? efectosEnProceso.map((efecto) => (
-              <ActaContainer to="#" key={efecto.id}>
+              <ActaContainer key={efecto.id}>
                 <Info>
                   <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
                     Nro Precinto
@@ -87,14 +87,14 @@ function SeeEfectos() {
   );
 }
 
-export default SeeEfectos;
+export default EfectosEnProceso;
 
 const Container = styled.div`
   ${GlobalStyles.container}
   flex-direction: column;
 `;
 
-const Header = styled.div`
+const Header = styled.header`
   padding-top: 20px;
   display: flex;
   flex-direction: column;

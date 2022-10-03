@@ -3,6 +3,7 @@ import Variables from "../Styles/Variables";
 
 export const GET_ACTAS = "GET_ACTAS";
 export const GET_EFECTOS = "GET_EFECTOS";
+export const GET_ACTAS_EN_PROCESO = "GET_ACTAS_EN_PROCESO";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -45,6 +46,22 @@ export function updateEfecto(acta) {
         if (res.status === 200) {
           console.log("Nueva acta creada con efecto Actualizado!");
         }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function getActasEnProceso() {
+  return function (dispatch) {
+    axios
+      .get(Variables.baseEndpoint + "/getActas?enproceso=true")
+      .then((res) => {
+        return dispatch({
+          type: GET_ACTAS_EN_PROCESO,
+          payload: res.data,
+        });
       })
       .catch((err) => {
         console.log(err);

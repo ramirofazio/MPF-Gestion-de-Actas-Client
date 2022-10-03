@@ -7,8 +7,10 @@ const Inicio = lazy(() => import("./Components/Inicio"));
 const Actas = lazy(() => import("./Components/Actas/Actas"));
 const AddActa = lazy(() => import("./Components/Actas/pages/AddActa"));
 const ModifyActa = lazy(() => import("./Components/Actas/pages/ModifyActa"));
-const SeeEfectos = lazy(() => import("./Components/Actas/pages/SeeEfectos"));
-
+const EfectosEnProceso = lazy(() =>
+  import("./Components/Actas/pages/ActasEnProceso/EfectosEnProceso")
+);
+const ActasEnProceso = lazy(() => import("./Components/Actas/pages/ActasEnProceso/ActasEnProceso"));
 const Consultas = lazy(() => import("./Components/Consultas/Consultas"));
 const Todas = lazy(() => import("./Components/Consultas/pages/Todas"));
 const NumeroMpf = lazy(() => import("./Components/Consultas/pages/NumeroMpf"));
@@ -25,7 +27,8 @@ function App() {
           //* Router Actas
           <Route path="/actas" exact element={<Actas />} />
           <Route path="/actas/crear" exact element={<AddActa />} />
-          <Route path="/actas/efectos" exact element={<SeeEfectos />} />
+          <Route path="/actas/en_proceso" exact element={<ActasEnProceso />} />
+          <Route path="/actas/efectos" exact element={<EfectosEnProceso />} />
           <Route path="/actas/modificar" exact element={<ModifyActa />} />
           //* Router Consultas
           <Route path="/consultas" exact element={<Consultas />} />

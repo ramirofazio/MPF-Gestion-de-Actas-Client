@@ -26,8 +26,8 @@ function Actas() {
           <CardTitle>Crear Nueva Acta</CardTitle>
           <CreateIcon />
         </Card>
-        <Card to="/actas/efectos">
-          <CardTitle>Ver Efectos en proceso</CardTitle>
+        <Card to="/actas/en_proceso">
+          <CardTitle>Ver Actas en proceso</CardTitle>
           <SpinnerIcon />
         </Card>
         <Card to="/actas/modificar" warning={true}>
@@ -46,7 +46,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Header = styled.div`
+const Header = styled.header`
   padding-top: 20px;
   display: flex;
   flex-direction: column;
