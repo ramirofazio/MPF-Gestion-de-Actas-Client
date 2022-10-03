@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
+import React from "react";
+import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
 import Variables from "../Styles/Variables";
 import logo from "../Assets/logo.png";
 
 function NavBar() {
-  const location = useLocation();
-  const [selected, setSelected] = useState(null);
-
-  useEffect(() => {
-    setSelected(location.pathname);
-  }, [location]);
-
   return (
-    <NavBarContainer selected={selected}>
+    <NavBarContainer>
       <Container>
         <Logo src={logo} alt="logo" color="#fff" />
-        <HomeLinks to="/">Inicio</HomeLinks>
         <HomeLinks to="/actas">Crear Acta</HomeLinks>
         <HomeLinks to="/consultas">Consultas</HomeLinks>
       </Container>
@@ -34,22 +26,18 @@ const NavBarContainer = styled.div`
   height: 100%;
   position: fixed;
   background: ${Variables.principalColor};
-  transition: all 1s ease;
-
-  &:hover {
-    background-color: ${Variables.navBarColor};
-  }
+  transition: all 0.5s ease;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
   justify-content: flex-start;
   align-items: center;
   height: 100%;
   padding-top: 20%;
   padding-inline: 10px;
+  transition: all 0.5s ease;
 `;
 
 const HomeLinks = styled(Link)`
@@ -57,7 +45,7 @@ const HomeLinks = styled(Link)`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 7%;
+  height: 8%;
   font-size: 1.1rem;
   padding: 20px;
   margin-bottom: 15%;
@@ -75,4 +63,5 @@ const HomeLinks = styled(Link)`
 const Logo = styled.img`
   width: 50%;
   margin-bottom: 30%;
+  transition: all 0.5s ease;
 `;
