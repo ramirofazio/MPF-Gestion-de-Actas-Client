@@ -110,7 +110,7 @@ const Title = styled.h1`
 const Description = styled.p`
   color: ${secondaryColor};
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const CardsContainer = styled.div`
@@ -138,7 +138,7 @@ const ActaContainer = styled(NavLink)`
   transition: all 0.3s ease;
 
   &:hover {
-    max-height: 15%;
+    max-height: 12%;
     background-color: ${baseTransparentColor};
   }
 `;
@@ -162,9 +162,5 @@ const Icon = styled(BoxArrowInUpRight)`
   &:hover {
     color: black;
     cursor: pointer;
-  }
-
-  ${ActaContainer}:hover & {
-    width: 30px;
   }
 `;

@@ -66,7 +66,7 @@ const Title = styled.span`
 const Description = styled.span`
   color: ${secondaryColor};
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const CardsContainer = styled.div`
@@ -132,6 +132,7 @@ const CreateIcon = styled(FileEarmarkPlusFill)`
 
   ${Card}:hover & {
     width: 40px;
+    color: ${principalColor};
   }
 `;
 
@@ -148,6 +149,8 @@ const SpinnerIcon = styled(Spinner)`
 
   ${Card}:hover & {
     width: 40px;
+    color: ${principalColor};
+    transform: rotate(1turn);
   }
 `;
 
@@ -164,5 +167,6 @@ const WarningIcon = styled(Warning)`
 
   ${Card}:hover & {
     width: 40px;
+    color: ${redColor};
   }
 `;

@@ -67,7 +67,7 @@ const Title = styled.span`
 const Description = styled.span`
   color: ${secondaryColor};
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const CardsContainer = styled.div`
@@ -125,6 +125,7 @@ const DbIcon = styled(DatabaseSearch)`
 
   ${Card}:hover & {
     width: 40px;
+    color: ${principalColor};
   }
 `;
 
@@ -141,5 +142,6 @@ const CalendarIcon = styled(CalendarSearch)`
 
   ${Card}:hover & {
     width: 40px;
+    color: ${principalColor};
   }
 `;

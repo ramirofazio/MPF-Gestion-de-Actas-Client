@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //Components
 import Fallback from "./Components/Fallback";
 import NavBar from "./Components/Navbar";
-const Inicio = lazy(() => import("./Components/Inicio"));
 const Actas = lazy(() => import("./Components/Actas/Actas"));
 const AddActa = lazy(() => import("./Components/Actas/pages/AddActa"));
 const ModifyActa = lazy(() => import("./Components/Actas/pages/ModifyActa"));
@@ -23,7 +22,6 @@ function App() {
       <Suspense fallback={<Fallback />}>
         <NavBar />
         <Routes>
-          <Route path="/" exact element={<Inicio />} />
           //* Router Actas
           <Route path="/actas" exact element={<Actas />} />
           <Route path="/actas/crear" exact element={<AddActa />} />
