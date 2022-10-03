@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getActasEnProceso } from "../../../../redux/actions";
 //Utils
 import GlobalStyles from "../../../../Styles/GlobalStyles";
@@ -10,11 +10,14 @@ import Variables from "../../../../Styles/Variables";
 const { principalColor, secondaryColor, baseTransparentColor } = Variables;
 
 function ActasEnProceso() {
+  const actasEnProceso = useSelector((state) => state.actasEnProceso);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getActasEnProceso());
   }, []);
+
+  console.log(actasEnProceso);
 
   return (
     <Container>

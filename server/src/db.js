@@ -24,10 +24,8 @@ modelDefiners.forEach((model) => model(sequelize));
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Acta, Almacenamiento, Efecto, Sim, Bolsa, Integrante, Template } = sequelize.models;
+const { Acta, Almacenamiento, Efecto, Sim, Bolsa, Integrante } = sequelize.models;
 
-Template.hasMany(Acta, { foreignKey: "template_id" });
-Acta.belongsTo(Template, { foreignKey: "template_id" });
 Acta.hasMany(Bolsa, { foreignKey: "acta_id" });
 Bolsa.belongsTo(Acta, { foreignKey: "acta_id" });
 Acta.hasMany(Integrante, { foreignKey: "acta_id" });
@@ -39,17 +37,6 @@ Almacenamiento.belongsTo(Efecto, { foreignKey: "efecto_id" });
 Efecto.hasMany(Sim, { foreignKey: "efecto_id" });
 Sim.belongsTo(Efecto, { foreignKey: "efecto_id" });
 
-// Aca vendrian las relaciones
-// Product.hasOne(Stock);
-// Stock.belongsTo(Product);
-// Client.hasMany(Sale);
-// Sale.belongsTo(Client); // pasarle client id a la tabla SALE
-// Sale.hasMany(Orderline);
-// Orderline.belongsTo(Sale);
-// Product.hasMany(Orderline);
-// Orderline.belongsTo(Product);
-// Sale.belongsToMany(Monthlycost, { through: Finance });
-// Monthlycost.belongsToMany(Sale, { through: Finance });
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   db: sequelize, // para importart la conexión { conn } = require('./db.js');

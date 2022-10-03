@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       },
       estado: {
         type: DataTypes.STRING,
-        defaultValue: "En Proceso",
+        defaultValue: "en proceso",
       },
     },
     {
