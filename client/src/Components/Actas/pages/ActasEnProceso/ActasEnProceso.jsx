@@ -104,7 +104,7 @@ function ActasEnProceso() {
               let cantEfectos = 0;
               acta.Bolsas.map((bolsa) => (cantEfectos += bolsa.Efectos.length));
               return (
-                <ActaContainer to="#" key={acta.id}>
+                <ActaContainer to={`/efectos/en_proceso/${acta.id}`} key={acta.id}>
                   <Info>
                     <strong
                       style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
@@ -240,18 +240,6 @@ const Input = styled.input`
   }
 `;
 
-const CardsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 95%;
-  flex: 1;
-  margin-bottom: 10px;
-  max-height: 60%;
-  border-top: 1px solid ${secondaryColor};
-`;
-
 const Submit = styled.input`
   position: absolute;
   width: 2%;
@@ -265,7 +253,18 @@ const Submit = styled.input`
 const SearchIcon = styled(Search)`
   width: 20%;
   color: ${secondaryColor};
-  transition: all 0.3s ease;
+`;
+
+const CardsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  flex: 1;
+  margin-bottom: 10px;
+  max-height: 60%;
+  border-top: 1px solid ${secondaryColor};
 `;
 
 const ActaContainer = styled(NavLink)`

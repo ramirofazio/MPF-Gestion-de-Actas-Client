@@ -1,52 +1,41 @@
 import React, { useEffect } from "react";
+//* Utils
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getEfectosFromActa } from "../../../../redux/actions";
+//* Styles
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getAllActas, getAllEfectos, updateEfecto } from "../../../../redux/actions";
-//Utils
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
-//Initializations
-const { principalColor, secondaryColor, baseTransparentColor } = Variables;
+import { Check } from "@styled-icons/boxicons-regular/Check";
+//* Initializations
+const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor } = Variables;
 
 function EfectosEnProceso() {
-  const efectosParaCompletar = [];
   const dispatch = useDispatch();
-  const efectosEnProceso = useSelector((state) => state.efectosEnProceso);
-  const allActas = useSelector((state) => state.allActas);
+  const efectosParaCompletar = [];
+  const efectosFromActa = useSelector((state) => state.efectosFromActa);
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAllEfectos());
-    dispatch(getAllActas());
+    dispatch(getEfectosFromActa(id));
   }, []);
 
-  const handleSubmit = () => {
-    efectosParaCompletar.map((efId) => {
-      allActas.map((acta) => {
-        acta.Bolsas.map((bolsa) => {
-          bolsa.Efectos.map((ef) => {
-            if (ef.id === efId) {
-              dispatch(updateEfecto(acta));
-            }
-          });
-        });
-      });
-    });
-  };
+  const handleSubmit = () => {};
 
   return (
     <Container>
       <Header>
-        <Title>Efectos en Proceso</Title>
+        <Title>Efectos</Title>
         <Description>
-          En esta sección poder ver todos los Efectos en proceso. <br /> Selecciona los que quieras
+          En esta sección poder ver todos los Efectos del Acta. <br /> Selecciona los que quieras
           completar.
         </Description>
       </Header>
       <CardsContainer>
-        {efectosEnProceso
-          ? efectosEnProceso.map((efecto) => (
-              <ActaContainer key={efecto.id}>
+        {efectosFromActa
+          ? efectosFromActa.map((efecto) => (
+              <ActaContainer key={efecto.id} estado={efecto.estado}>
                 <Info>
                   <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
                     Nro Precinto
@@ -75,8 +64,22 @@ function EfectosEnProceso() {
                   <br />
                   {efecto.modelo}
                 </Info>
+                <Info>
+                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
+                    Estado
+                  </strong>
+                  <br />
+                  <Estado estado={efecto.estado}>{efecto.estado}</Estado>
+                </Info>
                 <CheckBoxContainer>
-                  <CheckBox type="checkbox" onClick={() => efectosParaCompletar.push(efecto.id)} />
+                  {efecto.estado === "completo" ? (
+                    <CheckIcon />
+                  ) : (
+                    <CheckBox
+                      type="checkbox"
+                      onClick={() => efectosParaCompletar.push(efecto.id)}
+                    />
+                  )}
                 </CheckBoxContainer>
               </ActaContainer>
             ))
@@ -92,6 +95,7 @@ export default EfectosEnProceso;
 const Container = styled.div`
   ${GlobalStyles.container}
   flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Header = styled.header`
@@ -114,17 +118,16 @@ const Title = styled.h1`
 const Description = styled.p`
   color: ${secondaryColor};
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
 `;
-
 const CardsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 80%;
+  width: 95%;
   flex: 1;
-  max-height: 70%;
+  max-height: 60%;
 `;
 
 const ActaContainer = styled.div`
@@ -132,19 +135,18 @@ const ActaContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 100%;
-  flex: 1;
-  min-height: 8%;
-  max-height: 10%;
+  width: 95%;
+  height: 10%;
   margin-top: 5px;
-  border: 2px solid ${principalColor};
+  border: ${(props) =>
+    props.estado === "en proceso" ? `2px solid ${principalColor}` : `2px solid ${greenColor}`};
   border-radius: 5px;
   transition: all 0.3s ease;
 
   &:hover {
-    max-height: 12%;
-    width: 102%;
+    height: 12%;
     background-color: ${baseTransparentColor};
+    cursor: default;
   }
 `;
 
@@ -171,8 +173,7 @@ const Button = styled.button`
   height: auto;
   padding: 10px;
   padding-inline: 20px;
-  margin-right: 40px;
-
+  margin-bottom: 20px;
   border-radius: 10px;
   border: 2px solid ${principalColor};
   color: ${secondaryColor};
@@ -184,4 +185,13 @@ const Button = styled.button`
     background-color: ${principalColor};
     color: #fff;
   }
+`;
+
+const Estado = styled.span`
+  color: ${(props) => (props.estado === "en proceso" ? yellowColor : greenColor)};
+`;
+
+const CheckIcon = styled(Check)`
+  width: 30%;
+  color: ${greenColor};
 `;

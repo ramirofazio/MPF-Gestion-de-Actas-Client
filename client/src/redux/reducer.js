@@ -3,6 +3,7 @@ import {
   GET_EFECTOS,
   GET_ACTAS_EN_PROCESO,
   GET_ACTAS_EN_PROCESO_FILTERED,
+  GET_EFECTOS_FROM_ACTA,
 } from "./actions";
 
 let initialState = {
@@ -10,6 +11,7 @@ let initialState = {
   actasEnProceso: [],
   allEfectos: [],
   efectosEnProceso: [],
+  efectosFromActa: [],
 };
 
 function reducer(state = initialState, action) {
@@ -35,6 +37,11 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         actasEnProceso: action.payload,
+      };
+    case GET_EFECTOS_FROM_ACTA:
+      return {
+        ...state,
+        efectosFromActa: action.payload,
       };
     default:
       return state;

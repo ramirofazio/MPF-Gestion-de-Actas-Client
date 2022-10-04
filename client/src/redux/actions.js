@@ -5,6 +5,7 @@ export const GET_ACTAS = "GET_ACTAS";
 export const GET_EFECTOS = "GET_EFECTOS";
 export const GET_ACTAS_EN_PROCESO = "GET_ACTAS_EN_PROCESO";
 export const GET_ACTAS_EN_PROCESO_FILTERED = "GET_ACTAS_EN_PROCESO_FILTERED";
+export const GET_EFECTOS_FROM_ACTA = "GET_EFECTOS_FROM_ACTA";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -29,6 +30,22 @@ export function getAllEfectos() {
       .then((res) => {
         return dispatch({
           type: GET_EFECTOS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function getEfectosFromActa(id) {
+  return function (dispatch) {
+    axios
+      .get(Variables.baseEndpoint + `/getEfectos/${id}`)
+      .then((res) => {
+        return dispatch({
+          type: GET_EFECTOS_FROM_ACTA,
           payload: res.data,
         });
       })

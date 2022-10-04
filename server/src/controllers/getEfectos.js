@@ -13,11 +13,14 @@ getEfectos.get("/", async (req, res) => {
 
 getEfectos.get("/:id", async (req, res) => {
   // * solo por ID
-  const efecto_id = req.params.id;
+  const id = req.params.id;
   try {
-    const efecto = await Efecto.findByPk(efecto_id, { include: { all: true } });
-    if (efecto !== null) {
-      return res.status(200).send(efecto);
+    const efectos = await Efecto.findAll({
+      include: { all: true },
+    });
+    const response = efectos.filter((efecto) => efecto.Bolsa.acta_id === Number(id));
+    if (response !== null) {
+      return res.status(200).send(response);
     } else {
       return res.status(404).send("Efecto not found or not exist");
     }
