@@ -9,7 +9,7 @@ function NavBar() {
     <NavBarContainer>
       <Container>
         <Logo src={logo} alt="logo" color="#fff" />
-        <HomeLinks to="/actas">Crear Acta</HomeLinks>
+        <HomeLinks to="/">Crear Acta</HomeLinks>
         <HomeLinks to="/consultas">Consultas</HomeLinks>
       </Container>
     </NavBarContainer>

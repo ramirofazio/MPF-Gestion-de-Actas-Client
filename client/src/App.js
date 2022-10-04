@@ -23,10 +23,10 @@ function App() {
         <NavBar />
         <Routes>
           //* Router Actas
-          <Route path="/actas" exact element={<Actas />} />
+          <Route path="/" exact element={<Actas />} />
           <Route path="/actas/crear" exact element={<AddActa />} />
           <Route path="/actas/en_proceso" exact element={<ActasEnProceso />} />
-          <Route path="/actas/efectos" exact element={<EfectosEnProceso />} />
+          <Route path="/efectos/en_proceso" exact element={<EfectosEnProceso />} />
           <Route path="/actas/modificar" exact element={<ModifyActa />} />
           //* Router Consultas
           <Route path="/consultas" exact element={<Consultas />} />
