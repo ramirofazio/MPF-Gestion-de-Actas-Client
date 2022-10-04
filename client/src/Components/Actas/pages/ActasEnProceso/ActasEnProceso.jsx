@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getActasEnProceso } from "../../../../redux/actions";
+import { getActasEnProceso, getActasEnProcesoFiltered } from "../../../../redux/actions";
 //Utils
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { BoxArrowInUpRight } from "@styled-icons/bootstrap/BoxArrowInUpRight";
+import { Search } from "@styled-icons/ionicons-sharp/Search";
+
 //Initializations
 const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor } = Variables;
 
@@ -31,6 +33,13 @@ function ActasEnProceso() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(getActasEnProcesoFiltered(state)); //* Mando al backend el pedido con filtros
+    setState({
+      nroMpf: "",
+      nroDil: "",
+      nroCij: "",
+      //date: "",
+    });
   };
 
   return (
@@ -43,13 +52,14 @@ function ActasEnProceso() {
         </Description>
       </Header>
       <FilterContainer>
-        <Form onChange={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <InputContainer>
             <Label>Nro MPF</Label>
             <Input
               type="text"
               value={state.nroMpf}
               onChange={(e) => setState({ ...state, nroMpf: e.target.value })}
+              maxLength={12}
             />
           </InputContainer>
           <InputContainer>
@@ -58,6 +68,7 @@ function ActasEnProceso() {
               type="text"
               value={state.nroCij}
               onChange={(e) => setState({ ...state, nroCij: e.target.value })}
+              maxLength={12}
             />
           </InputContainer>
           <InputContainer>
@@ -66,6 +77,7 @@ function ActasEnProceso() {
               type="text"
               value={state.nroDil}
               onChange={(e) => setState({ ...state, nroDil: e.target.value })}
+              maxLength={12}
             />
           </InputContainer>
           {/* <InputContainer>
@@ -75,58 +87,86 @@ function ActasEnProceso() {
               onChange={(e) => setState({ ...state, date: e.target.value })}
             />
           </InputContainer> */}
+          <InputContainer
+            style={{
+              justifyContent: "flex-end",
+              alignItems: "flex-start",
+            }}
+          >
+            <Submit type="submit" />
+            <SearchIcon />
+          </InputContainer>
         </Form>
       </FilterContainer>
       <CardsContainer>
         {actasEnProceso
-          ? actasEnProceso.map((acta) => (
-              <ActaContainer to="#" key={acta.id}>
-                <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    Fecha
-                  </strong>
-                  <br />
-                  {formatDate(acta.created_at)}
-                </Info>
-                {!acta.nro_coop && (
+          ? actasEnProceso.map((acta) => {
+              let cantEfectos = 0;
+              acta.Bolsas.map((bolsa) => (cantEfectos += bolsa.Efectos.length));
+              return (
+                <ActaContainer to="#" key={acta.id}>
                   <Info>
                     <strong
                       style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
                     >
-                      MPF
+                      Fecha
                     </strong>
                     <br />
-                    {acta.nro_mpf}
+                    {formatDate(acta.created_at)}
                   </Info>
-                )}
-                {!acta.nro_mpf && (
+                  {!acta.nro_coop && (
+                    <Info>
+                      <strong
+                        style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
+                      >
+                        MPF
+                      </strong>
+                      <br />
+                      {acta.nro_mpf}
+                    </Info>
+                  )}
+                  {!acta.nro_mpf && (
+                    <Info>
+                      <strong
+                        style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
+                      >
+                        COOP
+                      </strong>
+                      <br />
+                      {acta.nro_coop}
+                    </Info>
+                  )}
                   <Info>
                     <strong
                       style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
                     >
-                      COOP
+                      CIJ
                     </strong>
                     <br />
-                    {acta.nro_coop}
+                    {acta.nro_cij}
                   </Info>
-                )}
-                <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    CIJ
-                  </strong>
-                  <br />
-                  {acta.nro_cij}
-                </Info>
-                <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    DIL
-                  </strong>
-                  <br />
-                  {acta.nro_dil}
-                </Info>
-                <Icon />
-              </ActaContainer>
-            ))
+                  <Info>
+                    <strong
+                      style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
+                    >
+                      DIL
+                    </strong>
+                    <br />
+                    {acta.nro_dil}
+                  </Info>
+                  <Info>
+                    <strong
+                      style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
+                    >
+                      Efectos
+                    </strong>
+                    <br />
+                    {cantEfectos}
+                  </Info>
+                  <Icon />
+                </ActaContainer>
+              );
+            })
           : null}
       </CardsContainer>
     </Container>
@@ -212,22 +252,36 @@ const CardsContainer = styled.div`
   border-top: 1px solid ${secondaryColor};
 `;
 
+const Submit = styled.input`
+  position: absolute;
+  width: 2%;
+  opacity: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const SearchIcon = styled(Search)`
+  width: 20%;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
+`;
+
 const ActaContainer = styled(NavLink)`
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   width: 95%;
-  flex: 1;
-  min-height: 8%;
-  max-height: 10%;
+  height: 10%;
   margin-top: 5px;
   border: 2px solid ${principalColor};
   border-radius: 5px;
   transition: all 0.3s ease;
 
   &:hover {
-    max-height: 12%;
+    height: 12%;
     background-color: ${baseTransparentColor};
   }
 `;

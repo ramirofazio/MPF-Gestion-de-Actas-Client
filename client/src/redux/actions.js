@@ -4,6 +4,7 @@ import Variables from "../Styles/Variables";
 export const GET_ACTAS = "GET_ACTAS";
 export const GET_EFECTOS = "GET_EFECTOS";
 export const GET_ACTAS_EN_PROCESO = "GET_ACTAS_EN_PROCESO";
+export const GET_ACTAS_EN_PROCESO_FILTERED = "GET_ACTAS_EN_PROCESO_FILTERED";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -62,6 +63,20 @@ export function getActasEnProceso() {
           type: GET_ACTAS_EN_PROCESO,
           payload: res.data,
         });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function getActasEnProcesoFiltered(filtros) {
+  console.log(filtros);
+  return function (dispatch) {
+    axios
+      .get(Variables.baseEndpoint + "/getActas?enproceso=true", { filtros })
+      .then((res) => {
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
