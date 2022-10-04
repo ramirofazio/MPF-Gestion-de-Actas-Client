@@ -57,7 +57,7 @@ export function updateEfecto(acta) {
 export function getActasEnProceso() {
   return function (dispatch) {
     axios
-      .get(Variables.baseEndpoint + "/getActas?enproceso=true")
+      .get(Variables.baseEndpoint + "/getActas?enProceso=true")
       .then((res) => {
         return dispatch({
           type: GET_ACTAS_EN_PROCESO,
@@ -71,12 +71,18 @@ export function getActasEnProceso() {
 }
 
 export function getActasEnProcesoFiltered(filtros) {
-  console.log(filtros);
   return function (dispatch) {
+    const { nroMpf, nroCij, nroDil } = filtros;
     axios
-      .get(Variables.baseEndpoint + "/getActas?enproceso=true", { filtros })
+      .get(
+        Variables.baseEndpoint +
+          `/getActas?enProceso=true&mpf=${nroMpf}&cij=${nroCij}&dil=${nroDil}`
+      )
       .then((res) => {
-        console.log(res.data);
+        return dispatch({
+          type: GET_ACTAS_EN_PROCESO_FILTERED,
+          payload: res.data,
+        });
       })
       .catch((err) => {
         console.log(err);

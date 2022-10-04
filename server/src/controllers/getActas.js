@@ -1,16 +1,50 @@
 const getActas = require("express").Router();
 const { Acta } = require("../db");
 
-getActas.get("/", async (req, res) => {
+getActas.get("/", async (req, res, next) => {
   //Todas las actas
-  const enProceso = req.query.enproceso; //* traigo query param
   try {
-    console.log("todas");
+    const { enProceso, mpf, cij, dil } = req.query; //* traigo query param
     const actas = await Acta.findAll({ include: { all: true, nested: true } });
     const actasEnProceso = actas.filter((acta) => acta.estado === "en proceso"); //* Filtro las actas en proceso
 
     if (enProceso) {
-      return res.status(200).send(actasEnProceso);
+      //* Filtros
+      if (mpf && cij && dil) {
+        const filtrada = actasEnProceso.filter(
+          (acta) =>
+            acta.nro_mpf === Number(mpf) &&
+            acta.nro_cij === Number(cij) &&
+            acta.nro_dil === Number(dil)
+        );
+        return res.status(200).send(filtrada);
+      } else if (mpf && cij && !dil) {
+        const filtrada = actasEnProceso.filter(
+          (acta) => acta.nro_mpf === Number(mpf) && acta.nro_cij === Number(cij)
+        );
+        return res.status(200).send(filtrada);
+      } else if (mpf && !cij && dil) {
+        const filtrada = actasEnProceso.filter(
+          (acta) => acta.nro_mpf === Number(mpf) && acta.nro_dil === Number(dil)
+        );
+        return res.status(200).send(filtrada);
+      } else if (!mpf && cij && dil) {
+        const filtrada = actasEnProceso.filter(
+          (acta) => acta.nro_cij === Number(cij) && acta.nro_dil === Number(dil)
+        );
+        return res.status(200).send(filtrada);
+      } else if (mpf && !cij && !dil) {
+        const filtrada = actasEnProceso.filter((acta) => acta.nro_mpf === Number(mpf));
+        return res.status(200).send(filtrada);
+      } else if (!mpf && cij && !dil) {
+        const filtrada = actasEnProceso.filter((acta) => acta.nro_cij === Number(cij));
+        return res.status(200).send(filtrada);
+      } else if (!mpf && !cij && dil) {
+        const filtrada = actasEnProceso.filter((acta) => acta.nro_dil === Number(dil));
+        return res.status(200).send(filtrada);
+      } else {
+        return res.status(200).send(actasEnProceso);
+      }
     } else {
       return res.status(200).send(actas);
     }
