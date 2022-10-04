@@ -2,14 +2,15 @@ import React, { useEffect } from "react";
 //* Utils
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getEfectosFromActa } from "../../../../redux/actions";
+import { getEfectosFromActa, sendEfectosIdsAndActaId } from "../../../../redux/actions";
 //* Styles
 import styled from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { Check } from "@styled-icons/boxicons-regular/Check";
 //* Initializations
-const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor } = Variables;
+const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor, redColor } =
+  Variables;
 
 function EfectosEnProceso() {
   const dispatch = useDispatch();
@@ -21,7 +22,9 @@ function EfectosEnProceso() {
     dispatch(getEfectosFromActa(id));
   }, []);
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    sendEfectosIdsAndActaId({ actaId: id, efectosIds: efectosParaCompletar }); //* despacho datos
+  };
 
   return (
     <Container>
@@ -139,7 +142,11 @@ const ActaContainer = styled.div`
   height: 10%;
   margin-top: 5px;
   border: ${(props) =>
-    props.estado === "en proceso" ? `2px solid ${principalColor}` : `2px solid ${greenColor}`};
+    props.estado === "en proceso"
+      ? `2px solid ${principalColor}`
+      : props.estado === "completo"
+      ? `2px solid ${greenColor}`
+      : `2px solid ${redColor}`};
   border-radius: 5px;
   transition: all 0.3s ease;
 
@@ -188,7 +195,12 @@ const Button = styled.button`
 `;
 
 const Estado = styled.span`
-  color: ${(props) => (props.estado === "en proceso" ? yellowColor : greenColor)};
+  color: ${(props) =>
+    props.estado === "en proceso"
+      ? yellowColor
+      : props.estado === "completo"
+      ? greenColor
+      : redColor};
 `;
 
 const CheckIcon = styled(Check)`

@@ -55,22 +55,6 @@ export function getEfectosFromActa(id) {
   };
 }
 
-export function updateEfecto(acta) {
-  console.log(acta);
-  return function () {
-    axios
-      .post(`${Variables.baseEndpoint}/updateEfecto`, { acta })
-      .then((res) => {
-        if (res.status === 200) {
-          console.log("Nueva acta creada con efecto Actualizado!");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-}
-
 export function getActasEnProceso() {
   return function (dispatch) {
     axios
@@ -105,4 +89,16 @@ export function getActasEnProcesoFiltered(filtros) {
         console.log(err);
       });
   };
+}
+
+export function sendEfectosIdsAndActaId({ actaId, efectosIds }) {
+  axios
+    .post(Variables.baseEndpoint + "/updateEfecto", { actaId, efectosIds })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return function (dispatch) {};
 }
