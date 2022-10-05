@@ -3,6 +3,7 @@ const { Acta, Efecto, Bolsa } = require("../db");
 
 updateEfecto.post("/", async (req, res) => {
   const { actaId, efectosIds } = req.body;
+
   try {
     //! Logica para deprecar el Acta
     const acta = await Acta.findByPk(actaId, { include: { all: true, nested: true } });
@@ -112,7 +113,7 @@ updateEfecto.post("/", async (req, res) => {
       }
     );
   } catch (err) {
-    console.log(err);
+    return res.status(404).send("Algo salio mal. Error \n\n -------> ", err);
   }
 });
 
