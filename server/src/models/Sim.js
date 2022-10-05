@@ -17,6 +17,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
       },
     },
-    { timestamps: false }
+    {
+      createdAt: "created_at",
+      updatedAt: "last_update",
+    }
   );
 };

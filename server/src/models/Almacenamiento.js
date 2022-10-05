@@ -23,6 +23,9 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
       },
     },
-    { timestamps: false }
+    {
+      createdAt: "created_at",
+      updatedAt: "last_update",
+    }
   );
 };

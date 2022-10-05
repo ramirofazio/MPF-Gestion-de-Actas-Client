@@ -39,6 +39,9 @@ module.exports = (sequelize) => {
         defaultValue: "en proceso",
       },
     },
-    { timestamps: false }
+    {
+      createdAt: "created_at",
+      updatedAt: "last_update",
+    }
   );
 };
