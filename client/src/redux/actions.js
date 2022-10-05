@@ -102,3 +102,83 @@ export function sendEfectosIdsAndActaId({ actaId, efectosIds }) {
     });
   return function (dispatch) {};
 }
+
+export async function loadDB() {
+  for (let i = 0; i < 5; i++) {
+    let acta;
+    await axios
+      .post(Variables.baseEndpoint + "/addActa", {
+        nro_cij: 500500,
+        nro_dil: 22621,
+        nro_mpf: 7912313,
+      })
+      .then((res) => {
+        acta = res.data;
+      });
+
+    for (let i = 0; i < 2; i++) {
+      let bolsa;
+      await axios
+        .post(Variables.baseEndpoint + `/addBolsa/${acta.id}`, {
+          nro_precinto: 123456,
+          color_precinto: "rojo",
+          notas: "Una nota sobre la bolsa",
+        })
+        .then((res) => {
+          bolsa = res.data;
+        });
+
+      for (let i = 0; i < 3; i++) {
+        let efecto;
+        await axios
+          .post(Variables.baseEndpoint + `/addEfecto/${bolsa.id}`, {
+            nro_precinto: 123456,
+            color_precinto: "rojo",
+            tipo: "tablet",
+            color: "negro",
+            tipo_extraccion: "fisica",
+            nro_serie: 5778853694,
+            tipo_desbloqueo: "patron",
+            notas: "pantalla rota",
+            IMEI: 16148488777556222,
+            modelo: "A7",
+            marca: "samsung",
+            sofware: "UFED121",
+          })
+          .then((res) => {
+            efecto = res.data;
+          });
+
+        for (let i = 0; i < 2; i++) {
+          await axios.post(Variables.baseEndpoint + `/addAlmacenamiento/${efecto.id}`, {
+            marca: "samsung",
+            modelo: "HD5581S",
+            capacidad: "500 GB",
+            tipo_extraccion: "fisica",
+            tipo_almacenamiento: "ssd",
+            nro_serie: "581302255",
+          });
+        }
+
+        for (let i = 0; i < 2; i++) {
+          await axios.post(Variables.baseEndpoint + `/addSim/${efecto.id}`, {
+            nro_serie: 123456789,
+            nro_linea: 1000000000,
+            tipo_extraccion: "fisica",
+            empresa: "movistar",
+          });
+        }
+      }
+    }
+
+    for (let i = 0; i < 3; i++) {
+      await axios.post(Variables.baseEndpoint + `/addIntegrante/${acta.id}`, {
+        nombre: "Ramiro",
+        dni: 42809069,
+        cargo_o_profesion: "programador",
+        matricula: 168413513,
+        domicilio: "malabia 2231",
+      });
+    }
+  }
+}

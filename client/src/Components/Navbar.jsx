@@ -1,16 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Variables from "../Styles/Variables";
 import logo from "../Assets/logo.png";
+import { loadDB } from "../redux/actions";
 
 function NavBar() {
   return (
     <NavBarContainer>
       <Container>
-        <Logo src={logo} alt="logo" color="#fff" />
+        <Logo src={logo} alt="logo" />
         <HomeLinks to="/">Crear Acta</HomeLinks>
         <HomeLinks to="/consultas">Consultas</HomeLinks>
+        <button onClick={loadDB}>Cargar DB</button>
       </Container>
     </NavBarContainer>
   );
