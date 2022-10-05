@@ -108,9 +108,9 @@ export async function loadDB() {
     let acta;
     await axios
       .post(Variables.baseEndpoint + "/addActa", {
-        nro_cij: 500500,
-        nro_dil: 22621,
-        nro_mpf: 7912313,
+        nro_cij: Math.floor(Math.random() * 1000000 + 10000),
+        nro_dil: Math.floor(Math.random() * 1000000 + 10000),
+        nro_mpf: Math.floor(Math.random() * 1000000 + 10000),
       })
       .then((res) => {
         acta = res.data;
@@ -120,7 +120,7 @@ export async function loadDB() {
       let bolsa;
       await axios
         .post(Variables.baseEndpoint + `/addBolsa/${acta.id}`, {
-          nro_precinto: 123456,
+          nro_precinto: Math.floor(Math.random() * 100000 + 10000),
           color_precinto: "rojo",
           notas: "Una nota sobre la bolsa",
         })
@@ -132,15 +132,13 @@ export async function loadDB() {
         let efecto;
         await axios
           .post(Variables.baseEndpoint + `/addEfecto/${bolsa.id}`, {
-            nro_precinto: 123456,
-            color_precinto: "rojo",
             tipo: "tablet",
             color: "negro",
             tipo_extraccion: "fisica",
-            nro_serie: 5778853694,
+            nro_serie: Math.floor(Math.random() * 100000000 + 10000),
             tipo_desbloqueo: "patron",
             notas: "pantalla rota",
-            IMEI: 16148488777556222,
+            IMEI: Math.floor(Math.random() * 100000000000 + 10000),
             modelo: "A7",
             marca: "samsung",
             sofware: "UFED121",
@@ -156,14 +154,14 @@ export async function loadDB() {
             capacidad: "500 GB",
             tipo_extraccion: "fisica",
             tipo_almacenamiento: "ssd",
-            nro_serie: "581302255",
+            nro_serie: Math.floor(Math.random() * 100000000 + 10000),
           });
         }
 
         for (let i = 0; i < 2; i++) {
           await axios.post(Variables.baseEndpoint + `/addSim/${efecto.id}`, {
-            nro_serie: 123456789,
-            nro_linea: 1000000000,
+            nro_serie: Math.floor(Math.random() * 100000000 + 10000),
+            nro_linea: Math.floor(Math.random() * 100000000 + 10000),
             tipo_extraccion: "fisica",
             empresa: "movistar",
           });
@@ -176,7 +174,7 @@ export async function loadDB() {
         nombre: "Ramiro",
         dni: 42809069,
         cargo_o_profesion: "programador",
-        matricula: 168413513,
+        matricula: Math.floor(Math.random() * 1000000 + 10000),
         domicilio: "malabia 2231",
       });
     }
