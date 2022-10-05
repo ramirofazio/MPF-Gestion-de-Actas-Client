@@ -1,5 +1,5 @@
 const updateEfecto = require("express").Router();
-const { Acta, Efecto, Bolsa } = require("../db");
+const { Acta, Efecto, Bolsa, Almacenamiento, Integrante, Sim } = require("../db");
 
 updateEfecto.post("/", async (req, res) => {
   const { actaId, efectosIds } = req.body;
@@ -67,6 +67,21 @@ updateEfecto.post("/", async (req, res) => {
       estado: estado === "deprecado" ? "en proceso" : "completo", //* Si el estado esta en deprecado, significa que sigue en proceso, sino esta completa
     });
 
+    acta.Integrantes.map(
+      //* Mapeo los Integrantes del acta original, y junto los datos para duplicarlos
+      async ({ nombre, cargo_o_profesion, dni, domicilio, matricula }) => {
+        await Integrante.create({
+          //* Creo la copia del integrante
+          acta_id: newActa.id,
+          nombre,
+          cargo_o_profesion,
+          dni,
+          domicilio,
+          matricula,
+        });
+      }
+    );
+
     acta.Bolsas.map(
       //* Mapeo las bolsas del acta original, y junto los datos para duplicarlos
       async ({ nro_precinto, color_precinto, notas, nro_precinto_blanco, estado, Efectos }) => {
@@ -112,6 +127,43 @@ updateEfecto.post("/", async (req, res) => {
               sofware,
               estado: estado === "deprecado" ? "en proceso" : "completo",
             });
+
+            Almacenamientos.map(
+              //* Mapeo los Almacenamientos del Efecto original, y junto los datos para duplicarlos
+              async ({
+                marca,
+                modelo,
+                capacidad,
+                tipo_extraccion,
+                tipo_almacenamiento,
+                nro_serie,
+              }) => {
+                await Almacenamiento.create({
+                  //* Creo la copia de los Alm...
+                  efecto_id: newEfecto.id,
+                  marca,
+                  modelo,
+                  capacidad,
+                  tipo_extraccion,
+                  tipo_almacenamiento,
+                  nro_serie,
+                });
+              }
+            );
+
+            Sims.map(
+              //* Mapeo los Sims del Efecto original, y junto los datos para duplicarlos
+              async ({ nro_serie, nro_linea, tipo_extraccion, empresa }) => {
+                await Sim.create({
+                  //* Creo la copia de los Sim
+                  efecto_id: newEfecto.id,
+                  nro_serie,
+                  nro_linea,
+                  tipo_extraccion,
+                  empresa,
+                });
+              }
+            );
           }
         );
       }
