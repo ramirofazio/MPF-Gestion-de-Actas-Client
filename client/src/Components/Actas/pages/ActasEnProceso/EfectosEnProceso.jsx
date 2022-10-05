@@ -23,7 +23,12 @@ function EfectosEnProceso() {
   }, []);
 
   const handleSubmit = () => {
-    sendEfectosIdsAndActaId({ actaId: id, efectosIds: efectosParaCompletar }); //* despacho datos
+    if (efectosParaCompletar.length === 0) {
+      alert("selecciona un efecto!");
+    } else {
+      sendEfectosIdsAndActaId({ actaId: id, efectosIds: efectosParaCompletar }); //* despacho datos
+      window.location.replace("/actas/en_proceso"); //* Vuelve a la pagina de actas una vez despachada
+    }
   };
 
   return (

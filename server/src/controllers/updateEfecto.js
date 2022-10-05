@@ -51,6 +51,10 @@ updateEfecto.post("/", async (req, res) => {
     }
     acta.save(); //* Salvo los cambios del acta, bolsas y efectos
 
+    if (acta.estado === "completo") {
+      //* Si el acta ya se comlpleto cuando se modifico, no vuelve a crear otra.
+      return res.status(200).send("Acta completa");
+    }
     //! Logica para crear una copia
     const { nro_mpf, nro_cij, nro_dil, nro_coop, estado } = acta; //* Destructuro el acta
 
