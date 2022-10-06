@@ -207,7 +207,7 @@ const Description = styled.p`
 
 const FilterContainer = styled.div`
   width: 95%;
-  margin-bottom: -60px;
+  margin-bottom: -30px;
 `;
 
 const Form = styled.form`
@@ -260,12 +260,13 @@ const CardsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 95%;
-  flex: 1;
-  margin-bottom: 10px;
-  max-height: 60%;
+  max-height: 70%;
+  min-height: 70%;
   border-top: 1px solid ${secondaryColor};
+  overflow-y: scroll;
+  padding-block: 10px;
+  margin-bottom: 20px;
 `;
 
 const ActaContainer = styled(NavLink)`
@@ -274,14 +275,14 @@ const ActaContainer = styled(NavLink)`
   align-items: center;
   justify-content: space-evenly;
   width: 95%;
-  height: 10%;
+  min-height: 12%;
   margin-top: 5px;
   border: 2px solid ${principalColor};
   border-radius: 5px;
   transition: all 0.3s ease;
 
   &:hover {
-    height: 12%;
+    min-height: 14%;
     background-color: ${baseTransparentColor};
   }
 `;

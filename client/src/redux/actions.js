@@ -128,7 +128,7 @@ export async function loadDB() {
           bolsa = res.data;
         });
 
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 6; i++) {
         let efecto;
         await axios
           .post(Variables.baseEndpoint + `/addEfecto/${bolsa.id}`, {

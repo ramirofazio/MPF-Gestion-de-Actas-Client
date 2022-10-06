@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 //* Utils
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,11 +8,18 @@ import styled from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { Check } from "@styled-icons/boxicons-regular/Check";
+import { Search } from "@styled-icons/ionicons-sharp/Search";
 //* Initializations
 const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor, redColor } =
   Variables;
 
 function EfectosEnProceso() {
+  const [state, setState] = useState({
+    nroMpf: "",
+    nroDil: "",
+    nroCij: "",
+    //date: "",
+  });
   const dispatch = useDispatch();
   const efectosParaCompletar = [];
   const efectosFromActa = useSelector((state) => state.efectosFromActa);
@@ -40,10 +47,57 @@ function EfectosEnProceso() {
           completar.
         </Description>
       </Header>
+      <FilterContainer>
+        <Form onSubmit={handleSubmit}>
+          <InputContainer>
+            <Label>Nro MPF</Label>
+            <Input
+              type="text"
+              value={state.nroMpf}
+              onChange={(e) => setState({ ...state, nroMpf: e.target.value })}
+              maxLength={12}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Nro CIJ</Label>
+            <Input
+              type="text"
+              value={state.nroCij}
+              onChange={(e) => setState({ ...state, nroCij: e.target.value })}
+              maxLength={12}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Nro DIL</Label>
+            <Input
+              type="text"
+              value={state.nroDil}
+              onChange={(e) => setState({ ...state, nroDil: e.target.value })}
+              maxLength={12}
+            />
+          </InputContainer>
+          {/* <InputContainer>
+            <InputDate
+              type="date"
+              value={state.date}
+              onChange={(e) => setState({ ...state, date: e.target.value })}
+            />
+          </InputContainer> */}
+          <InputContainer
+            style={{
+              justifyContent: "flex-end",
+              alignItems: "flex-start",
+            }}
+          >
+            <Submit type="submit" />
+            <SearchIcon />
+          </InputContainer>
+        </Form>
+      </FilterContainer>
       <CardsContainer>
         {efectosFromActa
           ? efectosFromActa.map((efecto) => (
-              <ActaContainer key={efecto.id} estado={efecto.estado}>
+              <EfectoContainer key={efecto.id} estado={efecto.estado}>
                 <Info>
                   <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
                     Nro Precinto
@@ -89,11 +143,13 @@ function EfectosEnProceso() {
                     />
                   )}
                 </CheckBoxContainer>
-              </ActaContainer>
+              </EfectoContainer>
             ))
           : null}
       </CardsContainer>
-      <Button onClick={handleSubmit}>Completar</Button>
+      <ButtonContainer>
+        <Button onClick={handleSubmit}>Completar</Button>
+      </ButtonContainer>
     </Container>
   );
 }
@@ -128,23 +184,79 @@ const Description = styled.p`
   text-align: center;
   font-size: 16px;
 `;
+
+const FilterContainer = styled.div`
+  width: 95%;
+  margin-bottom: -30px;
+`;
+
+const Form = styled.form`
+  display: flex;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  width: 10%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+`;
+
+const Label = styled.label`
+  font-size: 13px;
+  margin-bottom: 2px;
+  color: ${secondaryColor};
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border: 1px solid ${principalColor};
+  border-radius: 5px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Submit = styled.input`
+  position: absolute;
+  width: 2%;
+  opacity: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const SearchIcon = styled(Search)`
+  width: 20%;
+  color: ${secondaryColor};
+`;
+
 const CardsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 95%;
-  flex: 1;
-  max-height: 60%;
+  max-height: 70%;
+  min-height: 70%;
+  border-top: 1px solid ${secondaryColor};
+  overflow-y: scroll;
+  padding-block: 10px;
+  padding-bottom: 6%;
+  margin-bottom: -100px;
 `;
 
-const ActaContainer = styled.div`
+const EfectoContainer = styled.div`
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   width: 95%;
-  height: 10%;
+  min-height: 12%;
   margin-top: 5px;
   border: ${(props) =>
     props.estado === "en proceso"
@@ -156,9 +268,8 @@ const ActaContainer = styled.div`
   transition: all 0.3s ease;
 
   &:hover {
-    height: 12%;
+    min-height: 14%;
     background-color: ${baseTransparentColor};
-    cursor: default;
   }
 `;
 
@@ -180,25 +291,6 @@ const CheckBox = styled.input`
   }
 `;
 
-const Button = styled.button`
-  width: auto;
-  height: auto;
-  padding: 10px;
-  padding-inline: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  border: 2px solid ${principalColor};
-  color: ${secondaryColor};
-  font-size: 15px;
-  transition: all 0.3s ease-in;
-
-  &:hover {
-    cursor: pointer;
-    background-color: ${principalColor};
-    color: #fff;
-  }
-`;
-
 const Estado = styled.span`
   color: ${(props) =>
     props.estado === "en proceso"
@@ -211,4 +303,33 @@ const Estado = styled.span`
 const CheckIcon = styled(Check)`
   width: 30%;
   color: ${greenColor};
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 94%;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+`;
+
+const Button = styled.button`
+  width: auto;
+  height: auto;
+  padding: 10px;
+  padding-inline: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 2px solid ${principalColor};
+  color: ${secondaryColor};
+  font-size: 15px;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${principalColor};
+    color: #fff;
+  }
 `;
