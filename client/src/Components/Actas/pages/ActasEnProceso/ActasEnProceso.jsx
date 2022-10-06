@@ -35,6 +35,7 @@ function ActasEnProceso() {
     e.preventDefault();
     dispatch(getActasEnProcesoFiltered(state)); //* Mando al backend el pedido con filtros
     setState({
+      //* Limpio los campos
       nroMpf: "",
       nroDil: "",
       nroCij: "",
