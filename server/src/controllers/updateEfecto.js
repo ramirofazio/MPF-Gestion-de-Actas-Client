@@ -168,6 +168,7 @@ updateEfecto.post("/", async (req, res) => {
         );
       }
     );
+    return res.status(200).send("Acta completada con exito!");
   } catch (err) {
     return res.status(404).send("Algo salio mal. Error \n\n -------> ", err);
   }

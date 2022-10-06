@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getActasEnProceso, getActasEnProcesoFiltered } from "../../../../redux/actions";
-//Utils
+//* Styles
+import styled from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { BoxArrowInUpRight } from "@styled-icons/bootstrap/BoxArrowInUpRight";
 import { Search } from "@styled-icons/ionicons-sharp/Search";
-
-//Initializations
+import { toast } from "react-toastify";
+//* Initializations
 const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor } = Variables;
 
 function ActasEnProceso() {
@@ -33,6 +33,10 @@ function ActasEnProceso() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (state.nroMpf === "" && state.nroCij === "" && state.nroDil === "") {
+      toast.error("Ningun filtro aplicado!");
+    } else {
+    }
     dispatch(getActasEnProcesoFiltered(state)); //* Mando al backend el pedido con filtros
     setState({
       //* Limpio los campos

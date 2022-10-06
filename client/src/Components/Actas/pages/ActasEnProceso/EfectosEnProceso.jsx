@@ -9,6 +9,7 @@ import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { Check } from "@styled-icons/boxicons-regular/Check";
 import { Search } from "@styled-icons/ionicons-sharp/Search";
+import { toast } from "react-toastify";
 //* Initializations
 const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor, redColor } =
   Variables;
@@ -31,10 +32,13 @@ function EfectosEnProceso() {
 
   const handleSubmit = () => {
     if (efectosParaCompletar.length === 0) {
-      alert("selecciona un efecto!");
+      toast.warning("selecciona un efecto!", { position: toast.POSITION.BOTTOM_LEFT });
     } else {
       sendEfectosIdsAndActaId({ actaId: id, efectosIds: efectosParaCompletar }); //* despacho datos
-      window.location.replace("/actas/en_proceso"); //* Vuelve a la pagina de actas una vez despachada
+      toast.success("Acta completada con Exito", { position: toast.POSITION.BOTTOM_LEFT });
+      setTimeout(() => {
+        window.location.replace("/actas/en_proceso"); //* Vuelve a la pagina de actas una vez despachada
+      }, 2500);
     }
   };
 

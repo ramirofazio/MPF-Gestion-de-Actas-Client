@@ -1,5 +1,6 @@
 import axios from "axios";
 import Variables from "../Styles/Variables";
+import { toast } from "react-toastify";
 
 export const GET_ACTAS = "GET_ACTAS";
 export const GET_EFECTOS = "GET_EFECTOS";
@@ -80,6 +81,10 @@ export function getActasEnProcesoFiltered(filtros) {
           `/getActas?enProceso=true&mpf=${nroMpf}&cij=${nroCij}&dil=${nroDil}`
       )
       .then((res) => {
+        console.log(res.status);
+        if (res.status === 201) {
+          toast.warning("Acta no encontrada! Verifique el Nro");
+        }
         return dispatch({
           type: GET_ACTAS_EN_PROCESO_FILTERED,
           payload: res.data,
@@ -94,13 +99,10 @@ export function getActasEnProcesoFiltered(filtros) {
 export function sendEfectosIdsAndActaId({ actaId, efectosIds }) {
   axios
     .post(Variables.baseEndpoint + "/updateEfecto", { actaId, efectosIds })
-    .then((res) => {
-      console.log(res.data);
-    })
+
     .catch((err) => {
       console.log(err);
     });
-  return function (dispatch) {};
 }
 
 export async function loadDB() {

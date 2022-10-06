@@ -48,7 +48,7 @@ getActas.get("/", async (req, res, next) => {
       }
       if (actasFiltradas.length === 0) {
         console.log("entre");
-        return res.status(200).send(actasEnProceso);
+        return res.status(201).send(actasEnProceso);
       }
       return res.status(200).send(actasFiltradas);
     } else {

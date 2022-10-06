@@ -1,5 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&family=Roboto:ital,wght@0,500;1,400&display=swap");
 
+.Toastify__toast {
+  border: 2px solid #006473;
+  width: 270px;
+  border-radius: 10px !important;
+  text-align: center;
+}
+.Toastify__toast--default {
+  border: 2px solid #006473;
+}
+.Toastify__toast--info {
+  border: 2px solid #006473 !important;
+}
+.Toastify__toast--success {
+  border: 2px solid #6aa84f !important;
+}
+.Toastify__toast--warning {
+  border: 2px solid #947513 !important;
+}
+.Toastify__toast--error {
+  border: 2px solid #a84f4f !important;
+}
+
 *,
 *::after,
 *::before {
