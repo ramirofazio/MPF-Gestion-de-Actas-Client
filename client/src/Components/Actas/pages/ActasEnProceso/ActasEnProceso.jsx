@@ -106,8 +106,15 @@ function ActasEnProceso() {
       <CardsContainer>
         {actasEnProceso
           ? actasEnProceso.map((acta) => {
+              let cantEfectosCompletos = 0;
               let cantEfectos = 0;
               acta.Bolsas.map((bolsa) => (cantEfectos += bolsa.Efectos.length));
+              acta.Bolsas.map((bolsa) =>
+                bolsa.Efectos.map(
+                  (efecto) => (cantEfectosCompletos += efecto.estado === "completo")
+                )
+              );
+
               return (
                 <ActaContainer to={`/efectos/en_proceso/${acta.id}`} key={acta.id}>
                   <Info>
@@ -166,7 +173,7 @@ function ActasEnProceso() {
                       Efectos
                     </strong>
                     <br />
-                    {cantEfectos}
+                    {`${cantEfectosCompletos}/${cantEfectos}`}
                   </Info>
                   <Icon />
                 </ActaContainer>
