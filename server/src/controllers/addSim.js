@@ -5,6 +5,7 @@ addSim.post("/:id", async (req, res) => {
   try {
     const efecto_id = req.params.id;
     const { nro_serie, nro_linea, tipo_extraccion, empresa } = req.body;
+
     const newSim = await Sim.create({
       efecto_id: efecto_id,
       nro_serie: nro_serie,
@@ -13,15 +14,9 @@ addSim.post("/:id", async (req, res) => {
       empresa: empresa,
     });
 
-    if (newSim !== null) {
-      return res.status(200).send(newSim);
-    } else {
-      return res
-        .status(404)
-        .send("Sim no creado debido a que no existe el Acta con ID: " + efecto_id);
-    }
-  } catch (error) {
-    console.log(error);
+    return res.status(200).json(newSim);
+  } catch (err) {
+    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
   }
 });
 

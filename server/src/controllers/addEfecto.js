@@ -16,6 +16,7 @@ addEfecto.post("/:id", async (req, res) => {
       marca,
       sofware,
     } = req.body;
+
     const newEfecto = await Efecto.create({
       bolsa_id: bolsa_id,
       tipo,
@@ -30,9 +31,9 @@ addEfecto.post("/:id", async (req, res) => {
       sofware,
     });
 
-    return res.status(200).send(newEfecto);
-  } catch (error) {
-    console.log(error);
+    return res.status(200).json(newEfecto);
+  } catch (err) {
+    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
   }
 });
 

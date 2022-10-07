@@ -1,31 +1,33 @@
 const getEfectos = require("express").Router();
-const { Efecto, Sim, Estado, Almacenamiento } = require("../db");
+const { Efecto } = require("../db");
 
 getEfectos.get("/", async (req, res) => {
   //* todos los efectos
   try {
     const efectos = await Efecto.findAll({ include: { all: true } });
-    return res.status(200).send(efectos);
-  } catch (error) {
-    console.log(error);
+    return res.status(200).json(efectos);
+  } catch (err) {
+    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
   }
 });
 
 getEfectos.get("/:id", async (req, res) => {
   // * solo por ID
-  const id = req.params.id;
   try {
+    const id = req.params.id;
+
     const efectos = await Efecto.findAll({
       include: { all: true },
     });
+
     const response = efectos.filter((efecto) => efecto.Bolsa.acta_id === Number(id));
     if (response !== null) {
-      return res.status(200).send(response);
+      return res.status(200).json(response);
     } else {
       return res.status(404).send("Efecto not found or not exist");
     }
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
   }
 });
 

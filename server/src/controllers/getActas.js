@@ -5,34 +5,27 @@ getActas.get("/", async (req, res, next) => {
   //* Todas las actas
   try {
     const { enProceso, mpf, cij, dil } = req.query; //* traigo query param
+
     const actas = await Acta.findAll({ include: { all: true, nested: true } });
     const actasEnProceso = actas.filter((acta) => acta.estado === "en proceso"); //* Filtro las actas en proceso
 
     if (enProceso) {
-      //* devuelve todas las actas en proces, con o sin filtros
+      //* devuelve todas las actas en proceso, con o sin filtros
       let actasFiltradas;
       if (mpf && cij && dil) {
+        //* Empiezan filtros
         const filter = actasEnProceso.filter(
-          (acta) =>
-            acta.nro_mpf === Number(mpf) &&
-            acta.nro_cij === Number(cij) &&
-            acta.nro_dil === Number(dil)
+          (acta) => acta.nro_mpf === Number(mpf) && acta.nro_cij === Number(cij) && acta.nro_dil === Number(dil)
         );
         actasFiltradas = filter;
       } else if (mpf && cij && !dil) {
-        const filter = actasEnProceso.filter(
-          (acta) => acta.nro_mpf === Number(mpf) && acta.nro_cij === Number(cij)
-        );
+        const filter = actasEnProceso.filter((acta) => acta.nro_mpf === Number(mpf) && acta.nro_cij === Number(cij));
         actasFiltradas = filter;
       } else if (mpf && !cij && dil) {
-        const filter = actasEnProceso.filter(
-          (acta) => acta.nro_mpf === Number(mpf) && acta.nro_dil === Number(dil)
-        );
+        const filter = actasEnProceso.filter((acta) => acta.nro_mpf === Number(mpf) && acta.nro_dil === Number(dil));
         actasFiltradas = filter;
       } else if (!mpf && cij && dil) {
-        const filter = actasEnProceso.filter(
-          (acta) => acta.nro_cij === Number(cij) && acta.nro_dil === Number(dil)
-        );
+        const filter = actasEnProceso.filter((acta) => acta.nro_cij === Number(cij) && acta.nro_dil === Number(dil));
         actasFiltradas = filter;
       } else if (mpf && !cij && !dil) {
         const filter = actasEnProceso.filter((acta) => acta.nro_mpf === Number(mpf));
@@ -43,19 +36,19 @@ getActas.get("/", async (req, res, next) => {
       } else if (!mpf && !cij && dil) {
         const filter = actasEnProceso.filter((acta) => acta.nro_dil === Number(dil));
         actasFiltradas = filter;
-      } else {
-        return res.status(200).send(actasEnProceso);
+      } else if (!mpf && !cij && !dil) {
+        return res.status(200).json(actasEnProceso); //* Si no mandan nada devuelvo en proceso
       }
-      if (actasFiltradas.length === 0) {
-        console.log("entre");
-        return res.status(201).send(actasEnProceso);
+      if (actasEnProceso.length === 0) {
+        //* Si no encuentro nada
+        return res.status(201).json(actasEnProceso);
       }
-      return res.status(200).send(actasFiltradas);
+      return res.status(200).json(actasFiltradas); //* sino devuelvo todas
     } else {
-      return res.status(200).send(actas);
+      return res.status(200).json(actas);
     }
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
   }
 });
 

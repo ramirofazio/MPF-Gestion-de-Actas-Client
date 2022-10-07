@@ -130,14 +130,7 @@ updateEfecto.post("/", async (req, res) => {
 
             Almacenamientos.map(
               //* Mapeo los Almacenamientos del Efecto original, y junto los datos para duplicarlos
-              async ({
-                marca,
-                modelo,
-                capacidad,
-                tipo_extraccion,
-                tipo_almacenamiento,
-                nro_serie,
-              }) => {
+              async ({ marca, modelo, capacidad, tipo_extraccion, tipo_almacenamiento, nro_serie }) => {
                 await Almacenamiento.create({
                   //* Creo la copia de los Alm...
                   efecto_id: newEfecto.id,
