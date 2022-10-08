@@ -6,8 +6,14 @@ addAlmacenamiento.post("/:id", async (req, res) => {
     const efecto_id = req.params.id;
     const { marca, modelo, capacidad, tipo_extraccion, tipo_almacenamiento, nro_serie } = req.body;
 
+    if (!marca || !modelo || !capacidad || tipo_extraccion || tipo_almacenamiento || nro_serie) {
+      //* Valido que me manden todos los datos
+      return res.status(400).send("Falta enviar datos necesarios");
+    }
+
     const newAlmacenamiento = await Almacenamiento.create({
-      efecto_id: efecto_id,
+      //* Crea el Almacenamiento
+      efecto_id,
       marca,
       modelo,
       capacidad,

@@ -6,7 +6,13 @@ addIntegrante.post("/:id", async (req, res) => {
     const acta_id = req.params.id;
     const { nombre, cargo_o_profesion, dni, domicilio, matricula } = req.body;
 
+    if (!nombre || !cargo_o_profesion || !dni || !matricula) {
+      //* Valido que me manden los datos necesarios
+      return res.status(400).send("Falta enviar datos necesarios");
+    }
+
     const newIntegrante = await Integrante.create({
+      //* Crea el Integrante
       acta_id: acta_id,
       nombre,
       cargo_o_profesion,

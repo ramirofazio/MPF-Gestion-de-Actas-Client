@@ -6,11 +6,17 @@ addBolsa.post("/:id", async (req, res) => {
     const acta_id = req.params.id;
     const { nro_precinto, color_precinto, notas } = req.body;
 
+    if (!nro_precinto || !color_precinto) {
+      //* Valido que me manden todos datos
+      return res.status(400).send("Falta enviar datos necesarios");
+    }
+
     const newBolsa = await Bolsa.create({
-      acta_id: acta_id,
-      nro_precinto: nro_precinto,
-      color_precinto: color_precinto,
-      notas: notas,
+      //* Crea la Bolsa
+      acta_id,
+      nro_precinto,
+      color_precinto,
+      notas,
     });
 
     return res.status(200).json(newBolsa);

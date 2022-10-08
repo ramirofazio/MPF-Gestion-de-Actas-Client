@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+//* Importamos los Endpoints
 const addActa = require("../controllers/addActa");
 const getActas = require("../controllers/getActas");
 const addEfecto = require("../controllers/addEfecto");
@@ -10,6 +10,7 @@ const addBolsa = require("../controllers/addBolsa");
 const addIntegrante = require("../controllers/addIntegrante");
 const updateEfecto = require("../controllers/updateEfecto");
 
+//* Generamos las rutas
 router.use("/addActa", addActa);
 router.use("/addBolsa", addBolsa);
 router.use("/addIntegrante", addIntegrante);
