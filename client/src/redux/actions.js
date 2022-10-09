@@ -76,10 +76,7 @@ export function getActasEnProcesoFiltered(filtros) {
   return function (dispatch) {
     const { nroMpf, nroCij, nroDil } = filtros;
     axios
-      .get(
-        Variables.baseEndpoint +
-          `/getActas?enProceso=true&mpf=${nroMpf}&cij=${nroCij}&dil=${nroDil}`
-      )
+      .get(Variables.baseEndpoint + `/getActas?enProceso=true&mpf=${nroMpf}&cij=${nroCij}&dil=${nroDil}`)
       .then((res) => {
         console.log(res.status);
         if (res.status === 201) {
@@ -106,79 +103,107 @@ export function sendEfectosIdsAndActaId({ actaId, efectosIds }) {
 }
 
 export async function loadDB() {
-  for (let i = 0; i < 5; i++) {
-    let acta;
-    await axios
-      .post(Variables.baseEndpoint + "/addActa", {
-        nro_cij: Math.floor(Math.random() * 1000000 + 10000),
-        nro_dil: Math.floor(Math.random() * 1000000 + 10000),
-        nro_mpf: Math.floor(Math.random() * 1000000 + 10000),
-      })
-      .then((res) => {
-        acta = res.data;
-      });
-
-    for (let i = 0; i < 2; i++) {
-      let bolsa;
-      await axios
-        .post(Variables.baseEndpoint + `/addBolsa/${acta.id}`, {
-          nro_precinto: Math.floor(Math.random() * 100000 + 10000),
-          color_precinto: "rojo",
-          notas: "Una nota sobre la bolsa",
-        })
-        .then((res) => {
-          bolsa = res.data;
-        });
-
-      for (let i = 0; i < 6; i++) {
-        let efecto;
+  try {
+    for (let i = 0; i < 5; i++) {
+      let acta;
+      try {
         await axios
-          .post(Variables.baseEndpoint + `/addEfecto/${bolsa.id}`, {
-            tipo: "tablet",
-            color: "negro",
-            tipo_extraccion: "fisica",
-            nro_serie: Math.floor(Math.random() * 100000000 + 10000),
-            tipo_desbloqueo: "patron",
-            notas: "pantalla rota",
-            IMEI: Math.floor(Math.random() * 100000000000 + 10000),
-            modelo: "A7",
-            marca: "samsung",
-            sofware: "UFED121",
+          .post(Variables.baseEndpoint + "/addActa", {
+            nro_cij: Math.floor(Math.random() * 1000000 + 10000),
+            nro_dil: Math.floor(Math.random() * 1000000 + 10000),
+            nro_mpf: Math.floor(Math.random() * 1000000 + 10000),
           })
           .then((res) => {
-            efecto = res.data;
+            acta = res.data;
           });
+      } catch (err) {
+        console.log(err);
+      }
 
-        for (let i = 0; i < 2; i++) {
-          await axios.post(Variables.baseEndpoint + `/addAlmacenamiento/${efecto.id}`, {
-            marca: "samsung",
-            modelo: "HD5581S",
-            capacidad: "500 GB",
-            tipo_extraccion: "fisica",
-            tipo_almacenamiento: "ssd",
-            nro_serie: Math.floor(Math.random() * 100000000 + 10000),
-          });
+      for (let i = 0; i < 2; i++) {
+        let bolsa;
+        try {
+          await axios
+            .post(Variables.baseEndpoint + `/addBolsa/${acta.id}`, {
+              nro_precinto: Math.floor(Math.random() * 100000 + 10000),
+              color_precinto: "rojo",
+              notas: "Una nota sobre la bolsa",
+            })
+            .then((res) => {
+              bolsa = res.data;
+            });
+        } catch (err) {
+          console.log(err);
         }
 
-        for (let i = 0; i < 2; i++) {
-          await axios.post(Variables.baseEndpoint + `/addSim/${efecto.id}`, {
-            nro_serie: Math.floor(Math.random() * 100000000 + 10000),
-            nro_linea: Math.floor(Math.random() * 100000000 + 10000),
-            tipo_extraccion: "fisica",
-            empresa: "movistar",
+        for (let i = 0; i < 6; i++) {
+          let efecto;
+          try {
+            await axios
+              .post(Variables.baseEndpoint + `/addEfecto/${bolsa.id}`, {
+                tipo: "tablet",
+                color: "negro",
+                tipo_extraccion: "fisica",
+                nro_serie: Math.floor(Math.random() * 100000000 + 10000),
+                tipo_desbloqueo: "patron",
+                notas: "pantalla rota",
+                IMEI: Math.floor(Math.random() * 100000000000 + 10000),
+                modelo: "A7",
+                marca: "samsung",
+                sofware: "UFED121",
+              })
+              .then((res) => {
+                efecto = res.data;
+              });
+          } catch (err) {
+            console.log(err);
+          }
+
+          for (let i = 0; i < 2; i++) {
+            try {
+              await axios.post(Variables.baseEndpoint + `/addAlmacenamiento/${efecto.id}`, {
+                marca: "samsung",
+                modelo: "HD5581S",
+                capacidad: "500 GB",
+                tipo_extraccion: "fisica",
+                tipo_almacenamiento: "ssd",
+                nro_serie: Math.floor(Math.random() * 100000000 + 10000),
+              });
+            } catch (err) {
+              console.log(err);
+            }
+          }
+
+          for (let i = 0; i < 2; i++) {
+            try {
+              await axios.post(Variables.baseEndpoint + `/addSim/${efecto.id}`, {
+                nro_serie: Math.floor(Math.random() * 100000000 + 10000),
+                nro_linea: Math.floor(Math.random() * 100000000 + 10000),
+                tipo_extraccion: "fisica",
+                empresa: "movistar",
+              });
+            } catch (err) {
+              console.log(err);
+            }
+          }
+        }
+      }
+
+      for (let i = 0; i < 3; i++) {
+        try {
+          await axios.post(Variables.baseEndpoint + `/addIntegrante/${acta.id}`, {
+            nombre: "Ramiro",
+            dni: 42809069,
+            cargo_o_profesion: "programador",
+            matricula: Math.floor(Math.random() * 1000000 + 10000),
+            domicilio: "malabia 2231",
           });
+        } catch (err) {
+          console.log(err);
         }
       }
     }
-
-    for (let i = 0; i < 3; i++) {
-      await axios.post(Variables.baseEndpoint + `/addIntegrante/${acta.id}`, {
-        nombre: "Ramiro",
-        dni: 42809069,
-        cargo_o_profesion: "programador",
-        matricula: Math.floor(Math.random() * 1000000 + 10000),
-        domicilio: "malabia 2231",
-      });
-    }
+  } catch (err) {
+    console.log(err);
   }
 }
