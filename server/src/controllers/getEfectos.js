@@ -12,15 +12,23 @@ getEfectos.get("/", async (req, res) => {
 });
 
 getEfectos.get("/:id", async (req, res) => {
-  //* solo por ID
+  // * solo por ID
+  const id = req.params.id; //* ID del acta
+
   try {
-    const id = req.params.id; //* me traigo el id del efecto
+    const efectos = await Efecto.findAll({
+      include: { all: true },
+    });
 
-    const efecto = await Efecto.findByPk(id); //* Busco el efecto por ID y lo guardo
+    const response = efectos.filter((efecto) => efecto.Bolsa.acta_id === Number(id)); //* Busca los efectos del acta que nos pasan por params
 
-    return res.status(200).json(efecto);
-  } catch (err) {
-    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
+    if (response !== null) {
+      return res.status(200).send(response);
+    } else {
+      return res.status(404).send("Efecto not found or not exist");
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 

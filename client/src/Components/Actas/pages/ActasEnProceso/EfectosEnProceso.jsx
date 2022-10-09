@@ -11,8 +11,7 @@ import { Check } from "@styled-icons/boxicons-regular/Check";
 import { Search } from "@styled-icons/ionicons-sharp/Search";
 import { toast } from "react-toastify";
 //* Initializations
-const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor, redColor } =
-  Variables;
+const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor, redColor } = Variables;
 
 function EfectosEnProceso() {
   const [state, setState] = useState({
@@ -47,8 +46,7 @@ function EfectosEnProceso() {
       <Header>
         <Title>Efectos</Title>
         <Description>
-          En esta sección poder ver todos los Efectos del Acta. <br /> Selecciona los que quieras
-          completar.
+          En esta sección poder ver todos los Efectos del Acta. <br /> Selecciona los que quieras completar.
         </Description>
       </Header>
       <FilterContainer>
@@ -103,37 +101,27 @@ function EfectosEnProceso() {
           ? efectosFromActa.map((efecto) => (
               <EfectoContainer key={efecto.id} estado={efecto.estado}>
                 <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    Nro Precinto
-                  </strong>
+                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>Nro Precinto</strong>
                   <br />
                   {efecto.Bolsa.nro_precinto}
                 </Info>
                 <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    Tipo
-                  </strong>
+                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>Tipo</strong>
                   <br />
                   {efecto.tipo}
                 </Info>
                 <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    Marca
-                  </strong>
+                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>Marca</strong>
                   <br />
                   {efecto.marca}
                 </Info>
                 <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    Modelo
-                  </strong>
+                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>Modelo</strong>
                   <br />
                   {efecto.modelo}
                 </Info>
                 <Info>
-                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>
-                    Estado
-                  </strong>
+                  <strong style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}>Estado</strong>
                   <br />
                   <Estado estado={efecto.estado}>{efecto.estado}</Estado>
                 </Info>
@@ -141,10 +129,7 @@ function EfectosEnProceso() {
                   {efecto.estado === "completo" ? (
                     <CheckIcon />
                   ) : (
-                    <CheckBox
-                      type="checkbox"
-                      onClick={() => efectosParaCompletar.push(efecto.id)}
-                    />
+                    <CheckBox type="checkbox" onClick={() => efectosParaCompletar.push(efecto.id)} />
                   )}
                 </CheckBoxContainer>
               </EfectoContainer>
@@ -297,11 +282,7 @@ const CheckBox = styled.input`
 
 const Estado = styled.span`
   color: ${(props) =>
-    props.estado === "en proceso"
-      ? yellowColor
-      : props.estado === "completo"
-      ? greenColor
-      : redColor};
+    props.estado === "en proceso" ? yellowColor : props.estado === "completo" ? greenColor : redColor};
 `;
 
 const CheckIcon = styled(Check)`
