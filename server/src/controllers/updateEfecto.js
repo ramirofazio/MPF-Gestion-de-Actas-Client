@@ -55,6 +55,7 @@ updateEfecto.post("/", async (req, res) => {
       //* Si el acta ya se comlpleto cuando se modifico, no vuelve a crear otra.
       return res.status(200).send("Acta completa");
     }
+
     //! Logica para crear una copia
     const { nro_mpf, nro_cij, nro_dil, nro_coop, estado } = acta; //* Destructuro el acta
 
@@ -161,9 +162,9 @@ updateEfecto.post("/", async (req, res) => {
         );
       }
     );
-    return res.status(200).send("Acta completada con exito!");
+    return res.status(200).send("Efecto/s completados con exito!");
   } catch (err) {
-    return res.status(404).send("Algo salio mal. Error \n\n -------> ", err);
+    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
   }
 });
 
