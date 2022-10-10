@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-//Components
+//* Components
 import Fallback from "./Components/Fallback";
 import NavBar from "./Components/Navbar";
 const Actas = lazy(() => import("./Components/Actas/Actas"));

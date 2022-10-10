@@ -1,43 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getActasEnProceso, getActasEnProcesoFiltered } from "../../../../redux/actions";
 //* Styles
 import styled from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
-import { BoxArrowInUpRight } from "@styled-icons/bootstrap/BoxArrowInUpRight";
 import { Search } from "@styled-icons/ionicons-sharp/Search";
 import { toast } from "react-toastify";
+//*
+import ActasCards from "../../../Utils/ActasCards";
 //* Initializations
-const { principalColor, secondaryColor, baseTransparentColor, yellowColor, greenColor } = Variables;
+const { principalColor, secondaryColor } = Variables;
 
 function ActasEnProceso() {
+  const actas = useSelector((state) => state.actasEnProceso);
+
   const [state, setState] = useState({
     nroMpf: "",
     nroDil: "",
     nroCij: "",
     //date: "",
   });
-  const actasEnProceso = useSelector((state) => state.actasEnProceso);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getActasEnProceso());
   }, []);
 
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "short", day: "numeric" };
-    return new Date(dateString).toLocaleDateString("es", options);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (state.nroMpf === "" && state.nroCij === "" && state.nroDil === "") {
       toast.error("Ningun filtro aplicado!");
     } else {
+      dispatch(getActasEnProcesoFiltered(state)); //* Mando al backend el pedido con filtros
     }
-    dispatch(getActasEnProcesoFiltered(state)); //* Mando al backend el pedido con filtros
     setState({
       //* Limpio los campos
       nroMpf: "",
@@ -52,8 +48,7 @@ function ActasEnProceso() {
       <Header>
         <Title>Actas en Proceso</Title>
         <Description>
-          En esta sección poder ver todos las Actas en proceso. <br /> Selecciona la que quieras
-          para ver sus Efectos.
+          En esta sección poder ver todos las Actas en proceso. <br /> Selecciona la que quieras para ver sus Efectos.
         </Description>
       </Header>
       <FilterContainer>
@@ -103,84 +98,7 @@ function ActasEnProceso() {
           </InputContainer>
         </Form>
       </FilterContainer>
-      <CardsContainer>
-        {actasEnProceso
-          ? actasEnProceso.map((acta) => {
-              let cantEfectosCompletos = 0;
-              let cantEfectos = 0;
-              acta.Bolsas.map((bolsa) => (cantEfectos += bolsa.Efectos.length));
-              acta.Bolsas.map((bolsa) =>
-                bolsa.Efectos.map(
-                  (efecto) => (cantEfectosCompletos += efecto.estado === "completo")
-                )
-              );
-
-              return (
-                <ActaContainer to={`/efectos/en_proceso/${acta.id}`} key={acta.id}>
-                  <Info>
-                    <strong
-                      style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
-                    >
-                      Fecha
-                    </strong>
-                    <br />
-                    {formatDate(acta.created_at)}
-                  </Info>
-                  {!acta.nro_coop && (
-                    <Info>
-                      <strong
-                        style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
-                      >
-                        MPF
-                      </strong>
-                      <br />
-                      {acta.nro_mpf}
-                    </Info>
-                  )}
-                  {!acta.nro_mpf && (
-                    <Info>
-                      <strong
-                        style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
-                      >
-                        COOP
-                      </strong>
-                      <br />
-                      {acta.nro_coop}
-                    </Info>
-                  )}
-                  <Info>
-                    <strong
-                      style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
-                    >
-                      CIJ
-                    </strong>
-                    <br />
-                    {acta.nro_cij}
-                  </Info>
-                  <Info>
-                    <strong
-                      style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
-                    >
-                      DIL
-                    </strong>
-                    <br />
-                    {acta.nro_dil}
-                  </Info>
-                  <Info>
-                    <strong
-                      style={{ color: "black", fontWeight: 500, textDecoration: "underline" }}
-                    >
-                      Efectos
-                    </strong>
-                    <br />
-                    {`${cantEfectosCompletos}/${cantEfectos}`}
-                  </Info>
-                  <Icon />
-                </ActaContainer>
-              );
-            })
-          : null}
-      </CardsContainer>
+      <ActasCards actas={actas} />
     </Container>
   );
 }
@@ -267,53 +185,3 @@ const SearchIcon = styled(Search)`
   color: ${secondaryColor};
 `;
 
-const CardsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 95%;
-  max-height: 70%;
-  min-height: 70%;
-  border-top: 1px solid ${secondaryColor};
-  overflow-y: scroll;
-  padding-block: 10px;
-  margin-bottom: 20px;
-`;
-
-const ActaContainer = styled(NavLink)`
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 95%;
-  min-height: 12%;
-  margin-top: 5px;
-  border: 2px solid ${principalColor};
-  border-radius: 5px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    min-height: 14%;
-    background-color: ${baseTransparentColor};
-  }
-`;
-
-const Info = styled.span`
-  flex: 1;
-  color: ${secondaryColor};
-  text-align: center;
-  text-transform: capitalize;
-  font-size: 15px;
-`;
-
-const Icon = styled(BoxArrowInUpRight)`
-  width: 20px;
-  margin-right: 40px;
-  color: ${secondaryColor};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;

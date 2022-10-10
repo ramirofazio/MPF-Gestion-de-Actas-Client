@@ -19,7 +19,7 @@ expressions.filters.lower = function (input) {
   return input.toLowerCase();
 };
 function angularParser(tag) {
-  tag = tag.replace(/^\.$/, "this").replace(/(’|‘)/g, "'").replace(/(“|”)/g, '"');
+  tag = tag.replace(/^\.$/, "this").replace(/(’|‘)/g, "'").replace(/(“|”)/g, "\"");
   const expr = expressions.compile(tag);
   return {
     get: function (scope, context) {

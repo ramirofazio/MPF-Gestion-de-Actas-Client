@@ -1,8 +1,7 @@
 import { css } from "styled-components";
-import Variables from "./Variables";
 
 const GlobalStyles = {
-	container: css`
+  container: css`
     display: flex;
     justify-content: center;
     align-items: center;
