@@ -8,7 +8,7 @@ import { FileEarmarkPlusFill } from "@styled-icons/bootstrap/FileEarmarkPlusFill
 import { Spinner } from "@styled-icons/icomoon/Spinner";
 import { Warning } from "@styled-icons/entypo/Warning";
 
-import { generateDocument } from "./generateDoc";
+//import { generateDocument } from "./generateDoc";
 
 const { principalColor, secondaryColor, baseTransparentColor, redColor } = Variables;
 
@@ -17,9 +17,7 @@ function Actas() {
     <Container>
       <Header>
         <Title>Actas</Title>
-        <Description>
-          En esta sección vas a poder crear Actas y actualizar los estados de cada Efecto.
-        </Description>
+        <Description>En esta sección vas a poder crear Actas y actualizar los estados de cada Efecto.</Description>
       </Header>
       <CardsContainer>
         <Card to="/actas/crear">
