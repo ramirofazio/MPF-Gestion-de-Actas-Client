@@ -6,6 +6,7 @@ export const GET_ACTAS = "GET_ACTAS";
 export const GET_EFECTOS = "GET_EFECTOS";
 export const GET_ACTAS_EN_PROCESO = "GET_ACTAS_EN_PROCESO";
 export const GET_ACTAS_EN_PROCESO_FILTERED = "GET_ACTAS_EN_PROCESO_FILTERED";
+export const GET_EFECTOS_EN_PROCESO_FILTERED = "GET_EFECTOS_EN_PROCESO_FILTERED";
 export const GET_EFECTOS_FROM_ACTA = "GET_EFECTOS_FROM_ACTA";
 
 export function getAllActas() {
@@ -83,6 +84,27 @@ export function getActasEnProcesoFiltered(filtros) {
         }
         return dispatch({
           type: GET_ACTAS_EN_PROCESO_FILTERED,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function getEfectosEnProcesoFiltered(filtros) {
+  return function (dispatch) {
+    const { nroPrecinto, marca, actaId } = filtros;
+    console.log(nroPrecinto, marca);
+    axios
+      .get(Variables.baseEndpoint + `/getEfectos?actaId=${actaId}&precinto=${nroPrecinto}&marca=${marca}`)
+      .then((res) => {
+        if (res.status === 201) {
+          toast.warning("Efecto no encontrado! Verifique los Filtros");
+        }
+        return dispatch({
+          type: GET_EFECTOS_EN_PROCESO_FILTERED,
           payload: res.data,
         });
       })

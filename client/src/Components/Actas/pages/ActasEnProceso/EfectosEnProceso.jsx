@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 //* Utils
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getEfectosFromActa } from "../../../../redux/actions";
+import { getEfectosEnProcesoFiltered, getEfectosFromActa } from "../../../../redux/actions";
 //* Styles
 import styled from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { Search } from "@styled-icons/ionicons-sharp/Search";
+import { toast } from "react-toastify";
 //* Components
 import EfectosCards from "../../../Utils/EfectosCards";
 //* Initializations
@@ -25,21 +26,32 @@ const {
 } = GlobalStyles;
 
 function EfectosEnProceso() {
+  const { id } = useParams();
   const [state, setState] = useState({
-    nroMpf: "",
-    nroDil: "",
-    nroCij: "",
-    //date: "",
+    nroPrecinto: "",
+    marca: "",
+    actaId: id,
   });
   const dispatch = useDispatch();
   const efectos = useSelector((state) => state.efectosFromActa);
-  const { id } = useParams();
 
   useEffect(() => {
     dispatch(getEfectosFromActa(id));
   }, []);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (state.nroPrecinto === "" && state.marca === "") {
+      toast.error("Ningun filtro aplicado!");
+    } else {
+      dispatch(getEfectosEnProcesoFiltered(state)); //* Mando al backend el pedido con filtros
+    }
+    setState({
+      //* Limpio los campos
+      nroPrecinto: "",
+      marca: "",
+    });
+  };
 
   return (
     <Container>
@@ -52,39 +64,23 @@ function EfectosEnProceso() {
       <FilterContainer>
         <Form onSubmit={handleSubmit}>
           <InputContainer>
-            <Label>Nro MPF</Label>
+            <Label>Nro Precinto</Label>
             <Input
               type="text"
-              value={state.nroMpf}
-              onChange={(e) => setState({ ...state, nroMpf: e.target.value })}
+              value={state.nroPrecinto}
+              onChange={(e) => setState({ ...state, nroPrecinto: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
           <InputContainer>
-            <Label>Nro CIJ</Label>
+            <Label>Marca</Label>
             <Input
               type="text"
-              value={state.nroCij}
-              onChange={(e) => setState({ ...state, nroCij: e.target.value })}
-              maxLength={12}
+              value={state.marca}
+              onChange={(e) => setState({ ...state, marca: e.target.value })}
+              maxLength={15}
             />
           </InputContainer>
-          <InputContainer>
-            <Label>Nro DIL</Label>
-            <Input
-              type="text"
-              value={state.nroDil}
-              onChange={(e) => setState({ ...state, nroDil: e.target.value })}
-              maxLength={12}
-            />
-          </InputContainer>
-          {/* <InputContainer>
-            <InputDate
-              type="date"
-              value={state.date}
-              onChange={(e) => setState({ ...state, date: e.target.value })}
-            />
-          </InputContainer> */}
           <InputContainer
             style={{
               justifyContent: "flex-end",
