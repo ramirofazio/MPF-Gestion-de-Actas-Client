@@ -78,7 +78,6 @@ export function getActasEnProcesoFiltered(filtros) {
     axios
       .get(Variables.baseEndpoint + `/getActas?enProceso=true&mpf=${nroMpf}&cij=${nroCij}&dil=${nroDil}`)
       .then((res) => {
-        console.log(res.status);
         if (res.status === 201) {
           toast.warning("Acta no encontrada! Verifique el Nro");
         }

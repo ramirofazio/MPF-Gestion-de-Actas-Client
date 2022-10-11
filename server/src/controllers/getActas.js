@@ -48,7 +48,7 @@ getActas.get("/", async (req, res) => {
         return res.status(200).json(actasEnProceso);
       }
 
-      if (actasEnProceso.length === 0) {
+      if (actasFiltradas.length === 0) {
         //* Si los filtros no encuentran nada devuelve todas en proceso
         return res.status(201).json(actasEnProceso);
       }

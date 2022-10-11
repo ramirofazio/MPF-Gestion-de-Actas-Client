@@ -12,6 +12,7 @@ const GlobalStyles = {
     height: 100vh;
     padding-left: 20%;
   `,
+
   enProcesoContainer: css`
     display: flex;
     justify-content: center;
@@ -22,6 +23,7 @@ const GlobalStyles = {
     flex-direction: column;
     justify-content: space-between;
   `,
+
   header: css`
     padding-top: 20px;
     display: flex;
@@ -31,21 +33,25 @@ const GlobalStyles = {
     width: 100%;
     flex: 0.2;
   `,
+
   headerTitle: css`
     color: ${principalColor};
     font-size: 50px;
     text-decoration: underline;
     text-decoration-thickness: 2px;
   `,
+
   headerDescription: css`
     color: ${secondaryColor};
     text-align: center;
     font-size: 16px;
   `,
+
   filtersContainer: css`
     width: 95%;
     margin-bottom: -30px;
   `,
+
   filtersInputContainer: css`
     display: flex;
     width: 10%;
@@ -54,11 +60,13 @@ const GlobalStyles = {
     justify-content: center;
     margin-right: 10px;
   `,
+
   label: css`
     font-size: 13px;
     margin-bottom: 2px;
     color: ${secondaryColor};
   `,
+
   filtersInput: css`
     width: 100%;
     height: 100%;
@@ -70,6 +78,7 @@ const GlobalStyles = {
       outline: none;
     }
   `,
+
   submitBtn: css`
     position: absolute;
     width: 2%;
@@ -79,6 +88,7 @@ const GlobalStyles = {
       cursor: pointer;
     }
   `,
+
   //* Cards
   cardsContainer: css`
     display: flex;
@@ -91,6 +101,7 @@ const GlobalStyles = {
     overflow-y: scroll;
     padding-block: 10px;
   `,
+
   cardContainer: css`
     text-decoration: none;
     display: flex;
@@ -108,6 +119,7 @@ const GlobalStyles = {
       background-color: ${baseTransparentColor};
     }
   `,
+
   cardInfo: css`
     flex: 1;
     color: ${secondaryColor};
@@ -115,11 +127,13 @@ const GlobalStyles = {
     text-transform: capitalize;
     font-size: 15px;
   `,
+
   cardTitle: css`
     color: #000;
     font-weight: 500;
     text-decoration: underline;
   `,
+
   button: css`
     padding: 10px;
     padding-inline: 20px;
@@ -135,6 +149,7 @@ const GlobalStyles = {
       color: #fff;
     }
   `,
+
   homeCard: css`
     text-decoration: none;
     display: flex;
