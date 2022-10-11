@@ -19,7 +19,7 @@ function EfectosCards({ efectos, actaId }) {
       toast.warning("selecciona un efecto!");
     } else {
       sendEfectosIdsAndActaId({ actaId: actaId, efectosIds: efectosParaCompletar }); //* despacho datos
-      toast.success("Acta completada con Exito");
+      toast.success("Efectos completados con Exito", { hideProgressBar: false });
       setTimeout(() => {
         window.location.replace("/actas/en_proceso"); //* Vuelve a la pagina de actas una vez despachada
       }, 2500);
