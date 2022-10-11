@@ -11,7 +11,18 @@ import { Search } from "@styled-icons/ionicons-sharp/Search";
 //* Components
 import EfectosCards from "../../../Utils/EfectosCards";
 //* Initializations
-const { principalColor, secondaryColor } = Variables;
+const { secondaryColor } = Variables;
+const {
+  enProcesoContainer,
+  header,
+  headerTitle,
+  headerDescription,
+  filtersContainer,
+  filtersInputContainer,
+  label,
+  filtersInput,
+  submitBtn,
+} = GlobalStyles;
 
 function EfectosEnProceso() {
   const [state, setState] = useState({
@@ -93,37 +104,23 @@ function EfectosEnProceso() {
 export default EfectosEnProceso;
 
 const Container = styled.div`
-  ${GlobalStyles.container}
-  flex-direction: column;
-  justify-content: space-between;
+  ${enProcesoContainer}
 `;
 
 const Header = styled.header`
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  flex: 0.2;
+  ${header}
 `;
 
 const Title = styled.h1`
-  color: ${principalColor};
-  font-size: 50px;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
+  ${headerTitle}
 `;
 
 const Description = styled.p`
-  color: ${secondaryColor};
-  text-align: center;
-  font-size: 16px;
+  ${headerDescription}
 `;
 
 const FilterContainer = styled.div`
-  width: 95%;
-  margin-bottom: -30px;
+  ${filtersContainer}
 `;
 
 const Form = styled.form`
@@ -131,40 +128,19 @@ const Form = styled.form`
 `;
 
 const InputContainer = styled.div`
-  display: flex;
-  width: 10%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
+  ${filtersInputContainer}
 `;
 
 const Label = styled.label`
-  font-size: 13px;
-  margin-bottom: 2px;
-  color: ${secondaryColor};
+  ${label}
 `;
 
 const Input = styled.input`
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  border: 1px solid ${principalColor};
-  border-radius: 5px;
-
-  &:focus {
-    outline: none;
-  }
+  ${filtersInput}
 `;
 
 const Submit = styled.input`
-  position: absolute;
-  width: 2%;
-  opacity: 0;
-
-  &:hover {
-    cursor: pointer;
-  }
+  ${submitBtn}
 `;
 
 const SearchIcon = styled(Search)`

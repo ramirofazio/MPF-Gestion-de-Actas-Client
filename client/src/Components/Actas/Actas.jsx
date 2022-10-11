@@ -1,16 +1,16 @@
 import React from "react";
-import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
-//* Utils
+//* Styles
+import styled, { css } from "styled-components";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import Variables from "../../Styles/Variables";
 import { FileEarmarkPlusFill } from "@styled-icons/bootstrap/FileEarmarkPlusFill";
 import { Spinner } from "@styled-icons/icomoon/Spinner";
 import { Warning } from "@styled-icons/entypo/Warning";
-
+//* Initialization
+const { principalColor, secondaryColor, redColor } = Variables;
+const { header, headerTitle, headerDescription, homeCard } = GlobalStyles;
 //import { generateDocument } from "./generateDoc";
-
-const { principalColor, secondaryColor, baseTransparentColor, redColor } = Variables;
 
 function Actas() {
   return (
@@ -45,26 +45,15 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  flex: 0.2;
+  ${header}
 `;
 
 const Title = styled.span`
-  color: ${principalColor};
-  font-size: 50px;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
+  ${headerTitle}
 `;
 
 const Description = styled.span`
-  color: ${secondaryColor};
-  text-align: center;
-  font-size: 16px;
+  ${headerDescription}
 `;
 
 const CardsContainer = styled.div`
@@ -78,26 +67,7 @@ const CardsContainer = styled.div`
 `;
 
 const Card = styled(NavLink)`
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 60%;
-  flex: 1;
-  padding-left: 20px;
-  min-height: 10%;
-  max-height: 15%;
-  margin-top: 5px;
-  border: 2px solid ${principalColor};
-  border-radius: 5px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    max-height: 16%;
-    width: 65%;
-    background-color: ${baseTransparentColor};
-  }
-
+  ${homeCard}
   ${(props) =>
     props.warning &&
     css`
