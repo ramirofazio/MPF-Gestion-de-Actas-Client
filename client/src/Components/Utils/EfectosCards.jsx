@@ -16,10 +16,10 @@ function EfectosCards({ efectos, actaId }) {
 
   const handleSubmit = () => {
     if (efectosParaCompletar.length === 0) {
-      toast.warning("selecciona un efecto!", { position: toast.POSITION.BOTTOM_LEFT });
+      toast.warning("selecciona un efecto!");
     } else {
       sendEfectosIdsAndActaId({ actaId: actaId, efectosIds: efectosParaCompletar }); //* despacho datos
-      toast.success("Acta completada con Exito", { position: toast.POSITION.BOTTOM_LEFT });
+      toast.success("Acta completada con Exito");
       setTimeout(() => {
         window.location.replace("/actas/en_proceso"); //* Vuelve a la pagina de actas una vez despachada
       }, 2500);
