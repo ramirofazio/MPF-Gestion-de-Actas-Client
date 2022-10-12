@@ -11,6 +11,7 @@ import {
 let initialState = {
   allActas: [],
   actasEnProceso: [],
+  actasEnProcesoSave: [],
   allEfectos: [],
   efectosEnProceso: [],
   efectosFromActa: [],
@@ -36,12 +37,60 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         actasEnProceso: action.payload,
+        actasEnProcesoSave: action.payload,
       };
-    case GET_ACTAS_EN_PROCESO_FILTERED:
+    case GET_ACTAS_EN_PROCESO_FILTERED: {
+      const { mpf, cij, dil } = action.payload;
+
+      let actasFiltradas;
+      if (!mpf && !cij && !dil) {
+        //* Si no mandan nada devuelvo todas actas en proceso
+        actasFiltradas = state.actasEnProcesoSave;
+      } else if (mpf && cij && dil) {
+        //* Si tiene todos
+        actasFiltradas = state.actasEnProceso.filter(
+          (acta) =>
+            String(acta.nro_mpf).match(Number(mpf)) &&
+            String(acta.nro_cij).match(Number(cij)) &&
+            String(acta.nro_dil).match(Number(dil))
+        );
+      } else if (mpf && cij && !dil) {
+        //* Si tiene mpf y cij
+        actasFiltradas = state.actasEnProceso.filter(
+          (acta) => String(acta.nro_mpf).match(Number(mpf)) && String(acta.nro_cij).match(Number(cij))
+        );
+      } else if (mpf && !cij && dil) {
+        //*si tiene mpf y dil
+        actasFiltradas = state.actasEnProceso.filter(
+          (acta) => String(acta.nro_mpf).match(Number(mpf)) && String(acta.nro_dil).match(Number(dil))
+        );
+      } else if (!mpf && cij && dil) {
+        //* si tiene cij y dil
+        actasFiltradas = state.actasEnProceso.filter(
+          (acta) => String(acta.nro_cij).match(Number(cij)) && String(acta.nro_dil).match(Number(dil))
+        );
+      } else if (mpf && !cij && !dil) {
+        //* si tiene solo mpf
+        actasFiltradas = state.actasEnProceso.filter((acta) => String(acta.nro_mpf).match(mpf));
+      } else if (!mpf && cij && !dil) {
+        //* si tiene solo cij
+        actasFiltradas = state.actasEnProceso.filter((acta) => String(acta.nro_cij).match(Number(cij)));
+      } else if (!mpf && !cij && dil) {
+        //*si tiene solo dil
+        actasFiltradas = state.actasEnProceso.filter((acta) => String(acta.nro_dil).match(Number(dil)));
+      }
+
+      if (mpf || cij || dil) {
+        if (actasFiltradas.length === 0) {
+          toast.warning("Acta no encontrada");
+        }
+      }
+
       return {
         ...state,
-        actasEnProceso: action.payload,
+        actasEnProceso: actasFiltradas,
       };
+    }
     case GET_EFECTOS_FROM_ACTA:
       return {
         ...state,
@@ -117,6 +166,7 @@ function reducer(state = initialState, action) {
       if (efectosFiltrados?.length === 0) {
         toast.warning("Efecto no encontrado");
       }
+
       return {
         ...state,
         efectosFromActa: efectosFiltrados,

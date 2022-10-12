@@ -1,6 +1,5 @@
 import axios from "axios";
 import Variables from "../Styles/Variables";
-import { toast } from "react-toastify";
 
 export const GET_ACTAS = "GET_ACTAS";
 export const GET_EFECTOS = "GET_EFECTOS";
@@ -75,21 +74,10 @@ export function getActasEnProceso() {
 
 export function getActasEnProcesoFiltered(filtros) {
   return function (dispatch) {
-    const { nroMpf, nroCij, nroDil } = filtros;
-    axios
-      .get(Variables.baseEndpoint + `/getActas?enProceso=true&mpf=${nroMpf}&cij=${nroCij}&dil=${nroDil}`)
-      .then((res) => {
-        if (res.status === 201) {
-          toast.warning("Acta no encontrada! Verifique el Nro");
-        }
-        return dispatch({
-          type: GET_ACTAS_EN_PROCESO_FILTERED,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return dispatch({
+      type: GET_ACTAS_EN_PROCESO_FILTERED,
+      payload: filtros,
+    });
   };
 }
 

@@ -3,33 +3,7 @@ const { Efecto } = require("../db");
 
 getEfectos.get("/", async (req, res) => {
   try {
-    const { actaId, marca, precinto } = req.query;
     const efectos = await Efecto.findAll({ include: { all: true } }); //* Guardo todos los efectos
-
-    let efectosFiltrados;
-    if (marca && precinto) {
-      //* Si existen ambos filtros
-      efectosFiltrados = efectos.filter(
-        (efecto) =>
-          efecto.marca === marca &&
-          efecto.Bolsa.nro_precinto === Number(precinto) &&
-          efecto.Bolsa.acta_id === Number(actaId)
-      );
-    } else if (!marca && precinto) {
-      efectosFiltrados = efectos.filter(
-        (efecto) => efecto.Bolsa.nro_precinto === Number(precinto) && efecto.Bolsa.acta_id === Number(actaId)
-      );
-    } else if (marca && !precinto) {
-      efectosFiltrados = efectos.filter((efecto) => efecto.marca === marca && efecto.Bolsa.acta_id === Number(actaId));
-    }
-
-    if (efectosFiltrados.length === 0) {
-      const response = efectos.filter((efecto) => efecto.Bolsa.acta_id === Number(actaId));
-      return res.status(201).json(response);
-    }
-    if (efectosFiltrados.length > 0) {
-      return res.status(200).json(efectosFiltrados);
-    }
 
     return res.status(200).json(efectos);
   } catch (err) {

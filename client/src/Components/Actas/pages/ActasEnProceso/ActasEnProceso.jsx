@@ -5,7 +5,7 @@ import { getActasEnProceso, getActasEnProcesoFiltered } from "../../../../redux/
 import styled from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
-import { Search } from "@styled-icons/ionicons-sharp/Search";
+import { SettingsBackupRestore } from "@styled-icons/material-rounded/SettingsBackupRestore";
 import { toast } from "react-toastify";
 //* Utils
 import ActasCards from "../../../Utils/ActasCards";
@@ -24,13 +24,12 @@ const {
 } = GlobalStyles;
 
 function ActasEnProceso() {
-  const actas = useSelector((state) => state.actasEnProceso);
+  const actas = useSelector((state) => state?.actasEnProceso);
 
   const [state, setState] = useState({
-    nroMpf: "",
-    nroDil: "",
-    nroCij: "",
-    //date: "",
+    mpf: "",
+    dil: "",
+    cij: "",
   });
   const dispatch = useDispatch();
 
@@ -38,20 +37,19 @@ function ActasEnProceso() {
     dispatch(getActasEnProceso());
   }, []);
 
+  useEffect(() => {
+    dispatch(getActasEnProcesoFiltered(state));
+  }, [state]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (state.nroMpf === "" && state.nroCij === "" && state.nroDil === "") {
-      toast.error("Ningun filtro aplicado!");
-    } else {
-      dispatch(getActasEnProcesoFiltered(state)); //* Mando al backend el pedido con filtros
-    }
     setState({
       //* Limpio los campos
-      nroMpf: "",
-      nroDil: "",
-      nroCij: "",
-      //date: "",
+      mpf: "",
+      dil: "",
+      cij: "",
     });
+    toast.success("Actas actualizados");
   };
 
   return (
@@ -68,8 +66,8 @@ function ActasEnProceso() {
             <Label>Nro MPF</Label>
             <Input
               type="text"
-              value={state.nroMpf}
-              onChange={(e) => setState({ ...state, nroMpf: e.target.value })}
+              value={state.mpf}
+              onChange={(e) => setState({ ...state, mpf: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
@@ -77,8 +75,8 @@ function ActasEnProceso() {
             <Label>Nro CIJ</Label>
             <Input
               type="text"
-              value={state.nroCij}
-              onChange={(e) => setState({ ...state, nroCij: e.target.value })}
+              value={state.cij}
+              onChange={(e) => setState({ ...state, cij: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
@@ -86,18 +84,11 @@ function ActasEnProceso() {
             <Label>Nro DIL</Label>
             <Input
               type="text"
-              value={state.nroDil}
-              onChange={(e) => setState({ ...state, nroDil: e.target.value })}
+              value={state.dil}
+              onChange={(e) => setState({ ...state, dil: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
-          {/* <InputContainer>
-            <InputDate
-              type="date"
-              value={state.date}
-              onChange={(e) => setState({ ...state, date: e.target.value })}
-            />
-          </InputContainer> */}
           <InputContainer
             style={{
               justifyContent: "flex-end",
@@ -105,7 +96,7 @@ function ActasEnProceso() {
             }}
           >
             <Submit type="submit" />
-            <SearchIcon />
+            <RestoreIcon />
           </InputContainer>
         </Form>
       </FilterContainer>
@@ -156,7 +147,7 @@ const Submit = styled.input`
   ${submitBtn}
 `;
 
-const SearchIcon = styled(Search)`
+const RestoreIcon = styled(SettingsBackupRestore)`
   width: 20%;
   color: ${secondaryColor};
 `;
