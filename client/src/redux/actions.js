@@ -95,22 +95,10 @@ export function getActasEnProcesoFiltered(filtros) {
 
 export function getEfectosEnProcesoFiltered(filtros) {
   return function (dispatch) {
-    const { nroPrecinto, marca, actaId } = filtros;
-    console.log(nroPrecinto, marca);
-    axios
-      .get(Variables.baseEndpoint + `/getEfectos?actaId=${actaId}&precinto=${nroPrecinto}&marca=${marca}`)
-      .then((res) => {
-        if (res.status === 201) {
-          toast.warning("Efecto no encontrado! Verifique los Filtros");
-        }
-        return dispatch({
-          type: GET_EFECTOS_EN_PROCESO_FILTERED,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return dispatch({
+      type: GET_EFECTOS_EN_PROCESO_FILTERED,
+      payload: filtros,
+    });
   };
 }
 

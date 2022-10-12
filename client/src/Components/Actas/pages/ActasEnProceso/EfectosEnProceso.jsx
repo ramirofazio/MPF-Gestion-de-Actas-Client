@@ -7,10 +7,10 @@ import { getEfectosEnProcesoFiltered, getEfectosFromActa } from "../../../../red
 import styled from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
-import { Search } from "@styled-icons/ionicons-sharp/Search";
-import { toast } from "react-toastify";
+import { SettingsBackupRestore } from "@styled-icons/material-rounded/SettingsBackupRestore";
 //* Components
 import EfectosCards from "../../../Utils/EfectosCards";
+import { toast } from "react-toastify";
 //* Initializations
 const { secondaryColor } = Variables;
 const {
@@ -30,7 +30,7 @@ function EfectosEnProceso() {
   const [state, setState] = useState({
     nroPrecinto: "",
     marca: "",
-    actaId: id,
+    estado: "",
   });
   const dispatch = useDispatch();
   const efectos = useSelector((state) => state.efectosFromActa);
@@ -39,18 +39,18 @@ function EfectosEnProceso() {
     dispatch(getEfectosFromActa(id));
   }, []);
 
+  useEffect(() => {
+    dispatch(getEfectosEnProcesoFiltered(state));
+  }, [state]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (state.nroPrecinto === "" && state.marca === "") {
-      toast.error("Ningun filtro aplicado!");
-    } else {
-      dispatch(getEfectosEnProcesoFiltered(state)); //* Mando al backend el pedido con filtros
-    }
     setState({
       //* Limpio los campos
       nroPrecinto: "",
       marca: "",
     });
+    toast.success("Efectos actualizados");
   };
 
   return (
@@ -81,6 +81,13 @@ function EfectosEnProceso() {
               maxLength={15}
             />
           </InputContainer>
+          <InputContainer>
+            <Label>Estado</Label>
+            <Select value={state.estado} onChange={(e) => setState({ ...state, estado: e.target.value })}>
+              <Option value="en proceso">En Proceso</Option>
+              <Option value="completo">Completos</Option>
+            </Select>
+          </InputContainer>
           <InputContainer
             style={{
               justifyContent: "flex-end",
@@ -88,7 +95,7 @@ function EfectosEnProceso() {
             }}
           >
             <Submit type="submit" />
-            <SearchIcon />
+            <RestoreIcon />
           </InputContainer>
         </Form>
       </FilterContainer>
@@ -135,11 +142,17 @@ const Input = styled.input`
   ${filtersInput}
 `;
 
+const Select = styled.select`
+  ${filtersInput}
+`;
+
+const Option = styled.option``;
+
 const Submit = styled.input`
   ${submitBtn}
 `;
 
-const SearchIcon = styled(Search)`
+const RestoreIcon = styled(SettingsBackupRestore)`
   width: 20%;
   color: ${secondaryColor};
 `;
