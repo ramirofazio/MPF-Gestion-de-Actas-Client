@@ -19,12 +19,18 @@ function ActasCards({ allActas }) {
     <CardsContainer>
       {allActas
         ? allActas.map((acta) => {
+            let cantBolsasCompletas = 0;
+            let cantBolsas = 0;
             let cantEfectosCompletos = 0;
             let cantEfectos = 0;
-            acta.Bolsas.map((bolsa) => (cantEfectos += bolsa.Efectos.length));
-            acta.Bolsas.map((bolsa) =>
-              bolsa.Efectos.map((efecto) => (cantEfectosCompletos += efecto.estado === "completo"))
-            );
+            acta.Bolsas.map((bolsa) => {
+              cantBolsas++;
+              cantEfectos += bolsa.Efectos.length;
+            });
+            acta.Bolsas.map((bolsa) => {
+              bolsa.estado === "completo" ? cantBolsasCompletas++ : null;
+              bolsa.Efectos.map((efecto) => (cantEfectosCompletos += efecto.estado === "completo"));
+            });
 
             return (
               <ActaContainer to={`/consultas/todas/${acta.id}`} key={acta.id} estado={acta.estado}>
@@ -56,6 +62,11 @@ function ActasCards({ allActas }) {
                   <CardTitle>DIL</CardTitle>
                   <br />
                   {acta.nro_dil}
+                </Info>
+                <Info>
+                  <CardTitle>Bolsas</CardTitle>
+                  <br />
+                  {`${cantBolsasCompletas}/${cantBolsas}`}
                 </Info>
                 <Info>
                   <CardTitle>Efectos</CardTitle>
