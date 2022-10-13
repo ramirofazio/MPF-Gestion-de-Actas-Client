@@ -90,6 +90,12 @@ const ActaContainer = styled(NavLink)`
       : props.estado === "completo"
       ? `2px solid ${greenColor}`
       : `2px solid ${redColor}`};
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: ${(props) =>
+      props.estado === "en proceso" ? "#00647335" : props.estado === "completo" ? "#6aa84f35" : "#a84f4f35"};
+  }
 `;
 
 const Info = styled.span`
