@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import Variables from "../../Styles/Variables";
 import { DatabaseSearch } from "@styled-icons/fluentui-system-filled/DatabaseSearch";
-import { CalendarSearch } from "@styled-icons/fluentui-system-filled/CalendarSearch";
 
 const { principalColor, secondaryColor } = Variables;
 const { header, headerTitle, headerDescription, homeCard } = GlobalStyles;
@@ -21,18 +20,6 @@ function Consultas() {
       <CardsContainer>
         <Card to="/consultas/todas">
           <CardTitle>Todas las Actas</CardTitle>
-          <DbIcon />
-        </Card>
-        <Card to="/consultas/fecha">
-          <CardTitle>Por Fecha</CardTitle>
-          <CalendarIcon />
-        </Card>
-        <Card to="/consultas/nro_mpf">
-          <CardTitle>Por Nro MPF</CardTitle>
-          <DbIcon />
-        </Card>
-        <Card to="/consultas/nro_Cij">
-          <CardTitle>Por Nro CIJ</CardTitle>
           <DbIcon />
         </Card>
       </CardsContainer>
@@ -84,23 +71,6 @@ const CardTitle = styled.span`
 `;
 
 const DbIcon = styled(DatabaseSearch)`
-  width: 30px;
-  margin-right: 40px;
-  color: ${secondaryColor};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-
-  ${Card}:hover & {
-    width: 40px;
-    color: ${principalColor};
-  }
-`;
-
-const CalendarIcon = styled(CalendarSearch)`
   width: 30px;
   margin-right: 40px;
   color: ${secondaryColor};

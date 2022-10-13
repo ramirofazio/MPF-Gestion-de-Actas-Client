@@ -8,7 +8,7 @@ import Variables from "../../../../Styles/Variables";
 import { SettingsBackupRestore } from "@styled-icons/material-rounded/SettingsBackupRestore";
 import { toast } from "react-toastify";
 //* Utils
-import ActasCards from "../../../Utils/ActasCards";
+import ActasEnProcesoCards from "../../../Utils/ActasEnProcesoCards";
 //* Initializations
 const { secondaryColor } = Variables;
 const {
@@ -25,13 +25,12 @@ const {
 
 function ActasEnProceso() {
   const actas = useSelector((state) => state?.actasEnProceso);
-
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     mpf: "",
     dil: "",
     cij: "",
   });
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getActasEnProceso());
@@ -57,7 +56,7 @@ function ActasEnProceso() {
       <Header>
         <Title>Actas en Proceso</Title>
         <Description>
-          En esta sección poder ver todos las Actas en proceso. <br /> Selecciona la que quieras para ver sus Efectos.
+          En esta sección poder ver todas las Actas en proceso. <br /> Selecciona la que quieras para ver sus Efectos.
         </Description>
       </Header>
       <FilterContainer>
@@ -100,7 +99,7 @@ function ActasEnProceso() {
           </InputContainer>
         </Form>
       </FilterContainer>
-      <ActasCards actas={actas} />
+      <ActasEnProcesoCards actas={actas} />
     </Container>
   );
 }

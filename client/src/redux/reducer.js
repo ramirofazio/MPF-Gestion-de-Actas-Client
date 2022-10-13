@@ -6,10 +6,12 @@ import {
   GET_ACTAS_EN_PROCESO_FILTERED,
   GET_EFECTOS_FROM_ACTA,
   GET_EFECTOS_EN_PROCESO_FILTERED,
+  GET_ACTAS_FILTERED,
 } from "./actions";
 
 let initialState = {
   allActas: [],
+  allActasSave: [],
   actasEnProceso: [],
   actasEnProcesoSave: [],
   allEfectos: [],
@@ -24,7 +26,94 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         allActas: action.payload,
+        allActasSave: action.payload,
       };
+    case GET_ACTAS_FILTERED: {
+      const { mpf, cij, dil, estado } = action.payload;
+
+      let actasFiltered;
+      if (!mpf && !cij && !dil && !estado) {
+        //* Ninguno
+        actasFiltered = state.allActasSave;
+      } else if (mpf && cij && dil && estado) {
+        //* Todos
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return (
+            acta.estado === estado &&
+            String(acta.nro_mpf).match(mpf) &&
+            String(acta.nro_cij).match(cij) &&
+            String(acta.nro_dil).match(dil)
+          );
+        });
+      } else if (mpf && cij && dil && !estado) {
+        //* Sin estado
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return String(acta.nro_mpf).match(mpf) && String(acta.nro_cij).match(cij) && String(acta.nro_dil).match(dil);
+        });
+      } else if (mpf && cij && !dil && !estado) {
+        //* Sin estado ni dil
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return String(acta.nro_mpf).match(mpf) && String(acta.nro_cij).match(cij);
+        });
+      } else if (mpf && !cij && !dil && !estado) {
+        //* Solo mpf
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return String(acta.nro_mpf).match(mpf);
+        });
+      } else if (!mpf && cij && !dil && !estado) {
+        //* Solo cij
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return String(acta.nro_cij).match(cij);
+        });
+      } else if (!mpf && !cij && dil && !estado) {
+        //* Solo dil
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return String(acta.nro_dil).match(dil);
+        });
+      } else if (!mpf && !cij && !dil && estado) {
+        //* Solo estado
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return acta.estado === estado;
+        });
+      } else if (!mpf && !cij && dil && estado) {
+        //* Solo estado y dil
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return acta.estado === estado && String(acta.nro_dil).match(dil);
+        });
+      } else if (!mpf && cij && !dil && estado) {
+        //* Solo estado y cij
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return acta.estado === estado && String(acta.nro_cij).match(cij);
+        });
+      } else if (mpf && !cij && !dil && estado) {
+        //* Solo estado y mpf
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return acta.estado === estado && String(acta.nro_mpf).match(mpf);
+        });
+      } else if (!mpf && cij && dil && !estado) {
+        //* Solo dil y cij
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return String(acta.nro_cij).match(cij) && String(acta.nro_dil).match(dil);
+        });
+      } else if (mpf && !cij && dil && !estado) {
+        //* Solo mpf y dil
+        actasFiltered = state.allActasSave.filter((acta) => {
+          return String(acta.nro_mpf).match(mpf) && String(acta.nro_dil).match(dil);
+        });
+      }
+
+      if (mpf || cij || dil || estado) {
+        if (actasFiltered?.length === 0) {
+          actasFiltered = state.allActasSave;
+          toast.warning("Acta no encontrada");
+        }
+      }
+
+      return {
+        ...state,
+        allActas: actasFiltered,
+      };
+    }
     case GET_EFECTOS:
       // eslint-disable-next-line
       const efectosEnProceso = action.payload.filter((efecto) => efecto.estado === "en proceso");
@@ -82,6 +171,7 @@ function reducer(state = initialState, action) {
 
       if (mpf || cij || dil) {
         if (actasFiltradas.length === 0) {
+          actasFiltradas = state.actasEnProcesoSave;
           toast.warning("Acta no encontrada");
         }
       }
@@ -108,7 +198,6 @@ function reducer(state = initialState, action) {
         //* Todos
         efectosFiltrados = state.efectosFromActa.filter((ef) => {
           if (estado === "en proceso") {
-            console.log("entre");
             return (
               ef.estado === "en proceso" && ef.marca.match(marca) && String(ef.Bolsa.nro_precinto).match(nroPrecinto)
             );
@@ -137,7 +226,6 @@ function reducer(state = initialState, action) {
         //* Solo estado
         efectosFiltrados = state.efectosFromActaSave.filter((ef) => {
           if (estado === "en proceso") {
-            console.log("entre");
             return ef.estado === "en proceso";
           } else {
             return ef.estado === "completo";
@@ -146,7 +234,6 @@ function reducer(state = initialState, action) {
       } else if (!nroPrecinto && marca && estado) {
         efectosFiltrados = state.efectosFromActaSave.filter((ef) => {
           if (estado === "en proceso") {
-            console.log("entre");
             return ef.estado === "en proceso" && ef.marca.match(marca);
           } else {
             return ef.estado === "completo" && ef.marca.match(marca);
@@ -155,7 +242,6 @@ function reducer(state = initialState, action) {
       } else if (nroPrecinto && !marca && estado) {
         efectosFiltrados = state.efectosFromActaSave.filter((ef) => {
           if (estado === "en proceso") {
-            console.log("entre");
             return ef.estado === "en proceso" && String(ef.Bolsa.nro_precinto).match(nroPrecinto);
           } else {
             return ef.estado === "completo" && String(ef.Bolsa.nro_precinto).match(nroPrecinto);

@@ -2,6 +2,7 @@ import axios from "axios";
 import Variables from "../Styles/Variables";
 
 export const GET_ACTAS = "GET_ACTAS";
+export const GET_ACTAS_FILTERED = "GET_ACTAS_FILTERED";
 export const GET_EFECTOS = "GET_EFECTOS";
 export const GET_ACTAS_EN_PROCESO = "GET_ACTAS_EN_PROCESO";
 export const GET_ACTAS_EN_PROCESO_FILTERED = "GET_ACTAS_EN_PROCESO_FILTERED";
@@ -21,6 +22,15 @@ export function getAllActas() {
       .catch((err) => {
         console.log(err);
       });
+  };
+}
+
+export function getActasFiltered(filtros) {
+  return function (dispatch) {
+    return dispatch({
+      type: GET_ACTAS_FILTERED,
+      payload: filtros,
+    });
   };
 }
 
