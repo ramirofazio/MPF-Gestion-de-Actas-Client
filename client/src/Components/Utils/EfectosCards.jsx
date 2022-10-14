@@ -12,7 +12,19 @@ const { principalColor, yellowColor, greenColor, redColor } = Variables;
 const { cardsContainer, cardContainer, cardInfo, cardTitle, button } = GlobalStyles;
 
 function EfectosCards({ efectos, actaId }) {
-  const efectosParaCompletar = [];
+  let efectosParaCompletar = [];
+
+  const handleCheckClick = (efectoId) => {
+    if (efectosParaCompletar) {
+      let flag = efectosParaCompletar.includes(efectoId);
+      if (!flag) {
+        efectosParaCompletar.push(efectoId);
+      } else {
+        efectosParaCompletar = efectosParaCompletar.filter((ids) => ids !== efectoId);
+      }
+    }
+    console.log(efectosParaCompletar);
+  };
 
   const handleSubmit = () => {
     if (efectosParaCompletar.length === 0) {
@@ -61,7 +73,7 @@ function EfectosCards({ efectos, actaId }) {
                   {efecto.estado === "completo" ? (
                     <CheckIcon />
                   ) : (
-                    <CheckBox type="checkbox" onClick={() => efectosParaCompletar.push(efecto.id)} />
+                    <CheckBox type="checkbox" onClick={() => handleCheckClick(efecto.id)} />
                   )}
                 </CheckBoxContainer>
               </EfectoContainer>
