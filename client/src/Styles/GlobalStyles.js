@@ -89,6 +89,19 @@ const GlobalStyles = {
     }
   `,
 
+  //* Forms
+  formContainer: css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-height: 70%;
+    min-height: 70%;
+    border-top: 2px solid ${principalColor};
+    overflow-y: scroll;
+    padding-block: 10px;
+  `,
+
   //* Cards
   cardsContainer: css`
     display: flex;
@@ -136,8 +149,8 @@ const GlobalStyles = {
 
   button: css`
     padding: 10px;
-    padding-inline: 20px;
-    border-radius: 10px;
+    padding-inline: 40px;
+    border-radius: 25px;
     border: 2px solid ${principalColor};
     color: ${secondaryColor};
     font-size: 15px;

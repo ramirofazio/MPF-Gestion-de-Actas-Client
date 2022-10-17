@@ -26,3 +26,5 @@ client/package-lock.json
 server/package-lock.json
 server/.env
 client/trash.js
+
+trash.txt

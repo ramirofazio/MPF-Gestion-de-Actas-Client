@@ -3,23 +3,8 @@
 .Toastify__toast {
   border: 2px solid #006473;
   width: 250px;
-  border-radius: 10px !important;
+  border-radius: 5px !important;
   text-align: center;
-}
-.Toastify__toast--default {
-  border: 2px solid #006473;
-}
-.Toastify__toast--info {
-  border: 2px solid #006473 !important;
-}
-.Toastify__toast--success {
-  border: 2px solid #6aa84f !important;
-}
-.Toastify__toast--warning {
-  border: 2px solid #947513 !important;
-}
-.Toastify__toast--error {
-  border: 2px solid #a84f4f !important;
 }
 
 *,
