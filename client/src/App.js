@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Fallback from "./Components/Fallback";
 import NavBar from "./Components/Navbar";
 const Actas = lazy(() => import("./Components/Actas/Actas"));
-const AddActa = lazy(() => import("./Components/Actas/pages/AddActa"));
+const AddActa = lazy(() => import("./Components/Actas/pages/AddActa/AddActa"));
 const ModifyActa = lazy(() => import("./Components/Actas/pages/ModifyActa"));
 const EfectosEnProceso = lazy(() => import("./Components/Actas/pages/ActasEnProceso/EfectosEnProceso"));
 const ActasEnProceso = lazy(() => import("./Components/Actas/pages/ActasEnProceso/ActasEnProceso"));

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
+//import Variables from "../../../Styles/Variables";
 
-const { baseEndpoint } = Variables;
+//const { baseEndpoint } = Variables;
 
 function ModifyActa() {
   return <Container>ModifyActa</Container>;
