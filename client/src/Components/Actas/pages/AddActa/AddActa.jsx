@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 //* Style
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
-//import Variables from "../../../../Styles/Variables";
+import Variables from "../../../../Styles/Variables";
 //* Initializations
-//const {} = Variables;
+const { redColor, greenColor } = Variables;
 const { enProcesoContainer, header, headerTitle, headerDescription, formContainer, button } = GlobalStyles;
 
 function AddActa() {
@@ -19,11 +19,29 @@ function AddActa() {
     nroCausa: "",
     caratula: "",
   });
+
   const [flag, setFlag] = useState(false);
 
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
+  console.log(state);
+
+  const handleComplete = () => {
+    const { solicitante, mpfOrDen, cij, dil, coop, nroCausa, caratula } = state;
+    if (flag === "MPF/DEN") {
+      if (solicitante && mpfOrDen && cij && dil) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (flag === "COOP") {
+      if (solicitante && coop && nroCausa && caratula && cij && dil) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
 
   return (
     <Container>
@@ -33,7 +51,7 @@ function AddActa() {
       </Header>
       <FormContainer>
         <select onChange={(e) => setState({ ...state, solicitante: e.target.value })}>
-          <option value=""></option>
+          <option value="">Solicitante</option>
           <option>Área de Flagrancia Contravencional</option>
           <option>Equipo de Análisis de Casos de Comercialización de Estupefacientes</option>
           <option>Equipo Especializado en Casos de Violencia Institucional</option>
@@ -131,27 +149,75 @@ function AddActa() {
           <option>Unidad de Apoyo de VD Sur</option>
         </select>
         <select onChange={(e) => setFlag(e.target.value)}>
-          <option></option>
+          <option>Tipo de Acta</option>
           <option>MPF/DEN</option>
           <option>COOP</option>
         </select>
         {flag === "MPF/DEN" ? (
           <form>
-            <input type="text" name="MPF/DEN" onChange={(e) => setState({ ...state, mpfOrDen: e.target.value })} />
-            <input type="text" name="CIJ" onChange={(e) => setState({ ...state, cij: e.target.value })} />
-            <input type="text" name="DIL" onChange={(e) => setState({ ...state, dil: e.target.value })} />
+            <input
+              type="text"
+              name="MPF/DEN"
+              value={state.mpfOrDen}
+              placeholder="MPF/DEN"
+              onChange={(e) => setState({ ...state, mpfOrDen: e.target.value })}
+            />
+            <input
+              type="text"
+              name="CIJ"
+              value={state.cij}
+              placeholder="CIJ"
+              onChange={(e) => setState({ ...state, cij: e.target.value })}
+            />
+            <input
+              type="text"
+              name="DIL"
+              value={state.dil}
+              placeholder="DIL"
+              onChange={(e) => setState({ ...state, dil: e.target.value })}
+            />
           </form>
         ) : flag === "COOP" ? (
           <form>
-            <input type="text" name="COOP" onChange={(e) => setState({ ...state, coop: e.target.value })} />
-            <input type="text" name="Nro Causa" onChange={(e) => setState({ ...state, nroCausa: e.target.value })} />
-            <input type="text" name="Caratula" onChange={(e) => setState({ ...state, caratula: e.target.value })} />
-            <input type="text" name="CIJ" onChange={(e) => setState({ ...state, cij: e.target.value })} />
-            <input type="text" name="DIL" onChange={(e) => setState({ ...state, dil: e.target.value })} />
+            <input
+              type="text"
+              name="COOP"
+              value={state.coop}
+              placeholder="COOP"
+              onChange={(e) => setState({ ...state, coop: e.target.value })}
+            />
+            <input
+              type="text"
+              name="Nro Causa"
+              value={state.nroCausa}
+              placeholder="Nro Causa"
+              onChange={(e) => setState({ ...state, nroCausa: e.target.value })}
+            />
+            <input
+              type="text"
+              name="Caratula"
+              value={state.caratula}
+              placeholder="Caratula"
+              onChange={(e) => setState({ ...state, caratula: e.target.value })}
+            />
+            <input
+              type="text"
+              name="CIJ"
+              value={state.cij}
+              placeholder="CIJ"
+              onChange={(e) => setState({ ...state, cij: e.target.value })}
+            />
+            <input
+              type="text"
+              name="DIL"
+              value={state.dil}
+              placeholder="DIL"
+              onChange={(e) => setState({ ...state, dil: e.target.value })}
+            />
           </form>
         ) : null}
       </FormContainer>
-      <Button to="/actas/crear/2" state={state}>
+      <Button to="/actas/crear/2" complete={handleComplete()}>
         Siguente
       </Button>
     </Container>
@@ -185,4 +251,13 @@ const Button = styled(Link)`
   ${button}
   text-decoration: none;
   background: white;
+  border: 2px solid ${redColor};
+  pointer-events: none;
+
+  ${(props) =>
+    props.complete &&
+    css`
+      pointer-events: all;
+      border: 2px solid ${greenColor};
+    `}
 `;

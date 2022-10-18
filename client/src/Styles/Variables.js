@@ -7,6 +7,7 @@ const Variables = {
 	yellowColor: "#947513",
 	greenColor: "#6aa84f",
 	redColor: "#a84f4f",
+	grayDisableColor: "#4E696340",
 	//config
 	baseEndpoint: "http://localhost:3030",
 };
