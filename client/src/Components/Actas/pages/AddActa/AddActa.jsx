@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+//* Redux
+import { createActa } from "../../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
+import { useDispatch } from "react-redux";
 //* Initializations
 const { redColor, greenColor } = Variables;
 const { enProcesoContainer, header, headerTitle, headerDescription, formContainer, button } = GlobalStyles;
 
 function AddActa() {
+  const dispatch = useDispatch();
   const [state, setState] = useState({
-    fecha: new Date().toLocaleString(),
     solicitante: "",
     mpfOrDen: "",
     cij: "",
@@ -20,26 +23,36 @@ function AddActa() {
     caratula: "",
   });
 
-  const [flag, setFlag] = useState(false);
+  const [flag, setFlag] = useState();
 
-  console.log(state);
+  useEffect(() => {
+    setState({
+      solicitante: "",
+      mpfOrDen: "",
+      cij: "",
+      dil: "",
+      coop: "",
+      nroCausa: "",
+      caratula: "",
+    });
+  }, [flag]);
 
   const handleComplete = () => {
     const { solicitante, mpfOrDen, cij, dil, coop, nroCausa, caratula } = state;
     if (flag === "MPF/DEN") {
       if (solicitante && mpfOrDen && cij && dil) {
-        return true;
+        return "true";
       } else {
-        return false;
+        return "false";
       }
     } else if (flag === "COOP") {
       if (solicitante && coop && nroCausa && caratula && cij && dil) {
-        return true;
+        return "true";
       } else {
-        return false;
+        return "false";
       }
     } else {
-      return false;
+      return "false";
     }
   };
 
@@ -50,7 +63,12 @@ function AddActa() {
         <Description>Encabezado</Description>
       </Header>
       <FormContainer>
-        <select onChange={(e) => setState({ ...state, solicitante: e.target.value })}>
+        <select onChange={(e) => setFlag(e.target.value)} value={flag}>
+          <option>Tipo de Acta</option>
+          <option>MPF/DEN</option>
+          <option>COOP</option>
+        </select>
+        <select onChange={(e) => setState({ ...state, solicitante: e.target.value })} value={state.solicitante}>
           <option value="">Solicitante</option>
           <option>Área de Flagrancia Contravencional</option>
           <option>Equipo de Análisis de Casos de Comercialización de Estupefacientes</option>
@@ -148,11 +166,6 @@ function AddActa() {
           <option>Unidad de Apoyo de VD Sudeste</option>
           <option>Unidad de Apoyo de VD Sur</option>
         </select>
-        <select onChange={(e) => setFlag(e.target.value)}>
-          <option>Tipo de Acta</option>
-          <option>MPF/DEN</option>
-          <option>COOP</option>
-        </select>
         {flag === "MPF/DEN" ? (
           <form>
             <input
@@ -217,7 +230,7 @@ function AddActa() {
           </form>
         ) : null}
       </FormContainer>
-      <Button to="/actas/crear/2" complete={handleComplete()}>
+      <Button to={"/actas/crear/2"} onClick={() => dispatch(createActa(state))} complete={handleComplete()}>
         Siguente
       </Button>
     </Container>
@@ -247,7 +260,7 @@ const FormContainer = styled.div`
   ${formContainer}
 `;
 
-const Button = styled(Link)`
+const Button = styled(NavLink)`
   ${button}
   text-decoration: none;
   background: white;
@@ -255,7 +268,7 @@ const Button = styled(Link)`
   pointer-events: none;
 
   ${(props) =>
-    props.complete &&
+    props.complete === "true" &&
     css`
       pointer-events: all;
       border: 2px solid ${greenColor};

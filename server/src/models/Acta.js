@@ -16,14 +16,26 @@ module.exports = (sequelize) => {
       nro_coop: {
         type: DataTypes.INTEGER,
       },
+      nro_causa: {
+        type: DataTypes.INTEGER,
+      },
+      caratula: {
+        type: DataTypes.STRING,
+      },
+      solicitante: {
+        type: DataTypes.STRING,
+      },
+      fecha: {
+        type: DataTypes.STRING,
+        defaultValue: new Date().toLocaleString(),
+      },
       estado: {
         type: DataTypes.STRING,
         defaultValue: "en proceso",
       },
     },
     {
-      createdAt: "created_at",
-      updatedAt: "last_update",
+      timestamps: false,
     }
   );
 };

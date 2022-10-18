@@ -7,11 +7,13 @@ import {
   GET_EFECTOS_FROM_ACTA,
   GET_EFECTOS_EN_PROCESO_FILTERED,
   GET_ACTAS_FILTERED,
+  CREATE_ACTA,
 } from "./actions";
 
 let initialState = {
   allActas: [],
   allActasSave: [],
+  currentActa: [],
   actasEnProceso: [],
   actasEnProcesoSave: [],
   allEfectos: [],
@@ -22,6 +24,11 @@ let initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case CREATE_ACTA:
+      return {
+        ...state,
+        currentActa: action.payload,
+      };
     case GET_ACTAS:
       return {
         ...state,
@@ -258,6 +265,7 @@ function reducer(state = initialState, action) {
         efectosFromActa: efectosFiltrados,
       };
     }
+
     default:
       return state;
   }
