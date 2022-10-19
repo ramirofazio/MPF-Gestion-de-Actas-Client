@@ -160,6 +160,7 @@ const GlobalStyles = {
       cursor: pointer;
       background-color: ${principalColor};
       color: #fff;
+      border: 2px solid transparent;
     }
   `,
 
