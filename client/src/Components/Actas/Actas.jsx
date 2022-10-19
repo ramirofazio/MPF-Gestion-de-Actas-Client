@@ -10,7 +10,6 @@ import { Warning } from "@styled-icons/entypo/Warning";
 //* Initialization
 const { principalColor, secondaryColor, redColor } = Variables;
 const { header, headerTitle, headerDescription, homeCard } = GlobalStyles;
-//import { generateDocument } from "./generateDoc";
 
 function Actas() {
   return (
