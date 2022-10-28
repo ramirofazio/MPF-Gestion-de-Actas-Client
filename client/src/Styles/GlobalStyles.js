@@ -104,6 +104,69 @@ const GlobalStyles = {
     padding-top: 5%;
   `,
 
+  form: css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 40%;
+    height: 70%;
+  `,
+
+  inputContainer: css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+  `,
+
+  inputLabel: css`
+    align-self: flex-start;
+    font-weight: 400;
+    font-size: small;
+    margin-bottom: 5px;
+    color: ${secondaryColor};
+  `,
+
+  input: css`
+    width: 100%;
+    height: 60%;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid ${principalColor};
+    font-size: medium;
+    font-weight: 400;
+
+    &::placeholder {
+      color: black;
+    }
+
+    &:focus {
+      border: 2px solid ${principalColor};
+      outline: none;
+    }
+
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+  `,
+
+  select: css`
+    width: 100%;
+    height: 60%;
+    text-align: center;
+    border: 1px solid ${principalColor};
+    border-radius: 5px;
+    font-size: medium;
+    font-weight: 400;
+
+    &:focus {
+      border: 2px solid ${principalColor};
+      outline: none;
+    }
+  `,
+
   //* Cards
   cardsContainer: css`
     display: flex;
