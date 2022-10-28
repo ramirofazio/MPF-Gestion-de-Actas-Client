@@ -7,13 +7,13 @@ const getEfectos = require("../controllers/getEfectos");
 const addSim = require("../controllers/addSim");
 const addAlmacenamiento = require("../controllers/addAlmacenamiento");
 const addBolsa = require("../controllers/addBolsa");
-const addIntegrante = require("../controllers/addIntegrante");
+const addIntegrantes = require("../controllers/addIntegrantes");
 const updateEfecto = require("../controllers/updateEfecto");
 
 //* Generamos las rutas
 router.use("/addActa", addActa);
 router.use("/addBolsa", addBolsa);
-router.use("/addIntegrante", addIntegrante);
+router.use("/addIntegrantes", addIntegrantes);
 router.use("/addEfecto", addEfecto);
 router.use("/addSim", addSim);
 router.use("/addAlmacenamiento", addAlmacenamiento);

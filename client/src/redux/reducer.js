@@ -8,12 +8,14 @@ import {
   GET_EFECTOS_EN_PROCESO_FILTERED,
   GET_ACTAS_FILTERED,
   CREATE_ACTA,
+  CREATE_INTEGRANTES,
 } from "./actions";
 
 let initialState = {
   allActas: [],
   allActasSave: [],
   currentActa: [],
+  currentIntegrantes: [],
   actasEnProceso: [],
   actasEnProcesoSave: [],
   allEfectos: [],
@@ -24,6 +26,12 @@ let initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case CREATE_INTEGRANTES:
+      console.log(action.payload);
+      return {
+        ...state,
+        currentIntegrantes: action.payload,
+      };
     case CREATE_ACTA:
       return {
         ...state,

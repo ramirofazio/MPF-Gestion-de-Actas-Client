@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 //* Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { createIntegrantes } from "../../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
+//* Doc
+import generateDoc from "../../generateDoc";
 
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
@@ -26,7 +30,10 @@ const {
 } = GlobalStyles;
 
 function AddIntegrantes() {
-  const currentActa = useSelector((state) => state.currentActa);
+  const dispatch = useDispatch();
+  const currentActa = useSelector((state) => state?.currentActa);
+  const currentIntegrantes = useSelector((state) => state?.currentIntegrantes);
+
   const [integrantes, setIntegrantes] = useState([]);
   const [integrante, setIntegrante] = useState({
     nombreYApellido: "",
@@ -36,7 +43,7 @@ function AddIntegrantes() {
   });
 
   const handleClick = () => {
-    setIntegrantes([...integrantes, integrante]);
+    setIntegrantes([...integrantes, { ...integrante, acta_id: currentActa.id }]);
     setIntegrante({
       nombreYApellido: "",
       dni: "",
@@ -59,6 +66,26 @@ function AddIntegrantes() {
   const handleRemove = (dni) => {
     const newIntegrantes = integrantes.filter((i) => i.dni !== dni);
     setIntegrantes(newIntegrantes);
+  };
+
+  useEffect(() => {
+    if (currentActa && currentIntegrantes) {
+      console.log(currentActa);
+      generateDoc(currentActa, currentIntegrantes);
+    }
+  }, [currentActa]);
+
+  const handleNextComplete = () => {
+    if (integrantes.length > "1") {
+      return "true";
+    } else {
+      return "false";
+    }
+  };
+
+  const handleNext = () => {
+    console.log("next");
+    dispatch(createIntegrantes(integrantes));
   };
 
   return (
@@ -155,7 +182,9 @@ function AddIntegrantes() {
         </IntegrantesContainer>
       </SubContainer>
 
-      <Button>Siguente</Button>
+      <Button /*to={"/actas/crear/3"}*/ complete={handleNextComplete()} onClick={() => handleNext()}>
+        Siguente
+      </Button>
     </Container>
   );
 }
@@ -212,12 +241,19 @@ const AddButton = styled.button`
     `}
 `;
 
-const Button = styled.button`
+const Button = styled(NavLink)`
   ${button}
   text-decoration: none;
   background: white;
   border: 2px solid ${redColor};
   pointer-events: none;
+
+  ${(props) =>
+    props.complete === "true" &&
+    css`
+      pointer-events: all;
+      border: 2px solid ${greenColor};
+    `}
 `;
 
 const FormContainer = styled.div`

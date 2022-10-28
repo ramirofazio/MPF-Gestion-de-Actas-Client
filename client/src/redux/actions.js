@@ -9,6 +9,7 @@ export const GET_ACTAS_EN_PROCESO_FILTERED = "GET_ACTAS_EN_PROCESO_FILTERED";
 export const GET_EFECTOS_EN_PROCESO_FILTERED = "GET_EFECTOS_EN_PROCESO_FILTERED";
 export const GET_EFECTOS_FROM_ACTA = "GET_EFECTOS_FROM_ACTA";
 export const CREATE_ACTA = "CREATE_ACTA";
+export const CREATE_INTEGRANTES = "CREATE_INTEGRANTES";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -110,13 +111,29 @@ export function sendEfectosIdsAndActaId({ actaId, efectosIds }) {
     });
 }
 
-export function createActa(state) {
+export function createActa(state, flag) {
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + "/addActa", { ...state })
       .then((res) => {
         return dispatch({
           type: CREATE_ACTA,
+          payload: { ...res.data, flag },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function createIntegrantes(integrantes) {
+  return function (dispatch) {
+    axios
+      .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
+      .then((res) => {
+        return dispatch({
+          type: CREATE_INTEGRANTES,
           payload: res.data,
         });
       })

@@ -6,9 +6,8 @@ import { createActa } from "../../../../redux/actions";
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import generateDoc from "../../generateDoc";
 //* Initializations
 const { redColor, greenColor } = Variables;
 const {
@@ -27,7 +26,6 @@ const {
 
 function AddActa() {
   const dispatch = useDispatch();
-  const acta = useSelector((state) => state?.currentActa);
   const [flag, setFlag] = useState("Tipo de Acta");
   const [state, setState] = useState({
     solicitante: "",
@@ -73,15 +71,8 @@ function AddActa() {
   };
 
   const handleClick = () => {
-    dispatch(createActa(state));
+    dispatch(createActa(state, flag));
   };
-
-  useEffect(() => {
-    if (acta.length !== 0) {
-      console.log(acta);
-      generateDoc(acta, flag);
-    }
-  }, [acta]);
 
   return (
     <Container>

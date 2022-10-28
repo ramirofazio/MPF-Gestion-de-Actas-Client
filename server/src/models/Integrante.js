@@ -4,20 +4,20 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Integrante",
     {
-      nombre: {
+      nombreYApellido: {
         type: DataTypes.STRING,
       },
-      cargo_o_profesion: {
+      cargo: {
         type: DataTypes.STRING,
       },
       dni: {
         type: DataTypes.INTEGER,
       },
-      domicilio: {
+      legajoOMatricula: {
         type: DataTypes.STRING,
       },
-      matricula: {
-        type: DataTypes.STRING,
+      acta_id: {
+        type: DataTypes.INTEGER,
       },
     },
     {
