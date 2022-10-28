@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import generateDoc from "../../generateDoc";
 //* Initializations
-const { redColor, greenColor } = Variables;
+const { redColor, greenColor, principalColor, secondaryColor } = Variables;
 const { enProcesoContainer, header, headerTitle, headerDescription, formContainer, button } = GlobalStyles;
 
 function AddActa() {
@@ -63,6 +63,7 @@ function AddActa() {
   const handleClick = () => {
     dispatch(createActa(state));
   };
+
   useEffect(() => {
     if (acta.length !== 0) {
       console.log(acta);
@@ -77,183 +78,216 @@ function AddActa() {
         <Description>Encabezado</Description>
       </Header>
       <FormContainer>
-        <select onChange={(e) => setFlag(e.target.value)} value={flag}>
-          <option>Tipo de Acta</option>
-          <option>MPF/DEN</option>
-          <option>COOP</option>
-        </select>
+        <InputContainer>
+          <Label>Tipo de Acta</Label>
+          <Select onChange={(e) => setFlag(e.target.value)} value={flag}>
+            <SelectOpt>Tipo de Acta</SelectOpt>
+            <SelectOpt>MPF/DEN</SelectOpt>
+            <SelectOpt>COOP</SelectOpt>
+          </Select>
+        </InputContainer>
         {flag === "MPF/DEN" ? (
           <>
-            <select onChange={(e) => setState({ ...state, solicitante: e.target.value })} value={state.solicitante}>
-              <option value="">Solicitante</option>
-              <option>Área de Flagrancia Contravencional</option>
-              <option>Equipo de Análisis de Casos de Comercialización de Estupefacientes</option>
-              <option>Equipo Especializado en Casos de Violencia Institucional</option>
-              <option>Fiscalía de Cámara PCyF Norte</option>
-              <option>Fiscalía de Cámara PCyF Oeste</option>
-              <option>Fiscalía de Cámara PCyF Sudeste</option>
-              <option>Fiscalía PCyF Nº 1</option>
-              <option>Fiscalía PCyF Nº 10</option>
-              <option>Fiscalía PCyF Nº 11</option>
-              <option>Fiscalía PCyF Nº 11 (Violencia Institucional)</option>
-              <option>Fiscalía PCyF Nº 12</option>
-              <option>Fiscalía PCyF Nº 12 (Informático)</option>
-              <option>Fiscalía PCyF Nº 13</option>
-              <option>Fiscalía PCyF Nº 14</option>
-              <option>Fiscalía PCyF Nº 15</option>
-              <option>Fiscalía PCyF Nº 16</option>
-              <option>Fiscalía PCyF Nº 17</option>
-              <option>Fiscalía PCyF Nº 18</option>
-              <option>Fiscalía PCyF Nº 19</option>
-              <option>Fiscalía PCyF Nº 2</option>
-              <option>Fiscalía PCyF Nº 20</option>
-              <option>Fiscalía PCyF Nº 21</option>
-              <option>Fiscalía PCyF Nº 22 (Discriminación)</option>
-              <option>Fiscalía PCyF Nº 22 (Discriminación)</option>
-              <option>Fiscalía PCyF Nº 23</option>
-              <option>Fiscalía PCyF Nº 24</option>
-              <option>Fiscalía PCyF Nº 25</option>
-              <option>Fiscalía PCyF Nº 26</option>
-              <option>Fiscalía PCyF Nº 27</option>
-              <option>Fiscalía PCyF Nº 28</option>
-              <option>Fiscalía PCyF Nº 29</option>
-              <option>Fiscalía PCyF Nº 3</option>
-              <option>Fiscalía PCyF Nº 30</option>
-              <option>Fiscalía PCyF Nº 30 (Informático)</option>
-              <option>Fiscalía PCyF Nº 31</option>
-              <option>Fiscalía PCyF Nº 32</option>
-              <option>Fiscalía PCyF Nº 33</option>
-              <option>Fiscalía PCyF Nº 34</option>
-              <option>Fiscalía PCyF Nº 35</option>
-              <option>Fiscalía PCyF Nº 35 (Eventos Masivos)</option>
-              <option>Fiscalía PCyF Nº 36</option>
-              <option>Fiscalía PCyF Nº 37</option>
-              <option>Fiscalía PCyF Nº 38</option>
-              <option>Fiscalía PCyF Nº 39</option>
-              <option>Fiscalía PCyF Nº 4</option>
-              <option>Fiscalía PCyF Nº 40</option>
-              <option>Fiscalía PCyF Nº 40 (UFEMA)</option>
-              <option>Fiscalía PCyF Nº 5</option>
-              <option>Fiscalía PCyF Nº 6</option>
-              <option>Fiscalía PCyF Nº 7</option>
-              <option>Fiscalía PCyF Nº 7 (Informático)</option>
-              <option>Fiscalía PCyF Nº 8</option>
-              <option>Fiscalía PCyF Nº 9</option>
-              <option>Fiscalía Transición 1</option>
-              <option>Secretaria Judicial</option>
-              <option>UFCEU - Unidad Coordinadora</option>
-              <option>UFDCyFE - UIT Investigación (Área de Tenencia)</option>
-              <option>UFDCyFE - UIT Investigación (Lesiones de Transito)</option>
-              <option>UFDCyFE - Unidad de Intervención Temprana</option>
-              <option>UFE - Área de Casos Especiales</option>
-              <option>UFE - Equipo Especializado en Violencia de Género</option>
-              <option>UFE - Unidad Coordinadora</option>
-              <option>UFE - Unidad de Flagrancia</option>
-              <option>UFE - Unidad de Intervención Temprana</option>
-              <option>UFEIDE - Casos Fiscalía</option>
-              <option>UFEIDE - Equipo de Análisis Preliminar</option>
-              <option>UFEIDE - Equipo de Análisis Preliminar (Investigación)</option>
-              <option>UFEIDE - Investigación</option>
-              <option>UFN - Área de Casos Especiales</option>
-              <option>UFN - Equipo Especializado en Violencia de Género</option>
-              <option>UFN - Unidad Coordinadora</option>
-              <option>UFN - Unidad de Flagrancia</option>
-              <option>UFN - Unidad de Intervención Temprana</option>
-              <option>UFO - Área de Casos Especiales</option>
-              <option>UFO - Equipo Especializado en Violencia de Género</option>
-              <option>UFO - Unidad Coordinadora</option>
-              <option>UFO - Unidad de Flagrancia</option>
-              <option>UFO - Unidad de Intervención Temprana</option>
-              <option>UFS - Área de Casos Especiales</option>
-              <option>UFS - Equipo Especializado en Violencia de Género</option>
-              <option>UFS - Unidad Coordinadora</option>
-              <option>UFS - Unidad de Flagrancia</option>
-              <option>UFS - Unidad de Intervención Temprana</option>
-              <option>UFSE - Área de Casos Especiales</option>
-              <option>UFSE - Equipo Fiscal F</option>
-              <option>UFSE - Equipo Fiscal G</option>
-              <option>UFSE - Of. Ap. Int. Inicial</option>
-              <option>UFSE - Unidad Coordinadora</option>
-              <option>UFSE - Unidad de Intervención Temprana</option>
-              <option>Unidad Coordinadora de Investigaciones Complejas</option>
-              <option>Unidad de Apoyo de VD Este</option>
-              <option>Unidad de Apoyo de VD Norte</option>
-              <option>Unidad de Apoyo de VD Oeste</option>
-              <option>Unidad de Apoyo de VD Sudeste</option>
-              <option>Unidad de Apoyo de VD Sur</option>
-            </select>
-            <form>
-              <input
-                type="number"
-                name="MPF/DEN"
-                value={state.mpfOrDen}
-                placeholder="MPF/DEN"
-                onChange={(e) => setState({ ...state, mpfOrDen: e.target.value })}
+            <InputContainer>
+              <Label>Solicitante</Label>
+              <Select onChange={(e) => setState({ ...state, solicitante: e.target.value })} value={state.solicitante}>
+                <SelectOpt value="">Solicitante</SelectOpt>
+                <SelectOpt>Área de Flagrancia Contravencional</SelectOpt>
+                <SelectOpt>Equipo de Análisis de Casos de Comercialización de Estupefacientes</SelectOpt>
+                <SelectOpt>Equipo Especializado en Casos de Violencia Institucional</SelectOpt>
+                <SelectOpt>Fiscalía de Cámara PCyF Norte</SelectOpt>
+                <SelectOpt>Fiscalía de Cámara PCyF Oeste</SelectOpt>
+                <SelectOpt>Fiscalía de Cámara PCyF Sudeste</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 1</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 10</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 11</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 11 (Violencia Institucional)</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 12</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 12 (Informático)</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 13</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 14</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 15</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 16</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 17</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 18</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 19</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 2</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 20</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 21</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 22 (Discriminación)</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 22 (Discriminación)</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 23</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 24</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 25</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 26</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 27</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 28</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 29</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 3</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 30</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 30 (Informático)</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 31</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 32</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 33</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 34</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 35</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 35 (Eventos Masivos)</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 36</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 37</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 38</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 39</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 4</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 40</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 40 (UFEMA)</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 5</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 6</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 7</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 7 (Informático)</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 8</SelectOpt>
+                <SelectOpt>Fiscalía PCyF Nº 9</SelectOpt>
+                <SelectOpt>Fiscalía Transición 1</SelectOpt>
+                <SelectOpt>Secretaria Judicial</SelectOpt>
+                <SelectOpt>UFCEU - Unidad Coordinadora</SelectOpt>
+                <SelectOpt>UFDCyFE - UIT Investigación (Área de Tenencia)</SelectOpt>
+                <SelectOpt>UFDCyFE - UIT Investigación (Lesiones de Transito)</SelectOpt>
+                <SelectOpt>UFDCyFE - Unidad de Intervención Temprana</SelectOpt>
+                <SelectOpt>UFE - Área de Casos Especiales</SelectOpt>
+                <SelectOpt>UFE - Equipo Especializado en Violencia de Género</SelectOpt>
+                <SelectOpt>UFE - Unidad Coordinadora</SelectOpt>
+                <SelectOpt>UFE - Unidad de Flagrancia</SelectOpt>
+                <SelectOpt>UFE - Unidad de Intervención Temprana</SelectOpt>
+                <SelectOpt>UFEIDE - Casos Fiscalía</SelectOpt>
+                <SelectOpt>UFEIDE - Equipo de Análisis Preliminar</SelectOpt>
+                <SelectOpt>UFEIDE - Equipo de Análisis Preliminar (Investigación)</SelectOpt>
+                <SelectOpt>UFEIDE - Investigación</SelectOpt>
+                <SelectOpt>UFN - Área de Casos Especiales</SelectOpt>
+                <SelectOpt>UFN - Equipo Especializado en Violencia de Género</SelectOpt>
+                <SelectOpt>UFN - Unidad Coordinadora</SelectOpt>
+                <SelectOpt>UFN - Unidad de Flagrancia</SelectOpt>
+                <SelectOpt>UFN - Unidad de Intervención Temprana</SelectOpt>
+                <SelectOpt>UFO - Área de Casos Especiales</SelectOpt>
+                <SelectOpt>UFO - Equipo Especializado en Violencia de Género</SelectOpt>
+                <SelectOpt>UFO - Unidad Coordinadora</SelectOpt>
+                <SelectOpt>UFO - Unidad de Flagrancia</SelectOpt>
+                <SelectOpt>UFO - Unidad de Intervención Temprana</SelectOpt>
+                <SelectOpt>UFS - Área de Casos Especiales</SelectOpt>
+                <SelectOpt>UFS - Equipo Especializado en Violencia de Género</SelectOpt>
+                <SelectOpt>UFS - Unidad Coordinadora</SelectOpt>
+                <SelectOpt>UFS - Unidad de Flagrancia</SelectOpt>
+                <SelectOpt>UFS - Unidad de Intervención Temprana</SelectOpt>
+                <SelectOpt>UFSE - Área de Casos Especiales</SelectOpt>
+                <SelectOpt>UFSE - Equipo Fiscal F</SelectOpt>
+                <SelectOpt>UFSE - Equipo Fiscal G</SelectOpt>
+                <SelectOpt>UFSE - Of. Ap. Int. Inicial</SelectOpt>
+                <SelectOpt>UFSE - Unidad Coordinadora</SelectOpt>
+                <SelectOpt>UFSE - Unidad de Intervención Temprana</SelectOpt>
+                <SelectOpt>Unidad Coordinadora de Investigaciones Complejas</SelectOpt>
+                <SelectOpt>Unidad de Apoyo de VD Este</SelectOpt>
+                <SelectOpt>Unidad de Apoyo de VD Norte</SelectOpt>
+                <SelectOpt>Unidad de Apoyo de VD Oeste</SelectOpt>
+                <SelectOpt>Unidad de Apoyo de VD Sudeste</SelectOpt>
+                <SelectOpt>Unidad de Apoyo de VD Sur</SelectOpt>
+              </Select>
+            </InputContainer>
+            <Form>
+              <InputContainer>
+                <Label>Nro MPF/DEN</Label>
+                <Input
+                  type="number"
+                  name="MPF/DEN"
+                  value={state.mpfOrDen}
+                  placeholder="MPF/DEN"
+                  onChange={(e) => setState({ ...state, mpfOrDen: e.target.value })}
+                />
+              </InputContainer>
+              <InputContainer>
+                <Label>Nro CIJ</Label>
+                <Input
+                  type="number"
+                  name="CIJ"
+                  value={state.cij}
+                  placeholder="CIJ"
+                  onChange={(e) => setState({ ...state, cij: e.target.value })}
+                />
+              </InputContainer>
+              <InputContainer>
+                <Label>Nro DIL</Label>
+                <Input
+                  type="number"
+                  name="DIL"
+                  value={state.dil}
+                  placeholder="DIL"
+                  onChange={(e) => setState({ ...state, dil: e.target.value })}
+                />
+              </InputContainer>
+            </Form>
+          </>
+        ) : flag === "COOP" ? (
+          <Form style={{ display: "flex", flexDirection: "column" }}>
+            <InputContainer>
+              <Label>Solicitante</Label>
+              <Input
+                type="text"
+                name="Solicitante"
+                value={state.solicitante}
+                placeholder="Solicitante"
+                onChange={(e) => setState({ ...state, solicitante: e.target.value })}
               />
-              <input
+            </InputContainer>
+            <InputContainer>
+              <Label> Nro Coop</Label>
+              <Input
+                type="number"
+                name="COOP"
+                value={state.coop}
+                placeholder="COOP"
+                onChange={(e) => setState({ ...state, coop: e.target.value })}
+              />
+            </InputContainer>
+            <InputContainer>
+              <Label>Nro Causa</Label>
+              <Input
+                type="number"
+                name="Nro Causa"
+                value={state.nroCausa}
+                placeholder="Nro Causa"
+                onChange={(e) => setState({ ...state, nroCausa: e.target.value })}
+              />
+            </InputContainer>
+            <InputContainer>
+              <Label>Caratula</Label>
+              <Input
+                type="text"
+                name="Caratula"
+                value={state.caratula}
+                placeholder="Caratula"
+                onChange={(e) => setState({ ...state, caratula: e.target.value })}
+              />
+            </InputContainer>
+            <InputContainer>
+              <Label>Nro CIJ</Label>
+              <Input
                 type="number"
                 name="CIJ"
                 value={state.cij}
                 placeholder="CIJ"
                 onChange={(e) => setState({ ...state, cij: e.target.value })}
               />
-              <input
+            </InputContainer>
+            <InputContainer>
+              <Label>Nro DIL</Label>
+              <Input
                 type="number"
                 name="DIL"
                 value={state.dil}
                 placeholder="DIL"
                 onChange={(e) => setState({ ...state, dil: e.target.value })}
               />
-            </form>
-          </>
-        ) : flag === "COOP" ? (
-          <form style={{ display: "flex", flexDirection: "column" }}>
-            <input
-              type="text"
-              name="Solicitante"
-              value={state.solicitante}
-              placeholder="Solicitante"
-              onChange={(e) => setState({ ...state, solicitante: e.target.value })}
-            />
-            <input
-              type="number"
-              name="COOP"
-              value={state.coop}
-              placeholder="COOP"
-              onChange={(e) => setState({ ...state, coop: e.target.value })}
-            />
-            <input
-              type="number"
-              name="Nro Causa"
-              value={state.nroCausa}
-              placeholder="Nro Causa"
-              onChange={(e) => setState({ ...state, nroCausa: e.target.value })}
-            />
-            <input
-              type="text"
-              name="Caratula"
-              value={state.caratula}
-              placeholder="Caratula"
-              onChange={(e) => setState({ ...state, caratula: e.target.value })}
-            />
-            <input
-              type="number"
-              name="CIJ"
-              value={state.cij}
-              placeholder="CIJ"
-              onChange={(e) => setState({ ...state, cij: e.target.value })}
-            />
-            <input
-              type="number"
-              name="DIL"
-              value={state.dil}
-              placeholder="DIL"
-              onChange={(e) => setState({ ...state, dil: e.target.value })}
-            />
-          </form>
+            </InputContainer>
+          </Form>
         ) : null}
       </FormContainer>
-      <Button /*to={"/actas/crear/2"}*/ onClick={() => handleClick()} complete={handleComplete()}>
+      <Button to={"/actas/crear/2"} onClick={() => handleClick()} complete={handleComplete()}>
         Siguente
       </Button>
     </Container>
@@ -281,6 +315,74 @@ const Description = styled.h1`
 
 const FormContainer = styled.div`
   ${formContainer}
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+`;
+
+const Label = styled.label`
+  align-self: flex-start;
+  font-weight: 400;
+  font-size: small;
+  margin-bottom: 5px;
+  color: ${secondaryColor};
+`;
+
+const Select = styled.select`
+  width: 100%;
+  height: 60%;
+  text-align: center;
+  border: 1px solid ${principalColor};
+  border-radius: 5px;
+  font-size: medium;
+  font-weight: 400;
+
+  &:focus {
+    border: 2px solid ${principalColor};
+    outline: none;
+  }
+`;
+
+const SelectOpt = styled.option`
+  font-size: medium;
+  font-weight: 400;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 40%;
+  height: 70%;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 60%;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid ${principalColor};
+  font-size: medium;
+  font-weight: 400;
+
+  &::placeholder {
+    color: black;
+  }
+
+  &:focus {
+    border: 2px solid ${principalColor};
+    outline: none;
+  }
+
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
 `;
 
 const Button = styled(NavLink)`

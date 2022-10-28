@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 //* Redux
 import { useSelector } from "react-redux";
 //* Style
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 //* Initializations
-const { redColor } = Variables;
+const { redColor, greenColor } = Variables;
 const { enProcesoContainer, header, headerTitle, headerDescription, button, formContainer } = GlobalStyles;
 
 function AddIntegrantes() {
@@ -19,18 +19,25 @@ function AddIntegrantes() {
     cargo: "",
   });
 
-  useEffect(() => {
-    console.log(integrantes);
-  }, [integrantes]);
-
   const handleClick = () => {
-    setIntegrantes(integrante);
+    setIntegrantes([...integrantes, integrante]);
     setIntegrante({
       nombreYApellido: "",
       dni: "",
       legajoOMatricula: "",
       cargo: "",
     });
+  };
+
+  const handleComplete = () => {
+    //* Logica para habilitar el boton cuando esta todo completado
+    const { nombreYApellido, dni, legajoOMatricula, cargo } = integrante;
+
+    if (nombreYApellido && dni && legajoOMatricula && cargo) {
+      return "true";
+    } else {
+      return "false";
+    }
   };
 
   return (
@@ -72,7 +79,9 @@ function AddIntegrantes() {
             onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value })}
           />
         </form>
-        <AddButton onClick={() => handleClick()}>Agregar Integrante</AddButton>
+        <AddButton onClick={() => handleClick()} complete={handleComplete()}>
+          Agregar Suscriptor
+        </AddButton>
       </FormContainer>
 
       <Button>Siguente</Button>
@@ -101,6 +110,17 @@ const Description = styled.h1`
 
 const AddButton = styled.button`
   ${button}
+  text-decoration: none;
+  background: white;
+  border: 2px solid ${redColor};
+  pointer-events: none;
+
+  ${(props) =>
+    props.complete === "true" &&
+    css`
+      pointer-events: all;
+      border: 2px solid ${greenColor};
+    `}
 `;
 
 const Button = styled.button`
@@ -112,5 +132,5 @@ const Button = styled.button`
 `;
 
 const FormContainer = styled.div`
-  ${formContainer}
+  ${formContainer};
 `;

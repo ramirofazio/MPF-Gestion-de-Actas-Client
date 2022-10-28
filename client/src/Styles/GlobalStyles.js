@@ -94,12 +94,14 @@ const GlobalStyles = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     width: 100%;
     max-height: 70%;
     min-height: 70%;
     border-top: 2px solid ${principalColor};
     overflow-y: scroll;
     padding-block: 10px;
+    padding-top: 5%;
   `,
 
   //* Cards
