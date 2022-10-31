@@ -10,6 +10,7 @@ export const GET_EFECTOS_EN_PROCESO_FILTERED = "GET_EFECTOS_EN_PROCESO_FILTERED"
 export const GET_EFECTOS_FROM_ACTA = "GET_EFECTOS_FROM_ACTA";
 export const CREATE_ACTA = "CREATE_ACTA";
 export const CREATE_INTEGRANTES = "CREATE_INTEGRANTES";
+export const CREATE_BOLSAS = "CREATE_BOLSAS";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -141,6 +142,23 @@ export function createIntegrantes(integrantes) {
         console.log(err);
       });
   };
+}
+
+export function createBolsas(bolsas) {
+  console.log(bolsas);
+  // return function (dispatch) {
+  //   axios
+  //     .post(Variables.baseEndpoint + "/addBolsas", bolsas)
+  //     .then((res) => {
+  //       return dispatch({
+  //         type: CREATE_BOLSAS,
+  //         payload: res.data,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 }
 
 export async function loadDB() {

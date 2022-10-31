@@ -23,7 +23,6 @@ function EfectosCards({ efectos, actaId }) {
         efectosParaCompletar = efectosParaCompletar.filter((ids) => ids !== efectoId);
       }
     }
-    console.log(efectosParaCompletar);
   };
 
   const handleSubmit = () => {

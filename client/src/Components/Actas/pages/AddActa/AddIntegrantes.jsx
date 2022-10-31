@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -9,8 +9,6 @@ import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
-//* Doc
-import generateDoc from "../../generateDoc";
 
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
@@ -32,7 +30,7 @@ const {
 function AddIntegrantes() {
   const dispatch = useDispatch();
   const currentActa = useSelector((state) => state?.currentActa);
-  const currentIntegrantes = useSelector((state) => state?.currentIntegrantes);
+  //const currentIntegrantes = useSelector((state) => state?.currentIntegrantes);
 
   const [integrantes, setIntegrantes] = useState([]);
   const [integrante, setIntegrante] = useState({
@@ -68,13 +66,6 @@ function AddIntegrantes() {
     setIntegrantes(newIntegrantes);
   };
 
-  useEffect(() => {
-    if (currentActa && currentIntegrantes) {
-      console.log(currentActa);
-      generateDoc(currentActa, currentIntegrantes);
-    }
-  }, [currentActa]);
-
   const handleNextComplete = () => {
     if (integrantes.length > "1") {
       return "true";
@@ -84,7 +75,6 @@ function AddIntegrantes() {
   };
 
   const handleNext = () => {
-    console.log("next");
     dispatch(createIntegrantes(integrantes));
   };
 
@@ -182,7 +172,7 @@ function AddIntegrantes() {
         </IntegrantesContainer>
       </SubContainer>
 
-      <Button /*to={"/actas/crear/3"}*/ complete={handleNextComplete()} onClick={() => handleNext()}>
+      <Button to={"/actas/crear/3"} complete={handleNextComplete()} onClick={() => handleNext()}>
         Siguente
       </Button>
     </Container>

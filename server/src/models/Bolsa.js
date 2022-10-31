@@ -4,21 +4,21 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Bolsa",
     {
-      nro_precinto: {
+      nroPrecinto: {
         type: DataTypes.BIGINT,
       },
-      color_precinto: {
+      colorPecinto: {
         type: DataTypes.ENUM("rojo", "verde"),
       },
-      notas: {
+      observaciones: {
         type: DataTypes.STRING,
       },
       nro_precinto_blanco: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         defaultValue: null,
       },
       estado: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM("en proceso", "deprecado", "completo"),
         defaultValue: "en proceso",
       },
     },

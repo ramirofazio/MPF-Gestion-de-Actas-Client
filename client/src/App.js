@@ -11,6 +11,7 @@ const Consultas = lazy(() => import("./Components/Consultas/Consultas"));
 const Todas = lazy(() => import("./Components/Consultas/pages/Todas"));
 const AddActa = lazy(() => import("./Components/Actas/pages/AddActa/AddActa"));
 const AddIntegrantes = lazy(() => import("./Components/Actas/pages/AddActa/AddIntegrantes"));
+const AddBolsas = lazy(() => import("./Components/Actas/pages/AddActa/AddBolsas"));
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/actas/crear" exact element={<Home />} />
           <Route path="/actas/crear/1" exact element={<AddActa />} />
           <Route path="/actas/crear/2" exact element={<AddIntegrantes />} />
+          <Route path="/actas/crear/3" exact element={<AddBolsas />} />
 
           <Route path="/actas/en_proceso" exact element={<ActasEnProceso />} />
           <Route path="/efectos/en_proceso/:id" exact element={<EfectosEnProceso />} />
