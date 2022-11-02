@@ -40,7 +40,7 @@ const customStyles = {
     bottom: "auto",
     transform: "translate(-50%, -50%)",
     width: "30%",
-    height: "80%",
+    height: "90%",
     backgroundColor: principalColor,
     display: "flex",
     alignItems: "center",
@@ -109,7 +109,7 @@ function AddBolsas() {
           <InputContainer style={{ width: "100%" }}>
             <Label>Observaciones/Descripción de la Bolsa</Label>
             <Input
-              type="number"
+              type="text"
               name="Observaciones/Descripcion de la Bolsa"
               value={bolsa.observaciones}
               placeholder="Observaciones/Descripcion de la Bolsa"
@@ -125,8 +125,8 @@ function AddBolsas() {
       </FormContainer>
       <EfectosContainer>
         {/*
-        {efectos
-          ? efectos.map((efecto) => (
+        {currentEfectos
+          ? currentEfectos.map((efecto) => (
               <EfectoContainer key={efecto.id} estado={efecto.estado}>
                 <Info>
                   <CardTitle>Nro Precinto</CardTitle>
@@ -170,10 +170,13 @@ function AddBolsas() {
         <AddEfectos />
       </Modal>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        <Button complete={currentBolsas ? "true" : "false"} onClick={() => setIsOpen(!modalIsOpen)}>
+        <Button complete={currentBolsas.length !== 0 ? "true" : "false"} onClick={() => setIsOpen(!modalIsOpen)}>
           Añadir Elementos
         </Button>
-        <Button to={"/actas/crear/4"} complete={currentBolsas && currentEfectos ? "true" : "false"}>
+        <Button
+          to={"/actas/crear/4"}
+          complete={currentBolsas?.length !== 0 && currentEfectos?.length !== 0 ? "true" : "false"}
+        >
           Siguente
         </Button>
       </div>
@@ -259,10 +262,12 @@ const Button = styled(NavLink)`
 `;
 
 const CloseIcon = styled(Close)`
-  width: 10%;
+  width: 8%;
   color: white;
   transition: all 0.5s ease;
-  align-self: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
 
   &:hover {
     color: ${secondaryColor};

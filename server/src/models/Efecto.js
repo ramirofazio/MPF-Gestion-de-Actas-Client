@@ -4,39 +4,47 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Efecto",
     {
-      tipo: {
-        type: DataTypes.STRING,
+      bolsa_id: {
+        type: DataTypes.INTEGER,
       },
-      color: {
-        type: DataTypes.STRING,
-      },
-      tipo_extraccion: {
-        type: DataTypes.ENUM("fisica", "logica", "otra"),
-      },
-      nro_serie: {
-        type: DataTypes.BIGINT,
-      },
-      tipo_desbloqueo: {
-        type: DataTypes.ENUM("ninguno", "pin", "patron", "contraseña", "huella", "facial", "otro"),
-      },
-      IMEI: {
-        type: DataTypes.BIGINT,
-      },
-      modelo: {
+      tipoDeElemento: {
         type: DataTypes.STRING,
       },
       marca: {
         type: DataTypes.STRING,
       },
-      notas: {
+      modelo: {
         type: DataTypes.STRING,
       },
-      sofware: {
+      imei: {
+        type: DataTypes.STRING,
+      },
+      imei2: {
+        type: DataTypes.STRING,
+      },
+      sistemaOperativo: {
+        type: DataTypes.STRING,
+      },
+      seguridad: {
+        type: DataTypes.STRING,
+      },
+      tipoSeguridad: {
+        type: DataTypes.STRING,
+      },
+      desbloqueo: {
+        type: DataTypes.STRING,
+      },
+      herramientaSoft: {
+        type: DataTypes.STRING,
+      },
+      tipoExtraccion: {
+        type: DataTypes.STRING,
+      },
+      descripcionTarea: {
         type: DataTypes.STRING,
       },
       estado: {
-        type: DataTypes.ENUM("en proceso", "completo", "deprecado"),
-        defaultValue: "en proceso",
+        type: DataTypes.STRING,
       },
     },
     {

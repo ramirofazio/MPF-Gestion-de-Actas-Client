@@ -1,29 +1,57 @@
 const addEfecto = require("express").Router();
 const { Efecto } = require("../db");
 
-addEfecto.post("/:id", async (req, res) => {
+addEfecto.post("/", async (req, res) => {
   try {
-    const bolsa_id = req.params.id;
-    const { tipo, color, tipo_extraccion, nro_serie, tipo_desbloqueo, notas, IMEI, modelo, marca, sofware } = req.body;
+    const {
+      bolsa_id,
+      tipoDeElemento,
+      marca,
+      modelo,
+      imei,
+      imei2,
+      estado,
+      sistemaOperativo,
+      seguridad,
+      tipoSeguridad,
+      desbloqueo,
+      herramientaSoft,
+      tipoExtraccion,
+      descripcionTarea,
+    } = req.body;
 
-    if (!tipo || !tipo_extraccion || !modelo || !marca || !sofware) {
-      //* Valido que me manden los datos necesarios
-      return res.status(400).send("Falta enviar datos necesarios");
-    }
+    console.log(
+      bolsa_id,
+      tipoDeElemento,
+      marca,
+      modelo,
+      imei,
+      imei2,
+      estado,
+      sistemaOperativo,
+      seguridad,
+      tipoSeguridad,
+      desbloqueo,
+      herramientaSoft,
+      tipoExtraccion,
+      descripcionTarea
+    );
 
     const newEfecto = await Efecto.create({
-      //* Crea el Efecto
       bolsa_id,
-      tipo,
-      color,
-      tipo_extraccion,
-      nro_serie,
-      tipo_desbloqueo,
-      notas,
-      IMEI,
-      modelo,
+      tipoDeElemento,
       marca,
-      sofware,
+      modelo,
+      imei,
+      imei2,
+      sistemaOperativo,
+      seguridad,
+      tipoSeguridad,
+      desbloqueo,
+      herramientaSoft,
+      tipoExtraccion,
+      descripcionTarea,
+      estado
     });
 
     return res.status(200).json(newEfecto);

@@ -10,6 +10,7 @@ import {
   CREATE_ACTA,
   CREATE_INTEGRANTES,
   CREATE_BOLSAS,
+  CREATE_EFECTOS,
 } from "./actions";
 
 let initialState = {
@@ -18,6 +19,7 @@ let initialState = {
   currentActa: [],
   currentIntegrantes: [],
   currentBolsas: [],
+  currentEfectos: [],
   actasEnProceso: [],
   actasEnProcesoSave: [],
   allEfectos: [],
@@ -28,6 +30,11 @@ let initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case CREATE_EFECTOS:
+      return {
+        ...state,
+        currentEfectos: [...state.currentEfectos, action.payload],
+      };
     case CREATE_BOLSAS:
       return {
         ...state,

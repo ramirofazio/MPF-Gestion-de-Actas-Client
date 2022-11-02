@@ -4,7 +4,6 @@ const { Bolsa } = require("../db");
 addBolsa.post("/", async (req, res) => {
   try {
     const { acta_id, colorPrecinto, nroPrecinto, observaciones } = req.body;
-    console.log(colorPrecinto);
 
     const newBolsa = await Bolsa.create({
       acta_id,
@@ -12,8 +11,6 @@ addBolsa.post("/", async (req, res) => {
       nroPrecinto: Number(nroPrecinto),
       observaciones,
     });
-
-    console.log(newBolsa);
 
     return res.status(200).json(newBolsa);
   } catch (err) {

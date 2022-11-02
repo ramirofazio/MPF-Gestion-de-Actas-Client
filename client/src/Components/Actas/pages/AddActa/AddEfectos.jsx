@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 //* Redux
+import { createEfecto } from "../../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 //* Style
 import styled from "styled-components";
-import GlobalStyles from "../../../../Styles/GlobalStyles";
 //* Doc
 //import generateDoc from "../../generateDoc";
 
-//* Initializations
-const { input, form, inputLabel, inputContainer, formContainer, select } = GlobalStyles;
-
 function AddEfectos() {
+  const dispatch = useDispatch();
+
+  const currentBolsas = useSelector((state) => state?.currentBolsas);
+
   const [efecto, setEfecto] = useState({
+    bolsa_id: "",
     tipoDeElemento: "",
     marca: "",
     modelo: "",
@@ -26,11 +29,28 @@ function AddEfectos() {
     descripcionTarea: "",
   });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createEfecto(efecto));
+  };
+
   return (
-    <FormContainer style={{ height: "100%", width: "90%" }}>
-      <Form style={{ width: "100%" }}>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Tipo de Elemento</Label>
+    <>
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <InputContainer>
+          <Label>Nro Bolsa</Label>
+          <Select value={efecto.bolsa_id} onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}>
+            <SelectOpt value="">Nro Bolsa</SelectOpt>
+            {currentBolsas.length !== 0 &&
+              currentBolsas.map((b) => (
+                <SelectOpt value={b.nroPrecinto} key={b.id}>
+                  {b.nroPrecinto}
+                </SelectOpt>
+              ))}
+          </Select>
+        </InputContainer>
+        <InputContainer>
+          <Label>Tipo de Elemento</Label>
           <Select
             value={efecto.tipoDeElemento}
             onChange={(e) => setEfecto({ ...efecto, tipoDeElemento: e.target.value })}
@@ -46,8 +66,8 @@ function AddEfectos() {
             <SelectOpt value="sd">Tarjeta SD</SelectOpt>
           </Select>
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Marca</Label>
+        <InputContainer>
+          <Label>Marca</Label>
           <Input
             type="text"
             name="marca"
@@ -56,8 +76,8 @@ function AddEfectos() {
             onChange={(e) => setEfecto({ ...efecto, marca: e.target.value })}
           />
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Modelo</Label>
+        <InputContainer>
+          <Label>Modelo</Label>
           <Input
             type="text"
             name="modelo"
@@ -66,8 +86,8 @@ function AddEfectos() {
             onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value })}
           />
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>IMEI</Label>
+        <InputContainer>
+          <Label>IMEI</Label>
           <Input
             type="text"
             name="imei"
@@ -76,8 +96,8 @@ function AddEfectos() {
             onChange={(e) => setEfecto({ ...efecto, imei: e.target.value })}
           />
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>IMEI 2</Label>
+        <InputContainer>
+          <Label>IMEI 2</Label>
           <Input
             type="text"
             name="imei 2"
@@ -86,16 +106,16 @@ function AddEfectos() {
             onChange={(e) => setEfecto({ ...efecto, imei2: e.target.value })}
           />
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Estado</Label>
+        <InputContainer>
+          <Label>Estado</Label>
           <Select value={efecto.estado} onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}>
             <SelectOpt value="">Estado</SelectOpt>
             <SelectOpt value="completo">Completo</SelectOpt>
             <SelectOpt value="en proceso">En Proceso</SelectOpt>
           </Select>
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Sistema Operativo</Label>
+        <InputContainer>
+          <Label>Sistema Operativo</Label>
           <Input
             type="text"
             name="sistemaOperativo"
@@ -104,8 +124,8 @@ function AddEfectos() {
             onChange={(e) => setEfecto({ ...efecto, sistemaOperativo: e.target.value })}
           />
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Seguridad</Label>
+        <InputContainer>
+          <Label>Seguridad</Label>
           <Input
             type="text"
             name="seguridad"
@@ -114,8 +134,8 @@ function AddEfectos() {
             onChange={(e) => setEfecto({ ...efecto, seguridad: e.target.value })}
           />
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Tipo de Seguridad</Label>
+        <InputContainer>
+          <Label>Tipo de Seguridad</Label>
           <Select
             value={efecto.tipoSeguridad}
             onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}
@@ -129,8 +149,8 @@ function AddEfectos() {
             <SelectOpt value="huella">Huella</SelectOpt>
           </Select>
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Desbloqueo</Label>
+        <InputContainer>
+          <Label>Desbloqueo</Label>
           <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
             <SelectOpt value="">Desbloqueo</SelectOpt>
             <SelectOpt value="ninguna">Ninguna</SelectOpt>
@@ -141,8 +161,8 @@ function AddEfectos() {
             <SelectOpt value="huella">Huella</SelectOpt>
           </Select>
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Herramiento Software</Label>
+        <InputContainer>
+          <Label>Herramiento Software</Label>
           <Select
             value={efecto.herramientaSoft}
             onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}
@@ -152,8 +172,8 @@ function AddEfectos() {
             <SelectOpt value="UFED">UFED</SelectOpt>
           </Select>
         </InputContainer>
-        <InputContainer style={{ width: "80%", marginBottom: "10px" }}>
-          <Label style={{ color: "white" }}>Tipo de Extracción</Label>
+        <InputContainer>
+          <Label>Tipo de Extracción</Label>
           <Select
             value={efecto.tipoExtraccion}
             onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}
@@ -164,42 +184,47 @@ function AddEfectos() {
             <SelectOpt value="logica">Logica</SelectOpt>
           </Select>
         </InputContainer>
+        <InputContainer>
+          <Label>Descripcion Tarea</Label>
+          <TextArea
+            value={efecto.descripcionTarea}
+            onChange={(e) => setEfecto({ ...efecto, descripcionTarea: e.target.value })}
+          />
+        </InputContainer>
+        <Button type="submit" value="Cargar Elemento" />
       </Form>
-    </FormContainer>
+    </>
   );
 }
 
 export default AddEfectos;
 
-const FormContainer = styled.div`
-  ${formContainer}
-  &::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    border-radius: 5px;
-  }
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 80%;
+  padding: 5%;
+  color: white;
 `;
 
 const InputContainer = styled.div`
-  ${inputContainer}
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const Label = styled.label`
-  ${inputLabel}
-`;
+const Label = styled.label``;
 
-const Form = styled.form`
-  ${form}
-`;
+const Input = styled.input``;
 
-const Input = styled.input`
-  ${input}
-`;
+const Select = styled.select``;
 
-const Select = styled.select`
-  ${select}
-`;
+const SelectOpt = styled.option``;
 
-const SelectOpt = styled.option`
-  font-size: medium;
-  font-weight: 400;
-`;
+const Button = styled.input``;
+
+const TextArea = styled.textarea``;

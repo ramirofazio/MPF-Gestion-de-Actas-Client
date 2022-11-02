@@ -11,6 +11,7 @@ export const GET_EFECTOS_FROM_ACTA = "GET_EFECTOS_FROM_ACTA";
 export const CREATE_ACTA = "CREATE_ACTA";
 export const CREATE_INTEGRANTES = "CREATE_INTEGRANTES";
 export const CREATE_BOLSAS = "CREATE_BOLSAS";
+export const CREATE_EFECTOS = "CREATE_EFECTOS";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -151,6 +152,22 @@ export function createBolsas(bolsa) {
       .then((res) => {
         return dispatch({
           type: CREATE_BOLSAS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function createEfecto(efecto) {
+  return function (dispatch) {
+    axios
+      .post(Variables.baseEndpoint + "/addEfecto", efecto)
+      .then((res) => {
+        return dispatch({
+          type: CREATE_EFECTOS,
           payload: res.data,
         });
       })
