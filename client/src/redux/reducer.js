@@ -31,7 +31,7 @@ function reducer(state = initialState, action) {
     case CREATE_BOLSAS:
       return {
         ...state,
-        currentBolsas: action.payload,
+        currentBolsas: [...state.currentBolsas, action.payload],
       };
     case CREATE_INTEGRANTES:
       return {

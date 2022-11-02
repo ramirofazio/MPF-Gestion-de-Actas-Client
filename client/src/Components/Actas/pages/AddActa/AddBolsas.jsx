@@ -17,6 +17,7 @@ import AddEfectos from "./AddEfectos";
 
 //* Initializations
 const { redColor, greenColor, principalColor, secondaryColor } = Variables;
+
 const {
   select,
   input,
@@ -31,11 +32,33 @@ const {
   button,
 } = GlobalStyles;
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%, -50%)",
+    width: "30%",
+    height: "80%",
+    backgroundColor: principalColor,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    padding: 0,
+  },
+};
+
 function AddBolsas() {
   const dispatch = useDispatch();
-  const [modalIsOpen, setIsOpen] = useState(false);
+
   const currentActa = useSelector((state) => state?.currentActa);
   const currentIntegrantes = useSelector((state) => state?.currentIntegrantes);
+  const currentBolsas = useSelector((state) => state?.currentBolsas);
+  const currentEfectos = useSelector((state) => state?.currentEfectos);
+
+  const [modalIsOpen, setIsOpen] = useState(false);
   const [bolsa, setBolsa] = useState({
     acta_id: currentActa.id,
     colorPrecinto: "",
@@ -43,33 +66,14 @@ function AddBolsas() {
     observaciones: "",
   });
 
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      transform: "translate(-50%, -50%)",
-      width: "30%",
-      height: "80%",
-      backgroundColor: principalColor,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "column",
-      padding: 0,
-    },
-  };
+  useEffect(() => {
+    console.log(currentActa, currentIntegrantes, currentBolsas, currentEfectos);
+  }, [currentBolsas]);
 
-  const handleComplete = () => {};
-
-  const handleClick = () => {
+  const handleSubmitBolsa = (e) => {
+    e.preventDefault();
     dispatch(createBolsas(bolsa));
   };
-
-  useEffect(() => {
-    console.log(currentActa, currentIntegrantes);
-  }, [currentIntegrantes]);
 
   return (
     <Container>
@@ -78,7 +82,7 @@ function AddBolsas() {
         <Description>Bolsas y Efectos</Description>
       </Header>
       <FormContainer>
-        <Form>
+        <Form onSubmit={(e) => handleSubmitBolsa(e)}>
           <div style={{ width: "100%", display: "flex", justifyContent: "space-around" }}>
             <InputContainer>
               <Label>Color del Precinto</Label>
@@ -86,9 +90,9 @@ function AddBolsas() {
                 value={bolsa.colorPrecinto}
                 onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}
               >
-                <SelectOpt>Color del Precinto</SelectOpt>
-                <SelectOpt>Rojo</SelectOpt>
-                <SelectOpt>Verde</SelectOpt>
+                <SelectOpt value="">Color del Precinto</SelectOpt>
+                <SelectOpt value="rojo">Rojo</SelectOpt>
+                <SelectOpt value="verde">Verde</SelectOpt>
               </Select>
             </InputContainer>
             <InputContainer>
@@ -112,6 +116,11 @@ function AddBolsas() {
               onChange={(e) => setBolsa({ ...bolsa, observaciones: e.target.value })}
             />
           </InputContainer>
+          <Submit
+            type="submit"
+            value="Cargar Bolsa"
+            complete={bolsa.colorPrecinto && bolsa.nroPrecinto ? "true" : "false"}
+          />
         </Form>
       </FormContainer>
       <EfectosContainer>
@@ -161,10 +170,10 @@ function AddBolsas() {
         <AddEfectos />
       </Modal>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        <Button complete={"true"} onClick={() => setIsOpen(!modalIsOpen)}>
+        <Button complete={currentBolsas ? "true" : "false"} onClick={() => setIsOpen(!modalIsOpen)}>
           Añadir Elementos
         </Button>
-        <Button to={"/actas/crear/4"} onClick={() => handleClick()} complete={handleComplete()}>
+        <Button to={"/actas/crear/4"} complete={currentBolsas && currentEfectos ? "true" : "false"}>
           Siguente
         </Button>
       </div>
@@ -259,4 +268,22 @@ const CloseIcon = styled(Close)`
     color: ${secondaryColor};
     cursor: pointer;
   }
+`;
+
+const Submit = styled.input`
+  ${button}
+  padding: 2px;
+  padding-inline: 10px;
+  margin-top: 15px;
+  text-decoration: none;
+  background: white;
+  border: 2px solid ${redColor};
+  pointer-events: none;
+
+  ${(props) =>
+    props.complete === "true" &&
+    css`
+      pointer-events: all;
+      border: 2px solid ${greenColor};
+    `}
 `;

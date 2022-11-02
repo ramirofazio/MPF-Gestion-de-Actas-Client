@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       nroPrecinto: {
         type: DataTypes.BIGINT,
       },
-      colorPecinto: {
+      colorPrecinto: {
         type: DataTypes.ENUM("rojo", "verde"),
       },
       observaciones: {

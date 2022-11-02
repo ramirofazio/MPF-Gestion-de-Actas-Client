@@ -144,21 +144,20 @@ export function createIntegrantes(integrantes) {
   };
 }
 
-export function createBolsas(bolsas) {
-  console.log(bolsas);
-  // return function (dispatch) {
-  //   axios
-  //     .post(Variables.baseEndpoint + "/addBolsas", bolsas)
-  //     .then((res) => {
-  //       return dispatch({
-  //         type: CREATE_BOLSAS,
-  //         payload: res.data,
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+export function createBolsas(bolsa) {
+  return function (dispatch) {
+    axios
+      .post(Variables.baseEndpoint + "/addBolsa", bolsa)
+      .then((res) => {
+        return dispatch({
+          type: CREATE_BOLSAS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 }
 
 export async function loadDB() {

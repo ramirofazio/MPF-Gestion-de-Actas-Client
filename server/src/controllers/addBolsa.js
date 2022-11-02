@@ -1,23 +1,19 @@
 const addBolsa = require("express").Router();
 const { Bolsa } = require("../db");
 
-addBolsa.post("/:id", async (req, res) => {
+addBolsa.post("/", async (req, res) => {
   try {
-    const acta_id = req.params.id;
-    const { nro_precinto, color_precinto, notas } = req.body;
-
-    if (!nro_precinto || !color_precinto) {
-      //* Valido que me manden todos datos
-      return res.status(400).send("Falta enviar datos necesarios");
-    }
+    const { acta_id, colorPrecinto, nroPrecinto, observaciones } = req.body;
+    console.log(colorPrecinto);
 
     const newBolsa = await Bolsa.create({
-      //* Crea la Bolsa
       acta_id,
-      nro_precinto,
-      color_precinto,
-      notas,
+      colorPrecinto,
+      nroPrecinto: Number(nroPrecinto),
+      observaciones,
     });
+
+    console.log(newBolsa);
 
     return res.status(200).json(newBolsa);
   } catch (err) {

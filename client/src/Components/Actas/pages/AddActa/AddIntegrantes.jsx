@@ -106,7 +106,7 @@ function AddIntegrantes() {
                 name="dni"
                 value={integrante.dni}
                 placeholder="DNI"
-                onChange={(e) => setIntegrante({ ...integrante, dni: e.target.value })}
+                onChange={(e) => setIntegrante({ ...integrante, dni: Number(e.target.value) })}
               />
             </InputContainer>
             <InputContainer>
@@ -116,7 +116,7 @@ function AddIntegrantes() {
                 name="legajoOMatricula"
                 value={integrante.legajoOMatricula}
                 placeholder="Legajo o Matricula"
-                onChange={(e) => setIntegrante({ ...integrante, legajoOMatricula: e.target.value })}
+                onChange={(e) => setIntegrante({ ...integrante, legajoOMatricula: Number(e.target.value) })}
               />
             </InputContainer>
             <InputContainer>
