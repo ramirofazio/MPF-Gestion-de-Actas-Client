@@ -7,7 +7,7 @@ import styled from "styled-components";
 //* Doc
 //import generateDoc from "../../generateDoc";
 
-function AddEfectos() {
+function AddEfectos({ closeModal }) {
   const dispatch = useDispatch();
 
   const currentBolsas = useSelector((state) => state?.currentBolsas);
@@ -32,6 +32,7 @@ function AddEfectos() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createEfecto(efecto));
+    closeModal();
   };
 
   return (

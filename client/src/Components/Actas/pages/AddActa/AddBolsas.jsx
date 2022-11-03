@@ -30,6 +30,8 @@ const {
   headerDescription,
   formContainer,
   button,
+  cardTitle,
+  cardInfo,
 } = GlobalStyles;
 
 const customStyles = {
@@ -124,50 +126,26 @@ function AddBolsas() {
         </Form>
       </FormContainer>
       <EfectosContainer>
-        {/*
         {currentEfectos
           ? currentEfectos.map((efecto) => (
               <EfectoContainer key={efecto.id} estado={efecto.estado}>
                 <Info>
-                  <CardTitle>Nro Precinto</CardTitle>
+                  <CardTitle>Bolsa</CardTitle>
                   <br />
-                  {efecto.Bolsa.nro_precinto}
+                  {efecto.bolsa_id}
                 </Info>
                 <Info>
                   <CardTitle>Tipo</CardTitle>
                   <br />
-                  {efecto.tipo}
+                  {efecto.tipoDeElemento}
                 </Info>
-                <Info>
-                  <CardTitle>Marca</CardTitle>
-                  <br />
-                  {efecto.marca}
-                </Info>
-                <Info>
-                  <CardTitle>Modelo</CardTitle>
-                  <br />
-                  {efecto.modelo}
-                </Info>
-                <Info>
-                  <CardTitle>Estado</CardTitle>
-                  <br />
-                  <Estado estado={efecto.estado}>{efecto.estado}</Estado>
-                </Info>
-                <CheckBoxContainer>
-                  {efecto.estado === "completo" ? (
-                    <CheckIcon />
-                  ) : (
-                    <CheckBox type="checkbox" onClick={() => handleCheckClick(efecto.id)} />
-                  )}
-                </CheckBoxContainer>
               </EfectoContainer>
             ))
           : null}
-          */}
       </EfectosContainer>
       <Modal isOpen={modalIsOpen} style={customStyles}>
         <CloseIcon onClick={() => setIsOpen(!modalIsOpen)} />
-        <AddEfectos />
+        <AddEfectos closeModal={() => setIsOpen(!modalIsOpen)} />
       </Modal>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
         <Button complete={currentBolsas.length !== 0 ? "true" : "false"} onClick={() => setIsOpen(!modalIsOpen)}>
@@ -244,6 +222,10 @@ const Input = styled.input`
 const EfectosContainer = styled.div`
   flex: 1;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 const Button = styled(NavLink)`
@@ -292,3 +274,36 @@ const Submit = styled.input`
       border: 2px solid ${greenColor};
     `}
 `;
+
+const EfectoContainer = styled.div`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 90%;
+  min-height: 60px;
+  margin-top: 5px;
+  border: 2px solid ${principalColor};
+  border-radius: 5px;
+  transition: all 0.3s ease;
+
+  border: ${(props) =>
+    props.estado === "en proceso"
+      ? `2px solid ${principalColor}`
+      : props.estado === "completo"
+      ? `2px solid ${greenColor}`
+      : `2px solid ${redColor}`};
+`;
+
+const Info = styled.span`
+  ${cardInfo}
+`;
+
+const CardTitle = styled.strong`
+  ${cardTitle}
+`;
+
+// const Estado = styled.span`
+//   color: ${(props) =>
+//     props.estado === "en proceso" ? yellowColor : props.estado === "completo" ? greenColor : redColor};
+// `;
