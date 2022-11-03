@@ -164,7 +164,7 @@ export function createBolsas(bolsa) {
 export function createEfecto(efecto) {
   return function (dispatch) {
     axios
-      .post(Variables.baseEndpoint + "/addEfecto", efecto)
+      .post(Variables.baseEndpoint + `/addEfecto?id=${efecto.bolsa_id}`, efecto)
       .then((res) => {
         return dispatch({
           type: CREATE_EFECTOS,

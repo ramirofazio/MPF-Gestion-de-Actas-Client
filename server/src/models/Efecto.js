@@ -4,9 +4,6 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Efecto",
     {
-      bolsa_id: {
-        type: DataTypes.INTEGER,
-      },
       tipoDeElemento: {
         type: DataTypes.STRING,
       },

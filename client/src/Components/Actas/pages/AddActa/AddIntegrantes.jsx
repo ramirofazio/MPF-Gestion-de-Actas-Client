@@ -67,7 +67,7 @@ function AddIntegrantes() {
   };
 
   const handleNextComplete = () => {
-    if (integrantes.length > "1") {
+    if (integrantes.length >= "1") {
       return "true";
     } else {
       return "false";

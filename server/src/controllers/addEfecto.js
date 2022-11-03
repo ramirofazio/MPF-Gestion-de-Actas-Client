@@ -3,8 +3,8 @@ const { Efecto } = require("../db");
 
 addEfecto.post("/", async (req, res) => {
   try {
+    const { bolsa_id } = req.query;
     const {
-      bolsa_id,
       tipoDeElemento,
       marca,
       modelo,
@@ -21,7 +21,6 @@ addEfecto.post("/", async (req, res) => {
     } = req.body;
 
     console.log(
-      bolsa_id,
       tipoDeElemento,
       marca,
       modelo,
@@ -38,7 +37,7 @@ addEfecto.post("/", async (req, res) => {
     );
 
     const newEfecto = await Efecto.create({
-      bolsa_id,
+      bolsa_id: bolsa_id,
       tipoDeElemento,
       marca,
       modelo,
@@ -51,12 +50,12 @@ addEfecto.post("/", async (req, res) => {
       herramientaSoft,
       tipoExtraccion,
       descripcionTarea,
-      estado
+      estado,
     });
 
     return res.status(200).json(newEfecto);
   } catch (err) {
-    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
+    return res.status(err.code).send("Algo salio mal. Error \n\n -------> ", err);
   }
 });
 
