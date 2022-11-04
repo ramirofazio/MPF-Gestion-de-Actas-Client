@@ -6,8 +6,8 @@ import expressions from "angular-expressions";
 import { assign } from "lodash";
 import template from "../../Assets/template.docx";
 
-function generateDoc(acta, integrantes) {
-  const { solicitante, nro_mpf, nro_coop, nro_causa, caratula, fecha, flag } = acta;
+function generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfectos) {
+  const { solicitante, nro_mpf, nro_coop, nro_causa, caratula, fecha, flag } = currentActa;
   function loadFile(url, callback) {
     PizZipUtils.getBinaryContent(url, callback);
   }
@@ -67,7 +67,9 @@ function generateDoc(acta, integrantes) {
       nro_coop: nro_coop,
       nro_causa: nro_causa,
       caratula: caratula,
-      integrantes: integrantes,
+      integrantes: currentIntegrantes,
+      bolsas: currentBolsas,
+      efectos: currentEfectos,
     });
     try {
       doc.render();

@@ -3,14 +3,20 @@ import React, { useState } from "react";
 import { createEfecto } from "../../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 //* Style
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import GlobalStyles from "../../../../Styles/GlobalStyles";
+import Variables from "../../../../Styles/Variables";
 //* Doc
 //import generateDoc from "../../generateDoc";
+//* Initializations
+const { button } = GlobalStyles;
+const { redColor, greenColor } = Variables;
 
 function AddEfectos({ closeModal }) {
   const dispatch = useDispatch();
 
   const currentBolsas = useSelector((state) => state?.currentBolsas);
+  const currentEfectos = useSelector((state) => state?.currentEfectos);
 
   const [efecto, setEfecto] = useState({
     bolsa_id: "",
@@ -35,9 +41,42 @@ function AddEfectos({ closeModal }) {
     closeModal();
   };
 
+  const validate = () => {
+    const {
+      bolsa_id,
+      tipoDeElemento,
+      marca,
+      modelo,
+      imei,
+      estado,
+      sistemaOperativo,
+      seguridad,
+      herramientaSoft,
+      tipoExtraccion,
+    } = efecto;
+
+    if (
+      bolsa_id &&
+      tipoDeElemento &&
+      marca &&
+      modelo &&
+      imei &&
+      estado &&
+      sistemaOperativo &&
+      seguridad &&
+      herramientaSoft &&
+      tipoExtraccion
+    ) {
+      return "true";
+    } else {
+      return "false";
+    }
+  };
+
   return (
     <>
       <Form onSubmit={(e) => handleSubmit(e)}>
+        <h4>Elemento Nro {currentEfectos.length + 1}</h4>
         <InputContainer>
           <Label>Nro Bolsa</Label>
           <Select value={efecto.bolsa_id} onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}>
@@ -192,7 +231,7 @@ function AddEfectos({ closeModal }) {
             onChange={(e) => setEfecto({ ...efecto, descripcionTarea: e.target.value })}
           />
         </InputContainer>
-        <Button type="submit" value="Cargar Elemento" />
+        <Button type="submit" value="Cargar Elemento" complete={validate()} />
       </Form>
     </>
   );
@@ -226,6 +265,22 @@ const Select = styled.select``;
 
 const SelectOpt = styled.option``;
 
-const Button = styled.input``;
+const Button = styled.input`
+  ${button}
+  padding: 2px;
+  padding-inline: 10px;
+  margin-top: 15px;
+  text-decoration: none;
+  background: white;
+  border: 2px solid ${redColor};
+  pointer-events: none;
+
+  ${(props) =>
+    props.complete === "true" &&
+    css`
+      pointer-events: all;
+      border: 2px solid ${greenColor};
+    `}
+`;
 
 const TextArea = styled.textarea``;

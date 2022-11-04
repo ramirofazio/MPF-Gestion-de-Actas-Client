@@ -11,7 +11,7 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 //* Modal
 import Modal from "react-modal";
 //* Doc
-//import generateDoc from "../../generateDoc";
+import generateDoc from "../../generateDoc";
 //* Components
 import AddEfectos from "./AddEfectos";
 
@@ -167,10 +167,10 @@ function AddBolsas() {
           Añadir Elementos
         </Button>
         <Button
-          to={"/actas/crear/4"}
+          onClick={() => generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfectos)}
           complete={currentBolsas?.length !== 0 && currentEfectos?.length !== 0 ? "true" : "false"}
         >
-          Siguente
+          generate
         </Button>
       </div>
     </Container>
