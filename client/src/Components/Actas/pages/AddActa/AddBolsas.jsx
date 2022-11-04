@@ -139,6 +139,21 @@ function AddBolsas() {
                   <br />
                   {efecto.tipoDeElemento}
                 </Info>
+                <Info>
+                  <CardTitle>Marca</CardTitle>
+                  <br />
+                  {efecto.marca}
+                </Info>
+                <Info>
+                  <CardTitle>Modelo</CardTitle>
+                  <br />
+                  {efecto.modelo}
+                </Info>
+                <Info>
+                  <CardTitle>Tipo de Extraccion</CardTitle>
+                  <br />
+                  {efecto.tipoExtraccion}
+                </Info>
               </EfectoContainer>
             ))
           : null}
@@ -226,6 +241,8 @@ const EfectosContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  overflow-y: scroll;
+  padding-block: 15px;
 `;
 
 const Button = styled(NavLink)`
