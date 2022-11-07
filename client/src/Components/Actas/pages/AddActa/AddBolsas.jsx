@@ -11,7 +11,7 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 //* Modal
 import Modal from "react-modal";
 //* Doc
-import generateDoc from "../../generateDoc";
+//import generateDoc from "../../generateDoc";
 //* Components
 import AddEfectos from "./AddEfectos";
 
@@ -34,7 +34,7 @@ const {
   cardInfo,
 } = GlobalStyles;
 
-const customStyles = {
+const addEfectosModalStyles = {
   content: {
     top: "50%",
     left: "50%",
@@ -52,6 +52,24 @@ const customStyles = {
   },
 };
 
+const closeBolsaModalStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%, -50%)",
+    width: "30%",
+    height: "30%",
+    backgroundColor: principalColor,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    padding: 0,
+  },
+};
+
 function AddBolsas() {
   const dispatch = useDispatch();
 
@@ -60,7 +78,9 @@ function AddBolsas() {
   const currentBolsas = useSelector((state) => state?.currentBolsas);
   const currentEfectos = useSelector((state) => state?.currentEfectos);
 
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [addEfectosModal, setAddEfectosModal] = useState(false);
+  const [closeBagModal, setCloseBagModal] = useState(false);
+
   const [bolsa, setBolsa] = useState({
     acta_id: currentActa.id,
     colorPrecinto: "",
@@ -83,6 +103,8 @@ function AddBolsas() {
     });
   };
 
+  //generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfectos)
+
   return (
     <Container>
       <Header>
@@ -91,7 +113,7 @@ function AddBolsas() {
       </Header>
       <FormContainer>
         <Form onSubmit={(e) => handleSubmitBolsa(e)}>
-          <div style={{ width: "100%", display: "flex", justifyContent: "space-around" }}>
+          <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
             <InputContainer>
               <Label>Color del Precinto</Label>
               <Select
@@ -114,7 +136,7 @@ function AddBolsas() {
               />
             </InputContainer>
           </div>
-          <InputContainer style={{ width: "100%" }}>
+          <InputContainer style={{ width: "100%", marginTop: "5%" }}>
             <Label>Observaciones/Descripción de la Bolsa</Label>
             <Input
               type="text"
@@ -164,21 +186,30 @@ function AddBolsas() {
             ))
           : null}
       </EfectosContainer>
-      <Modal isOpen={modalIsOpen} style={customStyles}>
-        <CloseIcon onClick={() => setIsOpen(!modalIsOpen)} />
-        <AddEfectos closeModal={() => setIsOpen(!modalIsOpen)} />
+      <Modal isOpen={addEfectosModal} style={addEfectosModalStyles}>
+        <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
+        <AddEfectos closeModal={() => setAddEfectosModal(!addEfectosModal)} />
       </Modal>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        <Button complete={currentBolsas.length !== 0 ? "true" : "false"} onClick={() => setIsOpen(!modalIsOpen)}>
+        <Button
+          complete={currentBolsas.length !== 0 ? "true" : "false"}
+          onClick={() => setAddEfectosModal(!addEfectosModal)}
+        >
           Añadir Elementos
         </Button>
         <Button
-          onClick={() => generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfectos)}
+          onClick={() => setCloseBagModal(!closeBagModal)}
           complete={currentBolsas?.length !== 0 && currentEfectos?.length !== 0 ? "true" : "false"}
         >
-          generate
+          Siguente
         </Button>
       </div>
+      <Modal isOpen={closeBagModal} style={closeBolsaModalStyles}>
+        <CloseIcon onClick={() => setCloseBagModal(!closeBagModal)} />
+        {
+          //* ACA VA COMPONENTE DE CIERRE DE BOLSA!!
+        }
+      </Modal>
     </Container>
   );
 }

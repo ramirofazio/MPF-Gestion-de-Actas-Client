@@ -232,8 +232,8 @@ function AddEfectos({ closeModal }) {
             onChange={(e) => setEfecto({ ...efecto, descripcionTarea: e.target.value })}
           />
         </InputContainer>
+        <Button type="submit" value="Cargar Elemento" complete={validate()} />
       </Form>
-      <Button type="submit" value="Cargar Elemento" complete={validate()} />
     </>
   );
 }
