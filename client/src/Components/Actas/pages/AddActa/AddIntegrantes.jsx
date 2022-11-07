@@ -9,7 +9,6 @@ import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
-
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 const {
@@ -66,14 +65,6 @@ function AddIntegrantes() {
     setIntegrantes(newIntegrantes);
   };
 
-  const handleNextComplete = () => {
-    if (integrantes.length >= "1") {
-      return "true";
-    } else {
-      return "false";
-    }
-  };
-
   const handleNext = () => {
     dispatch(createIntegrantes(integrantes));
   };
@@ -81,9 +72,8 @@ function AddIntegrantes() {
   return (
     <Container>
       <Header>
-        <NroActa>Acta Nro {currentActa.id}</NroActa>
         <Title>Creacion de Suscriptores</Title>
-        <Description>Encabezado</Description>
+        <Description>Acta MPF {currentActa.nro_mpf}</Description>
       </Header>
 
       <SubContainer>
@@ -96,7 +86,7 @@ function AddIntegrantes() {
                 name="nombreYApellido"
                 value={integrante.nombreYApellido}
                 placeholder="Nombre y Apellido"
-                onChange={(e) => setIntegrante({ ...integrante, nombreYApellido: e.target.value })}
+                onChange={(e) => setIntegrante({ ...integrante, nombreYApellido: e.target.value.toLowerCase() })}
               />
             </InputContainer>
             <InputContainer>
@@ -126,7 +116,7 @@ function AddIntegrantes() {
                 name="cargo"
                 value={integrante.cargo}
                 placeholder="Cargo"
-                onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value })}
+                onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value.toLowerCase() })}
               />
             </InputContainer>
           </Form>
@@ -144,24 +134,20 @@ function AddIntegrantes() {
                   <Info>
                     <CardTitle>Nombre y Apellido</CardTitle>
                     <br />
-                    <br />
                     {i.nombreYApellido}
                   </Info>
                   <Info>
                     <CardTitle>DNI</CardTitle>
-                    <br />
                     <br />
                     {i.dni}
                   </Info>
                   <Info>
                     <CardTitle>Legajo o Matricula</CardTitle>
                     <br />
-                    <br />
                     {i.legajoOMatricula}
                   </Info>
                   <Info>
                     <CardTitle>Cargo</CardTitle>
-                    <br />
                     <br />
                     {i.cargo}
                   </Info>
@@ -172,7 +158,11 @@ function AddIntegrantes() {
         </IntegrantesContainer>
       </SubContainer>
 
-      <Button to={"/actas/crear/3"} complete={handleNextComplete()} onClick={() => handleNext()}>
+      <Button
+        to={"/actas/crear/3"}
+        complete={integrantes.length >= "1" ? "true" : "false"}
+        onClick={() => handleNext()}
+      >
         Siguente
       </Button>
     </Container>
@@ -180,17 +170,6 @@ function AddIntegrantes() {
 }
 
 export default AddIntegrantes;
-
-const NroActa = styled.span`
-  position: absolute;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 10%;
-  width: 10%;
-  margin-right: 10px;
-`;
 
 const Container = styled.div`
   ${enProcesoContainer}
@@ -301,14 +280,15 @@ const SubContainer = styled.div`
 `;
 
 const IntegrantesContainer = styled.div`
-  flex: 1;
+  flex: 1.2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 100%;
   overflow-y: scroll;
+  padding-inline: 2%;
+  padding-top: 6%;
 `;
 
 const IntegranteContainer = styled.div`
@@ -317,6 +297,7 @@ const IntegranteContainer = styled.div`
   justify-content: space-around;
   width: 100%;
   height: 12%;
+  min-height: 12%;
   border: 2px solid ${principalColor};
   border-radius: 10px;
   margin-block: 5px;

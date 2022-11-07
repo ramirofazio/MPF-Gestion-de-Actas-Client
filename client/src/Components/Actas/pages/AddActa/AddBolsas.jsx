@@ -75,6 +75,12 @@ function AddBolsas() {
   const handleSubmitBolsa = (e) => {
     e.preventDefault();
     dispatch(createBolsas(bolsa));
+    setBolsa({
+      acta_id: currentActa.id,
+      colorPrecinto: "",
+      nroPrecinto: "",
+      observaciones: "",
+    });
   };
 
   return (
@@ -261,12 +267,12 @@ const Button = styled(NavLink)`
 `;
 
 const CloseIcon = styled(Close)`
-  width: 8%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10%;
   color: white;
   transition: all 0.5s ease;
-  position: absolute;
-  top: 0;
-  right: 0;
 
   &:hover {
     color: ${secondaryColor};

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Variables from "../Styles/Variables";
 import logo from "../Assets/logo.png";
-import { loadDB } from "../redux/actions";
 
 function NavBar() {
   return (
@@ -12,7 +11,6 @@ function NavBar() {
         <Logo src={logo} alt="logo" />
         <HomeLinks to="/">Crear Acta</HomeLinks>
         <HomeLinks to="/consultas">Consultas</HomeLinks>
-        <button onClick={loadDB}>Cargar DB</button>
       </Container>
     </NavBarContainer>
   );

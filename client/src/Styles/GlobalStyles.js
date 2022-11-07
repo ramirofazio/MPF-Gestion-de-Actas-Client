@@ -162,8 +162,8 @@ const GlobalStyles = {
     font-weight: 400;
 
     &:focus {
-      border: 2px solid ${principalColor};
-      outline: none;
+      outline: 2px solid ${principalColor};
+      border: none;
     }
   `,
 

@@ -7,7 +7,6 @@ import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { useDispatch } from "react-redux";
-
 //* Initializations
 const { redColor, greenColor } = Variables;
 const {
@@ -26,6 +25,7 @@ const {
 
 function AddActa() {
   const dispatch = useDispatch();
+
   const [flag, setFlag] = useState("Tipo de Acta");
   const [state, setState] = useState({
     solicitante: "",
@@ -226,7 +226,7 @@ function AddActa() {
             </Form>
           </>
         ) : flag === "COOP" ? (
-          <Form style={{ display: "flex", flexDirection: "column" }}>
+          <Form style={{ height: "80%" }}>
             <InputContainer>
               <Label>Solicitante</Label>
               <Input
@@ -318,6 +318,7 @@ const Description = styled.h1`
 
 const FormContainer = styled.div`
   ${formContainer}
+  justify-content: flex-start;
 `;
 
 const InputContainer = styled.div`
@@ -330,6 +331,7 @@ const Label = styled.label`
 
 const Select = styled.select`
   ${select}
+  margin-bottom: 20px;
 `;
 
 const SelectOpt = styled.option`
@@ -339,6 +341,8 @@ const SelectOpt = styled.option`
 
 const Form = styled.form`
   ${form}
+  height: 50%;
+  width: 100%;
 `;
 
 const Input = styled.input`

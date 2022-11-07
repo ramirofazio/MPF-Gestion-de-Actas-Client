@@ -1,5 +1,6 @@
 import axios from "axios";
 import Variables from "../Styles/Variables";
+import { toast } from "react-toastify";
 
 export const GET_ACTAS = "GET_ACTAS";
 export const GET_ACTAS_FILTERED = "GET_ACTAS_FILTERED";
@@ -118,6 +119,9 @@ export function createActa(state, flag) {
     axios
       .post(Variables.baseEndpoint + "/addActa", { ...state })
       .then((res) => {
+        flag === "MPF/DEN"
+          ? toast.success(`Acta ${res.data.nro_mpf} creada con exito!`)
+          : toast.success(`Acta ${res.data.nro_coop} creada con exito!`);
         return dispatch({
           type: CREATE_ACTA,
           payload: { ...res.data, flag },
@@ -134,6 +138,10 @@ export function createIntegrantes(integrantes) {
     axios
       .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
       .then((res) => {
+        res.data.length > "1"
+          ? toast.success("Integrantes creados con exito!")
+          : toast.success("Integrante creado con Exito");
+
         return dispatch({
           type: CREATE_INTEGRANTES,
           payload: res.data,
@@ -150,6 +158,7 @@ export function createBolsas(bolsa) {
     axios
       .post(Variables.baseEndpoint + "/addBolsa", bolsa)
       .then((res) => {
+        toast.success(`Bolsa ${res.data.nroPrecinto} creada con exito!`);
         return dispatch({
           type: CREATE_BOLSAS,
           payload: res.data,
@@ -166,6 +175,7 @@ export function createEfecto(efecto) {
     axios
       .post(Variables.baseEndpoint + `/addEfecto?id=${efecto.bolsa_id}`, efecto)
       .then((res) => {
+        toast.success(`Elemento ${res.data.id} creado con exito!`);
         let response = res.data;
         response.bolsa_id = efecto.bolsa_id;
         return dispatch({
@@ -177,110 +187,4 @@ export function createEfecto(efecto) {
         console.log(err);
       });
   };
-}
-
-export async function loadDB() {
-  try {
-    for (let i = 0; i < 5; i++) {
-      let acta;
-      try {
-        await axios
-          .post(Variables.baseEndpoint + "/addActa", {
-            nro_cij: Math.floor(Math.random() * 1000000 + 10000),
-            nro_dil: Math.floor(Math.random() * 1000000 + 10000),
-            nro_mpf: Math.floor(Math.random() * 1000000 + 10000),
-          })
-          .then((res) => {
-            acta = res.data;
-          });
-      } catch (err) {
-        console.log(err);
-      }
-
-      for (let i = 0; i < 2; i++) {
-        let bolsa;
-        try {
-          await axios
-            .post(Variables.baseEndpoint + `/addBolsa/${acta.id}`, {
-              nro_precinto: Math.floor(Math.random() * 100000 + 10000),
-              color_precinto: "rojo",
-              notas: "Una nota sobre la bolsa",
-            })
-            .then((res) => {
-              bolsa = res.data;
-            });
-        } catch (err) {
-          console.log(err);
-        }
-
-        for (let i = 0; i < 6; i++) {
-          let efecto;
-          try {
-            await axios
-              .post(Variables.baseEndpoint + `/addEfecto/${bolsa.id}`, {
-                tipo: "tablet",
-                color: "negro",
-                tipo_extraccion: "fisica",
-                nro_serie: Math.floor(Math.random() * 100000000 + 10000),
-                tipo_desbloqueo: "patron",
-                notas: "pantalla rota",
-                IMEI: Math.floor(Math.random() * 100000000000 + 10000),
-                modelo: "A7",
-                marca: "samsung",
-                sofware: "UFED121",
-              })
-              .then((res) => {
-                efecto = res.data;
-              });
-          } catch (err) {
-            console.log(err);
-          }
-
-          for (let i = 0; i < 2; i++) {
-            try {
-              await axios.post(Variables.baseEndpoint + `/addAlmacenamiento/${efecto.id}`, {
-                marca: "samsung",
-                modelo: "HD5581S",
-                capacidad: "500 GB",
-                tipo_extraccion: "fisica",
-                tipo_almacenamiento: "ssd",
-                nro_serie: Math.floor(Math.random() * 100000000 + 10000),
-              });
-            } catch (err) {
-              console.log(err);
-            }
-          }
-
-          for (let i = 0; i < 2; i++) {
-            try {
-              await axios.post(Variables.baseEndpoint + `/addSim/${efecto.id}`, {
-                nro_serie: Math.floor(Math.random() * 100000000 + 10000),
-                nro_linea: Math.floor(Math.random() * 100000000 + 10000),
-                tipo_extraccion: "fisica",
-                empresa: "movistar",
-              });
-            } catch (err) {
-              console.log(err);
-            }
-          }
-        }
-      }
-
-      for (let i = 0; i < 3; i++) {
-        try {
-          await axios.post(Variables.baseEndpoint + `/addIntegrante/${acta.id}`, {
-            nombre: "Ramiro",
-            dni: 42809069,
-            cargo_o_profesion: "programador",
-            matricula: Math.floor(Math.random() * 1000000 + 10000),
-            domicilio: "malabia 2231",
-          });
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    }
-  } catch (err) {
-    console.log(err);
-  }
 }

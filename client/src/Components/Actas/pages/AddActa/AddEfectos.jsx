@@ -9,8 +9,8 @@ import Variables from "../../../../Styles/Variables";
 //* Doc
 //import generateDoc from "../../generateDoc";
 //* Initializations
-const { button } = GlobalStyles;
-const { redColor, greenColor } = Variables;
+const { button, select, input } = GlobalStyles;
+const { redColor, greenColor, secondaryColor } = Variables;
 
 function AddEfectos({ closeModal }) {
   const dispatch = useDispatch();
@@ -76,7 +76,7 @@ function AddEfectos({ closeModal }) {
   return (
     <>
       <Form onSubmit={(e) => handleSubmit(e)}>
-        <h4>Elemento Nro {currentEfectos.length + 1}</h4>
+        <Title>Elemento Nro {currentEfectos.length + 1}</Title>
         <InputContainer>
           <Label>Nro Bolsa</Label>
           <Select value={efecto.bolsa_id} onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}>
@@ -227,49 +227,87 @@ function AddEfectos({ closeModal }) {
         <InputContainer>
           <Label>Descripcion Tarea</Label>
           <TextArea
+            placeholder="Descripción Tarea"
             value={efecto.descripcionTarea}
             onChange={(e) => setEfecto({ ...efecto, descripcionTarea: e.target.value })}
           />
         </InputContainer>
-        <Button type="submit" value="Cargar Elemento" complete={validate()} />
       </Form>
+      <Button type="submit" value="Cargar Elemento" complete={validate()} />
     </>
   );
 }
 
 export default AddEfectos;
 
+const Title = styled.h4`
+  border-bottom: 2px solid white;
+  width: 120%;
+  text-align: center;
+  margin-bottom: 2%;
+  padding-bottom: 10px;
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 80%;
+  height: 100%;
   padding: 5%;
   color: white;
 `;
 
 const InputContainer = styled.div`
-  width: 100%;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid ${secondaryColor};
 `;
 
-const Label = styled.label``;
+const Label = styled.label`
+  flex: 1;
+`;
 
-const Input = styled.input``;
+const Input = styled.input`
+  ${input}
+  font-size: small;
+  flex: 1;
+  min-height: 65%;
+  text-align: center;
+`;
 
-const Select = styled.select``;
+const Select = styled.select`
+  ${select}
+  font-size: small;
+  flex: 1;
+  min-height: 65%;
+  text-align: center;
+`;
 
 const SelectOpt = styled.option``;
 
+const TextArea = styled.textarea`
+  ${input}
+  font-size: small;
+  flex: 1;
+  min-height: 65%;
+  max-height: 150px;
+  text-align: center;
+
+  &:focus {
+    border: none;
+    outline: none;
+    all: none;
+  }
+`;
+
 const Button = styled.input`
   ${button}
-  padding: 2px;
-  padding-inline: 10px;
-  margin-top: 15px;
+  padding: 5px;
+  padding-inline: 15px;
   text-decoration: none;
   background: white;
   border: 2px solid ${redColor};
@@ -282,5 +320,3 @@ const Button = styled.input`
       border: 2px solid ${greenColor};
     `}
 `;
-
-const TextArea = styled.textarea``;
