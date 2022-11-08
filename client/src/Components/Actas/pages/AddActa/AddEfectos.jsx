@@ -10,7 +10,7 @@ import Variables from "../../../../Styles/Variables";
 //import generateDoc from "../../generateDoc";
 //* Initializations
 const { button, select, input } = GlobalStyles;
-const { redColor, greenColor, secondaryColor } = Variables;
+const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 
 function AddEfectos({ closeModal }) {
   const dispatch = useDispatch();
@@ -310,7 +310,15 @@ const Button = styled.input`
   text-decoration: none;
   background: white;
   border: 2px solid ${redColor};
+  margin-bottom: 5px;
   pointer-events: none;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: ${principalColor};
+    border: 2px solid transparent;
+  }
 
   ${(props) =>
     props.complete === "true" &&
