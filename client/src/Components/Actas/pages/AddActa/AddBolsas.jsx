@@ -12,6 +12,7 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 import Modal from "react-modal";
 //* Components
 import AddEfectos from "./AddEfectos";
+import CloseBolsa from "./CloseBolsa";
 
 //* Initializations
 const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
@@ -47,6 +48,7 @@ const addEfectosModalStyles = {
     justifyContent: "center",
     flexDirection: "column",
     padding: 0,
+    overflowX: "hidden",
   },
 };
 
@@ -57,14 +59,15 @@ const closeBolsaModalStyles = {
     right: "auto",
     bottom: "auto",
     transform: "translate(-50%, -50%)",
-    width: "30%",
-    height: "30%",
+    width: "40%",
+    height: "40%",
     backgroundColor: principalColor,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
     padding: 0,
+    overflowX: "hidden",
   },
 };
 
@@ -204,9 +207,7 @@ function AddBolsas() {
       </div>
       <Modal isOpen={closeBagModal} style={closeBolsaModalStyles}>
         <CloseIcon onClick={() => setCloseBagModal(!closeBagModal)} />
-        {
-          //* ACA VA COMPONENTE DE CIERRE DE BOLSA!!
-        }
+        <CloseBolsa closeModal={() => setCloseBagModal(!closeBagModal)} />
       </Modal>
     </Container>
   );
