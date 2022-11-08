@@ -75,7 +75,7 @@ function AddEfectos({ closeModal }) {
 
   return (
     <>
-      <Form onSubmit={(e) => handleSubmit(e)}>
+      <Form>
         <Title>Elemento Nro {currentEfectos.length + 1}</Title>
         <InputContainer>
           <Label>Nro Bolsa</Label>
@@ -232,8 +232,8 @@ function AddEfectos({ closeModal }) {
             onChange={(e) => setEfecto({ ...efecto, descripcionTarea: e.target.value })}
           />
         </InputContainer>
-        <Button type="submit" value="Cargar Elemento" complete={validate()} />
       </Form>
+      <Button type="submit" onClick={(e) => handleSubmit(e)} value="Cargar Elemento" complete={validate()} />
     </>
   );
 }
