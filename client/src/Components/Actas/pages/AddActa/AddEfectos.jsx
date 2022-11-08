@@ -16,7 +16,6 @@ function AddEfectos({ closeModal }) {
   const dispatch = useDispatch();
 
   const currentBolsas = useSelector((state) => state?.currentBolsas);
-  const currentEfectos = useSelector((state) => state?.currentEfectos);
 
   const [efecto, setEfecto] = useState({
     bolsa_id: "",
@@ -76,7 +75,7 @@ function AddEfectos({ closeModal }) {
   return (
     <>
       <Form>
-        <Title>Elemento Nro {currentEfectos.length + 1}</Title>
+        <Title>Agregar Elemento</Title>
         <InputContainer>
           <Label>Nro Bolsa</Label>
           <Select value={efecto.bolsa_id} onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}>
