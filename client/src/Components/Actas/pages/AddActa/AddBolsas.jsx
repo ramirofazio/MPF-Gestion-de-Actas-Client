@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { createBolsas } from "../../../../redux/actions";
@@ -10,13 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Close } from "@styled-icons/ionicons-outline/Close";
 //* Modal
 import Modal from "react-modal";
-//* Doc
-//import generateDoc from "../../generateDoc";
 //* Components
 import AddEfectos from "./AddEfectos";
 
 //* Initializations
-const { redColor, greenColor, principalColor, secondaryColor } = Variables;
+const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
 
 const {
   select,
@@ -74,7 +72,6 @@ function AddBolsas() {
   const dispatch = useDispatch();
 
   const currentActa = useSelector((state) => state?.currentActa);
-  const currentIntegrantes = useSelector((state) => state?.currentIntegrantes);
   const currentBolsas = useSelector((state) => state?.currentBolsas);
   const currentEfectos = useSelector((state) => state?.currentEfectos);
 
@@ -87,10 +84,6 @@ function AddBolsas() {
     nroPrecinto: "",
     observaciones: "",
   });
-
-  useEffect(() => {
-    console.log(currentActa, currentIntegrantes, currentBolsas, currentEfectos);
-  }, [currentBolsas]);
 
   const handleSubmitBolsa = (e) => {
     e.preventDefault();
@@ -158,7 +151,7 @@ function AddBolsas() {
           ? currentEfectos.map((efecto) => (
               <EfectoContainer key={efecto.id} estado={efecto.estado}>
                 <Info>
-                  <CardTitle>Bolsa</CardTitle>
+                  <CardTitle>Nro Precinto</CardTitle>
                   <br />
                   {efecto.bolsa_id}
                 </Info>
@@ -181,6 +174,11 @@ function AddBolsas() {
                   <CardTitle>Tipo de Extraccion</CardTitle>
                   <br />
                   {efecto.tipoExtraccion}
+                </Info>
+                <Info>
+                  <CardTitle>Estado</CardTitle>
+                  <br />
+                  {efecto.estado}
                 </Info>
               </EfectoContainer>
             ))
@@ -343,7 +341,7 @@ const EfectoContainer = styled.div`
 
   border: ${(props) =>
     props.estado === "en proceso"
-      ? `2px solid ${principalColor}`
+      ? `2px solid ${yellowColor}`
       : props.estado === "completo"
       ? `2px solid ${greenColor}`
       : `2px solid ${redColor}`};
