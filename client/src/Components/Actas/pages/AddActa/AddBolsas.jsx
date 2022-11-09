@@ -75,7 +75,9 @@ function AddBolsas() {
   const dispatch = useDispatch();
 
   const currentActa = useSelector((state) => state?.currentActa);
-  const currentBolsas = useSelector((state) => state?.currentBolsas);
+  const currentBolsas = useSelector(
+    (state) => JSON.parse(localStorage.getItem("currentBolsas")) || state?.currentBolsas
+  );
   const currentEfectos = useSelector((state) => state?.currentEfectos);
 
   const [addEfectosModal, setAddEfectosModal] = useState(false);
@@ -148,6 +150,25 @@ function AddBolsas() {
             complete={bolsa.colorPrecinto && bolsa.nroPrecinto ? "true" : "false"}
           />
         </Form>
+        <BolsasContainer>
+          {currentBolsas &&
+            currentBolsas.map((bolsa) => {
+              return (
+                <BolsaContainer key={bolsa.id}>
+                  <Info style={bolsa.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
+                    <CardTitle>Color del Precinto</CardTitle>
+                    <br />
+                    {bolsa.colorPrecinto}
+                  </Info>
+                  <Info>
+                    <CardTitle>Nro Precinto</CardTitle>
+                    <br />
+                    {bolsa.nroPrecinto}
+                  </Info>
+                </BolsaContainer>
+              );
+            })}
+        </BolsasContainer>
       </FormContainer>
       <EfectosContainer>
         {currentEfectos
@@ -236,11 +257,20 @@ const Description = styled.h1`
 
 const FormContainer = styled.div`
   ${formContainer}
+  flex-direction: row;
   height: 25%;
   min-height: 0;
   padding: 0;
-  justify-content: center;
+  justify-content: space-between;
   border-bottom: 2px solid ${principalColor};
+`;
+
+const Form = styled.form`
+  ${form}
+  padding: 2%;
+  flex: 1.2;
+  justify-content: space-evenly;
+  height: 35%;
 `;
 
 const InputContainer = styled.div`
@@ -260,14 +290,31 @@ const SelectOpt = styled.option`
   font-weight: 400;
 `;
 
-const Form = styled.form`
-  ${form}
-  justify-content: space-evenly;
-  height: 35%;
-`;
-
 const Input = styled.input`
   ${input}
+`;
+
+const BolsasContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  padding-inline: 2%;
+  overflow-y: scroll;
+`;
+
+const BolsaContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 70%;
+  height: 25%;
+  min-height: 25%;
+  border: 2px solid ${principalColor};
+  border-radius: 10px;
+  margin-block: 5px;
 `;
 
 const EfectosContainer = styled.div`
@@ -313,7 +360,7 @@ const CloseIcon = styled(Close)`
 const Submit = styled.input`
   ${button}
   padding: 2px;
-  padding-inline: 10px;
+  padding-inline: 15px;
   margin-top: 15px;
   text-decoration: none;
   background: white;
