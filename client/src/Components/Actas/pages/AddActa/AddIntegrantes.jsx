@@ -15,7 +15,6 @@ const {
   enProcesoContainer,
   header,
   headerTitle,
-  headerDescription,
   button,
   formContainer,
   inputContainer,
@@ -31,7 +30,7 @@ function AddIntegrantes() {
   const currentActa = useSelector((state) => state?.currentActa);
   //const currentIntegrantes = useSelector((state) => state?.currentIntegrantes);
 
-  const [integrantes, setIntegrantes] = useState([]);
+  const [integrantes, setIntegrantes] = useState(JSON.parse(localStorage.getItem("integrantes")) || []);
   const [integrante, setIntegrante] = useState({
     nombreYApellido: "",
     dni: "",
@@ -73,7 +72,6 @@ function AddIntegrantes() {
     <Container>
       <Header>
         <Title>Creacion de Suscriptores</Title>
-        <Description>Acta MPF {currentActa.nro_mpf}</Description>
       </Header>
 
       <SubContainer>
@@ -158,13 +156,28 @@ function AddIntegrantes() {
         </IntegrantesContainer>
       </SubContainer>
 
-      <Button
-        to={"/actas/crear/3"}
-        complete={integrantes.length >= "1" ? "true" : "false"}
-        onClick={() => handleNext()}
-      >
-        Siguente
-      </Button>
+      {!localStorage.getItem("integrantes") ? (
+        <Button
+          to={"/actas/crear/3"}
+          complete={integrantes.length >= "1" ? "true" : "false"}
+          onClick={() => handleNext()}
+        >
+          Siguente
+        </Button>
+      ) : (
+        <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
+          <Button
+            to={"/actas/crear/3"}
+            complete={integrantes.length >= "1" ? "true" : "false"}
+            onClick={() => handleNext()}
+          >
+            Volver a Crear
+          </Button>
+          <Button to={"/actas/crear/3"} complete={integrantes.length >= "1" ? "true" : "false"}>
+            Continuar Asi
+          </Button>
+        </div>
+      )}
     </Container>
   );
 }
@@ -182,10 +195,6 @@ const Header = styled.header`
 
 const Title = styled.h1`
   ${headerTitle}
-`;
-
-const Description = styled.h1`
-  ${headerDescription}
 `;
 
 const AddButton = styled.button`

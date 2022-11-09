@@ -137,11 +137,16 @@ export function createActa(state, flag) {
 }
 
 export function createIntegrantes(integrantes) {
+  console.log(integrantes);
+  localStorage.setItem("integrantes", JSON.stringify(integrantes));
+
+  console.log("entering createIntegrantes");
+
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
       .then((res) => {
-        res.data.length > "1"
+        res.data.length > 1
           ? toast.success("Integrantes creados con exito!")
           : toast.success("Integrante creado con Exito");
 
