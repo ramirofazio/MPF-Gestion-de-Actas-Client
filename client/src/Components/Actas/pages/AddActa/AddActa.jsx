@@ -7,6 +7,7 @@ import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor } = Variables;
 const {
@@ -26,29 +27,38 @@ const {
 function AddActa() {
   const dispatch = useDispatch();
 
-  const [flag, setFlag] = useState("Tipo de Acta");
-  const [state, setState] = useState({
-    solicitante: "",
-    mpfOrDen: "",
-    cij: "",
-    dil: "",
-    coop: "",
-    nroCausa: "",
-    caratula: "",
-  });
+  const [flag, setFlag] = useState("");
+  const [state, setState] = useState("");
+  const [comeBack, setComeBack] = useState(false);
 
   useEffect(() => {
-    //* Blanquea el estado cuando se cambia la flag
-    setState({
-      solicitante: "",
-      mpfOrDen: "",
-      cij: "",
-      dil: "",
-      coop: "",
-      nroCausa: "",
-      caratula: "",
-    });
-  }, [flag]);
+    getLocalStorageOrState();
+  }, []);
+
+  const getLocalStorageOrState = () => {
+    const localActa = localStorage.getItem("acta");
+    const localFlag = localStorage.getItem("actaFlag");
+
+    console.log(JSON.parse(localActa));
+    console.log(localFlag);
+
+    if (localActa && localFlag) {
+      setState(JSON.parse(localActa));
+      setFlag(localFlag);
+      setComeBack(true); //* Si volvio para atras
+    } else {
+      setState({
+        solicitante: "",
+        mpfOrDen: "",
+        cij: "",
+        dil: "",
+        coop: "",
+        nroCausa: "",
+        caratula: "",
+      });
+      setFlag("Tipo de Acta");
+    }
+  };
 
   const handleComplete = () => {
     //* Logica para habilitar el boton cuando esta todo completado
@@ -290,9 +300,28 @@ function AddActa() {
           </Form>
         ) : null}
       </FormContainer>
-      <Button to={"/actas/crear/2"} onClick={() => handleClick()} complete={handleComplete()}>
-        Siguente
-      </Button>
+      {!comeBack ? (
+        <Button to={"/actas/crear/2"} onClick={() => handleClick()} complete={handleComplete()}>
+          Siguente
+        </Button>
+      ) : (
+        <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
+          <Button to={"/actas/crear/2"} onClick={() => handleClick()} complete={handleComplete()}>
+            Volver a crear
+          </Button>
+          <Button
+            to={"/actas/crear/2"}
+            complete={handleComplete()}
+            onClick={() =>
+              flag === "MPF/DEN"
+                ? toast.success(`Continuamos con acta ${state.mpfOrDen}!`)
+                : toast.success(`Continuamos con acta ${state.coop}!`)
+            }
+          >
+            Continuar Asi
+          </Button>
+        </div>
+      )}
     </Container>
   );
 }

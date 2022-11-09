@@ -115,6 +115,9 @@ export function sendEfectosIdsAndActaId({ actaId, efectosIds }) {
 }
 
 export function createActa(state, flag) {
+  localStorage.setItem("acta", JSON.stringify(state));
+  localStorage.setItem("actaFlag", flag);
+
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + "/addActa", { ...state })
