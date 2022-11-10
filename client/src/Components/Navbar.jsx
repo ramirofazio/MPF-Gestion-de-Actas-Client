@@ -56,7 +56,7 @@ const HomeLinks = styled(Link)`
   border-radius: 10px;
   text-decoration: none;
   background: #ffffff;
-  color: black;
+  color: ${Variables.principalColor};
   border: 2px solid #ffffff;
 
   transition: all 0.3s ease-in;
