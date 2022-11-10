@@ -37,7 +37,9 @@ function CloseBolsa() {
       allActasSave.map((acta) => {
         if (acta.id === currentActa.id) {
           const bolsasCompletas = acta.Bolsas.filter((bolsa) => {
-            return bolsa.Efectos.find((ef) => (ef.estado === "completo" ? bolsa.nroPrecinto : null));
+            let sum = 0;
+            bolsa.Efectos.find((ef) => (ef.estado === "completo" ? sum++ : null));
+            if (sum === bolsa.Efectos.length) return bolsa.nroPrecinto;
           });
           setBolsasToClose(bolsasCompletas);
         }
