@@ -137,10 +137,7 @@ export function createActa(state, flag) {
 }
 
 export function createIntegrantes(integrantes) {
-  console.log(integrantes);
   localStorage.setItem("integrantes", JSON.stringify(integrantes));
-
-  console.log("entering createIntegrantes");
 
   return function (dispatch) {
     axios
@@ -183,7 +180,7 @@ export function createEfecto(efecto) {
     axios
       .post(Variables.baseEndpoint + `/addEfecto?id=${efecto.bolsa_id}`, efecto)
       .then((res) => {
-        toast.success(`Elemento ${res.data.id} creado con exito!`);
+        toast.success("Elemento creado con exito!");
         let response = res.data;
         response.bolsa_id = efecto.bolsa_id;
         return dispatch({

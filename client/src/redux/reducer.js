@@ -19,7 +19,7 @@ let initialState = {
   currentActa: [],
   currentIntegrantes: [],
   currentBolsas: JSON.parse(localStorage.getItem("currentBolsas")) || [],
-  currentEfectos: [],
+  currentEfectos: JSON.parse(localStorage.getItem("currentEfectos")) || [],
   actasEnProceso: [],
   actasEnProcesoSave: [],
   allEfectos: [],
@@ -31,6 +31,13 @@ let initialState = {
 function reducer(state = initialState, action) {
   switch (action.type) {
     case CREATE_EFECTOS:
+      //eslint-disable-next-line
+      const localEfectos = JSON.parse(localStorage.getItem("currentEfectos"));
+      if (localEfectos) {
+        localStorage.setItem("currentEfectos", JSON.stringify([...localEfectos, action.payload]));
+      } else {
+        localStorage.setItem("currentEfectos", JSON.stringify([action.payload]));
+      }
       return {
         ...state,
         currentEfectos: [...state.currentEfectos, action.payload],
