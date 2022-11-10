@@ -12,29 +12,12 @@ addEfecto.post("/", async (req, res) => {
       imei2,
       estado,
       sistemaOperativo,
-      seguridad,
       tipoSeguridad,
       desbloqueo,
       herramientaSoft,
       tipoExtraccion,
       descripcionTarea,
     } = req.body;
-
-    console.log(
-      tipoDeElemento,
-      marca,
-      modelo,
-      imei,
-      imei2,
-      estado,
-      sistemaOperativo,
-      seguridad,
-      tipoSeguridad,
-      desbloqueo,
-      herramientaSoft,
-      tipoExtraccion,
-      descripcionTarea
-    );
 
     const newEfecto = await Efecto.create({
       bolsa_id: bolsa_id,
@@ -44,7 +27,6 @@ addEfecto.post("/", async (req, res) => {
       imei,
       imei2,
       sistemaOperativo,
-      seguridad,
       tipoSeguridad,
       desbloqueo,
       herramientaSoft,

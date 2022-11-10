@@ -26,7 +26,6 @@ function AddEfectos({ closeModal }) {
     imei2: "",
     estado: "",
     sistemaOperativo: "",
-    seguridad: "",
     tipoSeguridad: "",
     desbloqueo: "",
     herramientaSoft: "",
@@ -41,18 +40,8 @@ function AddEfectos({ closeModal }) {
   };
 
   const validate = () => {
-    const {
-      bolsa_id,
-      tipoDeElemento,
-      marca,
-      modelo,
-      imei,
-      estado,
-      sistemaOperativo,
-      seguridad,
-      herramientaSoft,
-      tipoExtraccion,
-    } = efecto;
+    const { bolsa_id, tipoDeElemento, marca, modelo, imei, estado, sistemaOperativo, herramientaSoft, tipoExtraccion } =
+      efecto;
 
     if (
       bolsa_id &&
@@ -62,7 +51,6 @@ function AddEfectos({ closeModal }) {
       imei &&
       estado &&
       sistemaOperativo &&
-      seguridad &&
       herramientaSoft &&
       tipoExtraccion
     ) {
@@ -82,7 +70,11 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="">Nro Bolsa</SelectOpt>
             {currentBolsas.length !== 0 &&
               currentBolsas.map((b) => (
-                <SelectOpt value={b.nroPrecinto} key={b.id}>
+                <SelectOpt
+                  value={b.nroPrecinto}
+                  key={b.id}
+                  style={b.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
+                >
                   {b.nroPrecinto}
                 </SelectOpt>
               ))}
@@ -163,16 +155,7 @@ function AddEfectos({ closeModal }) {
             onChange={(e) => setEfecto({ ...efecto, sistemaOperativo: e.target.value })}
           />
         </InputContainer>
-        <InputContainer>
-          <Label>Seguridad</Label>
-          <Input
-            type="text"
-            name="seguridad"
-            value={efecto.seguridad}
-            placeholder="Seguridad"
-            onChange={(e) => setEfecto({ ...efecto, seguridad: e.target.value })}
-          />
-        </InputContainer>
+
         <InputContainer>
           <Label>Tipo de Seguridad</Label>
           <Select
@@ -188,18 +171,16 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="huella">Huella</SelectOpt>
           </Select>
         </InputContainer>
-        <InputContainer>
-          <Label>Desbloqueo</Label>
-          <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
-            <SelectOpt value="">Desbloqueo</SelectOpt>
-            <SelectOpt value="ninguna">Ninguna</SelectOpt>
-            <SelectOpt value="patron">Patron</SelectOpt>
-            <SelectOpt value="contraseña">Contraseña</SelectOpt>
-            <SelectOpt value="pin">Pin</SelectOpt>
-            <SelectOpt value="facial">Facial</SelectOpt>
-            <SelectOpt value="huella">Huella</SelectOpt>
-          </Select>
-        </InputContainer>
+        {efecto.tipoSeguridad === "ninguna" || efecto.tipoSeguridad === "" ? null : (
+          <InputContainer>
+            <Label>Desbloqueo</Label>
+            <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
+              <SelectOpt value="">Desbloqueo</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
         <InputContainer>
           <Label>Herramiento Software</Label>
           <Select

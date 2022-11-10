@@ -22,9 +22,6 @@ module.exports = (sequelize) => {
       sistemaOperativo: {
         type: DataTypes.STRING,
       },
-      seguridad: {
-        type: DataTypes.STRING,
-      },
       tipoSeguridad: {
         type: DataTypes.STRING,
       },
