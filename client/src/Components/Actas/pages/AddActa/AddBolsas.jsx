@@ -313,7 +313,7 @@ const BolsaContainer = styled.div`
   height: 25%;
   min-height: 25%;
   border: 2px solid ${principalColor};
-  border-radius: 10px;
+  border-radius: 5px;
   margin-block: 5px;
 `;
 

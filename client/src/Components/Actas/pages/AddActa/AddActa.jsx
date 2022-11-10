@@ -39,9 +39,6 @@ function AddActa() {
     const localActa = localStorage.getItem("acta");
     const localFlag = localStorage.getItem("actaFlag");
 
-    console.log(JSON.parse(localActa));
-    console.log(localFlag);
-
     if (localActa && localFlag) {
       setState(JSON.parse(localActa));
       setFlag(localFlag);
