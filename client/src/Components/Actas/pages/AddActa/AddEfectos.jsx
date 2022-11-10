@@ -40,20 +40,9 @@ function AddEfectos({ closeModal }) {
   };
 
   const validate = () => {
-    const { bolsa_id, tipoDeElemento, marca, modelo, imei, estado, sistemaOperativo, herramientaSoft, tipoExtraccion } =
-      efecto;
+    const { bolsa_id, tipoDeElemento, marca, modelo, estado, herramientaSoft, tipoExtraccion } = efecto;
 
-    if (
-      bolsa_id &&
-      tipoDeElemento &&
-      marca &&
-      modelo &&
-      imei &&
-      estado &&
-      sistemaOperativo &&
-      herramientaSoft &&
-      tipoExtraccion
-    ) {
+    if (bolsa_id && tipoDeElemento && marca && modelo && estado && herramientaSoft && tipoExtraccion) {
       return "true";
     } else {
       return "false";
