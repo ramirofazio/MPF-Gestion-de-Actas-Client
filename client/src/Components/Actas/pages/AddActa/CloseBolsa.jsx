@@ -13,6 +13,7 @@ const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
 
 function CloseBolsa() {
+  const [bolsasToClose, setBolsasToClose] = useState([]);
   const [state, setState] = useState({
     nroprecinto: "",
     nroPrecintoBlanco: "",
@@ -26,9 +27,15 @@ function CloseBolsa() {
   };
 
   useEffect(() => {
-    console.log(currentBolsas);
-    console.log(currentEfectos);
-  }, [currentBolsas, currentEfectos]);
+    currentEfectos.map((e) => {
+      if (e.estado === "completo") {
+        let bolsasToClose = currentBolsas.filter((bolsa) => {
+          return bolsa.nroPrecinto === e.bolsa_id;
+        });
+        setBolsasToClose(bolsasToClose);
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -41,8 +48,8 @@ function CloseBolsa() {
             onChange={(e) => setState({ ...state, nroprecinto: Number(e.target.value) })}
           >
             <SelectOpt value="">Nro Bolsa</SelectOpt>
-            {currentBolsas.length !== 0 &&
-              currentBolsas.map((b) => (
+            {bolsasToClose.length !== 0 &&
+              bolsasToClose.map((b) => (
                 <SelectOpt value={b.nroPrecinto} key={b.id}>
                   {b.nroPrecinto}
                 </SelectOpt>
