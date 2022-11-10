@@ -155,6 +155,11 @@ function AddBolsas() {
             currentBolsas.map((bolsa) => {
               return (
                 <BolsaContainer key={bolsa.id}>
+                  <Info>
+                    <CardTitle>Bolsa ID</CardTitle>
+                    <br />
+                    {bolsa.id}
+                  </Info>
                   <Info style={bolsa.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
                     <CardTitle>Color del Precinto</CardTitle>
                     <br />
@@ -175,7 +180,7 @@ function AddBolsas() {
           ? currentEfectos.map((efecto) => (
               <EfectoContainer key={efecto.id} estado={efecto.estado}>
                 <Info>
-                  <CardTitle>Nro Precinto</CardTitle>
+                  <CardTitle>Bolsa ID</CardTitle>
                   <br />
                   {efecto.bolsa_id}
                 </Info>
@@ -309,7 +314,7 @@ const BolsaContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 70%;
+  width: 80%;
   height: 25%;
   min-height: 25%;
   border: 2px solid ${principalColor};

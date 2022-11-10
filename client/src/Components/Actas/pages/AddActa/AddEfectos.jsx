@@ -60,7 +60,7 @@ function AddEfectos({ closeModal }) {
             {currentBolsas.length !== 0 &&
               currentBolsas.map((b) => (
                 <SelectOpt
-                  value={b.nroPrecinto}
+                  value={b.id}
                   key={b.id}
                   style={b.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
                 >

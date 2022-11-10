@@ -16,8 +16,8 @@ import {
 let initialState = {
   allActas: [],
   allActasSave: [],
-  currentActa: [],
-  currentIntegrantes: [],
+  currentActa: JSON.parse(localStorage.getItem("currentActa")) || [],
+  currentIntegrantes: JSON.parse(localStorage.getItem("integrantes")) || [],
   currentBolsas: JSON.parse(localStorage.getItem("currentBolsas")) || [],
   currentEfectos: JSON.parse(localStorage.getItem("currentEfectos")) || [],
   actasEnProceso: [],
@@ -60,6 +60,7 @@ function reducer(state = initialState, action) {
         currentIntegrantes: action.payload,
       };
     case CREATE_ACTA:
+      localStorage.setItem("currentActa", JSON.stringify(action.payload));
       return {
         ...state,
         currentActa: action.payload,

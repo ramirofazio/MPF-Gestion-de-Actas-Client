@@ -16,6 +16,7 @@ getActas.get("/", async (req, res) => {
       }
     } else {
       //* Si no me pasaron enProceso === true devuelvo todas las actas
+      console.log(actas);
       return res.status(200).json(actas);
     }
   } catch (err) {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 //* Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllActas } from "../../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
@@ -13,29 +14,36 @@ const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
 
 function CloseBolsa() {
+  const dispatch = useDispatch();
   const [bolsasToClose, setBolsasToClose] = useState([]);
   const [state, setState] = useState({
     nroprecinto: "",
     nroPrecintoBlanco: "",
   });
 
-  const currentBolsas = useSelector((state) => state.currentBolsas);
-  const currentEfectos = useSelector((state) => state.currentEfectos);
+  const allActasSave = useSelector((state) => state?.allActasSave);
+  const currentActa = useSelector((state) => state?.currentActa);
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   useEffect(() => {
-    currentEfectos.map((e) => {
-      if (e.estado === "completo") {
-        let bolsasToClose = currentBolsas.filter((bolsa) => {
-          return bolsa.nroPrecinto === e.bolsa_id;
-        });
-        setBolsasToClose(bolsasToClose);
-      }
-    });
+    dispatch(getAllActas());
   }, []);
+
+  useEffect(() => {
+    if (allActasSave) {
+      allActasSave.map((acta) => {
+        if (acta.id === currentActa.id) {
+          const bolsasCompletas = acta.Bolsas.filter((bolsa) => {
+            return bolsa.Efectos.find((ef) => (ef.estado === "completo" ? bolsa.nroPrecinto : null));
+          });
+          setBolsasToClose(bolsasCompletas);
+        }
+      });
+    }
+  }, [allActasSave, currentActa]);
 
   return (
     <>
@@ -48,10 +56,14 @@ function CloseBolsa() {
             onChange={(e) => setState({ ...state, nroprecinto: Number(e.target.value) })}
           >
             <SelectOpt value="">Nro Bolsa</SelectOpt>
-            {bolsasToClose.length !== 0 &&
-              bolsasToClose.map((b) => (
-                <SelectOpt value={b.nroPrecinto} key={b.id}>
-                  {b.nroPrecinto}
+            {bolsasToClose.length > 0 &&
+              bolsasToClose.map(({ nroPrecinto, id, colorPrecinto }) => (
+                <SelectOpt
+                  value={nroPrecinto}
+                  key={id}
+                  style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
+                >
+                  {nroPrecinto}
                 </SelectOpt>
               ))}
           </Select>
