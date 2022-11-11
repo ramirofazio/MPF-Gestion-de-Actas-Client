@@ -34,6 +34,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(getAllActas()); // * Pido todas las actas
+    localStorage.clear();
   }, []);
 
   useEffect(() => {
