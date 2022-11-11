@@ -228,7 +228,7 @@ function AddBolsas() {
           onClick={() => setCloseBagModal(!closeBagModal)}
           complete={currentBolsas?.length !== 0 && currentEfectos?.length !== 0 ? "true" : "false"}
         >
-          Siguente
+          Cerrar Bolsa
         </Button>
       </div>
       <Modal isOpen={closeBagModal} style={closeBolsaModalStyles}>

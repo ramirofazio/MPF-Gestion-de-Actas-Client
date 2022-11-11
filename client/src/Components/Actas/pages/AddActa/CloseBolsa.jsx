@@ -15,10 +15,18 @@ const { redColor, greenColor, secondaryColor } = Variables;
 
 function CloseBolsa({ closeModal }) {
   const dispatch = useDispatch();
-  const [bolsasToClose, setBolsasToClose] = useState([]);
+
+  const [inProcess, setInProcess] = useState(false);
+  const [thisDbActa, setThisDbActa] = useState([]);
+  const [bagsInProcess, setBagsInProcess] = useState([]);
+  const [bagsToClose, setBagsToClose] = useState([]);
   const [state, setState] = useState({
     nroPrecinto: "",
     nroPrecintoBlanco: "",
+  });
+  const [inProcessState, setInProcessState] = useState({
+    nroPrecinto: "",
+    leyenda: "",
   });
 
   const allActasSave = useSelector((state) => state?.allActasSave);
@@ -26,7 +34,8 @@ function CloseBolsa({ closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateBolsa(state));
+
+    inProcess ? dispatch(updateBolsa(inProcessState)) : dispatch(updateBolsa(state));
     closeModal();
   };
 
@@ -38,6 +47,7 @@ function CloseBolsa({ closeModal }) {
     if (allActasSave) {
       allActasSave.map((acta) => {
         if (acta.id === currentActa.id) {
+          setThisDbActa(acta);
           const bolsasCompletas = acta.Bolsas.filter((bolsa) => {
             if (bolsa.nroPrecintoBlanco !== null) return;
             if (bolsa.Efectos.length === 0) return;
@@ -45,53 +55,104 @@ function CloseBolsa({ closeModal }) {
             bolsa.Efectos.find((ef) => (ef.estado === "completo" ? sum++ : null));
             if (sum === bolsa.Efectos.length) return bolsa.nroPrecinto;
           });
-          setBolsasToClose(bolsasCompletas);
+          setBagsToClose(bolsasCompletas);
         }
       });
     }
   }, [allActasSave, currentActa]);
 
-  return (
-    <>
-      <Form onSubmit={(e) => handleSubmit(e)}>
-        <Title>Cerrar Bolsas</Title>
-        <InputContainer>
-          <Label>Nro Bolsa</Label>
-          <Select
-            value={state.nroPrecinto}
-            onChange={(e) => setState({ ...state, nroPrecinto: Number(e.target.value) })}
-          >
-            <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
-            {bolsasToClose.length > 0 &&
-              bolsasToClose.map(({ nroPrecinto, id, colorPrecinto }) => (
-                <SelectOpt
-                  value={nroPrecinto}
-                  key={id}
-                  style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
-                >
-                  {nroPrecinto}
-                </SelectOpt>
-              ))}
-          </Select>
-        </InputContainer>
-        <InputContainer>
-          <Label>Nro Precinto Blanco</Label>
-          <Input
-            type="number"
-            name="nroPrecintoBlanco"
-            value={state.nroPrecintoBlanco}
-            placeholder="Nro Precinto Blanco"
-            onChange={(e) => setState({ ...state, nroPrecintoBlanco: Number(e.target.value) })}
+  useEffect(() => {
+    if (thisDbActa.Bolsas && bagsToClose.length === 0) {
+      setInProcess(true);
+      const bolsasInProcess = thisDbActa.Bolsas.filter((bolsa) => bolsa.estado === "en proceso");
+      setBagsInProcess(bolsasInProcess);
+    }
+  }, [thisDbActa]);
+
+  if (!inProcess) {
+    return (
+      <>
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <Title>Cerrar Bolsas</Title>
+          <InputContainer>
+            <Label>Nro Precinto Bolsa</Label>
+            <Select
+              value={state.nroPrecinto}
+              onChange={(e) => setState({ ...state, nroPrecinto: Number(e.target.value) })}
+            >
+              <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
+              {bagsToClose.length > 0 &&
+                bagsToClose.map(({ nroPrecinto, id, colorPrecinto }) => (
+                  <SelectOpt
+                    value={nroPrecinto}
+                    key={id}
+                    style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
+                  >
+                    {nroPrecinto}
+                  </SelectOpt>
+                ))}
+            </Select>
+          </InputContainer>
+          <InputContainer>
+            <Label>Nro Precinto Blanco</Label>
+            <Input
+              type="number"
+              name="nroPrecintoBlanco"
+              value={state.nroPrecintoBlanco}
+              placeholder="Nro Precinto Blanco"
+              onChange={(e) => setState({ ...state, nroPrecintoBlanco: Number(e.target.value) })}
+            />
+          </InputContainer>
+          <Button
+            type="submit"
+            value="Cerrar Bolsa"
+            complete={state.nroPrecintoBlanco !== "" && state.nroprecinto !== "" ? "true" : "false"}
           />
-        </InputContainer>
-        <Button
-          type="submit"
-          value="Cerrar Bolsa"
-          complete={state.nroPrecintoBlanco !== "" && state.nroprecinto !== "" ? "true" : "false"}
-        />
-      </Form>
-    </>
-  );
+        </Form>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <Title>Cerrar Bolsa en Proceso</Title>
+          <InputContainer>
+            <Label>Nro Precinto Bolsa</Label>
+            <Select
+              value={inProcessState.nroPrecinto}
+              onChange={(e) => setInProcessState({ ...inProcessState, nroPrecinto: Number(e.target.value) })}
+            >
+              <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
+              {bagsInProcess.length > 0 &&
+                bagsInProcess.map(({ nroPrecinto, id, colorPrecinto }) => (
+                  <SelectOpt
+                    value={nroPrecinto}
+                    key={id}
+                    style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
+                  >
+                    {nroPrecinto}
+                  </SelectOpt>
+                ))}
+            </Select>
+          </InputContainer>
+          <InputContainer>
+            <Label>Leyenda</Label>
+            <TextArea
+              name="leyenda"
+              value={inProcessState.leyenda}
+              placeholder="Leyenda"
+              onChange={(e) => setInProcessState({ ...inProcessState, leyenda: e.target.value })}
+            />
+          </InputContainer>
+          <Button
+            type="submit"
+            value="Cerrar Bolsa en Proceso"
+            complete={inProcessState.nroPrecinto !== "" && inProcessState.leyenda !== "" ? "true" : "false"}
+          />
+        </Form>
+      </>
+    );
+  }
 }
 
 export default CloseBolsa;
@@ -161,4 +222,19 @@ const Button = styled.input`
       pointer-events: all;
       border: 2px solid ${greenColor};
     `}
+`;
+
+const TextArea = styled.textarea`
+  ${input}
+  font-size: small;
+  flex: 1;
+  min-height: 90%;
+  max-height: 0px;
+  text-align: center;
+
+  &:focus {
+    border: none;
+    outline: none;
+    all: none;
+  }
 `;

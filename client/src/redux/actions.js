@@ -194,10 +194,11 @@ export function createEfecto(efecto) {
   };
 }
 
-export function updateBolsa({ nroPrecintoBlanco, nroPrecinto }) {
+export function updateBolsa(state) {
+  console.log(state);
   return function () {
     axios
-      .put(Variables.baseEndpoint + "/updateBolsa", { nroPrecintoBlanco, nroPrecinto })
+      .put(Variables.baseEndpoint + "/updateBolsa", state)
       .then((res) => {
         toast.success(`Bolsa ${res.data.nroPrecinto} cerrada con exito!`);
         // let response = res.data;
