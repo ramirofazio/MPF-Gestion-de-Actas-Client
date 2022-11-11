@@ -42,11 +42,11 @@ function CloseBolsa({ closeModal }) {
 
   const handleFinish = (e) => {
     e.preventDefault();
-    dispatch(updateActa(observaciones));
+    dispatch(updateActa(observaciones, currentActa.id));
 
     setTimeout(() => {
       //generateDoc();
-      window.location.replace("/actas");
+      window.location.replace("/actas/crear");
     }, 1000);
   };
 

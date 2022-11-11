@@ -33,6 +33,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         defaultValue: "en proceso",
       },
+      observaciones: {
+        type: DataTypes.STRING,
+      },
     },
     {
       timestamps: false,

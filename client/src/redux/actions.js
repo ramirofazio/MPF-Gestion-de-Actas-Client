@@ -214,10 +214,10 @@ export function updateBolsa(state) {
   };
 }
 
-export function updateActas(observaciones) {
+export function updateActa(observaciones, id) {
   return function () {
     axios
-      .put(Variables.baseEndpoint + "/updateActa", observaciones)
+      .put(Variables.baseEndpoint + "/updateActa", { observaciones, id })
       .then((res) => {
         toast.success(`Acta ${res.data.id} cerrada con exito!`);
         // let response = res.data;

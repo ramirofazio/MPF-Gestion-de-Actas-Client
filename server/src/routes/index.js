@@ -10,6 +10,7 @@ const addBolsa = require("../controllers/addBolsa");
 const addIntegrantes = require("../controllers/addIntegrantes");
 const updateEfecto = require("../controllers/updateEfecto");
 const updateBolsa = require("../controllers/updateBolsa");
+const updateActa = require("../controllers/updateActa");
 
 //* Generamos las rutas
 router.use("/addActa", addActa);
@@ -22,5 +23,6 @@ router.use("/getActas", getActas);
 router.use("/getEfectos", getEfectos);
 router.use("/updateEfecto", updateEfecto);
 router.use("/updateBolsa", updateBolsa);
+router.use("/updateActa", updateActa);
 
 module.exports = router;
