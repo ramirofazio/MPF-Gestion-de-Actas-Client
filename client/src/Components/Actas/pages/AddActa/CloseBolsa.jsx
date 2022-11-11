@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getAllActas } from "../../../../redux/actions";
+import { getAllActas, updateBolsa } from "../../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
@@ -13,11 +13,11 @@ import Variables from "../../../../Styles/Variables";
 const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
 
-function CloseBolsa() {
+function CloseBolsa({ closeModal }) {
   const dispatch = useDispatch();
   const [bolsasToClose, setBolsasToClose] = useState([]);
   const [state, setState] = useState({
-    nroprecinto: "",
+    nroPrecinto: "",
     nroPrecintoBlanco: "",
   });
 
@@ -26,6 +26,8 @@ function CloseBolsa() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(updateBolsa(state));
+    closeModal();
   };
 
   useEffect(() => {
@@ -37,6 +39,8 @@ function CloseBolsa() {
       allActasSave.map((acta) => {
         if (acta.id === currentActa.id) {
           const bolsasCompletas = acta.Bolsas.filter((bolsa) => {
+            if (bolsa.nroPrecintoBlanco !== null) return;
+            if (bolsa.Efectos.length === 0) return;
             let sum = 0;
             bolsa.Efectos.find((ef) => (ef.estado === "completo" ? sum++ : null));
             if (sum === bolsa.Efectos.length) return bolsa.nroPrecinto;
@@ -54,10 +58,10 @@ function CloseBolsa() {
         <InputContainer>
           <Label>Nro Bolsa</Label>
           <Select
-            value={state.nroprecinto}
-            onChange={(e) => setState({ ...state, nroprecinto: Number(e.target.value) })}
+            value={state.nroPrecinto}
+            onChange={(e) => setState({ ...state, nroPrecinto: Number(e.target.value) })}
           >
-            <SelectOpt value="">Nro Bolsa</SelectOpt>
+            <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
             {bolsasToClose.length > 0 &&
               bolsasToClose.map(({ nroPrecinto, id, colorPrecinto }) => (
                 <SelectOpt
@@ -73,7 +77,7 @@ function CloseBolsa() {
         <InputContainer>
           <Label>Nro Precinto Blanco</Label>
           <Input
-            type="text"
+            type="number"
             name="nroPrecintoBlanco"
             value={state.nroPrecintoBlanco}
             placeholder="Nro Precinto Blanco"

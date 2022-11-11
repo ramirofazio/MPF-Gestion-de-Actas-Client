@@ -2,13 +2,16 @@ const updateBolsa = require("express").Router();
 const { Bolsa } = require("../db");
 
 updateBolsa.put("/", async (req, res) => {
-  const { nroPrecintoBlanco, id } = req.body;
+  const { nroPrecintoBlanco, nroPrecinto } = req.body;
 
   try {
-    const bolsa = await Bolsa.findByPk(id);
-    await bolsa.update({ nroPrecintoBlanco });
+    const bolsa = await Bolsa.findOne({ where: { nroPrecinto: nroPrecinto } });
 
-    res.status(200).json("Bolsa actualizada correctamente", bolsa);
+    bolsa.nroPrecintoBlanco = nroPrecintoBlanco;
+    bolsa.estado = "completo";
+    bolsa.save();
+
+    res.status(200).json(bolsa);
   } catch (err) {
     console.log(err);
   }

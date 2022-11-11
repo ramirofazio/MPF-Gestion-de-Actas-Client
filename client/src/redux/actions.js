@@ -193,3 +193,23 @@ export function createEfecto(efecto) {
       });
   };
 }
+
+export function updateBolsa({ nroPrecintoBlanco, nroPrecinto }) {
+  return function () {
+    axios
+      .put(Variables.baseEndpoint + "/updateBolsa", { nroPrecintoBlanco, nroPrecinto })
+      .then((res) => {
+        toast.success(`Bolsa ${res.data.nroPrecinto} cerrada con exito!`);
+        // let response = res.data;
+        // response.bolsa_id = efecto.bolsa_id;
+        // return dispatch({
+        //   type: CREATE_EFECTOS,
+        //   payload: response,
+        // });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}

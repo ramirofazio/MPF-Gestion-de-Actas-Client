@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       observaciones: {
         type: DataTypes.STRING,
       },
-      nro_precinto_blanco: {
+      nroPrecintoBlanco: {
         type: DataTypes.BIGINT,
         defaultValue: null,
       },
