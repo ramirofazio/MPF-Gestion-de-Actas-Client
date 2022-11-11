@@ -195,12 +195,31 @@ export function createEfecto(efecto) {
 }
 
 export function updateBolsa(state) {
-  console.log(state);
   return function () {
     axios
       .put(Variables.baseEndpoint + "/updateBolsa", state)
       .then((res) => {
         toast.success(`Bolsa ${res.data.nroPrecinto} cerrada con exito!`);
+        // let response = res.data;
+        // response.bolsa_id = efecto.bolsa_id;
+        // return dispatch({
+        //   type: CREATE_EFECTOS,
+        //   payload: response,
+        // });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function updateActas(observaciones) {
+  return function () {
+    axios
+      .put(Variables.baseEndpoint + "/updateActa", observaciones)
+      .then((res) => {
+        toast.success(`Acta ${res.data.id} cerrada con exito!`);
         // let response = res.data;
         // response.bolsa_id = efecto.bolsa_id;
         // return dispatch({

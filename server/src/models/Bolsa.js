@@ -13,6 +13,9 @@ module.exports = (sequelize) => {
       observaciones: {
         type: DataTypes.STRING,
       },
+      leyenda: {
+        type: DataTypes.STRING,
+      },
       nroPrecintoBlanco: {
         type: DataTypes.BIGINT,
         defaultValue: null,

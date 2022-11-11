@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getAllActas, updateBolsa } from "../../../../redux/actions";
+import { getAllActas, updateBolsa, updateActa } from "../../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
@@ -28,6 +28,7 @@ function CloseBolsa({ closeModal }) {
     nroPrecinto: "",
     leyenda: "",
   });
+  const [observaciones, setObservaciones] = useState("");
 
   const allActasSave = useSelector((state) => state?.allActasSave);
   const currentActa = useSelector((state) => state?.currentActa);
@@ -37,6 +38,16 @@ function CloseBolsa({ closeModal }) {
 
     inProcess ? dispatch(updateBolsa(inProcessState)) : dispatch(updateBolsa(state));
     closeModal();
+  };
+
+  const handleFinish = (e) => {
+    e.preventDefault();
+    dispatch(updateActa(observaciones));
+
+    setTimeout(() => {
+      //generateDoc();
+      window.location.replace("/actas");
+    }, 1000);
   };
 
   useEffect(() => {
@@ -64,10 +75,35 @@ function CloseBolsa({ closeModal }) {
   useEffect(() => {
     if (thisDbActa.Bolsas && bagsToClose.length === 0) {
       setInProcess(true);
-      const bolsasInProcess = thisDbActa.Bolsas.filter((bolsa) => bolsa.estado === "en proceso");
+      const bolsasInProcess = thisDbActa.Bolsas.filter((bolsa) => {
+        if (bolsa.leyenda) return;
+        if (bolsa.Efectos.length === 0) return;
+        if (bolsa.estado === "en proceso") return bolsa;
+      });
       setBagsInProcess(bolsasInProcess);
     }
   }, [thisDbActa]);
+
+  if (bagsInProcess.length === 0 && bagsToClose.length === 0) {
+    return (
+      <>
+        <Form onSubmit={(e) => handleFinish(e)}>
+          <Title>Cerrar Acta</Title>
+          <InputContainer closeActa={true}>
+            <Label>Observaciones del Acta</Label>
+            <TextArea
+              closeActa={true}
+              name="observaciones"
+              value={observaciones}
+              placeholder="Observaciones"
+              onChange={(e) => setObservaciones(e.target.value)}
+            />
+          </InputContainer>
+          <Button type="submit" value="Cerrar Acta" complete={observaciones !== "" ? "true" : "false"} />
+        </Form>
+      </>
+    );
+  }
 
   if (!inProcess) {
     return (
@@ -182,6 +218,13 @@ const InputContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid ${secondaryColor};
+
+  ${(props) =>
+    props.closeActa &&
+    css`
+      flex-direction: column;
+      margin-top: 2%;
+    `}
 `;
 
 const Label = styled.label`
@@ -226,15 +269,22 @@ const Button = styled.input`
 
 const TextArea = styled.textarea`
   ${input}
-  font-size: small;
   flex: 1;
   min-height: 90%;
   max-height: 0px;
   text-align: center;
+  font-size: medium;
 
   &:focus {
     border: none;
     outline: none;
     all: none;
   }
+
+  ${(props) =>
+    props.closeActa &&
+    css`
+      min-height: 70%;
+      margin-bottom: 3%;
+    `}
 `;

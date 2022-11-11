@@ -352,7 +352,8 @@ const CloseIcon = styled(Close)`
   position: absolute;
   right: 0;
   top: 0;
-  width: 10%;
+  width: 8%;
+  margin-top: 1%;
   color: white;
   transition: all 0.5s ease;
 
