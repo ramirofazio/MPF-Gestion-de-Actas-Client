@@ -6,8 +6,22 @@ import expressions from "angular-expressions";
 import { assign } from "lodash";
 import template from "../../Assets/template.docx";
 
-function generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfectos) {
-  const { solicitante, nro_mpf, nro_coop, nro_causa, caratula, fecha, flag } = currentActa;
+function generateDoc() {
+  const currentActa = JSON.parse(localStorage.getItem("finalActa"));
+  const actaFlag = localStorage.getItem("actaFlag");
+
+  const { Bolsas, Integrantes } = currentActa;
+  const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula, fecha } = currentActa;
+  console.log(observaciones);
+  console.log(currentActa);
+  const Efectos = [];
+  Bolsas.map((bolsa) => {
+    return bolsa.Efectos.map((efecto) => {
+      efecto.nroPrecintoBolsa = bolsa.nroPrecinto;
+      Efectos.push(efecto);
+    });
+  });
+
   function loadFile(url, callback) {
     PizZipUtils.getBinaryContent(url, callback);
   }
@@ -57,7 +71,7 @@ function generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfec
       parser: angularParser,
     });
     doc.setData({
-      encabezadoFlag: flag,
+      encabezadoFlag: actaFlag,
       dias: fecha.substring(0, 2),
       mes: fecha.substring(3, 5),
       anio: fecha.substring(6, 10),
@@ -67,9 +81,10 @@ function generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfec
       nro_coop: nro_coop,
       nro_causa: nro_causa,
       caratula: caratula,
-      integrantes: currentIntegrantes,
-      bolsas: currentBolsas,
-      efectos: currentEfectos,
+      integrantes: Integrantes,
+      bolsas: Bolsas,
+      efectos: Efectos,
+      actaObservaciones: observaciones,
     });
     try {
       doc.render();
@@ -92,7 +107,7 @@ function generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfec
       type: "blob",
       mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     }); //Output the document using Data-URI
-    saveAs(out, "prueba.docx");
+    saveAs(out, `Acta${currentActa.id}.docx`);
   });
 }
 

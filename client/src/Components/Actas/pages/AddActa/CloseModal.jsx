@@ -8,7 +8,7 @@ import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
 //* Doc
-//import generateDoc from "../../generateDoc";
+import generateDoc from "../../generateDoc";
 //* Initializations
 const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
@@ -44,8 +44,14 @@ function CloseModal({ closeModal }) {
     e.preventDefault();
     dispatch(updateActa(observaciones, currentActa.id));
 
+    allActasSave.map((acta) => {
+      if (acta.id === currentActa.id) {
+        localStorage.setItem("finalActa", JSON.stringify(acta));
+      }
+    });
+
+    generateDoc();
     setTimeout(() => {
-      //generateDoc();
       window.location.replace("/actas/crear");
     }, 1000);
   };
