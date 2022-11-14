@@ -14,7 +14,7 @@ addBolsa.post("/", async (req, res) => {
 
     return res.status(200).json(newBolsa);
   } catch (err) {
-    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
+    console.log(err);
   }
 });
 

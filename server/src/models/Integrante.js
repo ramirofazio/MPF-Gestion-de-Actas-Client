@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
       },
       dni: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       legajoOMatricula: {
         type: DataTypes.STRING,

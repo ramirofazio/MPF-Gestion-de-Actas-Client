@@ -37,7 +37,7 @@ addEfecto.post("/", async (req, res) => {
 
     return res.status(200).json(newEfecto);
   } catch (err) {
-    return res.status(err.code).send("Algo salio mal. Error \n\n -------> ", err);
+    console.log(err);
   }
 });
 

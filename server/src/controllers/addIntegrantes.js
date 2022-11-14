@@ -5,11 +5,20 @@ addIntegrantes.post("/", async (req, res) => {
   try {
     const integrantes = req.body;
 
-    const newIntegrantes = await Integrante.bulkCreate(integrantes);
+    console.log(integrantes);
+    const response = [];
 
-    return res.status(200).json(newIntegrantes);
+    integrantes.forEach(async (integrante) => {
+      const res = await Integrante.findOne({ where: { dni: integrante.dni } });
+      if (!res) {
+        const newIntegrante = await Integrante.create(integrante);
+        response.push(newIntegrante);
+      }
+    });
+
+    return res.status(200).json(response);
   } catch (err) {
-    return res.status(400).send("Algo salio mal. Error \n\n -------> ", err);
+    console.log(err);
   }
 });
 
