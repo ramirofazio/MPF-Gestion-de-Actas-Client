@@ -13,7 +13,7 @@ import Variables from "../../../../Styles/Variables";
 const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
 
-function CloseBolsa({ closeModal }) {
+function CloseModal({ closeModal }) {
   const dispatch = useDispatch();
 
   const [inProcess, setInProcess] = useState(false);
@@ -191,7 +191,7 @@ function CloseBolsa({ closeModal }) {
   }
 }
 
-export default CloseBolsa;
+export default CloseModal;
 
 const Title = styled.h4`
   border-bottom: 2px solid white;
@@ -272,6 +272,8 @@ const TextArea = styled.textarea`
   flex: 1;
   min-height: 90%;
   max-height: 0px;
+  max-width: 100%;
+  min-width: 100%;
   text-align: center;
   font-size: medium;
 

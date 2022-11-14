@@ -12,7 +12,7 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 import Modal from "react-modal";
 //* Components
 import AddEfectos from "./AddEfectos";
-import CloseBolsa from "./CloseBolsa";
+import CloseModal from "./CloseModal";
 
 //* Initializations
 const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
@@ -52,7 +52,7 @@ const addEfectosModalStyles = {
   },
 };
 
-const closeBolsaModalStyles = {
+const CloseModalModalStyles = {
   content: {
     top: "50%",
     left: "50%",
@@ -231,9 +231,9 @@ function AddBolsas() {
           Cerrar
         </Button>
       </div>
-      <Modal isOpen={closeBagModal} style={closeBolsaModalStyles}>
+      <Modal isOpen={closeBagModal} style={CloseModalModalStyles}>
         <CloseIcon onClick={() => setCloseBagModal(!closeBagModal)} />
-        <CloseBolsa closeModal={() => setCloseBagModal(!closeBagModal)} />
+        <CloseModal closeModal={() => setCloseBagModal(!closeBagModal)} />
       </Modal>
     </Container>
   );
