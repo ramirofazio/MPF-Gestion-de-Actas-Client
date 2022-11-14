@@ -101,6 +101,20 @@ function AddBolsas() {
     });
   };
 
+  const handleCompleteClose = () => {
+    let res = "false";
+    currentBolsas.map((bolsa) => {
+      currentEfectos.map((efecto) => {
+        if (efecto.bolsa_id === bolsa.id) {
+          res = "true";
+        } else {
+          res = "false";
+        }
+      });
+    });
+    return res;
+  };
+
   //generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfectos)
 
   return (
@@ -224,10 +238,7 @@ function AddBolsas() {
         >
           Añadir Elementos
         </Button>
-        <Button
-          onClick={() => setCloseBagModal(!closeBagModal)}
-          complete={currentBolsas?.length !== 0 && currentEfectos?.length !== 0 ? "true" : "false"}
-        >
+        <Button onClick={() => setCloseBagModal(!closeBagModal)} complete={handleCompleteClose()}>
           Cerrar
         </Button>
       </div>
