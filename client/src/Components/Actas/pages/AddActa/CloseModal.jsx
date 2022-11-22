@@ -52,7 +52,7 @@ function CloseModal({ closeModal }) {
 
     generateDoc();
     setTimeout(() => {
-      window.location.replace("/actas/crear");
+      window.location.replace("/");
     }, 1000);
   };
 

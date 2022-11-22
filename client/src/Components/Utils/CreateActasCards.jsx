@@ -6,17 +6,11 @@ import Variables from "../../Styles/Variables";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import { FileDownload } from "@styled-icons/remix-line/FileDownload";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
-
 //* Initialization
 const { principalColor, secondaryColor, yellowColor, redColor, greenColor } = Variables;
 const { cardsContainer, cardContainer, cardInfo, cardTitle, button } = GlobalStyles;
 
 function CreateActasCards({ allActas }) {
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "short", day: "numeric" };
-    return new Date(dateString).toLocaleDateString("es", options);
-  };
-
   const actasToRender = allActas.filter((actas) => actas.estado !== "deprecado");
 
   return (
@@ -24,17 +18,9 @@ function CreateActasCards({ allActas }) {
       <CardsContainer>
         {actasToRender
           ? actasToRender.map((acta) => {
-              let cantBolsasCompletas = 0;
-              let cantBolsas = 0;
-              let cantEfectosCompletos = 0;
-              let cantEfectos = 0;
+              let totalEfectos = 0;
               acta.Bolsas.map((bolsa) => {
-                cantBolsas++;
-                cantEfectos += bolsa.Efectos.length;
-              });
-              acta.Bolsas.map((bolsa) => {
-                bolsa.estado === "completo" ? cantBolsasCompletas++ : null;
-                bolsa.Efectos.map((efecto) => (cantEfectosCompletos += efecto.estado === "completo"));
+                totalEfectos += bolsa.Efectos.length;
               });
 
               return (
@@ -42,7 +28,7 @@ function CreateActasCards({ allActas }) {
                   <Info>
                     <CardTitle>Fecha</CardTitle>
                     <br />
-                    {formatDate(acta.created_at)}
+                    {acta.fecha.slice(0, 10)}
                   </Info>
                   {!acta.nro_coop && (
                     <Info>
@@ -71,12 +57,12 @@ function CreateActasCards({ allActas }) {
                   <Info>
                     <CardTitle>Bolsas</CardTitle>
                     <br />
-                    {`${cantBolsasCompletas}/${cantBolsas}`}
+                    {acta.Bolsas.length}
                   </Info>
                   <Info>
                     <CardTitle>Efectos</CardTitle>
                     <br />
-                    {`${cantEfectosCompletos}/${cantEfectos}`}
+                    {totalEfectos}
                   </Info>
                   <Info>
                     <CardTitle>Estado</CardTitle>
