@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
-import { createBolsas } from "../../../../redux/actions";
+import { createBolsas } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
-import GlobalStyles from "../../../../Styles/GlobalStyles";
-import Variables from "../../../../Styles/Variables";
+import GlobalStyles from "../../../Styles/GlobalStyles";
+import Variables from "../../../Styles/Variables";
 import { useDispatch, useSelector } from "react-redux";
 import { Close } from "@styled-icons/ionicons-outline/Close";
 //* Modal

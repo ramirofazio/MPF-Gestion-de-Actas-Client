@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllActas, getActasFiltered } from "../../../../redux/actions";
+import { getAllActas, getActasFiltered } from "../../redux/actions";
 //* Styles
 import styled from "styled-components";
-import GlobalStyles from "../../../../Styles/GlobalStyles";
-import Variables from "../../../../Styles/Variables";
+import GlobalStyles from "../../Styles/GlobalStyles";
+import Variables from "../../Styles/Variables";
 import { SettingsBackupRestore } from "@styled-icons/material-rounded/SettingsBackupRestore";
 import { toast } from "react-toastify";
 //* Utlis
-import CreateActasCards from "../../../Utils/CreateActasCards";
+import CreateActasCards from "../Utils/CreateActasCards";
 //* Initializations
 const { secondaryColor } = Variables;
 const {

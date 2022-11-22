@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
-import { createActa } from "../../../../redux/actions";
+import { createActa } from "../../../redux/actions";
 import { useDispatch } from "react-redux";
 //* Style
 import styled, { css } from "styled-components";
-import GlobalStyles from "../../../../Styles/GlobalStyles";
-import Variables from "../../../../Styles/Variables";
+import GlobalStyles from "../../../Styles/GlobalStyles";
+import Variables from "../../../Styles/Variables";
 import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor } = Variables;

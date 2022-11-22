@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 //* Redux
-import { createEfecto } from "../../../../redux/actions";
+import { createEfecto } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 //* Style
 import styled, { css } from "styled-components";
-import GlobalStyles from "../../../../Styles/GlobalStyles";
-import Variables from "../../../../Styles/Variables";
-//* Doc
-//import generateDoc from "../../generateDoc";
+import GlobalStyles from "../../../Styles/GlobalStyles";
+import Variables from "../../../Styles/Variables";
 //* Initializations
 const { button, select, input } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;

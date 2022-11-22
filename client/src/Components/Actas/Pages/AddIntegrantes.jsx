@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
-import { createIntegrantes } from "../../../../redux/actions";
+import { createIntegrantes } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
-import GlobalStyles from "../../../../Styles/GlobalStyles";
-import Variables from "../../../../Styles/Variables";
+import GlobalStyles from "../../../Styles/GlobalStyles";
+import Variables from "../../../Styles/Variables";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 //* Initializations

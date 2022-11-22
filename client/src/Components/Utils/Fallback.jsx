@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import GlobalStyles from "../Styles/GlobalStyles";
+import GlobalStyles from "../../Styles/GlobalStyles";
 import ClipLoader from "react-spinners/ClipLoader";
 
 function Fallback() {

@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 //* Styles
 import styled from "styled-components";
-import Variables from "../Styles/Variables";
-import logo from "../Assets/logo.png";
+import Variables from "../../Styles/Variables";
+import logo from "../../Assets/logo.png";
 //* Initializations
 const { principalColor } = Variables;
 
