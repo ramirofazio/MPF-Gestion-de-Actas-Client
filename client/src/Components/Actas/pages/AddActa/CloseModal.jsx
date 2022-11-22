@@ -177,9 +177,12 @@ function CloseModal({ closeModal }) {
                 ))}
             </Select>
           </InputContainer>
-          <InputContainer>
+          <InputContainer
+            style={{ flexDirection: "column", marginBottom: "2%", paddingTop: "10px", borderBottom: "none" }}
+          >
             <Label>Leyenda</Label>
             <TextArea
+              leyenda={true}
               name="leyenda"
               value={inProcessState.leyenda}
               placeholder="Leyenda"
@@ -187,6 +190,7 @@ function CloseModal({ closeModal }) {
             />
           </InputContainer>
           <Button
+            style={{ marginBottom: "-4%" }}
             type="submit"
             value="Cerrar Bolsa en Proceso"
             complete={inProcessState.nroPrecinto !== "" && inProcessState.leyenda !== "" ? "true" : "false"}
@@ -288,6 +292,13 @@ const TextArea = styled.textarea`
     outline: none;
     all: none;
   }
+
+  ${(props) =>
+    props.leyenda &&
+    css`
+      margin-top: 2%;
+      min-width: 75%;
+    `}
 
   ${(props) =>
     props.closeActa &&
