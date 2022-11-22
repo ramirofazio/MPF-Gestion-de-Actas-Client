@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { createActa } from "../../../../redux/actions";
+import { useDispatch } from "react-redux";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor } = Variables;
@@ -298,16 +298,15 @@ function AddActa() {
         ) : null}
       </FormContainer>
       {!comeBack ? (
-        <Button to={"/actas/crear/2"} onClick={() => handleClick()} complete={handleComplete()}>
+        <Button onClick={() => handleClick()} complete={handleComplete()}>
           Siguente
         </Button>
       ) : (
         <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
-          <Button to={"/actas/crear/2"} onClick={() => handleClick()} complete={handleComplete()}>
+          <Button onClick={() => handleClick()} complete={handleComplete()}>
             Volver a crear
           </Button>
           <Button
-            to={"/actas/crear/2"}
             complete={handleComplete()}
             onClick={() =>
               flag === "MPF/DEN"

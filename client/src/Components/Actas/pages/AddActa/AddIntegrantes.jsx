@@ -157,25 +157,15 @@ function AddIntegrantes() {
       </SubContainer>
 
       {!localStorage.getItem("integrantes") ? (
-        <Button
-          to={"/actas/crear/3"}
-          complete={integrantes.length >= "1" ? "true" : "false"}
-          onClick={() => handleNext()}
-        >
+        <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
           Siguente
         </Button>
       ) : (
         <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
-          <Button
-            to={"/actas/crear/3"}
-            complete={integrantes.length >= "1" ? "true" : "false"}
-            onClick={() => handleNext()}
-          >
+          <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
             Volver a Crear
           </Button>
-          <Button to={"/actas/crear/3"} complete={integrantes.length >= "1" ? "true" : "false"}>
-            Continuar Asi
-          </Button>
+          <Button complete={integrantes.length >= "1" ? "true" : "false"}>Continuar Asi</Button>
         </div>
       )}
     </Container>

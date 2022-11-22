@@ -27,6 +27,7 @@ addActa.post("/", async (req, res) => {
     return res.status(200).json(newActa);
   } catch (err) {
     console.log(err);
+    return res.status(500).send(err.sqlMessage);
   }
 });
 

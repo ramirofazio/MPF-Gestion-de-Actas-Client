@@ -5,19 +5,19 @@ module.exports = (sequelize) => {
     "Acta",
     {
       nro_mpf: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       nro_cij: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       nro_dil: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       nro_coop: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       nro_causa: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       caratula: {
         type: DataTypes.STRING,

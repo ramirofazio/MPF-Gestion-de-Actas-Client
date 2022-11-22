@@ -5,10 +5,10 @@ module.exports = (sequelize) => {
     "Sim",
     {
       nro_serie: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       nro_linea: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       tipo_extraccion: {
         type: DataTypes.ENUM("fisica", "logica", "otro"),

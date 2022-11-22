@@ -122,6 +122,11 @@ export function createActa(state, flag) {
     axios
       .post(Variables.baseEndpoint + "/addActa", { ...state })
       .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          window.location.assign("/actas/crear/2");
+        }
+
         flag === "MPF/DEN"
           ? toast.success(`Acta ${res.data.nro_mpf} creada con exito!`)
           : toast.success(`Acta ${res.data.nro_coop} creada con exito!`);
@@ -132,6 +137,7 @@ export function createActa(state, flag) {
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error al crear la acta");
       });
   };
 }
@@ -143,6 +149,7 @@ export function createIntegrantes(integrantes) {
     axios
       .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
       .then((res) => {
+        if (res.status === 200) window.location.assign("/actas/crear/3");
         res.data.length > 1
           ? toast.success("Integrantes creados con exito!")
           : toast.success("Integrante creado con Exito");

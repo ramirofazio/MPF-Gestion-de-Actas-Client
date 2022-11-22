@@ -11,10 +11,10 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
       },
       dni: {
-        type: DataTypes.STRING,
+        type: DataTypes.BIGINT,
       },
       legajoOMatricula: {
-        type: DataTypes.STRING,
+        type: DataTypes.BIGINT,
       },
       acta_id: {
         type: DataTypes.INTEGER,

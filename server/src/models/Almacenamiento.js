@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM("ssd", "hdd", "pendrive", "otro"),
       },
       nro_serie: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
     },
     {
