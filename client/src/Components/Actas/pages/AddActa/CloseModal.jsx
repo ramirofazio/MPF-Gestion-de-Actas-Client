@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllActas, updateBolsa, updateActa } from "../../../../redux/actions";
@@ -7,8 +6,6 @@ import { getAllActas, updateBolsa, updateActa } from "../../../../redux/actions"
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../../Styles/GlobalStyles";
 import Variables from "../../../../Styles/Variables";
-//* Doc
-import generateDoc from "../../generateDoc";
 //* Initializations
 const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
@@ -43,17 +40,6 @@ function CloseModal({ closeModal }) {
   const handleFinish = (e) => {
     e.preventDefault();
     dispatch(updateActa(observaciones, currentActa.id));
-
-    allActasSave.map((acta) => {
-      if (acta.id === currentActa.id) {
-        localStorage.setItem("finalActa", JSON.stringify(acta));
-      }
-    });
-
-    generateDoc();
-    setTimeout(() => {
-      window.location.replace("/");
-    }, 1000);
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ updateActa.put("/", async (req, res) => {
   const { observaciones, id } = req.body;
 
   try {
-    const acta = await Acta.findByPk(id);
+    const acta = await Acta.findByPk(id, { include: { all: true, nested: true } });
     acta.observaciones = observaciones;
     acta.save();
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import Variables from "../Styles/Variables";
 import { toast } from "react-toastify";
+import generateDoc from "../Components/Actas/generateDoc";
 
 export const GET_ACTAS = "GET_ACTAS";
 export const GET_ACTAS_FILTERED = "GET_ACTAS_FILTERED";
@@ -207,13 +208,6 @@ export function updateBolsa(state) {
       .put(Variables.baseEndpoint + "/updateBolsa", state)
       .then((res) => {
         toast.success(`Bolsa ${res.data.nroPrecinto} cerrada con exito!`);
-        // let response = res.data;
-        // response.bolsa_id = efecto.bolsa_id;
-        // return dispatch({
-        //   type: CREATE_EFECTOS,
-        //   payload: response,
-        // });
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -227,13 +221,8 @@ export function updateActa(observaciones, id) {
       .put(Variables.baseEndpoint + "/updateActa", { observaciones, id })
       .then((res) => {
         toast.success(`Acta ${res.data.id} cerrada con exito!`);
-        // let response = res.data;
-        // response.bolsa_id = efecto.bolsa_id;
-        // return dispatch({
-        //   type: CREATE_EFECTOS,
-        //   payload: response,
-        // });
-        console.log(res.data);
+        localStorage.setItem("finalActa", JSON.stringify(res.data));
+        generateDoc();
       })
       .catch((err) => {
         console.log(err);

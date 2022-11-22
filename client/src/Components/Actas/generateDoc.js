@@ -9,6 +9,7 @@ import template from "../../Assets/template.docx";
 function generateDoc() {
   const currentActa = JSON.parse(localStorage.getItem("finalActa"));
   const actaFlag = localStorage.getItem("actaFlag");
+  console.log(currentActa);
 
   const { Bolsas, Integrantes } = currentActa;
   const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula, fecha } = currentActa;
@@ -108,6 +109,7 @@ function generateDoc() {
       mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     }); //Output the document using Data-URI
     saveAs(out, `Acta${currentActa.id}.docx`);
+    window.location.assign("/");
   });
 }
 
