@@ -92,9 +92,9 @@ function Home() {
           <InputContainer>
             <Label>Estado</Label>
             <Select value={filter.estado} onChange={(e) => setFilter({ ...filter, estado: e.target.value })}>
-              <Option value="">Todas</Option>
-              <Option value="en proceso">En Proceso</Option>
-              <Option value="completo">Completas</Option>
+              <option value="">Todas</option>
+              <option value="en proceso">En Proceso</option>
+              <option value="completo">Completas</option>
             </Select>
           </InputContainer>
           <InputContainer
@@ -150,8 +150,6 @@ const Input = styled.input`
 const Select = styled.select`
   ${filtersInput}
 `;
-
-const Option = styled.option``;
 
 const Submit = styled.input`
   ${submitBtn}

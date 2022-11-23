@@ -1,15 +1,10 @@
 import axios from "axios";
+import generateDoc from "../Components/Actas/generateDoc";
 import Variables from "../Styles/Variables";
 import { toast } from "react-toastify";
-import generateDoc from "../Components/Actas/generateDoc";
 
 export const GET_ACTAS = "GET_ACTAS";
 export const GET_ACTAS_FILTERED = "GET_ACTAS_FILTERED";
-export const GET_EFECTOS = "GET_EFECTOS";
-export const GET_ACTAS_EN_PROCESO = "GET_ACTAS_EN_PROCESO";
-export const GET_ACTAS_EN_PROCESO_FILTERED = "GET_ACTAS_EN_PROCESO_FILTERED";
-export const GET_EFECTOS_EN_PROCESO_FILTERED = "GET_EFECTOS_EN_PROCESO_FILTERED";
-export const GET_EFECTOS_FROM_ACTA = "GET_EFECTOS_FROM_ACTA";
 export const CREATE_ACTA = "CREATE_ACTA";
 export const CREATE_INTEGRANTES = "CREATE_INTEGRANTES";
 export const CREATE_BOLSAS = "CREATE_BOLSAS";
@@ -40,94 +35,16 @@ export function getActasFiltered(filtros) {
   };
 }
 
-export function getAllEfectos() {
-  return function (dispatch) {
-    axios
-      .get(Variables.baseEndpoint + "/getEfectos")
-      .then((res) => {
-        return dispatch({
-          type: GET_EFECTOS,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-}
-
-export function getEfectosFromActa(id) {
-  return function (dispatch) {
-    axios
-      .get(Variables.baseEndpoint + `/getEfectos/${id}`)
-      .then((res) => {
-        return dispatch({
-          type: GET_EFECTOS_FROM_ACTA,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-}
-
-export function getActasEnProceso() {
-  return function (dispatch) {
-    axios
-      .get(Variables.baseEndpoint + "/getActas?enProceso=true")
-      .then((res) => {
-        return dispatch({
-          type: GET_ACTAS_EN_PROCESO,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-}
-
-export function getActasEnProcesoFiltered(filtros) {
-  return function (dispatch) {
-    return dispatch({
-      type: GET_ACTAS_EN_PROCESO_FILTERED,
-      payload: filtros,
-    });
-  };
-}
-
-export function getEfectosEnProcesoFiltered(filtros) {
-  return function (dispatch) {
-    return dispatch({
-      type: GET_EFECTOS_EN_PROCESO_FILTERED,
-      payload: filtros,
-    });
-  };
-}
-
-export function sendEfectosIdsAndActaId({ actaId, efectosIds }) {
-  axios
-    .post(Variables.baseEndpoint + "/updateEfecto", { actaId, efectosIds })
-
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
 export function createActa(state, flag) {
-  localStorage.setItem("acta", JSON.stringify(state));
   localStorage.setItem("actaFlag", flag);
 
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + "/addActa", { ...state })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           window.location.assign("/actas/crear/2");
         }
-
         flag === "MPF/DEN"
           ? toast.success(`Acta ${res.data.nro_mpf} creada con exito!`)
           : toast.success(`Acta ${res.data.nro_coop} creada con exito!`);

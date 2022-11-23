@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { createActa } from "../../../redux/actions";
@@ -19,7 +19,6 @@ const {
   enProcesoContainer,
   header,
   headerTitle,
-  headerDescription,
   formContainer,
   button,
 } = GlobalStyles;
@@ -27,24 +26,24 @@ const {
 function AddActa() {
   const dispatch = useDispatch();
 
-  const [flag, setFlag] = useState("");
-  const [state, setState] = useState("");
-  const [comeBack, setComeBack] = useState(false);
+  const [acta, setActa] = React.useState("");
+  const [tipoDeActa, setTipoDeActa] = React.useState("");
+  const [comeBack, setComeBack] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     getLocalStorageOrState();
   }, []);
 
   const getLocalStorageOrState = () => {
-    const localActa = localStorage.getItem("acta");
+    const currentActa = localStorage.getItem("currentActa");
     const localFlag = localStorage.getItem("actaFlag");
 
-    if (localActa && localFlag) {
-      setState(JSON.parse(localActa));
-      setFlag(localFlag);
+    if (currentActa && localFlag) {
+      setActa(JSON.parse(currentActa));
+      setTipoDeActa(localFlag);
       setComeBack(true); //* Si volvio para atras
     } else {
-      setState({
+      setActa({
         solicitante: "",
         mpfOrDen: "",
         cij: "",
@@ -53,20 +52,20 @@ function AddActa() {
         nroCausa: "",
         caratula: "",
       });
-      setFlag("Tipo de Acta");
+      setTipoDeActa("Tipo de Acta");
     }
   };
 
   const handleComplete = () => {
     //* Logica para habilitar el boton cuando esta todo completado
-    const { solicitante, mpfOrDen, cij, dil, coop, nroCausa, caratula } = state;
-    if (flag === "MPF/DEN") {
+    const { solicitante, mpfOrDen, cij, dil, coop, nroCausa, caratula } = acta;
+    if (tipoDeActa === "MPF/DEN") {
       if (solicitante && mpfOrDen && cij && dil) {
         return "true";
       } else {
         return "false";
       }
-    } else if (flag === "COOP") {
+    } else if (tipoDeActa === "COOP") {
       if (solicitante && coop && nroCausa && caratula && cij && dil) {
         return "true";
       } else {
@@ -78,29 +77,28 @@ function AddActa() {
   };
 
   const handleClick = () => {
-    dispatch(createActa(state, flag));
+    dispatch(createActa(acta, tipoDeActa));
   };
 
   return (
     <Container>
       <Header>
-        <Title>Creacion de Acta</Title>
-        <Description>Encabezado</Description>
+        <Title>Creación de Acta</Title>
       </Header>
       <FormContainer>
         <InputContainer>
           <Label>Tipo de Acta</Label>
-          <Select onChange={(e) => setFlag(e.target.value)} value={flag}>
+          <Select onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
             <SelectOpt>Tipo de Acta</SelectOpt>
             <SelectOpt>MPF/DEN</SelectOpt>
             <SelectOpt>COOP</SelectOpt>
           </Select>
         </InputContainer>
-        {flag === "MPF/DEN" ? (
+        {tipoDeActa === "MPF/DEN" ? (
           <>
             <InputContainer>
               <Label>Solicitante</Label>
-              <Select onChange={(e) => setState({ ...state, solicitante: e.target.value })} value={state.solicitante}>
+              <Select onChange={(e) => setActa({ ...acta, solicitante: e.target.value })} value={acta.solicitante}>
                 <SelectOpt value="">Solicitante</SelectOpt>
                 <SelectOpt>Área de Flagrancia Contravencional</SelectOpt>
                 <SelectOpt>Equipo de Análisis de Casos de Comercialización de Estupefacientes</SelectOpt>
@@ -205,9 +203,9 @@ function AddActa() {
                 <Input
                   type="number"
                   name="MPF/DEN"
-                  value={state.mpfOrDen}
+                  value={acta.mpfOrDen || acta.nro_mpf}
                   placeholder="MPF/DEN"
-                  onChange={(e) => setState({ ...state, mpfOrDen: e.target.value })}
+                  onChange={(e) => setActa({ ...acta, mpfOrDen: e.target.value })}
                 />
               </InputContainer>
               <InputContainer>
@@ -215,9 +213,9 @@ function AddActa() {
                 <Input
                   type="number"
                   name="CIJ"
-                  value={state.cij}
+                  value={acta.cij || acta.nro_cij}
                   placeholder="CIJ"
-                  onChange={(e) => setState({ ...state, cij: e.target.value })}
+                  onChange={(e) => setActa({ ...acta, cij: e.target.value })}
                 />
               </InputContainer>
               <InputContainer>
@@ -225,23 +223,23 @@ function AddActa() {
                 <Input
                   type="number"
                   name="DIL"
-                  value={state.dil}
+                  value={acta.dil || acta.nro_dil}
                   placeholder="DIL"
-                  onChange={(e) => setState({ ...state, dil: e.target.value })}
+                  onChange={(e) => setActa({ ...acta, dil: e.target.value })}
                 />
               </InputContainer>
             </Form>
           </>
-        ) : flag === "COOP" ? (
+        ) : tipoDeActa === "COOP" ? (
           <Form style={{ height: "80%" }}>
             <InputContainer>
               <Label>Solicitante</Label>
               <Input
                 type="text"
                 name="Solicitante"
-                value={state.solicitante}
+                value={acta.solicitante}
                 placeholder="Solicitante"
-                onChange={(e) => setState({ ...state, solicitante: e.target.value })}
+                onChange={(e) => setActa({ ...acta, solicitante: e.target.value })}
               />
             </InputContainer>
             <InputContainer>
@@ -249,9 +247,9 @@ function AddActa() {
               <Input
                 type="number"
                 name="COOP"
-                value={state.coop}
+                value={acta.coop || acta.nro_coop}
                 placeholder="COOP"
-                onChange={(e) => setState({ ...state, coop: e.target.value })}
+                onChange={(e) => setActa({ ...acta, coop: e.target.value })}
               />
             </InputContainer>
             <InputContainer>
@@ -259,9 +257,9 @@ function AddActa() {
               <Input
                 type="number"
                 name="Nro Causa"
-                value={state.nroCausa}
+                value={acta.nroCausa || acta.nro_causa}
                 placeholder="Nro Causa"
-                onChange={(e) => setState({ ...state, nroCausa: e.target.value })}
+                onChange={(e) => setActa({ ...acta, nroCausa: e.target.value })}
               />
             </InputContainer>
             <InputContainer>
@@ -269,9 +267,9 @@ function AddActa() {
               <Input
                 type="text"
                 name="Caratula"
-                value={state.caratula}
+                value={acta.caratula}
                 placeholder="Caratula"
-                onChange={(e) => setState({ ...state, caratula: e.target.value })}
+                onChange={(e) => setActa({ ...acta, caratula: e.target.value })}
               />
             </InputContainer>
             <InputContainer>
@@ -279,9 +277,9 @@ function AddActa() {
               <Input
                 type="number"
                 name="CIJ"
-                value={state.cij}
+                value={acta.cij || acta.nro_cij}
                 placeholder="CIJ"
-                onChange={(e) => setState({ ...state, cij: e.target.value })}
+                onChange={(e) => setActa({ ...acta, cij: e.target.value })}
               />
             </InputContainer>
             <InputContainer>
@@ -289,9 +287,9 @@ function AddActa() {
               <Input
                 type="number"
                 name="DIL"
-                value={state.dil}
+                value={acta.dil || acta.nro_dil}
                 placeholder="DIL"
-                onChange={(e) => setState({ ...state, dil: e.target.value })}
+                onChange={(e) => setActa({ ...acta, dil: e.target.value })}
               />
             </InputContainer>
           </Form>
@@ -307,11 +305,12 @@ function AddActa() {
             Volver a crear
           </Button>
           <Button
-            complete={handleComplete()}
+            to={"/actas/crear/2"}
+            complete={"true"}
             onClick={() =>
-              flag === "MPF/DEN"
-                ? toast.success(`Continuamos con acta ${state.mpfOrDen}!`)
-                : toast.success(`Continuamos con acta ${state.coop}!`)
+              tipoDeActa === "MPF/DEN"
+                ? toast.success(`Continuamos con acta ${acta.mpfOrDen}!`)
+                : toast.success(`Continuamos con acta ${acta.coop}!`)
             }
           >
             Continuar Asi
@@ -335,10 +334,6 @@ const Header = styled.header`
 
 const Title = styled.h1`
   ${headerTitle}
-`;
-
-const Description = styled.h1`
-  ${headerDescription}
 `;
 
 const FormContainer = styled.div`

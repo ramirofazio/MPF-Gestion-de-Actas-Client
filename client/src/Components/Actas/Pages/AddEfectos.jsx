@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 //* Redux
 import { createEfecto } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,9 +13,9 @@ const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 function AddEfectos({ closeModal }) {
   const dispatch = useDispatch();
 
-  const currentBolsas = useSelector((state) => state?.currentBolsas);
+  const currentBolsas = useSelector((s) => s?.currentBolsas);
 
-  const [efecto, setEfecto] = useState({
+  const [efecto, setEfecto] = React.useState({
     bolsa_id: "",
     tipoDeElemento: "",
     marca: "",
@@ -37,7 +37,7 @@ function AddEfectos({ closeModal }) {
     closeModal();
   };
 
-  const validate = () => {
+  const handleComplete = () => {
     const { bolsa_id, tipoDeElemento, marca, modelo, estado, herramientaSoft, tipoExtraccion } = efecto;
 
     if (bolsa_id && tipoDeElemento && marca && modelo && estado && herramientaSoft && tipoExtraccion) {
@@ -49,7 +49,7 @@ function AddEfectos({ closeModal }) {
 
   return (
     <>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Title>Agregar Elemento</Title>
         <InputContainer>
           <Label>Nro Bolsa</Label>
@@ -160,7 +160,7 @@ function AddEfectos({ closeModal }) {
         </InputContainer>
         {efecto.tipoSeguridad === "ninguna" || efecto.tipoSeguridad === "" ? null : (
           <InputContainer>
-            <Label>Desbloqueo</Label>
+            <Label>¿Desbloqueo?</Label>
             <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
               <SelectOpt value="">Desbloqueo</SelectOpt>
               <SelectOpt value="si">Si</SelectOpt>
@@ -169,12 +169,12 @@ function AddEfectos({ closeModal }) {
           </InputContainer>
         )}
         <InputContainer>
-          <Label>Herramiento Software</Label>
+          <Label>Herramienta Software</Label>
           <Select
             value={efecto.herramientaSoft}
             onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}
           >
-            <SelectOpt value="">Herramiento Software</SelectOpt>
+            <SelectOpt value="">Herramienta Software</SelectOpt>
             <SelectOpt value="ninguna">Ninguna</SelectOpt>
             <SelectOpt value="UFED">UFED</SelectOpt>
           </Select>
@@ -189,10 +189,10 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="ninguna">Ninguna</SelectOpt>
             <SelectOpt value="fisica">Fisica</SelectOpt>
             <SelectOpt value="logica">Logica</SelectOpt>
+            <SelectOpt value="ambas">Ambas</SelectOpt>
           </Select>
         </InputContainer>
-        <InputContainer>
-          <Label>Descripcion Tarea</Label>
+        <InputContainer style={{ flexDirection: "column", flex: 1.5 }}>
           <TextArea
             placeholder="Descripción Tarea"
             value={efecto.descripcionTarea}
@@ -200,7 +200,7 @@ function AddEfectos({ closeModal }) {
           />
         </InputContainer>
       </Form>
-      <Button type="submit" onClick={(e) => handleSubmit(e)} value="Cargar Elemento" complete={validate()} />
+      <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
     </>
   );
 }
@@ -240,7 +240,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   ${input}
-  font-size: small;
+  font-size: medium;
   flex: 1;
   min-height: 65%;
   text-align: center;
@@ -248,7 +248,7 @@ const Input = styled.input`
 
 const Select = styled.select`
   ${select}
-  font-size: small;
+  font-size: medium;
   flex: 1;
   min-height: 65%;
   text-align: center;
@@ -258,17 +258,13 @@ const SelectOpt = styled.option``;
 
 const TextArea = styled.textarea`
   ${input}
-  font-size: small;
+  font-size: medium;
   flex: 1;
-  min-height: 65%;
-  max-height: 150px;
+  max-height: 100%;
+  min-height: 100%;
+  max-width: 100%;
+  min-width: 100%;
   text-align: center;
-
-  &:focus {
-    border: none;
-    outline: none;
-    all: none;
-  }
 `;
 
 const Button = styled.input`

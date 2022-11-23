@@ -1,21 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+//* Styles
+import styled from "styled-components";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import Variables from "../../Styles/Variables";
 import { DatabaseSearch } from "@styled-icons/fluentui-system-filled/DatabaseSearch";
-
+//* Initializations
 const { principalColor, secondaryColor } = Variables;
-const { header, headerTitle, headerDescription, homeCard } = GlobalStyles;
+const { header, headerTitle, homeCard } = GlobalStyles;
 
 function Consultas() {
   return (
     <Container>
       <Header>
         <Title>Consultas</Title>
-        <Description>
-          En esta sección vas a poder consultar el historial de Actas. <br /> Elegi una opcion para buscar!
-        </Description>
       </Header>
       <CardsContainer>
         <Card to="/consultas/todas">
@@ -42,9 +40,6 @@ const Title = styled.span`
   ${headerTitle}
 `;
 
-const Description = styled.span`
-  ${headerDescription}
-`;
 
 const CardsContainer = styled.div`
   display: flex;

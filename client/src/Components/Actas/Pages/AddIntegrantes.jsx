@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -27,11 +27,11 @@ const {
 
 function AddIntegrantes() {
   const dispatch = useDispatch();
-  const currentActa = useSelector((state) => state?.currentActa);
-  //const currentIntegrantes = useSelector((state) => state?.currentIntegrantes);
 
-  const [integrantes, setIntegrantes] = useState(JSON.parse(localStorage.getItem("integrantes")) || []);
-  const [integrante, setIntegrante] = useState({
+  const currentActa = useSelector((s) => s?.currentActa);
+
+  const [integrantes, setIntegrantes] = React.useState(JSON.parse(localStorage.getItem("integrantes")) || []);
+  const [integrante, setIntegrante] = React.useState({
     nombreYApellido: "",
     dni: "",
     legajoOMatricula: "",
@@ -71,9 +71,8 @@ function AddIntegrantes() {
   return (
     <Container>
       <Header>
-        <Title>Creacion de Suscriptores</Title>
+        <Title>Creación de Suscriptores</Title>
       </Header>
-
       <SubContainer>
         <FormContainer>
           <Form>
@@ -84,7 +83,7 @@ function AddIntegrantes() {
                 name="nombreYApellido"
                 value={integrante.nombreYApellido}
                 placeholder="Nombre y Apellido"
-                onChange={(e) => setIntegrante({ ...integrante, nombreYApellido: e.target.value.toLowerCase() })}
+                onChange={(e) => setIntegrante({ ...integrante, nombreYApellido: e.target.value })}
               />
             </InputContainer>
             <InputContainer>
@@ -114,7 +113,7 @@ function AddIntegrantes() {
                 name="cargo"
                 value={integrante.cargo}
                 placeholder="Cargo"
-                onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value.toLowerCase() })}
+                onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value })}
               />
             </InputContainer>
           </Form>
@@ -165,7 +164,9 @@ function AddIntegrantes() {
           <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
             Volver a Crear
           </Button>
-          <Button complete={integrantes.length >= "1" ? "true" : "false"}>Continuar Asi</Button>
+          <Button to={"/actas/crear/3"} complete={integrantes.length >= "1" ? "true" : "false"}>
+            Continuar Asi
+          </Button>
         </div>
       )}
     </Container>

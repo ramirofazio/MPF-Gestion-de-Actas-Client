@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllActas, updateBolsa, updateActa } from "../../../redux/actions";
@@ -13,40 +13,28 @@ const { redColor, greenColor, secondaryColor } = Variables;
 function CloseModal({ closeModal }) {
   const dispatch = useDispatch();
 
-  const [inProcess, setInProcess] = useState(false);
-  const [thisDbActa, setThisDbActa] = useState([]);
-  const [bagsInProcess, setBagsInProcess] = useState([]);
-  const [bagsToClose, setBagsToClose] = useState([]);
-  const [state, setState] = useState({
+  const allActasSave = useSelector((s) => s?.allActasSave);
+  const currentActa = useSelector((s) => s?.currentActa);
+
+  const [inProcess, setInProcess] = React.useState(false);
+  const [thisDbActa, setThisDbActa] = React.useState([]);
+  const [bagsInProcess, setBagsInProcess] = React.useState([]);
+  const [bagsToClose, setBagsToClose] = React.useState([]);
+  const [state, setState] = React.useState({
     nroPrecinto: "",
     nroPrecintoBlanco: "",
   });
-  const [inProcessState, setInProcessState] = useState({
+  const [inProcessState, setInProcessState] = React.useState({
     nroPrecinto: "",
-    leyenda: "",
+    leyenda: "Se dejaron los elementos procesando en el laboratorio",
   });
-  const [observaciones, setObservaciones] = useState("");
+  const [observaciones, setObservaciones] = React.useState("");
 
-  const allActasSave = useSelector((state) => state?.allActasSave);
-  const currentActa = useSelector((state) => state?.currentActa);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    inProcess ? dispatch(updateBolsa(inProcessState)) : dispatch(updateBolsa(state));
-    closeModal();
-  };
-
-  const handleFinish = (e) => {
-    e.preventDefault();
-    dispatch(updateActa(observaciones, currentActa.id));
-  };
-
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(getAllActas());
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (allActasSave) {
       allActasSave.map((acta) => {
         if (acta.id === currentActa.id) {
@@ -64,7 +52,7 @@ function CloseModal({ closeModal }) {
     }
   }, [allActasSave, currentActa]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (thisDbActa.Bolsas && bagsToClose.length === 0) {
       setInProcess(true);
       const bolsasInProcess = thisDbActa.Bolsas.filter((bolsa) => {
@@ -76,26 +64,16 @@ function CloseModal({ closeModal }) {
     }
   }, [thisDbActa]);
 
-  if (bagsInProcess.length === 0 && bagsToClose.length === 0) {
-    return (
-      <>
-        <Form onSubmit={(e) => handleFinish(e)}>
-          <Title>Cerrar Acta</Title>
-          <InputContainer closeActa={true}>
-            <Label>Observaciones del Acta</Label>
-            <TextArea
-              closeActa={true}
-              name="observaciones"
-              value={observaciones}
-              placeholder="Observaciones"
-              onChange={(e) => setObservaciones(e.target.value)}
-            />
-          </InputContainer>
-          <Button type="submit" value="Cerrar Acta" complete={observaciones !== "" ? "true" : "false"} />
-        </Form>
-      </>
-    );
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    inProcess ? dispatch(updateBolsa(inProcessState)) : dispatch(updateBolsa(state));
+    closeModal();
+  };
+
+  const handleFinish = (e) => {
+    e.preventDefault();
+    dispatch(updateActa(observaciones, currentActa.id));
+  };
 
   if (!inProcess) {
     return (
@@ -136,6 +114,25 @@ function CloseModal({ closeModal }) {
             value="Cerrar Bolsa"
             complete={state.nroPrecintoBlanco !== "" && state.nroprecinto !== "" ? "true" : "false"}
           />
+        </Form>
+      </>
+    );
+  } else if (bagsInProcess.length === 0 && bagsToClose.length === 0) {
+    return (
+      <>
+        <Form onSubmit={(e) => handleFinish(e)}>
+          <Title>Cerrar Acta</Title>
+          <InputContainer closeActa={true}>
+            <Label>Observaciones del Acta</Label>
+            <TextArea
+              closeActa={true}
+              name="observaciones"
+              value={observaciones}
+              placeholder="Observaciones"
+              onChange={(e) => setObservaciones(e.target.value)}
+            />
+          </InputContainer>
+          <Button type="submit" value="Cerrar Acta" complete={observaciones !== "" ? "true" : "false"} />
         </Form>
       </>
     );

@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
+import { useDispatch, useSelector } from "react-redux";
 import { createBolsas } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
-import { useDispatch, useSelector } from "react-redux";
 import { Close } from "@styled-icons/ionicons-outline/Close";
 //* Modal
 import Modal from "react-modal";
 //* Components
 import AddEfectos from "./AddEfectos";
 import CloseModal from "./CloseModal";
-
 //* Initializations
 const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
-
 const {
   select,
   input,
@@ -26,13 +24,11 @@ const {
   enProcesoContainer,
   header,
   headerTitle,
-  headerDescription,
   formContainer,
   button,
   cardTitle,
   cardInfo,
 } = GlobalStyles;
-
 const addEfectosModalStyles = {
   content: {
     top: "50%",
@@ -51,43 +47,29 @@ const addEfectosModalStyles = {
     overflowX: "hidden",
   },
 };
-
-const CloseModalModalStyles = {
+const CloseModalStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
+    ...addEfectosModalStyles.content,
     width: "40%",
     height: "40%",
-    backgroundColor: principalColor,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-    padding: 0,
-    overflowX: "hidden",
   },
 };
 
 function AddBolsas() {
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((state) => state?.currentActa);
-  const currentBolsas = useSelector(
-    (state) => JSON.parse(localStorage.getItem("currentBolsas")) || state?.currentBolsas
-  );
-  const currentEfectos = useSelector((state) => state?.currentEfectos);
+  const currentActa = useSelector((s) => s?.currentActa);
+  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
+  const currentEfectos = useSelector((s) => s?.currentEfectos);
 
-  const [addEfectosModal, setAddEfectosModal] = useState(false);
-  const [closeBagModal, setCloseBagModal] = useState(false);
+  const [addEfectosModal, setAddEfectosModal] = React.useState(false);
+  const [closeModal, setCloseModal] = React.useState(false);
 
-  const [bolsa, setBolsa] = useState({
+  const [bolsa, setBolsa] = React.useState({
     acta_id: currentActa.id,
     colorPrecinto: "",
     nroPrecinto: "",
-    observaciones: "",
+    observaciones: "Bolsa plastica transparente con sobre papel madera",
   });
 
   const handleSubmitBolsa = (e) => {
@@ -97,7 +79,7 @@ function AddBolsas() {
       acta_id: currentActa.id,
       colorPrecinto: "",
       nroPrecinto: "",
-      observaciones: "",
+      observaciones: "Bolsa plastica transparente con sobre papel madera",
     });
   };
 
@@ -115,16 +97,13 @@ function AddBolsas() {
     return res;
   };
 
-  //generateDoc(currentActa, currentIntegrantes, currentBolsas, currentEfectos)
-
   return (
     <Container>
       <Header>
-        <Title>Creacion de Bolsas</Title>
-        <Description>Bolsas y Efectos</Description>
+        <Title>Creacion de Bolsas y Efectos</Title>
       </Header>
       <FormContainer>
-        <Form onSubmit={(e) => handleSubmitBolsa(e)}>
+        <Form onSubmit={handleSubmitBolsa}>
           <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
             <InputContainer>
               <Label>Color del Precinto</Label>
@@ -161,7 +140,7 @@ function AddBolsas() {
           <Submit
             type="submit"
             value="Cargar Bolsa"
-            complete={bolsa.colorPrecinto && bolsa.nroPrecinto ? "true" : "false"}
+            complete={bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones ? "true" : "false"}
           />
         </Form>
         <BolsasContainer>
@@ -169,18 +148,8 @@ function AddBolsas() {
             currentBolsas.map((bolsa) => {
               return (
                 <BolsaContainer key={bolsa.id}>
-                  <Info>
-                    <CardTitle>Bolsa ID</CardTitle>
-                    <br />
-                    {bolsa.id}
-                  </Info>
                   <Info style={bolsa.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
-                    <CardTitle>Color del Precinto</CardTitle>
-                    <br />
-                    {bolsa.colorPrecinto}
-                  </Info>
-                  <Info>
-                    <CardTitle>Nro Precinto</CardTitle>
+                    <CardTitle>Nro Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : "verde"}</CardTitle>
                     <br />
                     {bolsa.nroPrecinto}
                   </Info>
@@ -191,40 +160,49 @@ function AddBolsas() {
       </FormContainer>
       <EfectosContainer>
         {currentEfectos
-          ? currentEfectos.map((efecto) => (
-              <EfectoContainer key={efecto.id} estado={efecto.estado}>
-                <Info>
-                  <CardTitle>Bolsa ID</CardTitle>
-                  <br />
-                  {efecto.bolsa_id}
-                </Info>
-                <Info>
-                  <CardTitle>Tipo</CardTitle>
-                  <br />
-                  {efecto.tipoDeElemento}
-                </Info>
-                <Info>
-                  <CardTitle>Marca</CardTitle>
-                  <br />
-                  {efecto.marca}
-                </Info>
-                <Info>
-                  <CardTitle>Modelo</CardTitle>
-                  <br />
-                  {efecto.modelo}
-                </Info>
-                <Info>
-                  <CardTitle>Tipo de Extraccion</CardTitle>
-                  <br />
-                  {efecto.tipoExtraccion}
-                </Info>
-                <Info>
-                  <CardTitle>Estado</CardTitle>
-                  <br />
-                  {efecto.estado}
-                </Info>
-              </EfectoContainer>
-            ))
+          ? currentEfectos.map((efecto) => {
+              let nroPrecintoBolsa;
+              let colorPrecintoBolsa;
+              currentBolsas.map((b) =>
+                b.id === efecto.bolsa_id
+                  ? (nroPrecintoBolsa = b.nroPrecinto) && (colorPrecintoBolsa = b.colorPrecinto)
+                  : null
+              );
+              return (
+                <EfectoContainer key={efecto.id} estado={efecto.estado}>
+                  <Info style={colorPrecintoBolsa === "rojo" ? { color: redColor } : { color: greenColor }}>
+                    <CardTitle>Bolsa Nro</CardTitle>
+                    <br />
+                    {nroPrecintoBolsa}
+                  </Info>
+                  <Info>
+                    <CardTitle>Tipo</CardTitle>
+                    <br />
+                    {efecto.tipoDeElemento}
+                  </Info>
+                  <Info>
+                    <CardTitle>Marca</CardTitle>
+                    <br />
+                    {efecto.marca}
+                  </Info>
+                  <Info>
+                    <CardTitle>Modelo</CardTitle>
+                    <br />
+                    {efecto.modelo}
+                  </Info>
+                  <Info>
+                    <CardTitle>Tipo de Extraccion</CardTitle>
+                    <br />
+                    {efecto.tipoExtraccion}
+                  </Info>
+                  <Info>
+                    <CardTitle>Estado</CardTitle>
+                    <br />
+                    {efecto.estado}
+                  </Info>
+                </EfectoContainer>
+              );
+            })
           : null}
       </EfectosContainer>
       <Modal isOpen={addEfectosModal} style={addEfectosModalStyles}>
@@ -238,13 +216,13 @@ function AddBolsas() {
         >
           Añadir Elementos
         </Button>
-        <Button onClick={() => setCloseBagModal(!closeBagModal)} complete={handleCompleteClose()}>
+        <Button onClick={() => setCloseModal(!closeModal)} complete={handleCompleteClose()}>
           Cerrar
         </Button>
       </div>
-      <Modal isOpen={closeBagModal} style={CloseModalModalStyles}>
-        <CloseIcon onClick={() => setCloseBagModal(!closeBagModal)} />
-        <CloseModal closeModal={() => setCloseBagModal(!closeBagModal)} />
+      <Modal isOpen={closeModal} style={CloseModalStyles}>
+        <CloseIcon onClick={() => setCloseModal(!closeModal)} />
+        <CloseModal closeModal={() => setCloseModal(!closeModal)} />
       </Modal>
     </Container>
   );
@@ -265,10 +243,6 @@ const Header = styled.header`
 
 const Title = styled.h1`
   ${headerTitle}
-`;
-
-const Description = styled.h1`
-  ${headerDescription}
 `;
 
 const FormContainer = styled.div`
@@ -328,7 +302,7 @@ const BolsaContainer = styled.div`
   width: 80%;
   height: 25%;
   min-height: 25%;
-  border: 2px solid ${principalColor};
+  border: 3px solid ${principalColor};
   border-radius: 5px;
   margin-block: 5px;
 `;
@@ -406,10 +380,10 @@ const EfectoContainer = styled.div`
 
   border: ${(props) =>
     props.estado === "en proceso"
-      ? `2px solid ${yellowColor}`
+      ? `3px solid ${yellowColor}`
       : props.estado === "completo"
-      ? `2px solid ${greenColor}`
-      : `2px solid ${redColor}`};
+      ? `3px solid ${greenColor}`
+      : `3px solid ${redColor}`};
 `;
 
 const Info = styled.span`

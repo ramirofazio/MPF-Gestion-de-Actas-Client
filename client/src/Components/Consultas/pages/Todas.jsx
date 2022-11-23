@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllActas, getActasFiltered } from "../../../redux/actions";
 //* Styles
@@ -8,14 +8,13 @@ import Variables from "../../../Styles/Variables";
 import { SettingsBackupRestore } from "@styled-icons/material-rounded/SettingsBackupRestore";
 import { toast } from "react-toastify";
 //* Utlis
-import AllActasCards from "../../Utils/AllActasCards";
+import ActasCardsConsultas from "../../Utils/ActasCardsConsultas";
 //* Initializations
 const { secondaryColor } = Variables;
 const {
   enProcesoContainer,
   header,
   headerTitle,
-  headerDescription,
   filtersContainer,
   filtersInputContainer,
   label,
@@ -24,26 +23,28 @@ const {
 } = GlobalStyles;
 
 function Todas() {
-  const allActas = useSelector((state) => state?.allActas);
   const dispatch = useDispatch();
-  const [state, setState] = useState({
+
+  const allActas = useSelector((s) => s?.allActas);
+
+  const [filter, setFilter] = React.useState({
     nroMpf: "",
     nroDil: "",
     nroCij: "",
     estado: "",
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(getAllActas()); // * Pido todas las actas
   }, []);
 
-  useEffect(() => {
-    dispatch(getActasFiltered(state));
-  }, [state]);
+  React.useEffect(() => {
+    dispatch(getActasFiltered(filter));
+  }, [filter]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setState({
+    setFilter({
       //* Limpio los campos
       mpf: "",
       dil: "",
@@ -55,10 +56,7 @@ function Todas() {
   return (
     <Container>
       <Header>
-        <Title>Actas</Title>
-        <Description>
-          En esta sección poder ver todas las Actas. <br /> Selecciona la que quieras para ver su detalle.
-        </Description>
+        <Title>Todas las Actas</Title>
       </Header>
       <FilterContainer>
         <Form onSubmit={handleSubmit}>
@@ -66,8 +64,8 @@ function Todas() {
             <Label>Nro MPF</Label>
             <Input
               type="text"
-              value={state.mpf}
-              onChange={(e) => setState({ ...state, mpf: e.target.value })}
+              value={filter.mpf}
+              onChange={(e) => setFilter({ ...filter, mpf: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
@@ -75,8 +73,8 @@ function Todas() {
             <Label>Nro CIJ</Label>
             <Input
               type="text"
-              value={state.cij}
-              onChange={(e) => setState({ ...state, cij: e.target.value })}
+              value={filter.cij}
+              onChange={(e) => setFilter({ ...filter, cij: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
@@ -84,14 +82,14 @@ function Todas() {
             <Label>Nro DIL</Label>
             <Input
               type="text"
-              value={state.dil}
-              onChange={(e) => setState({ ...state, dil: e.target.value })}
+              value={filter.dil}
+              onChange={(e) => setFilter({ ...filter, dil: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
           <InputContainer>
             <Label>Estado</Label>
-            <Select value={state.estado} onChange={(e) => setState({ ...state, estado: e.target.value })}>
+            <Select value={filter.estado} onChange={(e) => setFilter({ ...filter, estado: e.target.value })}>
               <Option value="">Todas</Option>
               <Option value="en proceso">En Proceso</Option>
               <Option value="completo">Completas</Option>
@@ -109,7 +107,7 @@ function Todas() {
           </InputContainer>
         </Form>
       </FilterContainer>
-      <AllActasCards allActas={allActas} />
+      <ActasCardsConsultas allActas={allActas} />
     </Container>
   );
 }
@@ -126,10 +124,6 @@ const Header = styled.header`
 
 const Title = styled.h1`
   ${headerTitle}
-`;
-
-const Description = styled.p`
-  ${headerDescription}
 `;
 
 const FilterContainer = styled.div`
