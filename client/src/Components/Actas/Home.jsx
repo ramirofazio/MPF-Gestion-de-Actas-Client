@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllActas, getActasFiltered } from "../../redux/actions";
 //* Styles
 import styled from "styled-components";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import Variables from "../../Styles/Variables";
-import { SettingsBackupRestore } from "@styled-icons/material-rounded/SettingsBackupRestore";
 import { toast } from "react-toastify";
-//* Utlis
+import { SettingsBackupRestore } from "@styled-icons/material-rounded/SettingsBackupRestore";
+//* Utils
 import CreateActasCards from "../Utils/CreateActasCards";
 //* Initializations
 const { secondaryColor } = Variables;
@@ -23,27 +23,30 @@ const {
 } = GlobalStyles;
 
 function Home() {
-  const allActas = useSelector((state) => state?.allActas);
   const dispatch = useDispatch();
-  const [state, setState] = useState({
+
+  const allActas = useSelector((s) => s?.allActas); //* Me todas las actas
+
+  const [filter, setFilter] = React.useState({
+    //* Estado inicial de los filtros
     nroMpf: "",
     nroDil: "",
     nroCij: "",
     estado: "",
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(getAllActas()); // * Pido todas las actas
-    localStorage.clear();
+    localStorage.clear(); // * Limpio el localStorage
   }, []);
 
-  useEffect(() => {
-    dispatch(getActasFiltered(state));
-  }, [state]);
+  React.useEffect(() => {
+    dispatch(getActasFiltered(filter)); //* Pido las actas filtradas cuando cambia el estado de filter
+  }, [filter]);
 
-  const handleSubmit = (e) => {
+  const handleReset = (e) => {
     e.preventDefault();
-    setState({
+    setFilter({
       //* Limpio los campos
       mpf: "",
       dil: "",
@@ -58,13 +61,13 @@ function Home() {
         <Title>Creación de Actas</Title>
       </Header>
       <FilterContainer>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleReset}>
           <InputContainer>
             <Label>Nro MPF</Label>
             <Input
               type="text"
-              value={state.mpf}
-              onChange={(e) => setState({ ...state, mpf: e.target.value })}
+              value={filter.mpf}
+              onChange={(e) => setFilter({ ...filter, mpf: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
@@ -72,8 +75,8 @@ function Home() {
             <Label>Nro CIJ</Label>
             <Input
               type="text"
-              value={state.cij}
-              onChange={(e) => setState({ ...state, cij: e.target.value })}
+              value={filter.cij}
+              onChange={(e) => setFilter({ ...filter, cij: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
@@ -81,14 +84,14 @@ function Home() {
             <Label>Nro DIL</Label>
             <Input
               type="text"
-              value={state.dil}
-              onChange={(e) => setState({ ...state, dil: e.target.value })}
+              value={filter.dil}
+              onChange={(e) => setFilter({ ...filter, dil: e.target.value })}
               maxLength={12}
             />
           </InputContainer>
           <InputContainer>
             <Label>Estado</Label>
-            <Select value={state.estado} onChange={(e) => setState({ ...state, estado: e.target.value })}>
+            <Select value={filter.estado} onChange={(e) => setFilter({ ...filter, estado: e.target.value })}>
               <Option value="">Todas</Option>
               <Option value="en proceso">En Proceso</Option>
               <Option value="completo">Completas</Option>
