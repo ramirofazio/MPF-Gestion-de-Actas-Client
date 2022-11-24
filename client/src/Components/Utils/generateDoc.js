@@ -114,6 +114,7 @@ function generateDoc() {
       mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     }); //Output the document using Data-URI
     saveAs(out, `Acta${currentActa.id}.docx`);
+    return true;
   });
 }
 

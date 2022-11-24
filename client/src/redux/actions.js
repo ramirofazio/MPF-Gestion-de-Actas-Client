@@ -133,10 +133,13 @@ export function updateBolsa(state) {
 }
 
 export function updateActa(observaciones, id) {
-  return function () {
+  return async function () {
     axios
       .put(Variables.baseEndpoint + "/updateActa", { observaciones, id })
-      .then((res) => {
+      .then(async (res) => {
+        setTimeout(() => {
+          window.location.assign("/");
+        }, 1500);
         toast.success(`Acta ${res.data.id} cerrada con exito!`);
         localStorage.setItem("finalActa", JSON.stringify(res.data));
         generateDoc();

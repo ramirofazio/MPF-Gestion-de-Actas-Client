@@ -199,8 +199,8 @@ function AddEfectos({ closeModal }) {
             onChange={(e) => setEfecto({ ...efecto, descripcionTarea: e.target.value })}
           />
         </InputContainer>
+        <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
       </Form>
-      <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
     </>
   );
 }
@@ -274,8 +274,9 @@ const Button = styled.input`
   text-decoration: none;
   background: white;
   border: 2px solid ${redColor};
-  margin-bottom: 5px;
   pointer-events: none;
+  margin-bottom: -2.5%;
+  margin-top: 1%;
 
   &:hover {
     cursor: pointer;
