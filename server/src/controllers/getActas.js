@@ -24,4 +24,21 @@ getActas.get("/", async (req, res) => {
   }
 });
 
+getActas.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const acta = await Acta.findOne({
+      where: { id },
+      include: { all: true, nested: true },
+    });
+
+    if (acta) {
+      return res.status(200).json(acta);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = getActas;
