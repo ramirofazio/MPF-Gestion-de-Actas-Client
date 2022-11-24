@@ -4,22 +4,27 @@ import PizZipUtils from "pizzip/utils/index.js";
 import { saveAs } from "file-saver";
 import expressions from "angular-expressions";
 import { assign } from "lodash";
+
 import template from "../../Assets/template.docx";
 
 function generateDoc() {
-  const currentActa = JSON.parse(localStorage.getItem("finalActa"));
-  const actaFlag = localStorage.getItem("actaFlag");
-  console.log(currentActa);
+  const currentActa = JSON.parse(localStorage.getItem("finalActa")); //* Nos traemos el acta del local storage
+  const actaFlag = localStorage.getItem("actaFlag"); //* Nos traemos la flag del local storage
 
-  const { Bolsas, Integrantes } = currentActa;
-  const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula, fecha } = currentActa;
-  console.log(observaciones);
-  console.log(currentActa);
-  const Efectos = [];
+  const { Bolsas, Integrantes } = currentActa; //* Sacamos las bolsas y los integrantes del acta
+  const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula, fecha } = currentActa; //* Desestructuramos el acta
+
+  const Efectos = []; //* Array con todos los efectos con sus nroPrecintoBolsa
+
   Bolsas.map((bolsa) => {
+    //* Mapeo de las bolsas
     return bolsa.Efectos.map((efecto) => {
+      //* Mapeo de los efectos
       efecto.nroPrecintoBolsa = bolsa.nroPrecinto;
       Efectos.push(efecto);
+      /*
+       * Inyecto el nroPrecintoBolsa en cada efecto
+       */
     });
   });
 
@@ -109,7 +114,6 @@ function generateDoc() {
       mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     }); //Output the document using Data-URI
     saveAs(out, `Acta${currentActa.id}.docx`);
-    window.location.assign("/");
   });
 }
 
