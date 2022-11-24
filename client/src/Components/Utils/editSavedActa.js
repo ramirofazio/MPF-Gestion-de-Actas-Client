@@ -6,7 +6,6 @@ const editSavedActa = async (actaId) => {
     const res = await axios.get(Variables.baseEndpoint + `/getActas/${actaId}`);
     if (res) {
       if (res.data.nro_mpf) {
-        //* Seteamos la flag
         localStorage.setItem("actaFlag", "MPF/DEN");
       } else {
         localStorage.setItem("actaFlag", "COOP");
@@ -15,6 +14,18 @@ const editSavedActa = async (actaId) => {
       localStorage.setItem("currentActa", JSON.stringify(res.data));
       localStorage.setItem("integrantes", JSON.stringify(res.data.Integrantes));
       localStorage.setItem("currentBolsas", JSON.stringify(res.data.Bolsas));
+      if (res.data.Bolsas) {
+        res.data.Bolsas.map((bolsa) => {
+          bolsa.Efectos.map((efecto) => {
+            let localEfectos = JSON.parse(localStorage.getItem("currentEfectos"));
+            if (localEfectos) {
+              localStorage.setItem("currentEfectos", JSON.stringify([localEfectos, efecto]));
+            } else {
+              localStorage.setItem("currentEfectos", JSON.stringify(efecto));
+            }
+          });
+        });
+      }
 
       window.location.assign("/actas/crear/1");
     }
