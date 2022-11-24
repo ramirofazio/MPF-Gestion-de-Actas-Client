@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
-import { createIntegrantes } from "../../../redux/actions";
+import { createIntegrantes, removeIntegrante } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
@@ -38,6 +38,7 @@ function AddIntegrantes() {
     cargo: "",
   });
 
+
   const handleClick = () => {
     setIntegrantes([...integrantes, { ...integrante, acta_id: currentActa.id }]);
     setIntegrante({
@@ -60,6 +61,8 @@ function AddIntegrantes() {
   };
 
   const handleRemove = (dni) => {
+    dispatch(removeIntegrante(dni)); //* Si estoy editando, tengo que eliminar de la base de datos
+
     const newIntegrantes = integrantes.filter((i) => i.dni !== dni);
     setIntegrantes(newIntegrantes);
   };

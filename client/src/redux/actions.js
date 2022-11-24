@@ -1,5 +1,5 @@
 import axios from "axios";
-import generateDoc from "../Components/Actas/generateDoc";
+import generateDoc from "../Components/Utils/generateDoc";
 import Variables from "../Styles/Variables";
 import { toast } from "react-toastify";
 
@@ -140,6 +140,19 @@ export function updateActa(observaciones, id) {
         toast.success(`Acta ${res.data.id} cerrada con exito!`);
         localStorage.setItem("finalActa", JSON.stringify(res.data));
         generateDoc();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function removeIntegrante(dni) {
+  return function () {
+    axios
+      .delete(Variables.baseEndpoint + "/removeIntegrante/" + dni)
+      .then((res) => {
+        if (res.status === 200) toast.success("Integrante eliminado con exito!");
       })
       .catch((err) => {
         console.log(err);

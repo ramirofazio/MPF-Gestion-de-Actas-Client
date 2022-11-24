@@ -5,7 +5,6 @@ addIntegrantes.post("/", async (req, res) => {
   try {
     const integrantes = req.body;
 
-    console.log(integrantes);
     const response = [];
 
     integrantes.forEach(async (integrante) => {

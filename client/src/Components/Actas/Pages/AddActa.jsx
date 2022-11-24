@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
-import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor } = Variables;
 const {
@@ -304,15 +303,7 @@ function AddActa() {
           <Button onClick={() => handleClick()} complete={handleComplete()}>
             Volver a crear
           </Button>
-          <Button
-            to={"/actas/crear/2"}
-            complete={"true"}
-            onClick={() =>
-              tipoDeActa === "MPF/DEN"
-                ? toast.success(`Continuamos con acta ${acta.mpfOrDen}!`)
-                : toast.success(`Continuamos con acta ${acta.coop}!`)
-            }
-          >
+          <Button to={"/actas/crear/2"} complete={"true"}>
             Continuar Asi
           </Button>
         </div>
