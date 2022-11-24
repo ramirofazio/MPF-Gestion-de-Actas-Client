@@ -6,6 +6,9 @@ import Variables from "../../Styles/Variables";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import { FileDownload } from "@styled-icons/remix-line/FileDownload";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
+//* Utils
+import getSavedActa from "./getSavedActa";
+import editSavedActa from "./editSavedActa";
 //* Initialization
 const { principalColor, secondaryColor, yellowColor, redColor, greenColor } = Variables;
 const { cardsContainer, cardContainer, cardInfo, cardTitle, button } = GlobalStyles;
@@ -69,8 +72,8 @@ function CreateActasCards({ allActas }) {
                     <br />
                     <Estado estado={acta.estado}>{acta.estado}</Estado>
                   </Info>
-                  <DownloadIcon onClick={() => alert("Se genera el PDF")} />
-                  <EditIcon onClick={() => alert("Link a Edicion")} />
+                  <DownloadIcon onClick={() => getSavedActa(acta.id)} />
+                  <EditIcon onClick={() => editSavedActa(acta.id)} />
                 </ActaContainer>
               );
             })
