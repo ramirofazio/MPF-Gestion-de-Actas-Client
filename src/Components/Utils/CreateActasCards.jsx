@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //* Style
 import styled from "styled-components";
 import Variables from "../../Styles/Variables";
@@ -14,6 +14,8 @@ const { principalColor, secondaryColor, yellowColor, redColor, greenColor } = Va
 const { cardsContainer, cardContainer, cardInfo, cardTitle, button } = GlobalStyles;
 
 function CreateActasCards({ allActas }) {
+  const navigate = useNavigate();
+
   const actasToRender = allActas.filter((actas) => actas.estado !== "deprecado");
 
   return (
@@ -73,7 +75,7 @@ function CreateActasCards({ allActas }) {
                     <Estado estado={acta.estado}>{acta.estado}</Estado>
                   </Info>
                   <DownloadIcon onClick={() => getSavedActa(acta.id)} />
-                  <EditIcon onClick={() => editSavedActa(acta.id)} />
+                  <EditIcon onClick={() => editSavedActa(acta.id, navigate)} />
                 </ActaContainer>
               );
             })

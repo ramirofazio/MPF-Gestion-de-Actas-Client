@@ -35,7 +35,7 @@ export function getActasFiltered(filtros) {
   };
 }
 
-export function createActa(state, flag) {
+export function createActa(state, flag, navigate) {
   localStorage.setItem("actaFlag", flag);
 
   return function (dispatch) {
@@ -43,7 +43,7 @@ export function createActa(state, flag) {
       .post(Variables.baseEndpoint + "/addActa", { ...state })
       .then((res) => {
         if (res.status === 200) {
-          window.location.assign("/actas/crear/2");
+          navigate("/actas/crear/2");
         }
         flag === "MPF/DEN"
           ? toast.success(`Acta ${res.data.nro_mpf} creada con exito!`)
@@ -60,14 +60,14 @@ export function createActa(state, flag) {
   };
 }
 
-export function createIntegrantes(integrantes) {
+export function createIntegrantes(integrantes, navigate) {
   localStorage.setItem("integrantes", JSON.stringify(integrantes));
 
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
       .then((res) => {
-        if (res.status === 200) window.location.assign("/actas/crear/3");
+        if (res.status === 200) navigate("/actas/crear/3");
         res.data.length > 1
           ? toast.success("Integrantes creados con exito!")
           : toast.success("Integrante creado con Exito");
@@ -132,14 +132,12 @@ export function updateBolsa(state) {
   };
 }
 
-export function updateActa(observaciones, id) {
+export function updateActa(observaciones, id, navigate) {
   return async function () {
     axios
       .put(Variables.baseEndpoint + "/updateActa", { observaciones, id })
-      .then(async (res) => {
-        setTimeout(() => {
-          window.location.assign("/");
-        }, 1500);
+      .then((res) => {
+        navigate("/");
         toast.success(`Acta ${res.data.id} cerrada con exito!`);
         localStorage.setItem("finalActa", JSON.stringify(res.data));
         generateDoc();

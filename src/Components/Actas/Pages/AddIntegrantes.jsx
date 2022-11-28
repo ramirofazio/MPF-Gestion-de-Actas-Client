@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
 import { createIntegrantes, removeIntegrante } from "../../../redux/actions";
@@ -26,6 +26,7 @@ const {
 } = GlobalStyles;
 
 function AddIntegrantes() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const currentActa = useSelector((s) => s?.currentActa);
@@ -37,7 +38,6 @@ function AddIntegrantes() {
     legajoOMatricula: "",
     cargo: "",
   });
-
 
   const handleClick = () => {
     setIntegrantes([...integrantes, { ...integrante, acta_id: currentActa.id }]);
@@ -68,7 +68,7 @@ function AddIntegrantes() {
   };
 
   const handleNext = () => {
-    dispatch(createIntegrantes(integrantes));
+    dispatch(createIntegrantes(integrantes, navigate));
   };
 
   return (

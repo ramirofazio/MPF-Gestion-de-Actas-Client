@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getAllActas, updateBolsa, updateActa } from "../../../redux/actions";
@@ -11,6 +12,7 @@ const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
 
 function CloseModal({ closeModal }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const allActasSave = useSelector((s) => s?.allActasSave);
@@ -72,7 +74,7 @@ function CloseModal({ closeModal }) {
 
   const handleFinish = (e) => {
     e.preventDefault();
-    dispatch(updateActa(observaciones, currentActa.id));
+    dispatch(updateActa(observaciones, currentActa.id, navigate));
   };
 
   if (!inProcess) {
@@ -112,7 +114,7 @@ function CloseModal({ closeModal }) {
           <Button
             type="submit"
             value="Cerrar Bolsa"
-            complete={state.nroPrecintoBlanco !== "" && state.nroprecinto !== "" ? "true" : "false"}
+            complete={state.nroPrecintoBlanco !== "" && state.nroPrecinto !== "" ? "true" : "false"}
           />
         </Form>
       </>

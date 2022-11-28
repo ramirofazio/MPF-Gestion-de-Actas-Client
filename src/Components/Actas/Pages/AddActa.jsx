@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { createActa } from "../../../redux/actions";
 import { useDispatch } from "react-redux";
@@ -23,6 +23,7 @@ const {
 } = GlobalStyles;
 
 function AddActa() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [acta, setActa] = React.useState("");
@@ -76,7 +77,7 @@ function AddActa() {
   };
 
   const handleClick = () => {
-    dispatch(createActa(acta, tipoDeActa));
+    dispatch(createActa(acta, tipoDeActa, navigate));
   };
 
   return (
