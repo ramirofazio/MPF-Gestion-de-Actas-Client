@@ -39,14 +39,19 @@ function NavBar() {
 
   const [bugReportModal, setBugReportModal] = React.useState(false);
   const [bugReport, setBugReport] = React.useState({
-    pathName: window.location.pathname,
+    pathname: "",
     description: "",
+  });
+
+  React.useEffect(() => {
+    setBugReport({ ...bugReport, pathname: window.location.pathname });
   });
 
   const handleBugReport = (e) => {
     e.preventDefault();
     dispatch(createBugReport(bugReport));
     setBugReportModal(false);
+    setBugReport({ pathname: "", description: "" });
   };
 
   return (
