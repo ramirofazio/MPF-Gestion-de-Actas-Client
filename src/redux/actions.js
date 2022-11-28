@@ -160,3 +160,16 @@ export function removeIntegrante(dni) {
       });
   };
 }
+
+export function createBugReport(bugReport) {
+  return function () {
+    axios
+      .post(Variables.baseEndpoint + "/createBugReport", { bugReport })
+      .then((res) => {
+        if (res.status === 200) toast.success("Bug reportado con exito! Gracias por tu ayuda!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
