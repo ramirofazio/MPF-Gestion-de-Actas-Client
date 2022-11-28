@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //* Components
 import Fallback from "./Components/Utils/Fallback";
 import NavBar from "./Components/Utils/Navbar";
+import NotFound from "./Components/Utils/NotFound";
 //* AddActas
 const Home = lazy(() => import("./Components/Actas/Home"));
 const AddActa = lazy(() => import("./Components/Actas/Pages/AddActa"));
@@ -23,10 +24,11 @@ function App() {
           <Route path="/actas/crear/1" exact element={<AddActa />} />
           <Route path="/actas/crear/2" exact element={<AddIntegrantes />} />
           <Route path="/actas/crear/3" exact element={<AddBolsas />} />
-
           {/*Router Consultas*/}
           <Route path="/consultas" exact element={<Consultas />} />
           <Route path="/consultas/todas" exact element={<Todas />} />
+          {/*Router Error*/}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </Router>
