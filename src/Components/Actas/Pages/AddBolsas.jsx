@@ -114,6 +114,7 @@ function AddBolsas() {
                 <SelectOpt value="">Color del Precinto</SelectOpt>
                 <SelectOpt value="rojo">Rojo</SelectOpt>
                 <SelectOpt value="verde">Verde</SelectOpt>
+                <SelectOpt value="blanco">Blanco</SelectOpt>
               </Select>
             </InputContainer>
             <InputContainer>
