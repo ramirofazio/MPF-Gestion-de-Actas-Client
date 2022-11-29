@@ -90,6 +90,7 @@ function NavBar() {
               name="Descripción"
               value={bugReport.description}
               placeholder="Descripción del Bug"
+              maxLength="200"
               onChange={(e) => setBugReport({ ...bugReport, description: e.target.value })}
             />
           </InputContainer>
