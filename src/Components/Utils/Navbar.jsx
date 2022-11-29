@@ -144,7 +144,7 @@ const ChatPollIcon = styled(ChatPoll)`
   margin-bottom: 10px;
   margin-left: 5px;
   color: white;
-  width: 15%;
+  width: 10%;
   transition: all 0.5s ease;
 
   &:hover {
@@ -200,7 +200,10 @@ const Input = styled.textarea`
   ${input}
   font-size: medium;
   text-align: center;
-  height: 70%;
+  max-height: 70%;
+  max-width: 100%;
+  min-height: 70%;
+  min-width: 100%;
 `;
 
 const Button = styled.input`
