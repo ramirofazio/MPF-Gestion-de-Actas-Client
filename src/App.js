@@ -12,6 +12,8 @@ const AddBolsas = lazy(() => import("./Components/Actas/Pages/AddBolsas"));
 //* Consultas
 const Consultas = lazy(() => import("./Components/Consultas/Consultas"));
 const Todas = lazy(() => import("./Components/Consultas/pages/Todas"));
+//* Admin
+const AdmHome = lazy(() => import("./Components/Admin/Home"));
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/consultas/todas" exact element={<Todas />} />
           {/*Router Error*/}
           <Route path="*" element={<NotFound />} />
+          {/*Admin*/}
+          {localStorage.getItem("admin") === "true" && <Route path="/admin" element={<AdmHome />} />}
         </Routes>
       </Suspense>
     </Router>

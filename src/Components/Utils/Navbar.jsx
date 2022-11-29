@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //* Redux
 import { useDispatch } from "react-redux";
 import { createBugReport } from "../../redux/actions";
@@ -15,7 +15,7 @@ import Modal from "react-modal";
 //* Initializations
 const { button, input } = GlobalStyles;
 const { principalColor, secondaryColor, redColor, greenColor } = Variables;
-const bugReportModalStyles = {
+const ModalStyles = {
   content: {
     top: "50%",
     left: "50%",
@@ -35,8 +35,11 @@ const bugReportModalStyles = {
 };
 
 function NavBar() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [adminPassModal, setAdminPassModal] = React.useState(false);
+  const [adminPass, setAdminPass] = React.useState("");
   const [bugReportModal, setBugReportModal] = React.useState(false);
   const [bugReport, setBugReport] = React.useState({
     pathname: "",
@@ -54,20 +57,30 @@ function NavBar() {
     setBugReport({ pathname: "", description: "" });
   };
 
+  const handleAdm = (e) => {
+    e.preventDefault();
+    if (adminPass === "CIJGIDSI") {
+      localStorage.setItem("admin", true);
+      setAdminPassModal(false);
+      navigate("/admin");
+    }
+  };
+
   return (
     <NavBarContainer>
       <Container>
+        <HiddenButton onDoubleClick={() => setAdminPassModal(!adminPassModal)} />
         <Logo src={logo} alt="logo" />
         <HomeLinks to="/">Crear Acta</HomeLinks>
         <HomeLinks to="/consultas">Consultas</HomeLinks>
         <ChatPollIcon onClick={() => setBugReportModal(!bugReportModal)} />
       </Container>
-      <Modal isOpen={bugReportModal} style={bugReportModalStyles}>
+      <Modal isOpen={bugReportModal} style={ModalStyles}>
         <CloseIcon onClick={() => setBugReportModal(!bugReportModal)} />
         <Form onSubmit={handleBugReport}>
           <Title>Reportar un Bug</Title>
           <InputContainer>
-            <Input
+            <TextArea
               type="text"
               name="Descripción"
               value={bugReport.description}
@@ -76,6 +89,20 @@ function NavBar() {
             />
           </InputContainer>
           <Button type="submit" value="Reportar Bug" complete={bugReport.description !== "" ? "true" : "false"} />
+        </Form>
+      </Modal>
+      <Modal isOpen={adminPassModal} style={ModalStyles}>
+        <Form onSubmit={handleAdm}>
+          <Title>Contraseña Administrador</Title>
+          <InputContainer>
+            <Input
+              type="password"
+              name="adminPass"
+              value={adminPass}
+              placeholder="Contraseña"
+              onChange={(e) => setAdminPass(e.target.value)}
+            />
+          </InputContainer>
         </Form>
       </Modal>
     </NavBarContainer>
@@ -196,7 +223,7 @@ const InputContainer = styled.div`
   border-bottom: 1px solid ${secondaryColor};
 `;
 
-const Input = styled.textarea`
+const TextArea = styled.textarea`
   ${input}
   font-size: medium;
   text-align: center;
@@ -204,6 +231,14 @@ const Input = styled.textarea`
   max-width: 100%;
   min-height: 70%;
   min-width: 100%;
+`;
+
+const Input = styled.input`
+  ${input}
+  font-size: medium;
+  text-align: center;
+  max-height: 30%;
+  max-width: 60%;
 `;
 
 const Button = styled.input`
@@ -222,4 +257,19 @@ const Button = styled.input`
       pointer-events: all;
       border: 2px solid ${greenColor};
     `}
+`;
+
+const HiddenButton = styled.button`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: transparent;
+  background-color: transparent;
+  border: transparent;
+
+  &:hover {
+    cursor: help;
+  }
 `;
