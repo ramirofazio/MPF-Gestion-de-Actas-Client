@@ -99,7 +99,7 @@ function NavBar() {
       </Modal>
       <Modal isOpen={adminPassModal} style={ModalStyles}>
         <Form onSubmit={handleAdm}>
-          <Title>Contraseña Administrador</Title>
+          <Title onClick={() => setAdminPassModal(!adminPassModal)}>Contraseña Administrador</Title>
           <InputContainer>
             <Input
               type="password"
