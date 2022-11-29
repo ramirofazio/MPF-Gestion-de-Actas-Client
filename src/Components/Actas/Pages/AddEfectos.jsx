@@ -38,9 +38,9 @@ function AddEfectos({ closeModal }) {
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeElemento, marca, modelo, estado, herramientaSoft, tipoExtraccion } = efecto;
+    const { bolsa_id, tipoDeElemento, marca, estado, herramientaSoft, tipoExtraccion, descripcionTarea } = efecto;
 
-    if (bolsa_id && tipoDeElemento && marca && modelo && estado && herramientaSoft && tipoExtraccion) {
+    if (bolsa_id && tipoDeElemento && marca && estado && herramientaSoft && tipoExtraccion && descripcionTarea) {
       return "true";
     } else {
       return "false";
