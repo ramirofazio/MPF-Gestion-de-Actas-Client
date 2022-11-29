@@ -9,6 +9,7 @@ export const CREATE_ACTA = "CREATE_ACTA";
 export const CREATE_INTEGRANTES = "CREATE_INTEGRANTES";
 export const CREATE_BOLSAS = "CREATE_BOLSAS";
 export const CREATE_EFECTOS = "CREATE_EFECTOS";
+export const GET_BUGS_REPORTS = "GET_BUGS_REPORTS";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -167,6 +168,22 @@ export function createBugReport(bugReport) {
       .post(Variables.baseEndpoint + "/createBugReport", { bugReport })
       .then((res) => {
         if (res.status === 200) toast.success("Bug reportado con exito! Gracias por tu ayuda!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function getBugsReports() {
+  return function (dispatch) {
+    axios
+      .get(Variables.baseEndpoint + "/getBugsReports")
+      .then((res) => {
+        return dispatch({
+          type: GET_BUGS_REPORTS,
+          payload: res.data,
+        });
       })
       .catch((err) => {
         console.log(err);

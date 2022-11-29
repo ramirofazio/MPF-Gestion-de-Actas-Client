@@ -6,6 +6,7 @@ import {
   CREATE_INTEGRANTES,
   CREATE_BOLSAS,
   CREATE_EFECTOS,
+  GET_BUGS_REPORTS,
 } from "./actions";
 
 let initialState = {
@@ -15,10 +16,17 @@ let initialState = {
   currentIntegrantes: JSON.parse(localStorage.getItem("integrantes")) || [],
   currentBolsas: JSON.parse(localStorage.getItem("currentBolsas")) || [],
   currentEfectos: JSON.parse(localStorage.getItem("currentEfectos")) || [],
+  bugsReports: [],
 };
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case GET_BUGS_REPORTS: {
+      return {
+        ...state,
+        bugsReports: action.payload,
+      };
+    }
     case CREATE_EFECTOS: {
       const localEfectos = JSON.parse(localStorage.getItem("currentEfectos"));
       if (localEfectos) {
