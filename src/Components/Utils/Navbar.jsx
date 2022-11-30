@@ -74,9 +74,12 @@ function NavBar() {
         <HomeLinks to="/">Crear Acta</HomeLinks>
         <HomeLinks to="/consultas">Consultas</HomeLinks>
         {localStorage.getItem("admin") === "true" && (
-          <HomeLinks to="/" onClick={() => localStorage.removeItem("admin")}>
-            Cerrar
-          </HomeLinks>
+          <>
+            <HomeLinks to="/" onClick={() => localStorage.removeItem("admin")}>
+              Cerrar
+            </HomeLinks>
+            <HomeLinks to="/admin">Panel de Administrador</HomeLinks>
+          </>
         )}
         <ChatPollIcon onClick={() => setBugReportModal(!bugReportModal)} />
       </Container>
