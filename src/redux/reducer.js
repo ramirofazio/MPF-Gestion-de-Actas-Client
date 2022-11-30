@@ -7,6 +7,7 @@ import {
   CREATE_BOLSAS,
   CREATE_EFECTOS,
   GET_BUGS_REPORTS,
+  CLEAR_STATES,
 } from "./actions";
 
 let initialState = {
@@ -21,6 +22,17 @@ let initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case CLEAR_STATES: {
+      return {
+        allActas: [],
+        allActasSave: [],
+        currentActa: [],
+        currentIntegrantes: [],
+        currentBolsas: [],
+        currentEfectos: [],
+        bugsReports: [],
+      };
+    }
     case GET_BUGS_REPORTS: {
       return {
         ...state,

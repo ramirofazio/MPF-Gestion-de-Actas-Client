@@ -92,7 +92,7 @@ function NavBar() {
               type="text"
               name="Descripción"
               value={bugReport.description}
-              placeholder="Descripción del Bug"
+              placeholder="Descripción detallada del Bug"
               maxLength="200"
               onChange={(e) => setBugReport({ ...bugReport, description: e.target.value })}
             />

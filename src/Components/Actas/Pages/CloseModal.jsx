@@ -28,7 +28,7 @@ function CloseModal({ closeModal }) {
   });
   const [inProcessState, setInProcessState] = React.useState({
     nroPrecinto: "",
-    leyenda: "Se dejaron los elementos procesando en el laboratorio",
+    leyenda: "Se dejaron los elementos en el laboratorio",
   });
   const [observaciones, setObservaciones] = React.useState("");
 

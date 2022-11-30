@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllActas, getActasFiltered } from "../../redux/actions";
+import { getAllActas, getActasFiltered, clearStates } from "../../redux/actions";
 //* Styles
 import styled from "styled-components";
 import GlobalStyles from "../../Styles/GlobalStyles";
@@ -36,6 +36,7 @@ function Home() {
   });
 
   React.useEffect(() => {
+    dispatch(clearStates()); //* Limpio redux
     dispatch(getAllActas()); // * Pido todas las actas
     localStorage.clear(); // * Limpio el localStorage
   }, []);

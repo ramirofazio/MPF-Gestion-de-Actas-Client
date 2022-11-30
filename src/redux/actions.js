@@ -10,6 +10,7 @@ export const CREATE_INTEGRANTES = "CREATE_INTEGRANTES";
 export const CREATE_BOLSAS = "CREATE_BOLSAS";
 export const CREATE_EFECTOS = "CREATE_EFECTOS";
 export const GET_BUGS_REPORTS = "GET_BUGS_REPORTS";
+export const CLEAR_STATES = "CLEAR_STATES";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -69,10 +70,7 @@ export function createIntegrantes(integrantes, navigate) {
       .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
       .then((res) => {
         if (res.status === 200) navigate("/actas/crear/3");
-        res.data.length > 1
-          ? toast.success("Integrantes creados con exito!")
-          : toast.success("Integrante creado con Exito");
-
+        toast.success("Suscriptores creados con exito!");
         return dispatch({
           type: CREATE_INTEGRANTES,
           payload: res.data,
@@ -188,5 +186,13 @@ export function getBugsReports() {
       .catch((err) => {
         console.log(err);
       });
+  };
+}
+
+export function clearStates() {
+  return function (dispatch) {
+    return dispatch({
+      type: CLEAR_STATES,
+    });
   };
 }
