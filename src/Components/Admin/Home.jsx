@@ -1,42 +1,36 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-//* Redux
-import { useDispatch, useSelector } from "react-redux";
-import { getBugsReports } from "../../redux/actions";
+import { NavLink } from "react-router-dom";
 //* Styles
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import GlobalStyles from "../../Styles/GlobalStyles";
 import Variables from "../../Styles/Variables";
+import { BugFill } from "@styled-icons/bootstrap/BugFill";
+import { StatsChart } from "@styled-icons/ionicons-sharp/StatsChart";
+import { DocumentRemove } from "@styled-icons/heroicons-solid/DocumentRemove";
 //* Initializations
-const { enProcesoContainer, header, headerTitle } = GlobalStyles;
-const { principalColor } = Variables;
+const { principalColor, secondaryColor, redColor } = Variables;
+const { header, headerTitle, homeCard, enProcesoContainer } = GlobalStyles;
 
 function Home() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const bugsReports = useSelector((s) => s.bugsReports);
-
-  React.useEffect(() => {
-    dispatch(getBugsReports());
-  }, []);
-
   return (
     <Container>
       <Header>
-        <Title>Panel De Administrador</Title>
+        <Title>Panel de Administrador</Title>
       </Header>
-      <BugsReportsContainer>
-        {bugsReports &&
-          bugsReports.map((bug) => (
-            <BugContainer key={bug.id} onClick={() => navigate(bug.pathname)}>
-              <BugInfo id={"true"}>{bug.id}</BugInfo>
-              <BugInfo>{bug.fecha.slice(0, 10)}</BugInfo>
-              <BugInfo>...{bug.pathname}</BugInfo>
-              <BugInfo>{bug.description}</BugInfo>
-            </BugContainer>
-          ))}
-      </BugsReportsContainer>
+      <CardsContainer>
+        <Card to="/admin/bugs">
+          <CardTitle>Reporte de Bugs</CardTitle>
+          <BugIcon />
+        </Card>
+        <Card to="/admin/estadisticas">
+          <CardTitle>Estadisticas</CardTitle>
+          <StatsChartIcon />
+        </Card>
+        <Card to="/admin/eliminarActa">
+          <CardTitle>Eliminar un Acta</CardTitle>
+          <DocumentRemoveIcon />
+        </Card>
+      </CardsContainer>
     </Container>
   );
 }
@@ -45,57 +39,88 @@ export default Home;
 
 const Container = styled.div`
   ${enProcesoContainer}
+  flex-direction: column;
 `;
 
-const Header = styled.header`
+const Header = styled.div`
   ${header}
 `;
 
-const Title = styled.h1`
+const Title = styled.span`
   ${headerTitle}
 `;
 
-const BugContainer = styled.div`
+const CardsContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  max-width: 25%;
-  min-width: 25%;
-  min-height: 20%;
-  border: 2px solid ${principalColor};
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 10px;
-  margin-inline: 15px;
+  justify-content: center;
+  width: 100%;
+  border-top: 2px solid ${principalColor};
+`;
 
-  &:hover {
-    background-color: #00647335;
-    cursor: pointer;
+const Card = styled(NavLink)`
+  ${homeCard}
+`;
+
+const CardTitle = styled.span`
+  color: ${secondaryColor};
+  font-size: 20px;
+  transition: all 0.3s ease;
+
+  ${Card}:hover & {
+    font-size: 25px;
   }
 `;
 
-const BugInfo = styled.p`
-  ${(p) =>
-    p.id === "true" &&
-    css`
-      align-self: flex-start;
-    `}
+const BugIcon = styled(BugFill)`
+  width: 30px;
+  margin-right: 40px;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
 
-  ${(p) =>
-    p.fecha === "true" &&
-    css`
-      align-self: flex-start;
-    `}
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+  ${Card}:hover & {
+    width: 35px;
+    color: ${principalColor};
+  }
 `;
 
-const BugsReportsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  width: 100%;
-  flex: 1;
-  border-top: 2px solid ${principalColor};
+const StatsChartIcon = styled(StatsChart)`
+  width: 30px;
+  margin-right: 40px;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+  ${Card}:hover & {
+    width: 35px;
+    color: ${principalColor};
+  }
+`;
+
+const DocumentRemoveIcon = styled(DocumentRemove)`
+  width: 30px;
+  margin-right: 40px;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+  ${Card}:hover & {
+    width: 35px;
+    color: ${redColor};
+  }
 `;

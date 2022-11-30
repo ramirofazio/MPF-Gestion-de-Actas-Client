@@ -14,6 +14,9 @@ const Consultas = lazy(() => import("./Components/Consultas/Consultas"));
 const Todas = lazy(() => import("./Components/Consultas/pages/Todas"));
 //* Admin
 const AdmHome = lazy(() => import("./Components/Admin/Home"));
+const BugsReports = lazy(() => import("./Components/Admin/pages/BugsReports"));
+const Stats = lazy(() => import("./Components/Admin/pages/Stats"));
+const ActaRemove = lazy(() => import("./Components/Admin/pages/ActaRemove"));
 
 function App() {
   return (
@@ -21,6 +24,8 @@ function App() {
       <Suspense fallback={<Fallback />}>
         <NavBar />
         <Routes>
+          {/*Router Error*/}
+          <Route path="*" element={<NotFound />} />
           {/*Router Actas*/}
           <Route path="/" exact element={<Home />} />
           <Route path="/actas/crear/1" exact element={<AddActa />} />
@@ -29,10 +34,15 @@ function App() {
           {/*Router Consultas*/}
           <Route path="/consultas" exact element={<Consultas />} />
           <Route path="/consultas/todas" exact element={<Todas />} />
-          {/*Router Error*/}
-          <Route path="*" element={<NotFound />} />
           {/*Admin*/}
-          {localStorage.getItem("admin") === "true" && <Route path="/admin" element={<AdmHome />} />}
+          {localStorage.getItem("admin") === "true" && (
+            <>
+              <Route path="/admin" element={<AdmHome />} />
+              <Route path="/admin/bugs" element={<BugsReports />} />
+              <Route path="/admin/estadisticas" element={<Stats />} />
+              <Route path="/admin/eliminarActa" element={<ActaRemove />} />
+            </>
+          )}
         </Routes>
       </Suspense>
     </Router>

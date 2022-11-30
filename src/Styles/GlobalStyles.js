@@ -36,7 +36,7 @@ const GlobalStyles = {
 
   headerTitle: css`
     color: ${principalColor};
-    font-size: 50px;
+    font-size: 45px;
     text-decoration: underline;
     text-decoration-thickness: 2px;
   `,
@@ -230,23 +230,23 @@ const GlobalStyles = {
   `,
 
   homeCard: css`
-    text-decoration: none;
+    flex: 1;
     display: flex;
+    text-decoration: none;
     align-items: center;
     justify-content: space-between;
-    width: 60%;
-    flex: 1;
-    padding-left: 20px;
+    width: 50%;
     min-height: 10%;
     max-height: 15%;
     margin-top: 5px;
-    border: 2px solid ${principalColor};
     border-radius: 5px;
+    padding-left: 20px;
+    border: 2px solid ${principalColor};
     transition: all 0.3s ease;
 
     &:hover {
       max-height: 16%;
-      width: 65%;
+      width: 52%;
       background-color: ${baseTransparentColor};
     }
   `,
