@@ -21,7 +21,7 @@ const editSavedActa = async (actaId, navigate) => {
             if (localEfectos) {
               localStorage.setItem("currentEfectos", JSON.stringify([localEfectos, efecto]));
             } else {
-              localStorage.setItem("currentEfectos", JSON.stringify([efecto]));
+              localStorage.setItem("currentEfectos", JSON.stringify(efecto));
             }
           });
         });

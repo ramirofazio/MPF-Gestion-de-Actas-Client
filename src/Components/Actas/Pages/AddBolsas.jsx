@@ -60,7 +60,7 @@ function AddBolsas() {
 
   const currentActa = useSelector((s) => s?.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
-  const currentEfectos = useSelector((s) => s?.currentEfectos);
+  const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s?.currentEfectos);
 
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
   const [closeModal, setCloseModal] = React.useState(false);
@@ -160,53 +160,51 @@ function AddBolsas() {
         </BolsasContainer>
       </FormContainer>
       <EfectosContainer>
-        {currentEfectos
-          ? currentEfectos.map((efecto) => {
-              let nroPrecintoBolsa;
-              let colorPrecintoBolsa;
-              currentBolsas.map((b) =>
-                b.id === efecto.bolsa_id
-                  ? (nroPrecintoBolsa = b.nroPrecinto) && (colorPrecintoBolsa = b.colorPrecinto)
-                  : null
-              );
-              return (
-                <EfectoContainer key={efecto.id} estado={efecto.estado}>
-                  <Info style={colorPrecintoBolsa === "rojo" ? { color: redColor } : { color: greenColor }}>
-                    <CardTitle>Bolsa Nro</CardTitle>
-                    <br />
-                    {nroPrecintoBolsa}
-                  </Info>
-                  <Info>
-                    <CardTitle>Tipo</CardTitle>
-                    <br />
-                    {efecto.tipoDeElemento}
-                  </Info>
-                  <Info>
-                    <CardTitle>Marca</CardTitle>
-                    <br />
-                    {efecto.marca}
-                  </Info>
-                  <Info>
-                    <CardTitle>Modelo</CardTitle>
-                    <br />
-                    {efecto.modelo}
-                  </Info>
-                  <Info>
-                    <CardTitle>Tipo de Extraccion</CardTitle>
-                    <br />
-                    {efecto.tipoExtraccion}
-                  </Info>
-                  <Info>
-                    <CardTitle>Estado</CardTitle>
-                    <br />
-                    {efecto.estado}
-                  </Info>
-                </EfectoContainer>
-              );
-            })
-          : null}
+        {currentEfectos.map((efecto) => {
+          let nroPrecintoBolsa;
+          let colorPrecintoBolsa;
+          currentBolsas.map((b) =>
+            b.id === efecto.bolsa_id
+              ? (nroPrecintoBolsa = b.nroPrecinto) && (colorPrecintoBolsa = b.colorPrecinto)
+              : null
+          );
+          return (
+            <EfectoContainer key={efecto.id} estado={efecto.estado}>
+              <Info style={colorPrecintoBolsa === "rojo" ? { color: redColor } : { color: greenColor }}>
+                <CardTitle>Bolsa Nro</CardTitle>
+                <br />
+                {nroPrecintoBolsa}
+              </Info>
+              <Info>
+                <CardTitle>Tipo</CardTitle>
+                <br />
+                {efecto.tipoDeElemento}
+              </Info>
+              <Info>
+                <CardTitle>Marca</CardTitle>
+                <br />
+                {efecto.marca}
+              </Info>
+              <Info>
+                <CardTitle>Modelo</CardTitle>
+                <br />
+                {efecto.modelo}
+              </Info>
+              <Info>
+                <CardTitle>Tipo de Extraccion</CardTitle>
+                <br />
+                {efecto.tipoExtraccion}
+              </Info>
+              <Info>
+                <CardTitle>Estado</CardTitle>
+                <br />
+                {efecto.estado}
+              </Info>
+            </EfectoContainer>
+          );
+        })}
       </EfectosContainer>
-      <Modal isOpen={addEfectosModal} style={addEfectosModalStyles}>
+      <Modal isOpen={addEfectosModal} style={addEfectosModalStyles} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
         <AddEfectos closeModal={() => setAddEfectosModal(!addEfectosModal)} />
       </Modal>
@@ -221,7 +219,7 @@ function AddBolsas() {
           Cerrar
         </Button>
       </div>
-      <Modal isOpen={closeModal} style={CloseModalStyles}>
+      <Modal isOpen={closeModal} style={CloseModalStyles} ariaHideApp={false}>
         <CloseIcon onClick={() => setCloseModal(!closeModal)} />
         <CloseModal closeModal={() => setCloseModal(!closeModal)} />
       </Modal>

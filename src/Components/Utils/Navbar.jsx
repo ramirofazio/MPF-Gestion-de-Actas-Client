@@ -48,7 +48,7 @@ function NavBar() {
 
   React.useEffect(() => {
     setBugReport({ ...bugReport, pathname: window.location.pathname });
-  });
+  }, [bugReportModal]);
 
   const handleBugReport = (e) => {
     e.preventDefault();
@@ -83,7 +83,7 @@ function NavBar() {
         )}
         <ChatPollIcon onClick={() => setBugReportModal(!bugReportModal)} />
       </Container>
-      <Modal isOpen={bugReportModal} style={ModalStyles}>
+      <Modal isOpen={bugReportModal} style={ModalStyles} ariaHideApp={false}>
         <CloseIcon onClick={() => setBugReportModal(!bugReportModal)} />
         <Form onSubmit={handleBugReport}>
           <Title>Reportar un Bug</Title>
@@ -100,7 +100,7 @@ function NavBar() {
           <Button type="submit" value="Reportar Bug" complete={bugReport.description !== "" ? "true" : "false"} />
         </Form>
       </Modal>
-      <Modal isOpen={adminPassModal} style={ModalStyles}>
+      <Modal isOpen={adminPassModal} style={ModalStyles} ariaHideApp={false}>
         <Form onSubmit={handleAdm}>
           <Title onClick={() => setAdminPassModal(!adminPassModal)}>Contraseña Administrador</Title>
           <InputContainer>

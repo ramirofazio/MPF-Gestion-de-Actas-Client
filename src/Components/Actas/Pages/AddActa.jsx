@@ -203,7 +203,7 @@ function AddActa() {
                 <Input
                   type="number"
                   name="MPF/DEN"
-                  value={acta.mpfOrDen || acta.nro_mpf}
+                  value={!comeBack ? acta.mpfOrDen : acta.nro_mpf}
                   placeholder="MPF/DEN"
                   onChange={(e) => setActa({ ...acta, mpfOrDen: e.target.value })}
                 />
@@ -213,7 +213,7 @@ function AddActa() {
                 <Input
                   type="number"
                   name="CIJ"
-                  value={acta.cij || acta.nro_cij}
+                  value={!comeBack ? acta.cij : acta.nro_cij}
                   placeholder="CIJ"
                   onChange={(e) => setActa({ ...acta, cij: e.target.value })}
                 />
@@ -223,7 +223,7 @@ function AddActa() {
                 <Input
                   type="number"
                   name="DIL"
-                  value={acta.dil || acta.nro_dil}
+                  value={!comeBack ? acta.dil : acta.nro_dil}
                   placeholder="DIL"
                   onChange={(e) => setActa({ ...acta, dil: e.target.value })}
                 />
@@ -247,7 +247,7 @@ function AddActa() {
               <Input
                 type="number"
                 name="COOP"
-                value={acta.coop || acta.nro_coop}
+                value={!comeBack ? acta.coop : acta.nro_coop}
                 placeholder="COOP"
                 onChange={(e) => setActa({ ...acta, coop: e.target.value })}
               />
@@ -257,7 +257,7 @@ function AddActa() {
               <Input
                 type="number"
                 name="Nro Causa"
-                value={acta.nroCausa || acta.nro_causa}
+                value={!comeBack ? acta.nroCausa : acta.nro_causa}
                 placeholder="Nro Causa"
                 onChange={(e) => setActa({ ...acta, nroCausa: e.target.value })}
               />
@@ -277,7 +277,7 @@ function AddActa() {
               <Input
                 type="number"
                 name="CIJ"
-                value={acta.cij || acta.nro_cij}
+                value={!comeBack ? acta.cij : acta.nro_cij}
                 placeholder="CIJ"
                 onChange={(e) => setActa({ ...acta, cij: e.target.value })}
               />
@@ -287,7 +287,7 @@ function AddActa() {
               <Input
                 type="number"
                 name="DIL"
-                value={acta.dil || acta.nro_dil}
+                value={!comeBack ? acta.dil : acta.nro_dil}
                 placeholder="DIL"
                 onChange={(e) => setActa({ ...acta, dil: e.target.value })}
               />
