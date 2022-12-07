@@ -10,9 +10,10 @@ import template from "../../Assets/template.docx";
 function generateDoc() {
   const currentActa = JSON.parse(localStorage.getItem("finalActa")); //* Nos traemos el acta del local storage
   const actaFlag = localStorage.getItem("actaFlag"); //* Nos traemos la flag del local storage
+  const fecha = new Date();
 
   const { Bolsas, Integrantes } = currentActa; //* Sacamos las bolsas y los integrantes del acta
-  const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula, fecha } = currentActa; //* Desestructuramos el acta
+  const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula } = currentActa; //* Desestructuramos el acta
 
   const Efectos = []; //* Array con todos los efectos con sus nroPrecintoBolsa
 
@@ -66,6 +67,50 @@ function generateDoc() {
     };
   } // ? IDK what this Function do, but its need to the conditions to work...
 
+  const formatMonth = (month) => {
+    switch (month) {
+      case 1: {
+        return "Enero";
+      }
+      case 2: {
+        return "Febrero";
+      }
+      case 3: {
+        return "Marzo";
+      }
+      case 4: {
+        return "Abril";
+      }
+      case 5: {
+        return "Mayo";
+      }
+      case 6: {
+        return "Junio";
+      }
+      case 7: {
+        return "Julio";
+      }
+      case 8: {
+        return "Agosto";
+      }
+      case 9: {
+        return "Septiembre";
+      }
+      case 10: {
+        return "Octubre";
+      }
+      case 11: {
+        return "Noviembre";
+      }
+      case 12: {
+        return "Diciembre";
+      }
+      default: {
+        return month;
+      }
+    }
+  };
+
   loadFile(template, function (error, content) {
     if (error) {
       throw error;
@@ -76,12 +121,13 @@ function generateDoc() {
       linebreaks: true,
       parser: angularParser,
     });
+    console.log(fecha);
     doc.setData({
       encabezadoFlag: actaFlag,
-      dias: fecha.substring(0, 2),
-      mes: fecha.substring(3, 5),
-      anio: fecha.substring(6, 10),
-      hora: fecha.substring(12, 17),
+      dias: fecha.getDate(),
+      mes: formatMonth(fecha.getMonth()),
+      anio: fecha.getFullYear(),
+      hora: `${fecha.getUTCHours()}:${fecha.getMinutes()}`,
       solicitante: solicitante,
       nro_mpf: nro_mpf,
       nro_coop: nro_coop,
