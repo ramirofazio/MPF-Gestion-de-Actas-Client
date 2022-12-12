@@ -1,5 +1,5 @@
 const Variables = {
-  //colors
+  //* colors
   principalColor: "#006473",
   secondaryColor: "#3B4F5F",
   baseColor: "#ffffff",
@@ -8,7 +8,7 @@ const Variables = {
   greenColor: "#6aa84f",
   redColor: "#a84f4f",
   grayDisableColor: "#4E696340",
-  //config
+  //* config
   baseEndpoint: "http://10.190.12.72:3001",
 };
 

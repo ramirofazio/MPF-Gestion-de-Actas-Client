@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+//* Styles
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Flip } from "react-toastify";
-
+//* Redux
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
 
