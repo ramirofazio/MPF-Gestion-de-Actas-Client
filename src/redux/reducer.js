@@ -8,9 +8,11 @@ import {
   CREATE_EFECTOS,
   GET_BUGS_REPORTS,
   CLEAR_STATES,
+  ADMIN,
 } from "./actions";
 
 let initialState = {
+  admin: false,
   allActas: [],
   allActasSave: [],
   currentActa: JSON.parse(localStorage.getItem("currentActa")) || [],
@@ -22,6 +24,12 @@ let initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case ADMIN: {
+      return {
+        ...state,
+        admin: !state.admin,
+      };
+    }
     case CLEAR_STATES: {
       return {
         allActas: [],

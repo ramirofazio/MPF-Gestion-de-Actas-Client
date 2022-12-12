@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 //* Redux
-import { useDispatch } from "react-redux";
-import { createBugReport } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { createBugReport, admin } from "../../redux/actions";
 //* Styles
 import styled, { css } from "styled-components";
 import Variables from "../../Styles/Variables";
@@ -38,6 +38,8 @@ function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const adminState = useSelector((s) => s.admin);
+
   const [adminPassModal, setAdminPassModal] = React.useState(false);
   const [adminPass, setAdminPass] = React.useState("");
   const [bugReportModal, setBugReportModal] = React.useState(false);
@@ -60,11 +62,14 @@ function NavBar() {
   const handleAdm = (e) => {
     e.preventDefault();
     if (adminPass === "CIJGIDSI") {
-      localStorage.setItem("admin", true);
-      setAdminPassModal(false);
       navigate("/admin");
+      dispatch(admin());
     }
   };
+
+  React.useEffect(() => {
+    setAdminPassModal(false);
+  }, [adminState === true]);
 
   return (
     <NavBarContainer>
@@ -73,9 +78,9 @@ function NavBar() {
         <Logo src={logo} alt="logo" />
         <HomeLinks to="/">Crear Acta</HomeLinks>
         <HomeLinks to="/consultas">Consultas</HomeLinks>
-        {localStorage.getItem("admin") === "true" && (
+        {adminState === true && (
           <>
-            <HomeLinks to="/" onClick={() => localStorage.removeItem("admin")}>
+            <HomeLinks to="/" onClick={() => dispatch(admin())}>
               Cerrar
             </HomeLinks>
             <HomeLinks to="/admin">Panel de Administrador</HomeLinks>

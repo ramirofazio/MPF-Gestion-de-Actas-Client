@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from "react";
+import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //* Components
 import Fallback from "./Components/Utils/Fallback";
@@ -19,6 +20,8 @@ const Stats = lazy(() => import("./Components/Admin/pages/Stats"));
 const ActaRemove = lazy(() => import("./Components/Admin/pages/ActaRemove"));
 
 function App() {
+  const adminState = useSelector((s) => s.admin);
+
   return (
     <Router>
       <Suspense fallback={<Fallback />}>
@@ -35,7 +38,7 @@ function App() {
           <Route path="/consultas" exact element={<Consultas />} />
           <Route path="/consultas/todas" exact element={<Todas />} />
           {/*Admin*/}
-          {localStorage.getItem("admin") === "true" && (
+          {adminState === true && (
             <>
               <Route path="/admin" element={<AdmHome />} />
               <Route path="/admin/bugs" element={<BugsReports />} />

@@ -11,6 +11,7 @@ export const CREATE_BOLSAS = "CREATE_BOLSAS";
 export const CREATE_EFECTOS = "CREATE_EFECTOS";
 export const GET_BUGS_REPORTS = "GET_BUGS_REPORTS";
 export const CLEAR_STATES = "CLEAR_STATES";
+export const ADMIN = "ADMIN";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -193,6 +194,14 @@ export function clearStates() {
   return function (dispatch) {
     return dispatch({
       type: CLEAR_STATES,
+    });
+  };
+}
+
+export function admin() {
+  return function (dispatch) {
+    return dispatch({
+      type: ADMIN,
     });
   };
 }
