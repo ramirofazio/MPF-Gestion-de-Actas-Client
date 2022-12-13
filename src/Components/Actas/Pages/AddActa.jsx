@@ -26,6 +26,8 @@ function AddActa() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const fecha = new Date();
+
   const [acta, setActa] = React.useState("");
   const [tipoDeActa, setTipoDeActa] = React.useState("");
   const [comeBack, setComeBack] = React.useState(false);
@@ -33,6 +35,50 @@ function AddActa() {
   React.useEffect(() => {
     getLocalStorageOrState();
   }, []);
+
+  const formatMonth = (month) => {
+    switch (month) {
+      case 1: {
+        return "Enero";
+      }
+      case 2: {
+        return "Febrero";
+      }
+      case 3: {
+        return "Marzo";
+      }
+      case 4: {
+        return "Abril";
+      }
+      case 5: {
+        return "Mayo";
+      }
+      case 6: {
+        return "Junio";
+      }
+      case 7: {
+        return "Julio";
+      }
+      case 8: {
+        return "Agosto";
+      }
+      case 9: {
+        return "Septiembre";
+      }
+      case 10: {
+        return "Octubre";
+      }
+      case 11: {
+        return "Noviembre";
+      }
+      case 12: {
+        return "Diciembre";
+      }
+      default: {
+        return month;
+      }
+    }
+  };
 
   const getLocalStorageOrState = () => {
     const currentActa = localStorage.getItem("currentActa");
@@ -51,6 +97,10 @@ function AddActa() {
         coop: "",
         nroCausa: "",
         caratula: "",
+        dias: fecha.getDate(),
+        mes: formatMonth(fecha.getMonth()),
+        anio: fecha.getFullYear(),
+        hora: `${fecha.getHours()}:${fecha.getMinutes()}`,
       });
       setTipoDeActa("Tipo de Acta");
     }
@@ -243,7 +293,7 @@ function AddActa() {
               />
             </InputContainer>
             <InputContainer>
-              <Label> Nro Coop</Label>
+              <Label>Nro Coop</Label>
               <Input
                 type="number"
                 name="COOP"

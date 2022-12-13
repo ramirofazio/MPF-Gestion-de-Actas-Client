@@ -189,7 +189,7 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="ninguna">Ninguna</SelectOpt>
             <SelectOpt value="fisica">Fisica</SelectOpt>
             <SelectOpt value="logica">Logica</SelectOpt>
-            <SelectOpt value="ambas">Ambas</SelectOpt>
+            <SelectOpt value="fisica y logica">Ambas</SelectOpt>
           </Select>
         </InputContainer>
         <InputContainer style={{ flexDirection: "column", flex: 1.5 }}>

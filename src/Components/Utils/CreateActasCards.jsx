@@ -33,7 +33,7 @@ function CreateActasCards({ allActas }) {
                   <Info>
                     <CardTitle>Fecha</CardTitle>
                     <br />
-                    {acta.fecha.slice(0, 10)}
+                    {acta.mes} {acta.dias}
                   </Info>
                   {!acta.nro_coop && (
                     <Info>
