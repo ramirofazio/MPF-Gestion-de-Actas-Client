@@ -21,7 +21,7 @@ function AddEfectos({ closeModal }) {
     marca: "",
     modelo: "",
     imei: "",
-    imei2: "",
+    //imei2: "",
     estado: "",
     sistemaOperativo: "",
     tipoSeguridad: "",
@@ -37,13 +37,33 @@ function AddEfectos({ closeModal }) {
     closeModal();
   };
 
-  const handleComplete = () => {
-    const { bolsa_id, tipoDeElemento, marca, estado, herramientaSoft, tipoExtraccion, descripcionTarea } = efecto;
+  // const handleComplete = () => {
+  //   const { bolsa_id, tipoDeElemento, marca, estado, herramientaSoft, tipoExtraccion, descripcionTarea } = efecto;
 
-    if (bolsa_id && tipoDeElemento && marca && estado && herramientaSoft && tipoExtraccion && descripcionTarea) {
-      return "true";
-    } else {
-      return "false";
+  //   if (bolsa_id && tipoDeElemento && marca && estado && herramientaSoft && tipoExtraccion && descripcionTarea) {
+  //     return "true";
+  //   } else {
+  //     return "false";
+  //   }
+  // };
+
+  const handleOptButtonClick = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    //* Aca va el disparador del modal de opcion
+    switch (e.target.value) {
+      case "sim": {
+        break;
+      }
+      case "sd": {
+        break;
+      }
+      case "discos": {
+        break;
+      }
+      default: {
+        break;
+      }
     }
   };
 
@@ -78,10 +98,6 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="tablet">Tablet</SelectOpt>
             <SelectOpt value="notebook">Notebook</SelectOpt>
             <SelectOpt value="pc">PC</SelectOpt>
-            <SelectOpt value="hdd">Disco HDD</SelectOpt>
-            <SelectOpt value="ssd">Disco SSD</SelectOpt>
-            <SelectOpt value="sim">Tarjeta SIM</SelectOpt>
-            <SelectOpt value="sd">Tarjeta SD</SelectOpt>
           </Select>
         </InputContainer>
         <InputContainer>
@@ -104,26 +120,28 @@ function AddEfectos({ closeModal }) {
             onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value })}
           />
         </InputContainer>
-        <InputContainer>
-          <Label>IMEI</Label>
-          <Input
-            type="text"
-            name="imei"
-            value={efecto.imei}
-            placeholder="Imei"
-            onChange={(e) => setEfecto({ ...efecto, imei: e.target.value })}
-          />
-        </InputContainer>
-        <InputContainer>
-          <Label>IMEI 2</Label>
-          <Input
-            type="text"
-            name="imei 2"
-            value={efecto.imei2}
-            placeholder="Imei 2"
-            onChange={(e) => setEfecto({ ...efecto, imei2: e.target.value })}
-          />
-        </InputContainer>
+        {efecto.tipoDeElemento === "celular" && (
+          <InputContainer>
+            <Label>IMEI</Label>
+            <Input
+              type="text"
+              name="imei"
+              value={efecto.imei}
+              placeholder="Imei"
+              onChange={(e) => setEfecto({ ...efecto, imei: e.target.value })}
+            />
+          </InputContainer>
+        )}
+        {/* <InputContainer>
+            <Label>IMEI 2</Label>
+            <Input
+              type="text"
+              name="imei 2"
+              value={efecto.imei2}
+              placeholder="Imei 2"
+              onChange={(e) => setEfecto({ ...efecto, imei2: e.target.value })}
+            />
+          </InputContainer> */}
         <InputContainer>
           <Label>Estado</Label>
           <Select value={efecto.estado} onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}>
@@ -199,7 +217,34 @@ function AddEfectos({ closeModal }) {
             onChange={(e) => setEfecto({ ...efecto, descripcionTarea: e.target.value })}
           />
         </InputContainer>
-        <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
+          <Button type="submit" value="Cargar Elemento" complete={"true"} />
+          {efecto.tipoDeElemento === "celular" && (
+            <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">
+              Agregar SIM
+            </OptButton>
+          )}
+          {efecto.tipoDeElemento === "celular" && (
+            <OptButton onClick={(e) => handleOptButtonClick(e)} value="sd">
+              Agregar SD
+            </OptButton>
+          )}
+          {efecto.tipoDeElemento === "notebook" && (
+            <OptButton onClick={(e) => handleOptButtonClick(e)} value="discos">
+              Agregar Discos
+            </OptButton>
+          )}
+          {efecto.tipoDeElemento === "pc" && (
+            <OptButton onClick={(e) => handleOptButtonClick(e)} value="discos">
+              Agregar Discos
+            </OptButton>
+          )}
+          {efecto.tipoDeElemento === "tablet" && (
+            <OptButton onClick={(e) => handleOptButtonClick(e)} value="sd">
+              Agregar SD
+            </OptButton>
+          )}
+        </div>
       </Form>
     </>
   );
@@ -291,4 +336,22 @@ const Button = styled.input`
       pointer-events: all;
       border: 2px solid ${greenColor};
     `}
+`;
+
+const OptButton = styled.button`
+  ${button}
+  padding: 5px;
+  padding-inline: 15px;
+  text-decoration: none;
+  background: white;
+  border: 2px solid ${greenColor};
+  margin-bottom: -2.5%;
+  margin-top: 1%;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: ${principalColor};
+    border: 2px solid transparent;
+  }
 `;
