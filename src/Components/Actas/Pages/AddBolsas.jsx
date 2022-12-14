@@ -69,7 +69,7 @@ function AddBolsas() {
     acta_id: currentActa.id,
     colorPrecinto: "",
     nroPrecinto: "",
-    observaciones: "Bolsa plastica transparente con sobre papel madera",
+    observaciones: "Un sobre, papel madera cerrado",
   });
 
   const handleSubmitBolsa = (e) => {
@@ -79,7 +79,7 @@ function AddBolsas() {
       acta_id: currentActa.id,
       colorPrecinto: "",
       nroPrecinto: "",
-      observaciones: "Bolsa plastica transparente con sobre papel madera",
+      observaciones: "Un sobre, papel madera cerrado",
     });
   };
 
