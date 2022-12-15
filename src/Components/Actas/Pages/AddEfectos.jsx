@@ -74,7 +74,7 @@ function AddEfectos({ closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createEfecto(efecto, discos));
+    dispatch(createEfecto(efecto, discos, sims));
     closeModal();
   };
 

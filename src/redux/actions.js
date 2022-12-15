@@ -100,10 +100,10 @@ export function createBolsas(bolsa) {
   };
 }
 
-export function createEfecto(efecto, discos, sims, sds) {
+export function createEfecto(efecto, discos, sims) {
   return function (dispatch) {
     axios
-      .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, efecto, discos, sims, sds)
+      .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims })
       .then((res) => {
         toast.success("Elemento creado con exito!");
         let response = res.data;
