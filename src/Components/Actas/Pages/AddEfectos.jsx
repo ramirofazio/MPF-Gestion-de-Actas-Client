@@ -6,15 +6,40 @@ import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
+import { Close } from "@styled-icons/ionicons-outline/Close";
+//* Modal
+import Modal from "react-modal";
 //* Initializations
 const { button, select, input } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
+
+const addModalStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%, -50%)",
+    width: "40%",
+    height: "40%",
+    backgroundColor: principalColor,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    padding: 0,
+    overflowX: "hidden",
+  },
+};
 
 function AddEfectos({ closeModal }) {
   const dispatch = useDispatch();
 
   const currentBolsas = useSelector((s) => s?.currentBolsas);
 
+  const [addDiscosModal, setAddDiscosModal] = React.useState(false);
+  const [addSdModal, setAddSdModal] = React.useState(false);
+  const [addSimModal, setAddSimModal] = React.useState(false);
   const [efecto, setEfecto] = React.useState({
     bolsa_id: "",
     tipoDeElemento: "",
@@ -49,16 +74,18 @@ function AddEfectos({ closeModal }) {
 
   const handleOptButtonClick = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     //* Aca va el disparador del modal de opcion
     switch (e.target.value) {
       case "sim": {
+        setAddSimModal(true);
         break;
       }
       case "sd": {
+        setAddSimModal(true);
         break;
       }
       case "discos": {
+        setAddDiscosModal(true);
         break;
       }
       default: {
@@ -246,6 +273,15 @@ function AddEfectos({ closeModal }) {
           )}
         </div>
       </Form>
+      <Modal isOpen={addSimModal} style={addModalStyle} ariaHideApp={false}>
+        <CloseIcon onClick={() => setAddSimModal(!addSimModal)} />
+      </Modal>
+      <Modal isOpen={addSdModal} style={addModalStyle} ariaHideApp={false}>
+        <CloseIcon onClick={() => setAddSdModal(!addSdModal)} />
+      </Modal>
+      <Modal isOpen={addDiscosModal} style={addModalStyle} ariaHideApp={false}>
+        <CloseIcon onClick={() => setAddDiscosModal(!addDiscosModal)} />
+      </Modal>
     </>
   );
 }
@@ -353,5 +389,20 @@ const OptButton = styled.button`
     background-color: white;
     color: ${principalColor};
     border: 2px solid transparent;
+  }
+`;
+
+const CloseIcon = styled(Close)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 8%;
+  margin-top: 1%;
+  color: white;
+  transition: all 0.5s ease;
+
+  &:hover {
+    color: ${secondaryColor};
+    cursor: pointer;
   }
 `;
