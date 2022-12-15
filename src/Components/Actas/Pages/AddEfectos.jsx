@@ -7,6 +7,7 @@ import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { Close } from "@styled-icons/ionicons-outline/Close";
+import { toast } from "react-toastify";
 //* Modal
 import Modal from "react-modal";
 //* Initializations
@@ -21,7 +22,7 @@ const addModalStyle = {
     bottom: "auto",
     transform: "translate(-50%, -50%)",
     width: "40%",
-    height: "40%",
+    height: "50%",
     backgroundColor: principalColor,
     display: "flex",
     alignItems: "center",
@@ -38,8 +39,8 @@ function AddEfectos({ closeModal }) {
   const currentBolsas = useSelector((s) => s?.currentBolsas);
 
   const [addDiscosModal, setAddDiscosModal] = React.useState(false);
-  const [addSdModal, setAddSdModal] = React.useState(false);
   const [addSimModal, setAddSimModal] = React.useState(false);
+
   const [efecto, setEfecto] = React.useState({
     bolsa_id: "",
     tipoDeElemento: "",
@@ -56,10 +57,50 @@ function AddEfectos({ closeModal }) {
     descripcionTarea: "",
   });
 
+  const [discos, setDiscos] = React.useState([]);
+  const [disco, setDisco] = React.useState({
+    tipoDeDisco: "",
+    marca: "",
+    modelo: "",
+    almacenamiento: "",
+  });
+
+  const [sims, setSims] = React.useState([]);
+  const [sim, setSim] = React.useState({
+    empresaSim: "",
+    serialSim: "",
+    tipoExtraccionSim: "",
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createEfecto(efecto));
+    dispatch(createEfecto(efecto, discos));
     closeModal();
+  };
+
+  const handleDiscoSubmit = (e) => {
+    e.preventDefault();
+    setAddDiscosModal(false);
+    setDiscos([...discos, disco]);
+    setDisco({
+      tipoDeDisco: "",
+      marca: "",
+      modelo: "",
+      almacenamiento: "",
+    });
+    toast.success("Disco Guardado con Exito!");
+  };
+
+  const handleSimSubmit = (e) => {
+    e.preventDefault();
+    setAddSimModal(false);
+    setSims([...sims, sim]);
+    setSim({
+      empresaSim: "",
+      serialSim: "",
+      tipoExtraccionSim: "",
+    });
+    toast.success("Disco Guardado con Exito!");
   };
 
   // const handleComplete = () => {
@@ -74,13 +115,8 @@ function AddEfectos({ closeModal }) {
 
   const handleOptButtonClick = (e) => {
     e.preventDefault();
-    //* Aca va el disparador del modal de opcion
     switch (e.target.value) {
       case "sim": {
-        setAddSimModal(true);
-        break;
-      }
-      case "sd": {
         setAddSimModal(true);
         break;
       }
@@ -251,11 +287,6 @@ function AddEfectos({ closeModal }) {
               Agregar SIM
             </OptButton>
           )}
-          {efecto.tipoDeElemento === "celular" && (
-            <OptButton onClick={(e) => handleOptButtonClick(e)} value="sd">
-              Agregar SD
-            </OptButton>
-          )}
           {efecto.tipoDeElemento === "notebook" && (
             <OptButton onClick={(e) => handleOptButtonClick(e)} value="discos">
               Agregar Discos
@@ -266,21 +297,94 @@ function AddEfectos({ closeModal }) {
               Agregar Discos
             </OptButton>
           )}
-          {efecto.tipoDeElemento === "tablet" && (
-            <OptButton onClick={(e) => handleOptButtonClick(e)} value="sd">
-              Agregar SD
-            </OptButton>
-          )}
         </div>
       </Form>
-      <Modal isOpen={addSimModal} style={addModalStyle} ariaHideApp={false}>
-        <CloseIcon onClick={() => setAddSimModal(!addSimModal)} />
-      </Modal>
-      <Modal isOpen={addSdModal} style={addModalStyle} ariaHideApp={false}>
-        <CloseIcon onClick={() => setAddSdModal(!addSdModal)} />
-      </Modal>
       <Modal isOpen={addDiscosModal} style={addModalStyle} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddDiscosModal(!addDiscosModal)} />
+        <Form onSubmit={handleDiscoSubmit}>
+          <Title>Agregar Disco</Title>
+          <InputContainer>
+            <Label>Tipo de Disco</Label>
+            <Input
+              type="text"
+              name="tipo de Disco"
+              value={disco.tipoDeDisco}
+              placeholder="Tipo de Disco"
+              onChange={(e) => setDisco({ ...disco, tipoDeDisco: e.target.value })}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Marca</Label>
+            <Input
+              type="text"
+              name="marca"
+              value={disco.marca}
+              placeholder="Marca"
+              onChange={(e) => setDisco({ ...disco, marca: e.target.value })}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Modelo</Label>
+            <Input
+              type="text"
+              name="modelo"
+              value={disco.Modelo}
+              placeholder="Modelo"
+              onChange={(e) => setDisco({ ...disco, modelo: e.target.value })}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>almacenamiento (GB)</Label>
+            <Input
+              type="text"
+              name="almacenamiento"
+              value={disco.almacenamiento}
+              placeholder="Almacenamiento"
+              onChange={(e) => setDisco({ ...disco, almacenamiento: e.target.value })}
+            />
+          </InputContainer>
+          <Button type="submit" value="Agregar Disco" complete={"true"} />
+        </Form>
+      </Modal>
+      <Modal isOpen={addSimModal} style={addModalStyle} ariaHideApp={false}>
+        <CloseIcon onClick={() => setAddSimModal(!addSimModal)} />
+        <Form onSubmit={handleSimSubmit}>
+          <Title>Agregar SIM</Title>
+          <InputContainer>
+            <Label>Empresa Sim</Label>
+            <Input
+              type="text"
+              name="empresa sim"
+              value={sim.empresaSim}
+              placeholder="Empresa Sim"
+              onChange={(e) => setSim({ ...sim, empresaSim: e.target.value })}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Serial Sim</Label>
+            <Input
+              type="text"
+              name="serial sim"
+              value={sim.serialSim}
+              placeholder="Serial Sim"
+              onChange={(e) => setSim({ ...sim, serialSim: e.target.value })}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Tipo de Extracción</Label>
+            <Select
+              value={sim.tipoExtraccionSim}
+              onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}
+            >
+              <SelectOpt value="">Tipo de Extracción</SelectOpt>
+              <SelectOpt value="ninguna">Ninguna</SelectOpt>
+              <SelectOpt value="fisica">Fisica</SelectOpt>
+              <SelectOpt value="logica">Logica</SelectOpt>
+              <SelectOpt value="fisica y logica">Ambas</SelectOpt>
+            </Select>
+          </InputContainer>
+          <Button type="submit" value="Agregar Sim" complete={"true"} />
+        </Form>
       </Modal>
     </>
   );
@@ -312,6 +416,7 @@ const InputContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  max-height: 100px;
   border-bottom: 1px solid ${secondaryColor};
 `;
 
