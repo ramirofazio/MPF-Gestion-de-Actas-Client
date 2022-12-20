@@ -69,7 +69,7 @@ function AddBolsas() {
     acta_id: currentActa.id,
     colorPrecinto: "",
     nroPrecinto: "",
-    observaciones: "Un sobre, papel madera cerrado",
+    observaciones: "un sobre, papel madera cerrado",
   });
 
   const handleSubmitBolsa = (e) => {
