@@ -55,6 +55,8 @@ function AddEfectos({ closeModal }) {
     herramientaSoft: "",
     tipoExtraccion: "",
     descripcionTarea: "",
+    extraccion: "",
+    almacenamiento: "",
   });
 
   const [discos, setDiscos] = React.useState([]);
@@ -161,6 +163,7 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="tablet">Tablet</SelectOpt>
             <SelectOpt value="notebook">Notebook</SelectOpt>
             <SelectOpt value="pc">PC</SelectOpt>
+            <SelectOpt value="pendrive">Pendrive</SelectOpt>
           </Select>
         </InputContainer>
         <InputContainer>
@@ -205,40 +208,35 @@ function AddEfectos({ closeModal }) {
               onChange={(e) => setEfecto({ ...efecto, imei2: e.target.value })}
             />
           </InputContainer> */}
-        <InputContainer>
-          <Label>Estado</Label>
-          <Select value={efecto.estado} onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}>
-            <SelectOpt value="">Estado</SelectOpt>
-            <SelectOpt value="completo">Completo</SelectOpt>
-            <SelectOpt value="en proceso">En Proceso</SelectOpt>
-          </Select>
-        </InputContainer>
-        <InputContainer>
-          <Label>Sistema Operativo</Label>
-          <Input
-            type="text"
-            name="sistemaOperativo"
-            value={efecto.sistemaOperativo}
-            placeholder="SistemaOperativo"
-            onChange={(e) => setEfecto({ ...efecto, sistemaOperativo: e.target.value })}
-          />
-        </InputContainer>
 
-        <InputContainer>
-          <Label>Tipo de Seguridad</Label>
-          <Select
-            value={efecto.tipoSeguridad}
-            onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}
-          >
-            <SelectOpt value="">Tipo de Seguridad</SelectOpt>
-            <SelectOpt value="ninguna">Ninguna</SelectOpt>
-            <SelectOpt value="patron">Patron</SelectOpt>
-            <SelectOpt value="contraseña">Contraseña</SelectOpt>
-            <SelectOpt value="pin">Pin</SelectOpt>
-            <SelectOpt value="facial">Facial</SelectOpt>
-            <SelectOpt value="huella">Huella</SelectOpt>
-          </Select>
-        </InputContainer>
+        {efecto.tipoDeElemento !== "pendrive" && (
+          <InputContainer>
+            <Label>Sistema Operativo</Label>
+            <Input
+              type="text"
+              name="sistemaOperativo"
+              value={efecto.sistemaOperativo}
+              placeholder="SistemaOperativo"
+              onChange={(e) => setEfecto({ ...efecto, sistemaOperativo: e.target.value })}
+            />
+          </InputContainer>
+        )}
+        {efecto.tipoDeElemento !== "pendrive" && (
+          <InputContainer>
+            <Label>Tipo de Seguridad</Label>
+            <Select
+              value={efecto.tipoSeguridad}
+              onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}
+            >
+              <SelectOpt value="">Tipo de Seguridad</SelectOpt>
+              <SelectOpt value="ninguna">Ninguna</SelectOpt>
+              <SelectOpt value="patron">Patron</SelectOpt>
+              <SelectOpt value="contraseña">Contraseña</SelectOpt>
+              <SelectOpt value="pin">Pin</SelectOpt>
+              <SelectOpt value="huella">Huella</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
         {efecto.tipoSeguridad === "ninguna" || efecto.tipoSeguridad === "" ? null : (
           <InputContainer>
             <Label>¿Desbloqueo?</Label>
@@ -249,37 +247,71 @@ function AddEfectos({ closeModal }) {
             </Select>
           </InputContainer>
         )}
+        {efecto.tipoDeElemento !== "pendrive" && (
+          <InputContainer>
+            <Label>Herramienta Software</Label>
+            <Select
+              value={efecto.herramientaSoft}
+              onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}
+            >
+              <SelectOpt value="">Herramienta Software</SelectOpt>
+              <SelectOpt value="ninguna">Ninguna</SelectOpt>
+              <SelectOpt value="UFED">UFED</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
+        {efecto.tipoDeElemento !== "pendrive" && (
+          <InputContainer>
+            <Label>Tipo de Extracción</Label>
+            <Select
+              value={efecto.tipoExtraccion}
+              onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}
+            >
+              <SelectOpt value="">Tipo de Extracción</SelectOpt>
+              <SelectOpt value="ninguna">Ninguna</SelectOpt>
+              <SelectOpt value="fisica">Fisica</SelectOpt>
+              <SelectOpt value="logica">Logica</SelectOpt>
+              <SelectOpt value="fisica y logica">Ambas</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
+        {efecto.tipoDeElemento === "pendrive" && (
+          <InputContainer>
+            <Label>Almacenamiento (GB)</Label>
+            <Input
+              type="number"
+              name="almacenamiento"
+              value={efecto.almacenamiento}
+              placeholder="Almacenamiento (GB)"
+              onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value })}
+            />
+          </InputContainer>
+        )}
+        {efecto.tipoDeElemento === "pendrive" && (
+          <InputContainer>
+            <Label>Extracción</Label>
+            <Select value={efecto.extraccion} onChange={(e) => setEfecto({ ...efecto, extraccion: e.target.value })}>
+              <SelectOpt value="">Extracción</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
         <InputContainer>
-          <Label>Herramienta Software</Label>
-          <Select
-            value={efecto.herramientaSoft}
-            onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}
-          >
-            <SelectOpt value="">Herramienta Software</SelectOpt>
-            <SelectOpt value="ninguna">Ninguna</SelectOpt>
-            <SelectOpt value="UFED">UFED</SelectOpt>
+          <Label>Estado</Label>
+          <Select value={efecto.estado} onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}>
+            <SelectOpt value="">Estado</SelectOpt>
+            <SelectOpt value="completo">Completo</SelectOpt>
+            <SelectOpt value="en proceso">En Proceso</SelectOpt>
           </Select>
         </InputContainer>
-        <InputContainer>
-          <Label>Tipo de Extracción</Label>
-          <Select
-            value={efecto.tipoExtraccion}
-            onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}
-          >
-            <SelectOpt value="">Tipo de Extracción</SelectOpt>
-            <SelectOpt value="ninguna">Ninguna</SelectOpt>
-            <SelectOpt value="fisica">Fisica</SelectOpt>
-            <SelectOpt value="logica">Logica</SelectOpt>
-            <SelectOpt value="fisica y logica">Ambas</SelectOpt>
-          </Select>
-        </InputContainer>
-        <InputContainer style={{ flexDirection: "column", flex: 1.5 }}>
+        {/* <InputContainer style={{ flexDirection: "column", flex: 1.5 }}>
           <TextArea
             placeholder="Descripción Tarea"
             value={efecto.descripcionTarea}
             onChange={(e) => setEfecto({ ...efecto, descripcionTarea: e.target.value })}
           />
-        </InputContainer>
+        </InputContainer> */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
           <Button type="submit" value="Cargar Elemento" complete={"true"} />
           {efecto.tipoDeElemento === "celular" && (
@@ -442,16 +474,16 @@ const Select = styled.select`
 
 const SelectOpt = styled.option``;
 
-const TextArea = styled.textarea`
-  ${input}
-  font-size: medium;
-  flex: 1;
-  max-height: 100%;
-  min-height: 100%;
-  max-width: 100%;
-  min-width: 100%;
-  text-align: center;
-`;
+// const TextArea = styled.textarea`
+//   ${input}
+//   font-size: medium;
+//   flex: 1;
+//   max-height: 100%;
+//   min-height: 100%;
+//   max-width: 100%;
+//   min-width: 100%;
+//   text-align: center;
+// `;
 
 const Button = styled.input`
   ${button}
