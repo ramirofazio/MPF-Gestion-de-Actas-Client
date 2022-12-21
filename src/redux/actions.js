@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 export const GET_ACTAS = "GET_ACTAS";
 export const GET_ACTAS_FILTERED = "GET_ACTAS_FILTERED";
 export const CREATE_ACTA = "CREATE_ACTA";
+export const CREATE_PERITOS = "CREATE_PERITOS";
 export const CREATE_INTEGRANTES = "CREATE_INTEGRANTES";
 export const CREATE_BOLSAS = "CREATE_BOLSAS";
 export const CREATE_EFECTOS = "CREATE_EFECTOS";
@@ -63,6 +64,26 @@ export function createActa(state, flag, navigate) {
   };
 }
 
+export function createPeritos(peritos, navigate) {
+  localStorage.setItem("peritos", JSON.stringify(peritos));
+
+  return function (dispatch) {
+    axios
+      .post(Variables.baseEndpoint + "/addPeritos", peritos)
+      .then((res) => {
+        if (res.status === 200) navigate("/actas/crear/3");
+        toast.success("Peritos creados con exito!");
+        return dispatch({
+          type: CREATE_PERITOS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
 export function createIntegrantes(integrantes, navigate) {
   localStorage.setItem("integrantes", JSON.stringify(integrantes));
 
@@ -70,7 +91,7 @@ export function createIntegrantes(integrantes, navigate) {
     axios
       .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
       .then((res) => {
-        if (res.status === 200) navigate("/actas/crear/3");
+        if (res.status === 200) navigate("/actas/crear/4");
         toast.success("Suscriptores creados con exito!");
         return dispatch({
           type: CREATE_INTEGRANTES,
@@ -141,6 +162,19 @@ export function updateActa(observaciones, id, navigate) {
         toast.success(`Acta ${res.data.id} cerrada con exito!`);
         localStorage.setItem("finalActa", JSON.stringify(res.data));
         generateDoc();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+export function removePerito(dni) {
+  return function () {
+    axios
+      .delete(Variables.baseEndpoint + "/removePerito/" + dni)
+      .then((res) => {
+        if (res.status === 200) toast.success("Perito eliminado con exito!");
       })
       .catch((err) => {
         console.log(err);

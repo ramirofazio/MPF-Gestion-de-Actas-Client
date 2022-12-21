@@ -9,6 +9,7 @@ import NotFound from "./Components/Utils/NotFound";
 const Home = lazy(() => import("./Components/Actas/Home"));
 const AddActa = lazy(() => import("./Components/Actas/Pages/AddActa"));
 const AddIntegrantes = lazy(() => import("./Components/Actas/Pages/AddIntegrantes"));
+const AddPeritos = lazy(() => import("./Components/Actas/Pages/AddPeritos"));
 const AddBolsas = lazy(() => import("./Components/Actas/Pages/AddBolsas"));
 //* Consultas
 const Consultas = lazy(() => import("./Components/Consultas/Consultas"));
@@ -32,8 +33,9 @@ function App() {
           {/*Router Actas*/}
           <Route path="/" exact element={<Home />} />
           <Route path="/actas/crear/1" exact element={<AddActa />} />
-          <Route path="/actas/crear/2" exact element={<AddIntegrantes />} />
-          <Route path="/actas/crear/3" exact element={<AddBolsas />} />
+          <Route path="/actas/crear/2" exact element={<AddPeritos />} />
+          <Route path="/actas/crear/3" exact element={<AddIntegrantes />} />
+          <Route path="/actas/crear/4" exact element={<AddBolsas />} />
           {/*Router Consultas*/}
           <Route path="/consultas" exact element={<Consultas />} />
           <Route path="/consultas/todas" exact element={<Todas />} />
