@@ -106,7 +106,7 @@ function AddBolsas() {
         <Form onSubmit={handleSubmitBolsa}>
           <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
             <InputContainer>
-              <Label>Color del Precinto</Label>
+              <Label>Precinto de Apertura</Label>
               <Select
                 value={bolsa.colorPrecinto}
                 onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}
