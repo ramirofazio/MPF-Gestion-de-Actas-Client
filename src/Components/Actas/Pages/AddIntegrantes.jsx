@@ -74,7 +74,7 @@ function AddIntegrantes() {
   return (
     <Container>
       <Header>
-        <Title>Creación de Suscriptores</Title>
+        <Title>Creación de Integrantes</Title>
       </Header>
       <SubContainer>
         <FormContainer>
@@ -159,7 +159,7 @@ function AddIntegrantes() {
       </SubContainer>
 
       {!localStorage.getItem("integrantes") ? (
-        <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
+        <Button complete={"true"} onClick={() => handleNext()}>
           Siguente
         </Button>
       ) : (

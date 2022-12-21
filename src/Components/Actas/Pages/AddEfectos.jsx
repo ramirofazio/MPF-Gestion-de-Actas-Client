@@ -105,15 +105,15 @@ function AddEfectos({ closeModal }) {
     toast.success("Disco Guardado con Exito!");
   };
 
-  // const handleComplete = () => {
-  //   const { bolsa_id, tipoDeElemento, marca, estado, herramientaSoft, tipoExtraccion, descripcionTarea } = efecto;
+  const handleComplete = () => {
+    const { bolsa_id, tipoDeElemento, estado } = efecto;
 
-  //   if (bolsa_id && tipoDeElemento && marca && estado && herramientaSoft && tipoExtraccion && descripcionTarea) {
-  //     return "true";
-  //   } else {
-  //     return "false";
-  //   }
-  // };
+    if (bolsa_id && tipoDeElemento && estado) {
+      return "true";
+    } else {
+      return "false";
+    }
+  };
 
   const handleOptButtonClick = (e) => {
     e.preventDefault();
@@ -313,7 +313,7 @@ function AddEfectos({ closeModal }) {
           />
         </InputContainer> */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
-          <Button type="submit" value="Cargar Elemento" complete={"true"} />
+          <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
           {efecto.tipoDeElemento === "celular" && (
             <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">
               Agregar SIM
