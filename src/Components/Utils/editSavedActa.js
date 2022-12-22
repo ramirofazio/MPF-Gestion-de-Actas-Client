@@ -13,6 +13,7 @@ const editSavedActa = async (actaId, navigate) => {
 
       localStorage.setItem("currentActa", JSON.stringify(res.data));
       localStorage.setItem("integrantes", JSON.stringify(res.data.Integrantes));
+      localStorage.setItem("peritos", JSON.stringify(res.data.Peritos));
       localStorage.setItem("currentBolsas", JSON.stringify(res.data.Bolsas));
       if (res.data.Bolsas) {
         res.data.Bolsas.map((bolsa) => {
@@ -21,7 +22,7 @@ const editSavedActa = async (actaId, navigate) => {
             if (localEfectos) {
               localStorage.setItem("currentEfectos", JSON.stringify([localEfectos, efecto]));
             } else {
-              localStorage.setItem("currentEfectos", JSON.stringify(efecto));
+              localStorage.setItem("currentEfectos", JSON.stringify([efecto]));
             }
           });
         });
