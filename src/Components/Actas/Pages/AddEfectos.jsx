@@ -52,9 +52,9 @@ function AddEfectos({ closeModal }) {
     sistemaOperativo: "",
     tipoSeguridad: "",
     desbloqueo: "",
-    herramientaSoft: "",
+    //herramientaSoft: "",
     tipoExtraccion: "",
-    descripcionTarea: "",
+    //descripcionTarea: "",
     extraccion: "",
     almacenamiento: "",
   });
@@ -237,17 +237,24 @@ function AddEfectos({ closeModal }) {
             </Select>
           </InputContainer>
         )}
-        {efecto.tipoSeguridad === "ninguna" || efecto.tipoSeguridad === "" ? null : (
-          <InputContainer>
-            <Label>¿Desbloqueo?</Label>
-            <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
-              <SelectOpt value="">Desbloqueo</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
-        {efecto.tipoDeElemento !== "pendrive" && (
+        {efecto.tipoDeElemento === ""
+          ? null
+          : efecto.tipoDeElemento !== "pendrive" &&
+            efecto.tipoSeguridad !== "ninguna" &&
+            efecto.tipoSeguridad !== "" && (
+              <InputContainer>
+                <Label>¿Desbloqueo?</Label>
+                <Select
+                  value={efecto.desbloqueo}
+                  onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}
+                >
+                  <SelectOpt value="">Desbloqueo</SelectOpt>
+                  <SelectOpt value="si">Si</SelectOpt>
+                  <SelectOpt value="no">No</SelectOpt>
+                </Select>
+              </InputContainer>
+            )}
+        {/* {efecto.tipoDeElemento !== "pendrive" && (
           <InputContainer>
             <Label>Herramienta Software</Label>
             <Select
@@ -259,8 +266,8 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="UFED">UFED</SelectOpt>
             </Select>
           </InputContainer>
-        )}
-        {efecto.tipoDeElemento !== "pendrive" && (
+        )} */}
+        {efecto.tipoDeElemento !== "pendrive" && efecto.tipoSeguridad === "ninguna" ? (
           <InputContainer>
             <Label>Tipo de Extracción</Label>
             <Select
@@ -274,6 +281,23 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>
+        ) : (
+          efecto.tipoDeElemento !== "pendrive" &&
+          efecto.desbloqueo === "si" && (
+            <InputContainer>
+              <Label>Tipo de Extracción</Label>
+              <Select
+                value={efecto.tipoExtraccion}
+                onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}
+              >
+                <SelectOpt value="">Tipo de Extracción</SelectOpt>
+                <SelectOpt value="ninguna">Ninguna</SelectOpt>
+                <SelectOpt value="fisica">Fisica</SelectOpt>
+                <SelectOpt value="logica">Logica</SelectOpt>
+                <SelectOpt value="fisica y logica">Ambas</SelectOpt>
+              </Select>
+            </InputContainer>
+          )
         )}
         {efecto.tipoDeElemento === "pendrive" && (
           <InputContainer>
