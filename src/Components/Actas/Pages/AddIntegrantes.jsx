@@ -159,7 +159,7 @@ function AddIntegrantes() {
       </SubContainer>
 
       {!localStorage.getItem("integrantes") ? (
-        <Button complete={"true"} onClick={() => handleNext()}>
+        <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
           Siguente
         </Button>
       ) : (
