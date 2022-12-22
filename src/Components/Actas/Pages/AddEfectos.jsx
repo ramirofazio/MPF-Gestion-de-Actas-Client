@@ -57,6 +57,7 @@ function AddEfectos({ closeModal }) {
     //descripcionTarea: "",
     extraccion: "",
     almacenamiento: "",
+    serialNumber: "",
   });
 
   const [discos, setDiscos] = React.useState([]);
@@ -65,6 +66,7 @@ function AddEfectos({ closeModal }) {
     marca: "",
     modelo: "",
     almacenamiento: "",
+    serialNumber: "",
   });
 
   const [sims, setSims] = React.useState([]);
@@ -89,6 +91,7 @@ function AddEfectos({ closeModal }) {
       marca: "",
       modelo: "",
       almacenamiento: "",
+      serialNumber: "",
     });
     toast.success("Disco Guardado con Exito!");
   };
@@ -198,6 +201,18 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
         )}
+        {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pendrive") && (
+          <InputContainer>
+            <Label>Serial Nº</Label>
+            <Input
+              type="text"
+              name="serialNumber"
+              value={efecto.serialNumber}
+              placeholder="Serial Nº"
+              onChange={(e) => setEfecto({ ...efecto, serialNumber: e.target.value })}
+            />
+          </InputContainer>
+        )}
         {/* <InputContainer>
             <Label>IMEI 2</Label>
             <Input
@@ -254,7 +269,7 @@ function AddEfectos({ closeModal }) {
                 </Select>
               </InputContainer>
             )}
-        {/* {efecto.tipoDeElemento !== "pendrive" && (
+        {efecto.tipoDeElemento !== "pendrive" && (
           <InputContainer>
             <Label>Herramienta Software</Label>
             <Select
@@ -266,7 +281,7 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="UFED">UFED</SelectOpt>
             </Select>
           </InputContainer>
-        )} */}
+        )}
         {efecto.tipoDeElemento !== "pendrive" && efecto.tipoSeguridad === "ninguna" ? (
           <InputContainer>
             <Label>Tipo de Extracción</Label>
@@ -387,6 +402,16 @@ function AddEfectos({ closeModal }) {
               value={disco.Modelo}
               placeholder="Modelo"
               onChange={(e) => setDisco({ ...disco, modelo: e.target.value })}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Serial Nº</Label>
+            <Input
+              type="text"
+              name="serialNumber"
+              value={disco.serialNumber}
+              placeholder="Serial Nº"
+              onChange={(e) => setDisco({ ...disco, serialNumber: e.target.value })}
             />
           </InputContainer>
           <InputContainer>
