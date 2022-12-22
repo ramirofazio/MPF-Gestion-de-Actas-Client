@@ -4,6 +4,7 @@ import PizZipUtils from "pizzip/utils/index.js";
 import { saveAs } from "file-saver";
 import expressions from "angular-expressions";
 import { assign } from "lodash";
+import { toast } from "react-toastify";
 
 import template from "../../Assets/template.docx";
 
@@ -27,6 +28,10 @@ function generateDoc() {
        */
     });
   });
+
+  if (Bolsas.length === 0 || Peritos.length === 0 || Integrantes.length === 0) {
+    return toast.warning("¡Faltan datos para poder imprimir el Acta!");
+  }
 
   function loadFile(url, callback) {
     PizZipUtils.getBinaryContent(url, callback);
