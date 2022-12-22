@@ -167,7 +167,7 @@ function AddIntegrantes() {
           <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
             Volver a Crear
           </Button>
-          <Button to={"/actas/crear/3"} complete={integrantes.length >= "1" ? "true" : "false"}>
+          <Button to={"/actas/crear/4"} complete={integrantes.length >= "1" ? "true" : "false"}>
             Continuar Asi
           </Button>
         </div>
