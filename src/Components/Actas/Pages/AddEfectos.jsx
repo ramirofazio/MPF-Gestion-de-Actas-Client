@@ -40,6 +40,7 @@ function AddEfectos({ closeModal }) {
 
   const [addDiscosModal, setAddDiscosModal] = React.useState(false);
   const [addSimModal, setAddSimModal] = React.useState(false);
+  const [addSdModal, setAddSdModal] = React.useState(false);
 
   const [efecto, setEfecto] = React.useState({
     bolsa_id: "",
@@ -76,9 +77,16 @@ function AddEfectos({ closeModal }) {
     tipoExtraccionSim: "",
   });
 
+  const [sds, setSds] = React.useState([]);
+  const [sd, setSd] = React.useState({
+    marca: "",
+    modelo: "",
+    almacenamiento: "",
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createEfecto(efecto, discos, sims));
+    dispatch(createEfecto(efecto, discos, sims, sds));
     closeModal();
   };
 
@@ -108,6 +116,18 @@ function AddEfectos({ closeModal }) {
     toast.success("Disco Guardado con Exito!");
   };
 
+  const handleSdSubmit = (e) => {
+    e.preventDefault();
+    setAddSdModal(false);
+    setSds([...sds, sd]);
+    setSd({
+      marca: "",
+      modelo: "",
+      almacenamiento: "",
+    });
+    toast.success("SD Guardada con Exito!");
+  };
+
   const handleComplete = () => {
     const { bolsa_id, tipoDeElemento, estado } = efecto;
 
@@ -127,6 +147,10 @@ function AddEfectos({ closeModal }) {
       }
       case "discos": {
         setAddDiscosModal(true);
+        break;
+      }
+      case "sd": {
+        setAddSdModal(true);
         break;
       }
       default: {
@@ -354,9 +378,24 @@ function AddEfectos({ closeModal }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
           <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
           {efecto.tipoDeElemento === "celular" && (
-            <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">
-              Agregar SIM
-            </OptButton>
+            <>
+              <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">
+                Agregar SIM
+              </OptButton>
+              <OptButton onClick={(e) => handleOptButtonClick(e)} value="sd">
+                Agregar SD
+              </OptButton>
+            </>
+          )}
+          {efecto.tipoDeElemento === "tablet" && (
+            <>
+              <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">
+                Agregar SIM
+              </OptButton>
+              <OptButton onClick={(e) => handleOptButtonClick(e)} value="sd">
+                Agregar SD
+              </OptButton>
+            </>
           )}
           {efecto.tipoDeElemento === "notebook" && (
             <OptButton onClick={(e) => handleOptButtonClick(e)} value="discos">
@@ -465,6 +504,43 @@ function AddEfectos({ closeModal }) {
             </Select>
           </InputContainer>
           <Button type="submit" value="Agregar Sim" complete={"true"} />
+        </Form>
+      </Modal>
+      <Modal isOpen={addSdModal} style={addModalStyle} ariaHideApp={false}>
+        <CloseIcon onClick={() => setAddSdModal(!addSdModal)} />
+        <Form onSubmit={handleSdSubmit}>
+          <Title>Agregar SD</Title>
+          <InputContainer>
+            <Label>Marca</Label>
+            <Input
+              type="text"
+              name="marca"
+              value={sd.marca}
+              placeholder="Marca"
+              onChange={(e) => setSd({ ...sd, marca: e.target.value })}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Modelo</Label>
+            <Input
+              type="text"
+              name="modelo"
+              value={sd.modelo}
+              placeholder="Modelo"
+              onChange={(e) => setSd({ ...sd, modelo: e.target.value })}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Almacenamiento (GB)</Label>
+            <Input
+              type="number"
+              name="almacenamiento"
+              value={sd.almacenamiento}
+              placeholder="Almacenamient (GB)"
+              onChange={(e) => setSd({ ...sd, almacenamiento: e.target.value })}
+            />
+          </InputContainer>
+          <Button type="submit" value="Agregar SD" complete={"true"} />
         </Form>
       </Modal>
     </>

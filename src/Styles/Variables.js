@@ -9,7 +9,7 @@ const Variables = {
   redColor: "#a84f4f",
   grayDisableColor: "#4E696340",
   //* config
-  baseEndpoint: "http://10.190.12.72:3001",
+  baseEndpoint: "http://localhost:3001",
 };
 
 export default Variables;
