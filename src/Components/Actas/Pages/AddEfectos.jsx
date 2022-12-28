@@ -293,19 +293,7 @@ function AddEfectos({ closeModal }) {
                 </Select>
               </InputContainer>
             )}
-        {efecto.tipoDeElemento !== "pendrive" && (
-          <InputContainer>
-            <Label>Herramienta Software</Label>
-            <Select
-              value={efecto.herramientaSoft}
-              onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}
-            >
-              <SelectOpt value="">Herramienta Software</SelectOpt>
-              <SelectOpt value="ninguna">Ninguna</SelectOpt>
-              <SelectOpt value="UFED">UFED</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
+
         {efecto.tipoDeElemento !== "pendrive" && efecto.tipoSeguridad === "ninguna" ? (
           <InputContainer>
             <Label>Tipo de Extracción</Label>
@@ -338,6 +326,23 @@ function AddEfectos({ closeModal }) {
             </InputContainer>
           )
         )}
+        {efecto.tipoDeElemento === ""
+          ? null
+          : efecto.tipoDeElemento !== "pendrive" &&
+            efecto.tipoExtraccion !== "" &&
+            efecto.tipoExtraccion !== "ninguna" && (
+              <InputContainer>
+                <Label>Herramienta Software</Label>
+                <Select
+                  value={efecto.herramientaSoft}
+                  onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}
+                >
+                  <SelectOpt value="">Herramienta Software</SelectOpt>
+                  <SelectOpt value="ninguna">Ninguna</SelectOpt>
+                  <SelectOpt value="UFED">UFED</SelectOpt>
+                </Select>
+              </InputContainer>
+            )}
         {efecto.tipoDeElemento === "pendrive" && (
           <InputContainer>
             <Label>Almacenamiento (GB)</Label>
