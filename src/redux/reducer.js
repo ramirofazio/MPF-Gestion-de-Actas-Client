@@ -20,6 +20,7 @@ let initialState = {
   currentBolsas: JSON.parse(localStorage.getItem("currentBolsas")) || [],
   currentEfectos: JSON.parse(localStorage.getItem("currentEfectos")) || [],
   bugsReports: [],
+  updatedCurrentActa: [],
 };
 
 function reducer(state = initialState, action) {
@@ -90,10 +91,12 @@ function reducer(state = initialState, action) {
     }
 
     case GET_ACTAS: {
+      const updatedCurrentActa = action.payload.find((a) => a.nro_mpf === state.currentActa.nro_mpf);
       return {
         ...state,
         allActas: action.payload,
         allActasSave: action.payload,
+        updatedCurrentActa: updatedCurrentActa,
       };
     }
 

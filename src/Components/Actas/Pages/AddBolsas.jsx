@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { createBolsas } from "../../../redux/actions";
+import { createBolsas, getAllActas } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
@@ -13,6 +13,9 @@ import { UDisk } from "@styled-icons/remix-line/UDisk";
 import { PcDisplay } from "@styled-icons/bootstrap/PcDisplay";
 import { Tablet } from "@styled-icons/entypo/Tablet";
 import { Computer } from "@styled-icons/material-outlined/Computer";
+import { DeviceHddFill } from "@styled-icons/bootstrap/DeviceHddFill";
+import { SimFill } from "@styled-icons/bootstrap/SimFill";
+import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 //* Modal
 import Modal from "react-modal";
 //* Components
@@ -66,9 +69,11 @@ function AddBolsas() {
   const currentActa = useSelector((s) => s?.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s?.currentEfectos);
+  const updatedCurrentActa = useSelector((s) => s?.updatedCurrentActa);
 
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
   const [closeModal, setCloseModal] = React.useState(false);
+  const [efectosToRender, setEfectosToRender] = React.useState([]);
 
   const [bolsa, setBolsa] = React.useState({
     acta_id: currentActa.id,
@@ -76,6 +81,16 @@ function AddBolsas() {
     nroPrecinto: "",
     observaciones: "un sobre, papel madera cerrado",
   });
+
+  //! REVISAR ESTO, TIENE QUE ACTUALIZARSE CADA VEZ QUE SE CARGA UN EFECTO EN LA DB
+  React.useEffect(() => {
+    dispatch(getAllActas());
+
+    const efectos = updatedCurrentActa?.Bolsas?.map((e) => e.Efectos);
+    if (efectos) {
+      setEfectosToRender(efectos[0]);
+    }
+  }, []);
 
   const handleSubmitBolsa = (e) => {
     e.preventDefault();
@@ -188,7 +203,7 @@ function AddBolsas() {
         </BolsasContainer>
       </FormContainer>
       <EfectosContainer>
-        {currentEfectos.map((efecto) => {
+        {efectosToRender?.map((efecto) => {
           let nroPrecintoBolsa;
           let colorPrecintoBolsa;
           currentBolsas.map((b) =>
@@ -223,6 +238,11 @@ function AddBolsas() {
                 <CardTitle>Estado</CardTitle>
                 <br />
                 {efecto.estado}
+              </Info>
+              <Info style={{ flex: 0.5, marginRight: "10px" }}>
+                {efecto.Sims.length > 0 && <SimIcon />}
+                {efecto.Discos.length > 0 && <DiscoIcon />}
+                {efecto.Sds.length > 0 && <SdIcon />}
               </Info>
             </EfectoContainer>
           );
@@ -435,6 +455,20 @@ const TabletIcon = styled(Tablet)`
   color: ${secondaryColor};
 `;
 const PendriveIcon = styled(UDisk)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+
+const SdIcon = styled(SdCardMini)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+const DiscoIcon = styled(DeviceHddFill)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+
+const SimIcon = styled(SimFill)`
   width: 25px;
   color: ${secondaryColor};
 `;
