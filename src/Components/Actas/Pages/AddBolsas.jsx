@@ -2,27 +2,20 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { createBolsas, getAllActas } from "../../../redux/actions";
+import { createBolsas } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { Close } from "@styled-icons/ionicons-outline/Close";
-import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
-import { UDisk } from "@styled-icons/remix-line/UDisk";
-import { PcDisplay } from "@styled-icons/bootstrap/PcDisplay";
-import { Tablet } from "@styled-icons/entypo/Tablet";
-import { Computer } from "@styled-icons/material-outlined/Computer";
-import { DeviceHddFill } from "@styled-icons/bootstrap/DeviceHddFill";
-import { SimFill } from "@styled-icons/bootstrap/SimFill";
-import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 //* Modal
 import Modal from "react-modal";
 //* Components
 import AddEfectos from "./AddEfectos";
 import CloseModal from "./CloseModal";
+import CreateEfectosCards from "../../Utils/CreateEfectosCards";
 //* Initializations
-const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
+const { redColor, greenColor, principalColor, secondaryColor } = Variables;
 const {
   select,
   input,
@@ -34,8 +27,8 @@ const {
   headerTitle,
   formContainer,
   button,
-  cardTitle,
   cardInfo,
+  cardTitle,
 } = GlobalStyles;
 const addEfectosModalStyles = {
   content: {
@@ -69,11 +62,9 @@ function AddBolsas() {
   const currentActa = useSelector((s) => s?.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s?.currentEfectos);
-  const updatedCurrentActa = useSelector((s) => s?.updatedCurrentActa);
 
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
   const [closeModal, setCloseModal] = React.useState(false);
-  const [efectosToRender, setEfectosToRender] = React.useState([]);
 
   const [bolsa, setBolsa] = React.useState({
     acta_id: currentActa.id,
@@ -81,16 +72,6 @@ function AddBolsas() {
     nroPrecinto: "",
     observaciones: "un sobre, papel madera cerrado",
   });
-
-  //! REVISAR ESTO, TIENE QUE ACTUALIZARSE CADA VEZ QUE SE CARGA UN EFECTO EN LA DB
-  React.useEffect(() => {
-    dispatch(getAllActas());
-
-    const efectos = updatedCurrentActa?.Bolsas?.map((e) => e.Efectos);
-    if (efectos) {
-      setEfectosToRender(efectos[0]);
-    }
-  }, []);
 
   const handleSubmitBolsa = (e) => {
     e.preventDefault();
@@ -115,29 +96,6 @@ function AddBolsas() {
       });
     });
     return res;
-  };
-
-  const selectIcon = (tipoDeElemento) => {
-    switch (tipoDeElemento) {
-      case "celular": {
-        return <SmartphoneIcon />;
-      }
-      case "tablet": {
-        return <TabletIcon />;
-      }
-      case "pendrive": {
-        return <PendriveIcon />;
-      }
-      case "pc": {
-        return <PcIcon />;
-      }
-      case "notebook": {
-        return <NotebookIcon />;
-      }
-      default: {
-        return;
-      }
-    }
   };
 
   return (
@@ -203,50 +161,10 @@ function AddBolsas() {
         </BolsasContainer>
       </FormContainer>
       <EfectosContainer>
-        {efectosToRender?.map((efecto) => {
-          let nroPrecintoBolsa;
-          let colorPrecintoBolsa;
-          currentBolsas.map((b) =>
-            b.id === efecto.bolsa_id
-              ? (nroPrecintoBolsa = b.nroPrecinto) && (colorPrecintoBolsa = b.colorPrecinto)
-              : null
-          );
-          return (
-            <EfectoContainer key={efecto.id} estado={efecto.estado}>
-              <Info style={{ flex: 0, marginLeft: "10px" }}>{selectIcon(efecto.tipoDeElemento)}</Info>
-              <Info style={colorPrecintoBolsa === "rojo" ? { color: redColor } : { color: greenColor }}>
-                <CardTitle>Bolsa Nro</CardTitle>
-                <br />
-                {nroPrecintoBolsa}
-              </Info>
-              <Info>
-                <CardTitle>Marca</CardTitle>
-                <br />
-                {efecto.marca}
-              </Info>
-              <Info>
-                <CardTitle>Modelo</CardTitle>
-                <br />
-                {efecto.modelo}
-              </Info>
-              <Info>
-                <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
-                <br />
-                {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion}
-              </Info>
-              <Info>
-                <CardTitle>Estado</CardTitle>
-                <br />
-                {efecto.estado}
-              </Info>
-              <Info style={{ flex: 0.5, marginRight: "10px" }}>
-                {efecto.Sims.length > 0 && <SimIcon />}
-                {efecto.Discos.length > 0 && <DiscoIcon />}
-                {efecto.Sds.length > 0 && <SdIcon />}
-              </Info>
-            </EfectoContainer>
-          );
-        })}
+        {currentEfectos &&
+          currentEfectos.map((efecto) => (
+            <CreateEfectosCards efecto={efecto} currentBolsas={currentBolsas} key={efecto.id} />
+          ))}
       </EfectosContainer>
       <Modal isOpen={addEfectosModal} style={addEfectosModalStyles} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
@@ -409,26 +327,6 @@ const Submit = styled.input`
     `}
 `;
 
-const EfectoContainer = styled.div`
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 90%;
-  min-height: 60px;
-  margin-top: 5px;
-  border: 2px solid ${principalColor};
-  border-radius: 5px;
-  transition: all 0.3s ease;
-
-  border: ${(props) =>
-    props.estado === "en proceso"
-      ? `3px solid ${yellowColor}`
-      : props.estado === "completo"
-      ? `3px solid ${greenColor}`
-      : `3px solid ${redColor}`};
-`;
-
 const Info = styled.span`
   ${cardInfo}
 `;
@@ -436,43 +334,3 @@ const Info = styled.span`
 const CardTitle = styled.strong`
   ${cardTitle}
 `;
-
-const SmartphoneIcon = styled(Smartphone)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-
-const NotebookIcon = styled(Computer)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-const PcIcon = styled(PcDisplay)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-const TabletIcon = styled(Tablet)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-const PendriveIcon = styled(UDisk)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-
-const SdIcon = styled(SdCardMini)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-const DiscoIcon = styled(DeviceHddFill)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-
-const SimIcon = styled(SimFill)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-// const Estado = styled.span`
-//   color: ${(props) =>
-//     props.estado === "en proceso" ? yellowColor : props.estado === "completo" ? greenColor : redColor};
-// `;
