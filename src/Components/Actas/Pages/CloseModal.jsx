@@ -134,7 +134,7 @@ function CloseModal({ closeModal }) {
               onChange={(e) => setObservaciones(e.target.value)}
             />
           </InputContainer>
-          <Button type="submit" value="Cerrar Acta" complete={observaciones !== "" ? "true" : "false"} />
+          <Button type="submit" value="Cerrar Acta" complete={"true"} />
         </Form>
       </>
     );
