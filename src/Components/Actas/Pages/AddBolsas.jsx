@@ -8,6 +8,11 @@ import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { Close } from "@styled-icons/ionicons-outline/Close";
+import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
+import { UDisk } from "@styled-icons/remix-line/UDisk";
+import { PcDisplay } from "@styled-icons/bootstrap/PcDisplay";
+import { Tablet } from "@styled-icons/entypo/Tablet";
+import { Computer } from "@styled-icons/material-outlined/Computer";
 //* Modal
 import Modal from "react-modal";
 //* Components
@@ -97,6 +102,29 @@ function AddBolsas() {
     return res;
   };
 
+  const selectIcon = (tipoDeElemento) => {
+    switch (tipoDeElemento) {
+      case "celular": {
+        return <SmartphoneIcon />;
+      }
+      case "tablet": {
+        return <TabletIcon />;
+      }
+      case "pendrive": {
+        return <PendriveIcon />;
+      }
+      case "pc": {
+        return <PcIcon />;
+      }
+      case "notebook": {
+        return <NotebookIcon />;
+      }
+      default: {
+        return;
+      }
+    }
+  };
+
   return (
     <Container>
       <Header>
@@ -170,15 +198,11 @@ function AddBolsas() {
           );
           return (
             <EfectoContainer key={efecto.id} estado={efecto.estado}>
+              <Info style={{ flex: 0, marginLeft: "10px" }}>{selectIcon(efecto.tipoDeElemento)}</Info>
               <Info style={colorPrecintoBolsa === "rojo" ? { color: redColor } : { color: greenColor }}>
                 <CardTitle>Bolsa Nro</CardTitle>
                 <br />
                 {nroPrecintoBolsa}
-              </Info>
-              <Info>
-                <CardTitle>Tipo</CardTitle>
-                <br />
-                {efecto.tipoDeElemento}
               </Info>
               <Info>
                 <CardTitle>Marca</CardTitle>
@@ -191,9 +215,9 @@ function AddBolsas() {
                 {efecto.modelo}
               </Info>
               <Info>
-                <CardTitle>Tipo de Extraccion</CardTitle>
+                <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
                 <br />
-                {efecto.tipoExtraccion}
+                {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion}
               </Info>
               <Info>
                 <CardTitle>Estado</CardTitle>
@@ -393,6 +417,27 @@ const CardTitle = styled.strong`
   ${cardTitle}
 `;
 
+const SmartphoneIcon = styled(Smartphone)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+
+const NotebookIcon = styled(Computer)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+const PcIcon = styled(PcDisplay)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+const TabletIcon = styled(Tablet)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+const PendriveIcon = styled(UDisk)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
 // const Estado = styled.span`
 //   color: ${(props) =>
 //     props.estado === "en proceso" ? yellowColor : props.estado === "completo" ? greenColor : redColor};
