@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //* Components
 import Fallback from "./Components/Utils/Fallback";
-import NavBar from "./Components/Utils/Navbar";
+import NavBar from "./Components/Utils/navBar/NavBar";
 import NotFound from "./Components/Utils/NotFound";
 //* AddActas
 const Home = lazy(() => import("./Components/Actas/Home"));
