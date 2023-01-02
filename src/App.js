@@ -11,9 +11,6 @@ const AddActa = lazy(() => import("./Components/Actas/Pages/AddActa"));
 const AddIntegrantes = lazy(() => import("./Components/Actas/Pages/AddIntegrantes"));
 const AddPeritos = lazy(() => import("./Components/Actas/Pages/AddPeritos"));
 const AddBolsas = lazy(() => import("./Components/Actas/Pages/AddBolsas"));
-//* Consultas
-const ConsultasHome = lazy(() => import("./Components/Consultas/Home"));
-const Todas = lazy(() => import("./Components/Consultas/pages/Todas"));
 //* Admin
 const AdmHome = lazy(() => import("./Components/Admin/Home"));
 const BugsReports = lazy(() => import("./Components/Admin/pages/BugsReports"));
@@ -36,9 +33,6 @@ function App() {
           <Route path="/actas/crear/2" exact element={<AddPeritos />} />
           <Route path="/actas/crear/3" exact element={<AddIntegrantes />} />
           <Route path="/actas/crear/4" exact element={<AddBolsas />} />
-          {/*Router Consultas*/}
-          <Route path="/consultas" exact element={<ConsultasHome />} />
-          <Route path="/consultas/todas" exact element={<Todas />} />
           {/*Admin*/}
           {adminState === true && (
             <>

@@ -5,7 +5,7 @@ import { getAllActas, clearStates } from "../../redux/actions";
 import styled from "styled-components";
 import GlobalStyles from "../../Styles/GlobalStyles";
 //* Utils
-import CreateActasCards from "../Utils/CreateActasCards";
+import ActasCards from "../Utils/actasCards/ActasCards";
 import ActasFilters from "../Utils/filters/ActasFilters";
 //* Initializations
 const { enProcesoContainer, header, headerTitle } = GlobalStyles;
@@ -27,7 +27,7 @@ function Home() {
         <Title>Creación de Actas</Title>
       </Header>
       <ActasFilters />
-      <CreateActasCards allActas={allActas} />
+      <ActasCards allActas={allActas} typeOfActa={"home"} />
     </Container>
   );
 }

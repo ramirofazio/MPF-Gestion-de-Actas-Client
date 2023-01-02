@@ -1,7 +1,6 @@
 import { css } from "styled-components";
 import Variables from "./Variables";
-//* Initializations
-const { principalColor, secondaryColor, baseTransparentColor } = Variables;
+const { principalColor, secondaryColor, greenColor, redColor, baseTransparentColor } = Variables;
 
 const GlobalStyles = {
   container: css`
@@ -166,7 +165,6 @@ const GlobalStyles = {
       border: none;
     }
   `,
-
   //* Cards
   cardsContainer: css`
     display: flex;
@@ -179,8 +177,7 @@ const GlobalStyles = {
     overflow-y: scroll;
     padding-block: 10px;
   `,
-
-  cardContainer: css`
+  actaCardContainer: css`
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -188,13 +185,21 @@ const GlobalStyles = {
     width: 90%;
     min-height: 60px;
     margin-top: 5px;
-    border: 2px solid ${principalColor};
     border-radius: 5px;
+    transition: all 0.3s ease;
+    border: ${(props) =>
+      props.estado === "en proceso"
+        ? `2px solid ${principalColor}`
+        : props.estado === "completo"
+        ? `2px solid ${greenColor}`
+        : `2px solid ${redColor}`};
     transition: all 0.3s ease;
 
     &:hover {
-      min-height: 14%;
+      min-height: 15%;
       background-color: ${baseTransparentColor};
+      background-color: ${(props) =>
+        props.estado === "en proceso" ? "#00647335" : props.estado === "completo" ? "#6aa84f35" : "#a84f4f35"};
     }
   `,
 
@@ -212,6 +217,7 @@ const GlobalStyles = {
     text-decoration: underline;
   `,
 
+  //* Home
   button: css`
     padding: 10px;
     padding-inline: 40px;
@@ -226,28 +232,6 @@ const GlobalStyles = {
       background-color: ${principalColor};
       color: #fff;
       border: 2px solid transparent;
-    }
-  `,
-
-  homeCard: css`
-    flex: 1;
-    display: flex;
-    text-decoration: none;
-    align-items: center;
-    justify-content: space-between;
-    width: 50%;
-    min-height: 10%;
-    max-height: 15%;
-    margin-top: 5px;
-    border-radius: 5px;
-    padding-left: 20px;
-    border: 2px solid ${principalColor};
-    transition: all 0.3s ease;
-
-    &:hover {
-      max-height: 16%;
-      width: 52%;
-      background-color: ${baseTransparentColor};
     }
   `,
 };
