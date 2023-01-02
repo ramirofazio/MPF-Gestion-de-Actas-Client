@@ -12,7 +12,7 @@ const AddIntegrantes = lazy(() => import("./Components/Actas/Pages/AddIntegrante
 const AddPeritos = lazy(() => import("./Components/Actas/Pages/AddPeritos"));
 const AddBolsas = lazy(() => import("./Components/Actas/Pages/AddBolsas"));
 //* Consultas
-const Consultas = lazy(() => import("./Components/Consultas/Consultas"));
+const ConsultasHome = lazy(() => import("./Components/Consultas/Home"));
 const Todas = lazy(() => import("./Components/Consultas/pages/Todas"));
 //* Admin
 const AdmHome = lazy(() => import("./Components/Admin/Home"));
@@ -37,7 +37,7 @@ function App() {
           <Route path="/actas/crear/3" exact element={<AddIntegrantes />} />
           <Route path="/actas/crear/4" exact element={<AddBolsas />} />
           {/*Router Consultas*/}
-          <Route path="/consultas" exact element={<Consultas />} />
+          <Route path="/consultas" exact element={<ConsultasHome />} />
           <Route path="/consultas/todas" exact element={<Todas />} />
           {/*Admin*/}
           {adminState === true && (

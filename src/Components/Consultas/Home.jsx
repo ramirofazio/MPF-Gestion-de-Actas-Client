@@ -40,7 +40,6 @@ const Title = styled.span`
   ${headerTitle}
 `;
 
-
 const CardsContainer = styled.div`
   display: flex;
   flex-direction: column;

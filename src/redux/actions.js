@@ -30,11 +30,11 @@ export function getAllActas() {
   };
 }
 
-export function getActasFiltered(filtros) {
+export function getActasFiltered(filters) {
   return function (dispatch) {
     return dispatch({
       type: GET_ACTAS_FILTERED,
-      payload: filtros,
+      payload: filters,
     });
   };
 }
