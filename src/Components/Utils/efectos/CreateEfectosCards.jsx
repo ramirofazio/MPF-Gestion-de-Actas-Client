@@ -1,8 +1,8 @@
 import React from "react";
 //* Styles
 import styled from "styled-components";
-import GlobalStyles from "../../Styles/GlobalStyles";
-import Variables from "../../Styles/Variables";
+import GlobalStyles from "../../../Styles/GlobalStyles";
+import Variables from "../../../Styles/Variables";
 import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
 import { UDisk } from "@styled-icons/remix-line/UDisk";
 import { PcDisplay } from "@styled-icons/bootstrap/PcDisplay";

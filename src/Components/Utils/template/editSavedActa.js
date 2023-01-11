@@ -1,5 +1,5 @@
 import axios from "axios";
-import Variables from "../../Styles/Variables";
+import Variables from "../../../Styles/Variables";
 
 const editSavedActa = async (actaId, navigate) => {
   try {

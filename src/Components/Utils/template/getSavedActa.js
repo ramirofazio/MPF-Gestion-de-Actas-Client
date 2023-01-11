@@ -1,5 +1,5 @@
 import axios from "axios";
-import Variables from "../../Styles/Variables";
+import Variables from "../../../Styles/Variables";
 import generateDoc from "./generateDoc";
 
 const getSavedActa = async (actaId) => {

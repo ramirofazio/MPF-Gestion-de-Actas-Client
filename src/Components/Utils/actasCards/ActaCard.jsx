@@ -7,8 +7,8 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import { FileDownload } from "@styled-icons/remix-line/FileDownload";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 //* Utils
-import getSavedActa from "../getSavedActa";
-import editSavedActa from "../editSavedActa";
+import getSavedActa from "../template/getSavedActa";
+import editSavedActa from "../template/editSavedActa";
 //* Initialization
 const { secondaryColor } = Variables;
 const { actaCardContainer, cardInfo, cardTitle } = GlobalStyles;

@@ -6,7 +6,7 @@ import expressions from "angular-expressions";
 import { assign } from "lodash";
 import { toast } from "react-toastify";
 
-import template from "../../Assets/template.docx";
+import template from "../../../Assets/template.docx";
 
 function generateDoc() {
   const currentActa = JSON.parse(localStorage.getItem("finalActa")); //* Nos traemos el acta del local storage

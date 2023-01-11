@@ -1,5 +1,5 @@
 import axios from "axios";
-import generateDoc from "../Components/Utils/generateDoc";
+import generateDoc from "../Components/Utils/template/generateDoc";
 import Variables from "../Styles/Variables";
 import { toast } from "react-toastify";
 

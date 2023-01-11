@@ -13,7 +13,7 @@ import Modal from "react-modal";
 //* Components
 import AddEfectos from "./AddEfectos";
 import CloseModal from "./CloseModal";
-import CreateEfectosCards from "../../Utils/CreateEfectosCards";
+import CreateEfectosCards from "../../Utils/efectos/CreateEfectosCards";
 //* Initializations
 const { redColor, greenColor, principalColor, secondaryColor } = Variables;
 const {
