@@ -65,6 +65,7 @@ export function createActa(state, flag, navigate) {
 }
 
 export function createPeritos(peritos, navigate) {
+  console.log(peritos);
   localStorage.setItem("peritos", JSON.stringify(peritos));
 
   return function (dispatch) {

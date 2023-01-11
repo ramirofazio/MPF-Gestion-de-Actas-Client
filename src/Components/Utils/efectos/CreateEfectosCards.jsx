@@ -20,9 +20,12 @@ function CreateEfectosCards({ efecto, currentBolsas }) {
   const [colorPrecintoBolsa, setColorPrecintoBolsa] = React.useState();
 
   React.useEffect(() => {
-    currentBolsas.map(
-      (b) => b.id === efecto.bolsa_id && setNroPrecintoBolsa(b.nroPrecinto) && setColorPrecintoBolsa(b.colorPrecinto)
-    );
+    currentBolsas.map((b) => {
+      if (b.id === efecto.bolsa_id) {
+        setNroPrecintoBolsa(b.nroPrecinto);
+        setColorPrecintoBolsa(b.colorPrecinto);
+      }
+    });
   }, []);
 
   const selectIcon = (tipoDeElemento) => {
@@ -99,12 +102,12 @@ const EfectoContainer = styled.div`
   border-radius: 5px;
   transition: all 0.3s ease;
 
-  border: ${(props) =>
+  border-right: ${(props) =>
     props.estado === "en proceso"
-      ? `3px solid ${yellowColor}`
+      ? `15px solid ${yellowColor}`
       : props.estado === "completo"
-      ? `3px solid ${greenColor}`
-      : `3px solid ${redColor}`};
+      ? `15px solid ${greenColor}`
+      : `15px solid ${redColor}`};
 `;
 
 const Info = styled.span`

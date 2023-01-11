@@ -29,7 +29,7 @@ function AddPeritos() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => s?.currentActa);
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
 
   const [peritos, setPeritos] = React.useState(JSON.parse(localStorage.getItem("peritos")) || []);
   const [perito, setPerito] = React.useState({
@@ -39,6 +39,7 @@ function AddPeritos() {
   });
 
   const handleClick = () => {
+    console.log("entre");
     setPeritos([...peritos, { ...perito, acta_id: currentActa.id }]);
     setPerito({
       nombreYApellido: "",

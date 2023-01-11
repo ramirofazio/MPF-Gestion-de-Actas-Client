@@ -72,10 +72,8 @@ function AddBolsas() {
     let res = "false";
     currentBolsas.map((bolsa) => {
       currentEfectos.map((efecto) => {
-        if (efecto.bolsa_id === bolsa.id) {
+        if (bolsa.id === efecto.bolsa_id) {
           res = "true";
-        } else {
-          res = "false";
         }
       });
     });
