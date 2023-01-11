@@ -10,27 +10,8 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 //* Modal
 import Modal from "react-modal";
 //* Initializations
-const { button, input } = GlobalStyles;
-const { principalColor, secondaryColor, redColor, greenColor } = Variables;
-
-const ModalStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: principalColor,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-    padding: 0,
-    overflowX: "hidden",
-    width: "40%",
-    height: "40%",
-  },
-};
+const { button, input, modal40x40 } = GlobalStyles;
+const { secondaryColor, redColor, greenColor } = Variables;
 
 function CreateBugReport() {
   const dispatch = useDispatch();
@@ -54,7 +35,7 @@ function CreateBugReport() {
   return (
     <>
       <ChatPollIcon onClick={() => setBugReportModal(!bugReportModal)} />
-      <Modal isOpen={bugReportModal} style={ModalStyles} ariaHideApp={false}>
+      <Modal isOpen={bugReportModal} style={modal40x40} ariaHideApp={false}>
         <CloseIcon onClick={() => setBugReportModal(!bugReportModal)} />
         <Form onSubmit={handleBugReport}>
           <Title>Reportar un Bug</Title>

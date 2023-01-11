@@ -29,30 +29,14 @@ const {
   button,
   cardInfo,
   cardTitle,
+  modal40x40,
 } = GlobalStyles;
-const addEfectosModalStyles = {
+
+const modal30x90 = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
+    ...modal40x40.content,
     width: "30%",
     height: "90%",
-    backgroundColor: principalColor,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-    padding: 0,
-    overflowX: "hidden",
-  },
-};
-const CloseModalStyles = {
-  content: {
-    ...addEfectosModalStyles.content,
-    width: "40%",
-    height: "40%",
   },
 };
 
@@ -166,7 +150,7 @@ function AddBolsas() {
             <CreateEfectosCards efecto={efecto} currentBolsas={currentBolsas} key={efecto.id} />
           ))}
       </EfectosContainer>
-      <Modal isOpen={addEfectosModal} style={addEfectosModalStyles} ariaHideApp={false}>
+      <Modal isOpen={addEfectosModal} style={modal30x90} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
         <AddEfectos closeModal={() => setAddEfectosModal(!addEfectosModal)} />
       </Modal>
@@ -181,7 +165,7 @@ function AddBolsas() {
           Cerrar
         </Button>
       </div>
-      <Modal isOpen={closeModal} style={CloseModalStyles} ariaHideApp={false}>
+      <Modal isOpen={closeModal} style={modal40x40} ariaHideApp={false}>
         <CloseIcon onClick={() => setCloseModal(!closeModal)} />
         <CloseModal closeModal={() => setCloseModal(!closeModal)} />
       </Modal>

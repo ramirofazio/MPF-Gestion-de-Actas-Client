@@ -13,27 +13,8 @@ import Modal from "react-modal";
 //* Utils
 import CreateBugReport from "../BugsReport/CreateBugReport";
 //* Initializations
-const { input } = GlobalStyles;
+const { input, modal40x40 } = GlobalStyles;
 const { principalColor, secondaryColor } = Variables;
-
-const ModalStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: principalColor,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-    padding: 0,
-    overflowX: "hidden",
-    width: "40%",
-    height: "40%",
-  },
-};
 
 function NavBar() {
   const navigate = useNavigate();
@@ -73,7 +54,7 @@ function NavBar() {
         <CreateBugReport />
       </Container>
 
-      <Modal isOpen={adminPassModal} style={ModalStyles} ariaHideApp={false}>
+      <Modal isOpen={adminPassModal} style={modal40x40} ariaHideApp={false}>
         <Form onSubmit={handleAdm}>
           <Title onClick={() => setAdminPassModal(!adminPassModal)}>Contraseña Administrador</Title>
           <InputContainer>

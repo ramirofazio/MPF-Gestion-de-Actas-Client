@@ -234,6 +234,24 @@ const GlobalStyles = {
       border: 2px solid transparent;
     }
   `,
+  modal40x40: {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      transform: "translate(-50%, -50%)",
+      backgroundColor: principalColor,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      padding: 0,
+      overflowX: "hidden",
+      width: "40%",
+      height: "40%",
+    },
+  },
 };
 
 export default GlobalStyles;
