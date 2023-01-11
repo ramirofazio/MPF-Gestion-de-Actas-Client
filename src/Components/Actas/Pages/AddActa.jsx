@@ -37,7 +37,7 @@ function AddActa() {
   }, []);
 
   const formatMonth = (month) => {
-    switch (month) {
+    switch (month + 1) {
       case 1: {
         return "Enero";
       }
