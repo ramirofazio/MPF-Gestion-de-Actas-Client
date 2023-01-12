@@ -19,9 +19,11 @@ function ActaCard({ acta }) {
   const [totalEfectos, setTotalEfectos] = React.useState(0);
 
   React.useEffect(() => {
+    let sum = 0;
     acta.Bolsas.map((bolsa) => {
-      setTotalEfectos(totalEfectos + bolsa.Efectos.length);
+      sum += bolsa.Efectos.length;
     });
+    setTotalEfectos(sum);
   }, []);
 
   /*
