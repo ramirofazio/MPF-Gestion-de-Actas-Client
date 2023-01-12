@@ -11,25 +11,14 @@ import { toast } from "react-toastify";
 //* Modal
 import Modal from "react-modal";
 //* Initializations
-const { button, select, input } = GlobalStyles;
+const { button, select, input, modal40x40 } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 
-const addModalStyle = {
+const modal40x50 = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
+    ...modal40x40.content,
     width: "40%",
     height: "50%",
-    backgroundColor: principalColor,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-    padding: 0,
-    overflowX: "hidden",
   },
 };
 
@@ -53,7 +42,7 @@ function AddEfectos({ closeModal }) {
     sistemaOperativo: "",
     tipoSeguridad: "",
     desbloqueo: "",
-    //herramientaSoft: "",
+    herramientaSoft: "",
     tipoExtraccion: "",
     //descripcionTarea: "",
     extraccion: "",
@@ -167,16 +156,15 @@ function AddEfectos({ closeModal }) {
           <Label>Nro Bolsa</Label>
           <Select value={efecto.bolsa_id} onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}>
             <SelectOpt value="">Nro Bolsa</SelectOpt>
-            {currentBolsas.length !== 0 &&
-              currentBolsas.map((b) => (
-                <SelectOpt
-                  value={b.id}
-                  key={b.id}
-                  style={b.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
-                >
-                  {b.nroPrecinto}
-                </SelectOpt>
-              ))}
+            {currentBolsas.map((b) => (
+              <SelectOpt
+                value={b.id}
+                key={b.id}
+                style={b.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
+              >
+                {b.nroPrecinto}
+              </SelectOpt>
+            ))}
           </Select>
         </InputContainer>
         <InputContainer>
@@ -414,7 +402,7 @@ function AddEfectos({ closeModal }) {
           )}
         </div>
       </Form>
-      <Modal isOpen={addDiscosModal} style={addModalStyle} ariaHideApp={false}>
+      <Modal isOpen={addDiscosModal} style={modal40x50} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddDiscosModal(!addDiscosModal)} />
         <Form onSubmit={handleDiscoSubmit}>
           <Title>Agregar Disco</Title>
@@ -471,7 +459,7 @@ function AddEfectos({ closeModal }) {
           <Button type="submit" value="Agregar Disco" complete={"true"} />
         </Form>
       </Modal>
-      <Modal isOpen={addSimModal} style={addModalStyle} ariaHideApp={false}>
+      <Modal isOpen={addSimModal} style={modal40x50} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddSimModal(!addSimModal)} />
         <Form onSubmit={handleSimSubmit}>
           <Title>Agregar SIM</Title>
@@ -511,7 +499,7 @@ function AddEfectos({ closeModal }) {
           <Button type="submit" value="Agregar Sim" complete={"true"} />
         </Form>
       </Modal>
-      <Modal isOpen={addSdModal} style={addModalStyle} ariaHideApp={false}>
+      <Modal isOpen={addSdModal} style={modal40x50} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddSdModal(!addSdModal)} />
         <Form onSubmit={handleSdSubmit}>
           <Title>Agregar SD</Title>
