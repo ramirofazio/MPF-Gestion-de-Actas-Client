@@ -27,7 +27,7 @@ function NavBar() {
 
   const handleAdm = (e) => {
     e.preventDefault();
-    if (adminPass.toLowerCase() === "CIJGIDSI") {
+    if (adminPass.toUpperCase() === "CIJGIDSI") {
       navigate("/admin");
       dispatch(admin());
     }
