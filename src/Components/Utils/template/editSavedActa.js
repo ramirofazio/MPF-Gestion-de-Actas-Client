@@ -2,6 +2,7 @@ import axios from "axios";
 import Variables from "../../../Styles/Variables";
 
 const editSavedActa = async (actaId, navigate) => {
+  localStorage.clear();
   try {
     const res = await axios.get(Variables.baseEndpoint + `/getActas/${actaId}`);
     if (res) {
@@ -17,18 +18,18 @@ const editSavedActa = async (actaId, navigate) => {
       localStorage.setItem("currentBolsas", JSON.stringify(res.data.Bolsas));
       if (res.data.Bolsas) {
         res.data.Bolsas.map((bolsa) => {
-          bolsa.Efectos.map((efecto) => {
-            let localEfectos = JSON.parse(localStorage.getItem("currentEfectos"));
-            if (localEfectos) {
-              localStorage.setItem("currentEfectos", JSON.stringify([localEfectos, efecto]));
-            } else {
-              localStorage.setItem("currentEfectos", JSON.stringify(efecto));
-            }
-          });
+          const localEfectos = JSON.parse(localStorage.getItem("currentEfectos"));
+          if (localEfectos) {
+            localStorage.setItem("currentEfectos", JSON.stringify([...localEfectos, ...bolsa.Efectos]));
+          } else {
+            localStorage.setItem("currentEfectos", JSON.stringify(bolsa.Efectos));
+          }
         });
       }
 
-      navigate("/actas/crear/1");
+      if (navigate) {
+        navigate("/actas/crear/1");
+      }
     }
   } catch (err) {
     console.log(err);
