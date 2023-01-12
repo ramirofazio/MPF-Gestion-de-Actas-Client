@@ -1,4 +1,6 @@
 import axios from "axios";
+//* Utils
+import updateEfectos from "../Components/Utils/efectos/updateEfectos";
 import generateDoc from "../Components/Utils/template/generateDoc";
 import Variables from "../Styles/Variables";
 import { toast } from "react-toastify";
@@ -126,13 +128,12 @@ export function createEfecto(efecto, discos, sims, sds) {
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims, sds })
-      .then((res) => {
+      .then(async () => {
+        await updateEfectos();
         toast.success("Elemento creado con exito!");
-        let response = res.data;
-        response.bolsa_id = efecto.bolsa_id;
         return dispatch({
           type: CREATE_EFECTOS,
-          payload: response,
+          payload: "",
         });
       })
       .catch((err) => {

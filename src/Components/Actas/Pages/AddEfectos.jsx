@@ -25,7 +25,7 @@ const modal40x50 = {
 function AddEfectos({ closeModal }) {
   const dispatch = useDispatch();
 
-  const currentBolsas = useSelector((s) => s?.currentBolsas);
+  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
 
   const [addDiscosModal, setAddDiscosModal] = React.useState(false);
   const [addSimModal, setAddSimModal] = React.useState(false);
