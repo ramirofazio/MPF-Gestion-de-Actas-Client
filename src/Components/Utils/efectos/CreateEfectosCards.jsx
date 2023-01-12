@@ -8,9 +8,9 @@ import { UDisk } from "@styled-icons/remix-line/UDisk";
 import { PcDisplay } from "@styled-icons/bootstrap/PcDisplay";
 import { Tablet } from "@styled-icons/entypo/Tablet";
 import { Computer } from "@styled-icons/material-outlined/Computer";
-// import { DeviceHddFill } from "@styled-icons/bootstrap/DeviceHddFill";
-// import { SimFill } from "@styled-icons/bootstrap/SimFill";
-// import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
+import { DeviceHddFill } from "@styled-icons/bootstrap/DeviceHddFill";
+import { SimFill } from "@styled-icons/bootstrap/SimFill";
+import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 //* Initializations
 const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
 const { cardTitle, cardInfo } = GlobalStyles;
@@ -75,15 +75,15 @@ function CreateEfectosCards({ efecto, currentBolsas }) {
         {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion}
       </Info>
       <Info>
-        <CardTitle>Estado</CardTitle>
+        <CardTitle>Tipo de Seguridad</CardTitle>
         <br />
-        {efecto.estado}
+        {efecto.tipoSeguridad}
       </Info>
-      {/* <Info style={{ flex: 0.5, marginRight: "10px" }}>
-        {efecto.Sims.length > 0 && <SimIcon />}
-        {efecto.Discos.length > 0 && <DiscoIcon />}
-        {efecto.Sds.length > 0 && <SdIcon />}
-      </Info> */}
+      <Info style={{ flex: 0.5, marginRight: "10px" }}>
+        {efecto.Sims.length !== 0 && <SimIcon />}
+        {efecto.Discos.length !== 0 && <DiscoIcon />}
+        {efecto.Sds.length !== 0 && <SdIcon />}
+      </Info>
     </EfectoContainer>
   );
 }
@@ -140,16 +140,16 @@ const PendriveIcon = styled(UDisk)`
   color: ${secondaryColor};
 `;
 
-// const SdIcon = styled(SdCardMini)`
-//   width: 25px;
-//   color: ${secondaryColor};
-// `;
-// const DiscoIcon = styled(DeviceHddFill)`
-//   width: 25px;
-//   color: ${secondaryColor};
-// `;
+const SdIcon = styled(SdCardMini)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+const DiscoIcon = styled(DeviceHddFill)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
 
-// const SimIcon = styled(SimFill)`
-//   width: 25px;
-//   color: ${secondaryColor};
-// `;
+const SimIcon = styled(SimFill)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
