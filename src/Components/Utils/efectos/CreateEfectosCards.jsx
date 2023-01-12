@@ -62,22 +62,22 @@ function CreateEfectosCards({ efecto, currentBolsas }) {
       <Info>
         <CardTitle>Marca</CardTitle>
         <br />
-        {efecto.marca}
+        {efecto.marca || "Ninguna"}
       </Info>
       <Info>
         <CardTitle>Modelo</CardTitle>
         <br />
-        {efecto.modelo}
+        {efecto.modelo || "Ninguna"}
       </Info>
       <Info>
         <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
         <br />
-        {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion}
+        {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion || "Ninguna"}
       </Info>
       <Info>
-        <CardTitle>Tipo de Seguridad</CardTitle>
+        <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Almacenamiento" : "Tipo de Seguridad"}</CardTitle>
         <br />
-        {efecto.tipoSeguridad}
+        {efecto.tipoDeElemento === "pendrive" ? `${efecto.almacenamiento} GB` : efecto.tipoSeguridad}
       </Info>
       <Info style={{ flex: 0.5, marginRight: "10px" }}>
         {efecto.Sims.length !== 0 && <SimIcon />}
