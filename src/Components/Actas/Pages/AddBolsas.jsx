@@ -70,6 +70,16 @@ function AddBolsas() {
 
   const handleCompleteClose = () => {
     let res = "false";
+
+    /*
+      ! Logica filter, filtrar bolsas que no esten cerradas. si existe el array habilitar el boton
+      
+      TODO:  const closedBags = currentBolsas.filter((b) => b.estado === "cerrado");
+      TODO:  if(closedBags) {
+      TODO:   return true;
+      TODO:  }
+    */
+
     currentBolsas.map((bolsa) => {
       currentEfectos.map((efecto) => {
         if (bolsa.id === efecto.bolsa_id) {
