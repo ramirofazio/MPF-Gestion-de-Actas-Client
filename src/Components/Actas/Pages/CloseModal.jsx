@@ -15,8 +15,8 @@ function CloseModal({ closeModal }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const allActasSave = useSelector((s) => s?.allActasSave);
-  const currentActa = useSelector((s) => s?.currentActa);
+  const allActasSave = useSelector((s) => s.allActasSave);
+  const currentActa = useSelector((s) => s.currentActa);
 
   const [inProcess, setInProcess] = React.useState(false);
   const [thisDbActa, setThisDbActa] = React.useState([]);
@@ -37,32 +37,34 @@ function CloseModal({ closeModal }) {
   }, []);
 
   React.useEffect(() => {
-    if (allActasSave) {
-      allActasSave.map((acta) => {
-        if (acta.id === currentActa.id) {
-          setThisDbActa(acta);
-          const bolsasCompletas = acta.Bolsas.filter((bolsa) => {
-            if (bolsa.nroPrecintoBlanco !== null) return;
-            if (bolsa.Efectos.length === 0) return;
-            let sum = 0;
-            bolsa.Efectos.find((ef) => (ef.estado === "completo" ? sum++ : null));
-            if (sum === bolsa.Efectos.length) return bolsa.nroPrecinto;
-          });
-          setBagsToClose(bolsasCompletas);
-        }
-      });
-    }
+    //! Esto no se puede hacer sin tanto bucle??
+    allActasSave.map((acta) => {
+      if (acta.id === currentActa.id) {
+        const bagsCompleted = acta.Bolsas.filter((b) => {
+          //* Filtro los efectos de las bolsas para saber cual esta completa, retorno si no tiene efectos o si ya esta completa y tiene precinto blanco
+          if (b.nroPrecintoBlanco !== null) return;
+          if (b.Efectos.length === 0) return;
+          let sum = 0;
+          b.Efectos.find((ef) => ef.estado === "completo" && sum++);
+          if (sum === b.Efectos.length) return b.nroPrecinto;
+        });
+        setBagsToClose(bagsCompleted);
+        setThisDbActa(acta);
+      }
+    });
   }, [allActasSave, currentActa]);
 
   React.useEffect(() => {
     if (thisDbActa.Bolsas && bagsToClose.length === 0) {
+      //* Si el acta tiene bolsas pero no hay ninguna para cerrar...
       setInProcess(true);
-      const bolsasInProcess = thisDbActa.Bolsas.filter((bolsa) => {
-        if (bolsa.leyenda) return;
-        if (bolsa.Efectos.length === 0) return;
-        if (bolsa.estado === "en proceso") return bolsa;
+      const bagsInProcess = thisDbActa.Bolsas.filter((b) => {
+        //* Filtro las bolsas en proceso, (las que no tienen todos los efectos completos)
+        if (b.leyenda) return;
+        if (b.Efectos.length === 0) return;
+        if (b.estado === "en proceso") return b;
       });
-      setBagsInProcess(bolsasInProcess);
+      setBagsInProcess(bagsInProcess);
     }
   }, [thisDbActa]);
 
@@ -76,6 +78,8 @@ function CloseModal({ closeModal }) {
     e.preventDefault();
     dispatch(updateActa(observaciones, currentActa.id, navigate));
   };
+
+  //! Modularizame esto Rameeeee x favor, 3 componentes distintos, con sus estados y demas...
 
   if (!inProcess) {
     return (
