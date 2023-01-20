@@ -29,7 +29,7 @@ function AddPeritos() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
 
   const [peritos, setPeritos] = React.useState(JSON.parse(localStorage.getItem("peritos")) || []);
   const [perito, setPerito] = React.useState({
@@ -39,7 +39,6 @@ function AddPeritos() {
   });
 
   const handleClick = () => {
-    console.log("entre");
     setPeritos([...peritos, { ...perito, acta_id: currentActa.id }]);
     setPerito({
       nombreYApellido: "",
@@ -142,7 +141,7 @@ function AddPeritos() {
         </IntegrantesContainer>
       </SubContainer>
 
-      {!localStorage.getItem("peritos") ? (
+      {!JSON.parse(localStorage.getItem("peritos")).length ? (
         <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
           Siguente
         </Button>

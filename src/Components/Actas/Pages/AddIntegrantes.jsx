@@ -29,7 +29,7 @@ function AddIntegrantes() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => s?.currentActa);
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
 
   const [integrantes, setIntegrantes] = React.useState(JSON.parse(localStorage.getItem("integrantes")) || []);
   const [integrante, setIntegrante] = React.useState({
@@ -158,7 +158,7 @@ function AddIntegrantes() {
         </IntegrantesContainer>
       </SubContainer>
 
-      {!localStorage.getItem("integrantes") ? (
+      {!JSON.parse(localStorage.getItem("integrantes")).length ? (
         <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
           Siguente
         </Button>
