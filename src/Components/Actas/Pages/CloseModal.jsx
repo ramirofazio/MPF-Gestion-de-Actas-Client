@@ -62,7 +62,7 @@ function CloseModal({ closeModal }) {
         //* Filtro las bolsas en proceso, (las que no tienen todos los efectos completos)
         if (b.leyenda) return;
         if (b.Efectos.length === 0) return;
-        if (b.estado === "en proceso") return b;
+        if (b.estado === "en proceso") return b; //! Estado deprecado
       });
       setBagsInProcess(bagsInProcess);
     }
