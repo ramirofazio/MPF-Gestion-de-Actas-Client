@@ -215,7 +215,7 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
         )}
-        {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pendrive") && (
+        {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pendrive" || efecto.tipoDeElemento === "tablet") && (
           <InputContainer>
             <Label>Serial Nº</Label>
             <Input
