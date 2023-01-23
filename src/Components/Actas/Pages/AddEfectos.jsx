@@ -71,6 +71,7 @@ function AddEfectos({ closeModal }) {
     marca: "",
     modelo: "",
     almacenamiento: "",
+    tipoExtraccionSd: "",
   });
 
   const handleSubmit = (e) => {
@@ -113,6 +114,7 @@ function AddEfectos({ closeModal }) {
       marca: "",
       modelo: "",
       almacenamiento: "",
+      tipoExtraccionSd: "",
     });
     toast.success("SD Guardada con Exito!");
   };
@@ -259,7 +261,7 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="patron">Patron</SelectOpt>
               <SelectOpt value="contraseña">Contraseña</SelectOpt>
-              <SelectOpt value="pin">Pin</SelectOpt>
+              <SelectOpt value="PIN de bloqueo">Pin</SelectOpt>
               <SelectOpt value="huella">Huella</SelectOpt>
             </Select>
           </InputContainer>
@@ -532,6 +534,16 @@ function AddEfectos({ closeModal }) {
               placeholder="Almacenamient (GB)"
               onChange={(e) => setSd({ ...sd, almacenamiento: e.target.value })}
             />
+          </InputContainer>
+          <InputContainer>
+            <Label>Tipo de Extracción</Label>
+            <Select value={sd.tipoExtraccionSd} onChange={(e) => setSd({ ...sd, tipoExtraccionSd: e.target.value })}>
+              <SelectOpt value="">Tipo de Extracción</SelectOpt>
+              <SelectOpt value="ninguna">Ninguna</SelectOpt>
+              <SelectOpt value="fisica">Fisica</SelectOpt>
+              <SelectOpt value="logica">Logica</SelectOpt>
+              <SelectOpt value="fisica y logica">Ambas</SelectOpt>
+            </Select>
           </InputContainer>
           <Button type="submit" value="Agregar SD" complete={"true"} />
         </Form>
