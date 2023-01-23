@@ -8,12 +8,12 @@ const updateEfectos = async () => {
     const res = await axios.get(Variables.baseEndpoint + `/getActas/${actaId}`);
     if (res) {
       const acta = res.data;
-      console.log(acta);
       let efectos = [];
       acta.Bolsas.map((bolsa) => {
         efectos = [...efectos, ...bolsa.Efectos];
       });
       localStorage.setItem("currentEfectos", JSON.stringify(efectos));
+      localStorage.setItem("currentBolsas", JSON.stringify(acta.Bolsas));
     }
   } catch (err) {
     console.log(err);
