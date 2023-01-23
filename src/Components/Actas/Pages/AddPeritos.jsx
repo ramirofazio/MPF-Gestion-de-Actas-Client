@@ -141,7 +141,7 @@ function AddPeritos() {
         </IntegrantesContainer>
       </SubContainer>
 
-      {!JSON.parse(localStorage.getItem("peritos")).length ? (
+      {!JSON.parse(localStorage.getItem("peritos")) ? (
         <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
           Siguente
         </Button>

@@ -158,7 +158,7 @@ function AddIntegrantes() {
         </IntegrantesContainer>
       </SubContainer>
 
-      {!JSON.parse(localStorage.getItem("integrantes")).length ? (
+      {!JSON.parse(localStorage.getItem("integrantes")) ? (
         <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
           Siguente
         </Button>
