@@ -2,13 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getAllActas, updateBolsa, updateActa } from "../../../redux/actions";
+import { updateBolsa, updateActa } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 //* Utils
-import updateBolsas from "../../Utils/bolsas/updateBolsas";
+import editSavedActa from "../../Utils/template/editSavedActa";
 //* Initializations
 const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
@@ -17,11 +17,9 @@ function CloseModal({ closeModal }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const allActasSave = useSelector((s) => s.allActasSave);
-  const currentActa = useSelector((s) => s.currentActa);
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
+  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
 
-  const [inProcess, setInProcess] = React.useState(false);
-  const [thisDbActa, setThisDbActa] = React.useState([]);
   const [bagsInProcess, setBagsInProcess] = React.useState([]);
   const [bagsToClose, setBagsToClose] = React.useState([]);
   const [state, setState] = React.useState({
@@ -35,45 +33,40 @@ function CloseModal({ closeModal }) {
   const [observaciones, setObservaciones] = React.useState("");
 
   React.useEffect(() => {
-    dispatch(getAllActas());
+    return () => {
+      setBagsToClose([]);
+      setBagsInProcess([]);
+    };
   }, []);
 
-  React.useEffect(() => {
-    //! Esto no se puede hacer sin tanto bucle??
-    allActasSave.map((acta) => {
-      if (acta.id === currentActa.id) {
-        const bagsCompleted = acta.Bolsas.filter((b) => {
-          //* Filtro los efectos de las bolsas para saber cual esta completa, retorno si no tiene efectos o si ya esta completa y tiene precinto blanco
-          if (b.nroPrecintoBlanco !== null) return;
-          if (b.Efectos.length === 0) return;
-          let sum = 0;
-          b.Efectos.find((ef) => ef.estado === "completo" && sum++);
-          if (sum === b.Efectos.length) return b.nroPrecinto;
-        });
-        setBagsToClose(bagsCompleted);
-        setThisDbActa(acta);
-      }
+  const getPrecintos = () => {
+    //* Bolsas completas
+    const bagsCompleted = currentBolsas.filter((b) => {
+      if (b.estado === "abierta con efectos completos") return b.nroPrecinto;
     });
-  }, [allActasSave, currentActa]);
+    setBagsToClose(bagsCompleted);
+    //* Bolsas en proceso
+    const bagsInProcess = currentBolsas.filter((b) => {
+      if (b.estado === "abierta con efectos en proceso") return b.nroPrecinto;
+    });
+    setBagsInProcess(bagsInProcess);
+  };
 
   React.useEffect(() => {
-    if (thisDbActa.Bolsas && bagsToClose.length === 0) {
-      //* Si el acta tiene bolsas pero no hay ninguna para cerrar...
-      setInProcess(true);
-      const bagsInProcess = thisDbActa.Bolsas.filter((b) => {
-        //* Filtro las bolsas en proceso, (las que no tienen todos los efectos completos)
-        if (b.leyenda) return;
-        if (b.Efectos.length === 0) return;
-        if (b.estado === "en proceso") return b; //! Estado deprecado
-      });
-      setBagsInProcess(bagsInProcess);
-    }
-  }, [thisDbActa]);
+    getPrecintos();
+  }, [bagsToClose.length === 0 && bagsInProcess.length === 0]);
 
-  const handleSubmit = (e) => {
+  const handleCompleteSubmit = (e) => {
     e.preventDefault();
-    inProcess ? dispatch(updateBolsa(inProcessState)) : dispatch(updateBolsa(state));
-    updateBolsas();
+    dispatch(updateBolsa(state));
+    editSavedActa(currentActa.id); //!
+    closeModal();
+  };
+
+  const handleInProcessSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateBolsa(inProcessState));
+    editSavedActa(currentActa.id); //!
     closeModal();
   };
 
@@ -84,10 +77,10 @@ function CloseModal({ closeModal }) {
 
   //! Modularizame esto Rameeeee x favor, 3 componentes distintos, con sus estados y demas...
 
-  if (!inProcess) {
+  if (bagsToClose.length !== 0) {
     return (
       <>
-        <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form onSubmit={(e) => handleCompleteSubmit(e)}>
           <Title>Cerrar Bolsas</Title>
           <InputContainer>
             <Label>Nro Precinto Bolsa</Label>
@@ -145,10 +138,10 @@ function CloseModal({ closeModal }) {
         </Form>
       </>
     );
-  } else {
+  } else if (bagsInProcess.length !== 0) {
     return (
       <>
-        <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form onSubmit={(e) => handleInProcessSubmit(e)}>
           <Title>Cerrar Bolsa en Proceso</Title>
           <InputContainer>
             <Label>Nro Precinto Bolsa</Label>
