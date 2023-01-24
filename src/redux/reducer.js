@@ -9,6 +9,7 @@ import {
   GET_BUGS_REPORTS,
   CLEAR_STATES,
   ADMIN,
+  CREATE_PERITOS,
 } from "./actions";
 
 let initialState = {
@@ -16,7 +17,8 @@ let initialState = {
   allActas: [],
   allActasSave: [],
   currentActa: JSON.parse(localStorage.getItem("currentActa")) || [],
-  currentIntegrantes: JSON.parse(localStorage.getItem("integrantes")) || [],
+  currentIntegrantes: JSON.parse(localStorage.getItem("currentIntegrantes")) || [],
+  currentPeritos: JSON.parse(localStorage.getItem("currentPeritos")) || [],
   currentBolsas: JSON.parse(localStorage.getItem("currentBolsas")) || [],
   currentEfectos: [] || JSON.parse(localStorage.getItem("currentEfectos")),
   bugsReports: [],
@@ -69,7 +71,18 @@ function reducer(state = initialState, action) {
       };
     }
 
+    case CREATE_PERITOS: {
+      localStorage.setItem("currentPeritos", JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        currentPeritos: action.payload,
+      };
+    }
+
     case CREATE_INTEGRANTES: {
+      localStorage.setItem("currentIntegrantes", JSON.stringify(action.payload));
+
       return {
         ...state,
         currentIntegrantes: action.payload,
@@ -103,10 +116,7 @@ function reducer(state = initialState, action) {
         //* Todos
         actasFiltered = state.allActasSave.filter((acta) => {
           return (
-            acta.estado === estado &&
-            String(acta.nro_mpf).match(mpf) &&
-            String(acta.nro_cij).match(cij) &&
-            String(acta.nro_dil).match(dil)
+            acta.estado === estado && String(acta.nro_mpf).match(mpf) && String(acta.nro_cij).match(cij) && String(acta.nro_dil).match(dil)
           );
         });
       } else if (mpf && cij && dil && !estado) {

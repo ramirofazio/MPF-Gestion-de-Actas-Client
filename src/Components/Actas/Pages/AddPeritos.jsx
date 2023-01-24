@@ -11,34 +11,23 @@ import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
-const {
-  enProcesoContainer,
-  header,
-  headerTitle,
-  button,
-  formContainer,
-  inputContainer,
-  inputLabel,
-  form,
-  input,
-  cardTitle,
-  cardInfo,
-} = GlobalStyles;
+const { enProcesoContainer, header, headerTitle, button, formContainer, inputContainer, inputLabel, form, input, cardTitle, cardInfo } =
+  GlobalStyles;
 
 function AddPeritos() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
+  const currentActa = useSelector((s) => s.currentActa);
 
-  const [peritos, setPeritos] = React.useState(JSON.parse(localStorage.getItem("peritos")) || []);
+  const [peritos, setPeritos] = React.useState(JSON.parse(localStorage.getItem("currentPeritos")) || []);
   const [perito, setPerito] = React.useState({
     nombreYApellido: "",
     dni: "",
     cargo: "",
   });
 
-  const handleClick = () => {
+  const handleAddPerito = () => {
     setPeritos([...peritos, { ...perito, acta_id: currentActa.id }]);
     setPerito({
       nombreYApellido: "",
@@ -65,7 +54,7 @@ function AddPeritos() {
     setPeritos(newPeritos);
   };
 
-  const handleNext = () => {
+  const handleSubmitPeritos = () => {
     dispatch(createPeritos(peritos, navigate));
   };
 
@@ -108,17 +97,17 @@ function AddPeritos() {
               />
             </InputContainer>
           </Form>
-          <AddButton onClick={() => handleClick()} complete={handleComplete()}>
+          <AddButton onClick={() => handleAddPerito()} complete={handleComplete()}>
             <AddIcon />
             Agregar
           </AddButton>
         </FormContainer>
 
-        <IntegrantesContainer>
+        <PeritosContainer>
           {peritos &&
             peritos.map((i, index) => {
               return (
-                <IntegranteContainer key={index}>
+                <PeritoContainer key={index}>
                   <Info>
                     <CardTitle>Nombre y Apellido</CardTitle>
                     <br />
@@ -135,19 +124,19 @@ function AddPeritos() {
                     {i.cargo}
                   </Info>
                   <RemoveIcon onClick={() => handleRemove(i.dni)} />
-                </IntegranteContainer>
+                </PeritoContainer>
               );
             })}
-        </IntegrantesContainer>
+        </PeritosContainer>
       </SubContainer>
 
-      {!JSON.parse(localStorage.getItem("peritos")) ? (
-        <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
+      {!JSON.parse(localStorage.getItem("currentPeritos")) ? (
+        <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()}>
           Siguente
         </Button>
       ) : (
         <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
-          <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
+          <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()}>
             Volver a Crear
           </Button>
           <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
@@ -265,7 +254,7 @@ const SubContainer = styled.div`
   border-top: 2px solid ${principalColor};
 `;
 
-const IntegrantesContainer = styled.div`
+const PeritosContainer = styled.div`
   flex: 1.2;
   display: flex;
   flex-direction: column;
@@ -277,7 +266,7 @@ const IntegrantesContainer = styled.div`
   padding-top: 6%;
 `;
 
-const IntegranteContainer = styled.div`
+const PeritoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;

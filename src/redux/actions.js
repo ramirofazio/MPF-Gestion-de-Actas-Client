@@ -67,15 +67,14 @@ export function createActa(state, flag, navigate) {
 }
 
 export function createPeritos(peritos, navigate) {
-  console.log(peritos);
-  localStorage.setItem("peritos", JSON.stringify(peritos));
-
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + "/addPeritos", peritos)
       .then((res) => {
-        if (res.status === 200) navigate("/actas/crear/3");
-        toast.success("Peritos creados con exito!");
+        if (res.status === 200) {
+          navigate("/actas/crear/3");
+          toast.success("Peritos creados con exito!");
+        }
         return dispatch({
           type: CREATE_PERITOS,
           payload: res.data,
@@ -83,19 +82,20 @@ export function createPeritos(peritos, navigate) {
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error al crear Peritos");
       });
   };
 }
 
 export function createIntegrantes(integrantes, navigate) {
-  localStorage.setItem("integrantes", JSON.stringify(integrantes));
-
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
       .then((res) => {
-        if (res.status === 200) navigate("/actas/crear/4");
-        toast.success("Suscriptores creados con exito!");
+        if (res.status === 200) {
+          navigate("/actas/crear/4");
+          toast.success("Integrantes creados con exito!");
+        }
         return dispatch({
           type: CREATE_INTEGRANTES,
           payload: res.data,
@@ -103,6 +103,7 @@ export function createIntegrantes(integrantes, navigate) {
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error al crear Integrantes");
       });
   };
 }

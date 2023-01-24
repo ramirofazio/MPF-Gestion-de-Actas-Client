@@ -11,27 +11,16 @@ import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
-const {
-  enProcesoContainer,
-  header,
-  headerTitle,
-  button,
-  formContainer,
-  inputContainer,
-  inputLabel,
-  form,
-  input,
-  cardTitle,
-  cardInfo,
-} = GlobalStyles;
+const { enProcesoContainer, header, headerTitle, button, formContainer, inputContainer, inputLabel, form, input, cardTitle, cardInfo } =
+  GlobalStyles;
 
 function AddIntegrantes() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
+  const currentActa = useSelector((s) => s.currentActa);
 
-  const [integrantes, setIntegrantes] = React.useState(JSON.parse(localStorage.getItem("integrantes")) || []);
+  const [integrantes, setIntegrantes] = React.useState(JSON.parse(localStorage.getItem("currentIntegrantes")) || []);
   const [integrante, setIntegrante] = React.useState({
     nombreYApellido: "",
     dni: "",
@@ -158,7 +147,7 @@ function AddIntegrantes() {
         </IntegrantesContainer>
       </SubContainer>
 
-      {!JSON.parse(localStorage.getItem("integrantes")) ? (
+      {!JSON.parse(localStorage.getItem("currentIntegrantes")) ? (
         <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()}>
           Siguente
         </Button>

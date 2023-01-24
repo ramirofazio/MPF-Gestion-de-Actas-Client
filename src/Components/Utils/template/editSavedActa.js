@@ -13,8 +13,8 @@ const editSavedActa = async (actaId, navigate) => {
       }
 
       localStorage.setItem("currentActa", JSON.stringify(res.data));
-      localStorage.setItem("integrantes", JSON.stringify(res.data.Integrantes));
-      localStorage.setItem("peritos", JSON.stringify(res.data.Peritos));
+      localStorage.setItem("currentIntegrantes", JSON.stringify(res.data.Integrantes));
+      localStorage.setItem("currentPeritos", JSON.stringify(res.data.Peritos));
       localStorage.setItem("currentBolsas", JSON.stringify(res.data.Bolsas));
       if (res.data.Bolsas) {
         res.data.Bolsas.map((bolsa) => {
