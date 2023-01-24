@@ -45,8 +45,8 @@ const modal30x90 = {
 function AddBolsas() {
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
-  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
+  const currentActa = useSelector((s) => s.currentActa);
+  const currentBolsas = useSelector((s) => s.currentBolsas);
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s?.currentEfectos);
 
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
@@ -74,9 +74,7 @@ function AddBolsas() {
     let res = "false";
 
     currentBolsas.forEach((b) => {
-      b.estado === "abierta con efectos completos" || b.estado === "abierta con efectos en proceso"
-        ? (res = "true")
-        : (res = "false");
+      b.estado === "abierta con efectos completos" || b.estado === "abierta con efectos en proceso" ? (res = "true") : (res = "false");
     });
 
     currentBolsas.map((b) => {
@@ -106,10 +104,7 @@ function AddBolsas() {
           <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
             <InputContainer>
               <Label>Precinto de Apertura</Label>
-              <Select
-                value={bolsa.colorPrecinto}
-                onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}
-              >
+              <Select value={bolsa.colorPrecinto} onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}>
                 <SelectOpt value="">Color del Precinto</SelectOpt>
                 <SelectOpt value="rojo">Rojo</SelectOpt>
                 <SelectOpt value="verde">Verde</SelectOpt>
@@ -162,9 +157,7 @@ function AddBolsas() {
       </FormContainer>
       <EfectosContainer>
         {currentEfectos &&
-          currentEfectos.map((efecto) => (
-            <CreateEfectosCards efecto={efecto} currentBolsas={currentBolsas} key={efecto.id} />
-          ))}
+          currentEfectos.map((efecto) => <CreateEfectosCards efecto={efecto} currentBolsas={currentBolsas} key={efecto.id} />)}
       </EfectosContainer>
       <Modal isOpen={addEfectosModal} style={modal30x90} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />

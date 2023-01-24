@@ -58,7 +58,6 @@ function reducer(state = initialState, action) {
     }
 
     case CREATE_BOLSAS: {
-      //eslint-disable-next-line
       const localBolsas = JSON.parse(localStorage.getItem("currentBolsas"));
       if (localBolsas) {
         localStorage.setItem("currentBolsas", JSON.stringify([...localBolsas, action.payload]));

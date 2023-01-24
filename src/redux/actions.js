@@ -113,7 +113,9 @@ export function createBolsas(bolsa) {
     axios
       .post(Variables.baseEndpoint + "/addBolsa", bolsa)
       .then((res) => {
-        toast.success(`Bolsa ${res.data.nroPrecinto} creada con exito!`);
+        if (res.status === 200) {
+          toast.success(`Bolsa ${res.data.nroPrecinto} creada con exito!`);
+        }
         return dispatch({
           type: CREATE_BOLSAS,
           payload: res.data,
@@ -121,6 +123,7 @@ export function createBolsas(bolsa) {
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error al crear la bolsa");
       });
   };
 }
