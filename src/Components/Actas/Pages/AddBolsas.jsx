@@ -9,7 +9,7 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { Close } from "@styled-icons/ionicons-outline/Close";
 import { TagLock } from "@styled-icons/fluentui-system-filled/TagLock";
-
+import { LockClosed } from "@styled-icons/fluentui-system-filled/LockClosed";
 //* Modal
 import Modal from "react-modal";
 //* Components
@@ -79,13 +79,18 @@ function AddBolsas() {
         : (res = "false");
     });
 
+    currentBolsas.map((b) => {
+      console.log(b);
+      if (b.estado === "cerrada" || b.estado === "cerrada en proceso") res = "true";
+    });
+
     return res;
   };
 
   const handleCompleteEfectos = () => {
     let res = false;
     currentBolsas.map((b) => {
-      b.estado !== "cerrada" ? (res = "true") : (res = "false");
+      b.estado !== "cerrada" && b.estado !== "cerrada en proceso" ? (res = "true") : (res = "false");
     });
 
     return res;
@@ -149,6 +154,7 @@ function AddBolsas() {
                     {bolsa.nroPrecinto}
                   </Info>
                   {bolsa.estado === "cerrada" && <TagLockIcon />}
+                  {bolsa.estado === "cerrada en proceso" && <LockClosedIcon />}
                 </BolsaContainer>
               );
             })}
@@ -301,6 +307,12 @@ const CloseIcon = styled(Close)`
 `;
 
 const TagLockIcon = styled(TagLock)`
+  width: 6%;
+  margin-right: 5%;
+  color: ${secondaryColor};
+`;
+
+const LockClosedIcon = styled(LockClosed)`
   width: 6%;
   margin-right: 5%;
   color: ${secondaryColor};
