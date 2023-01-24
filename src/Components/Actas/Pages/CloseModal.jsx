@@ -7,6 +7,8 @@ import { getAllActas, updateBolsa, updateActa } from "../../../redux/actions";
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
+//* Utils
+import updateBolsas from "../../Utils/bolsas/updateBolsas";
 //* Initializations
 const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
@@ -71,6 +73,7 @@ function CloseModal({ closeModal }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     inProcess ? dispatch(updateBolsa(inProcessState)) : dispatch(updateBolsa(state));
+    updateBolsas();
     closeModal();
   };
 

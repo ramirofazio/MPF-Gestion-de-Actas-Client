@@ -158,15 +158,19 @@ function AddEfectos({ closeModal }) {
           <Label>Nro Bolsa</Label>
           <Select value={efecto.bolsa_id} onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}>
             <SelectOpt value="">Nro Bolsa</SelectOpt>
-            {currentBolsas.map((b) => (
-              <SelectOpt
-                value={b.id}
-                key={b.id}
-                style={b.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
-              >
-                {b.nroPrecinto}
-              </SelectOpt>
-            ))}
+            {currentBolsas.map((b) => {
+              if (b.estado !== "cerrada") {
+                return (
+                  <SelectOpt
+                    value={b.id}
+                    key={b.id}
+                    style={b.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
+                  >
+                    {b.nroPrecinto}
+                  </SelectOpt>
+                );
+              }
+            })}
           </Select>
         </InputContainer>
         <InputContainer>
@@ -215,7 +219,9 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
         )}
-        {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pendrive" || efecto.tipoDeElemento === "tablet") && (
+        {(efecto.tipoDeElemento === "notebook" ||
+          efecto.tipoDeElemento === "pendrive" ||
+          efecto.tipoDeElemento === "tablet") && (
           <InputContainer>
             <Label>Serial Nº</Label>
             <Input

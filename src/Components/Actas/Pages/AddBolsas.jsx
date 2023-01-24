@@ -8,6 +8,8 @@ import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { Close } from "@styled-icons/ionicons-outline/Close";
+import { TagLock } from "@styled-icons/fluentui-system-filled/TagLock";
+
 //* Modal
 import Modal from "react-modal";
 //* Components
@@ -43,7 +45,7 @@ const modal30x90 = {
 function AddBolsas() {
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => s?.currentActa);
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s?.currentEfectos);
 
@@ -75,6 +77,15 @@ function AddBolsas() {
       b.estado === "abierta con efectos completos" || b.estado === "abierta con efectos en proceso"
         ? (res = "true")
         : (res = "false");
+    });
+
+    return res;
+  };
+
+  const handleCompleteEfectos = () => {
+    let res = false;
+    currentBolsas.map((b) => {
+      b.estado !== "cerrada" ? (res = "true") : (res = "false");
     });
 
     return res;
@@ -137,6 +148,7 @@ function AddBolsas() {
                     <br />
                     {bolsa.nroPrecinto}
                   </Info>
+                  {bolsa.estado === "cerrada" && <TagLockIcon />}
                 </BolsaContainer>
               );
             })}
@@ -153,10 +165,7 @@ function AddBolsas() {
         <AddEfectos closeModal={() => setAddEfectosModal(!addEfectosModal)} />
       </Modal>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        <Button
-          complete={currentBolsas.length !== 0 ? "true" : "false"}
-          onClick={() => setAddEfectosModal(!addEfectosModal)}
-        >
+        <Button complete={handleCompleteEfectos()} onClick={() => setAddEfectosModal(!addEfectosModal)}>
           Añadir Elementos
         </Button>
         <Button onClick={() => setCloseModal(!closeModal)} complete={handleCompleteClose()}>
@@ -289,6 +298,12 @@ const CloseIcon = styled(Close)`
     color: ${secondaryColor};
     cursor: pointer;
   }
+`;
+
+const TagLockIcon = styled(TagLock)`
+  width: 6%;
+  margin-right: 5%;
+  color: ${secondaryColor};
 `;
 
 const Submit = styled.input`
