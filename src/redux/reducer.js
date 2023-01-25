@@ -20,7 +20,7 @@ let initialState = {
   currentIntegrantes: JSON.parse(localStorage.getItem("currentIntegrantes")) || [],
   currentPeritos: JSON.parse(localStorage.getItem("currentPeritos")) || [],
   currentBolsas: JSON.parse(localStorage.getItem("currentBolsas")) || [],
-  currentEfectos: [] || JSON.parse(localStorage.getItem("currentEfectos")),
+  currentEfectos: JSON.parse(localStorage.getItem("currentEfectos")) || [],
   bugsReports: [],
 };
 
@@ -51,9 +51,14 @@ function reducer(state = initialState, action) {
     }
     case CREATE_EFECTOS: {
       const localEfectos = JSON.parse(localStorage.getItem("currentEfectos"));
+      if (localEfectos) {
+        localStorage.setItem("currentEfectos", JSON.stringify([...localEfectos, action.payload]));
+      } else {
+        localStorage.setItem("currentEfectos", JSON.stringify([action.payload]));
+      }
       return {
         ...state,
-        currentEfectos: localEfectos,
+        currentEfectos: [...state.currentEfectos, action.payload],
       };
     }
 

@@ -1,6 +1,5 @@
 import axios from "axios";
 //* Utils
-import updateEfectos from "../Components/Utils/efectos/updateEfectos";
 import generateDoc from "../Components/Utils/template/generateDoc";
 import Variables from "../Styles/Variables";
 import { toast } from "react-toastify";
@@ -132,16 +131,23 @@ export function createEfecto(efecto, discos, sims, sds) {
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims, sds })
-      .then(async () => {
-        await updateEfectos();
-        toast.success("Elemento creado con exito!");
+      .then((res) => {
+        if (res.status === 200) {
+          //! Esto no es lo mejor, no encontre otra forma de traer el efecto actualizado
+          res.data.Sds = sds;
+          res.data.Discos = discos;
+          res.data.Sims = sims;
+          //! Aca le inyecto a el efecto los sds, sims y discos
+          toast.success("Efecto creado con exito!");
+        }
         return dispatch({
           type: CREATE_EFECTOS,
-          payload: "",
+          payload: res.data,
         });
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error al crear Efecto");
       });
   };
 }
