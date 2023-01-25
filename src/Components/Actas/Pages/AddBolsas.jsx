@@ -46,8 +46,8 @@ function AddBolsas() {
   const dispatch = useDispatch();
 
   const currentActa = useSelector((s) => s.currentActa);
-  const currentBolsas = useSelector((s) => s.currentBolsas);
-  const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s?.currentEfectos);
+  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas);
+  const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s.currentEfectos);
 
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
   const [closeModal, setCloseModal] = React.useState(false);
@@ -78,7 +78,6 @@ function AddBolsas() {
     });
 
     currentBolsas.map((b) => {
-      console.log(b);
       if (b.estado === "cerrada" || b.estado === "cerrada en proceso") res = "true";
     });
 
