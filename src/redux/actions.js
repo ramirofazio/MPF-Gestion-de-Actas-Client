@@ -133,11 +133,6 @@ export function createEfecto(efecto, discos, sims, sds) {
       .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims, sds })
       .then((res) => {
         if (res.status === 200) {
-          //! Esto no es lo mejor, no encontre otra forma de traer el efecto actualizado
-          res.data.Sds = sds;
-          res.data.Discos = discos;
-          res.data.Sims = sims;
-          //! Aca le inyecto a el efecto los sds, sims y discos
           toast.success("Efecto creado con exito!");
         }
         return dispatch({
