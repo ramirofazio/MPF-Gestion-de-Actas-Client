@@ -56,13 +56,13 @@ function CloseModal({ closeModal }) {
 
   const handleCompleteSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateBolsa(state));
+    dispatch(updateBolsa(state, currentActa.id));
     closeModal();
   };
 
   const handleInProcessSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateBolsa(inProcessState));
+    dispatch(updateBolsa(inProcessState, currentActa.id));
     closeModal();
   };
 

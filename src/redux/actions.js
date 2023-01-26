@@ -156,12 +156,20 @@ export function createEfecto(efecto, discos, sims, sds, acta_id) {
   };
 }
 
-export function updateBolsa(state) {
-  return function () {
+export function updateBolsa(state, acta_id) {
+  return function (dispatch) {
     axios
       .put(Variables.baseEndpoint + "/updateBolsa", state)
       .then((res) => {
         toast.success(`Bolsa ${res.data.nroPrecinto} cerrada con exito!`);
+      })
+      .then(() => {
+        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+          return dispatch({
+            type: UPDATE_BOLSAS,
+            payload: res.data,
+          });
+        });
       })
       .catch((err) => {
         console.log(err);
