@@ -77,7 +77,7 @@ function AddBolsas() {
       b.estado === "abierta con efectos completos" || b.estado === "abierta con efectos en proceso" ? (res = "true") : (res = "false");
     });
 
-    currentBolsas.map((b) => {
+    currentBolsas.forEach((b) => {
       if (b.estado === "cerrada" || b.estado === "cerrada en proceso") res = "true";
     });
 

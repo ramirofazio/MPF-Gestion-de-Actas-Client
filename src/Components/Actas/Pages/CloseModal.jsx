@@ -7,8 +7,6 @@ import { updateBolsa, updateActa } from "../../../redux/actions";
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
-//* Utils
-import editSavedActa from "../../Utils/template/editSavedActa";
 //* Initializations
 const { button, input, select } = GlobalStyles;
 const { redColor, greenColor, secondaryColor } = Variables;
@@ -59,14 +57,12 @@ function CloseModal({ closeModal }) {
   const handleCompleteSubmit = (e) => {
     e.preventDefault();
     dispatch(updateBolsa(state));
-    editSavedActa(currentActa.id); //!
     closeModal();
   };
 
   const handleInProcessSubmit = (e) => {
     e.preventDefault();
     dispatch(updateBolsa(inProcessState));
-    editSavedActa(currentActa.id); //!
     closeModal();
   };
 
@@ -84,18 +80,11 @@ function CloseModal({ closeModal }) {
           <Title>Cerrar Bolsas</Title>
           <InputContainer>
             <Label>Nro Precinto Bolsa</Label>
-            <Select
-              value={state.nroPrecinto}
-              onChange={(e) => setState({ ...state, nroPrecinto: Number(e.target.value) })}
-            >
+            <Select value={state.nroPrecinto} onChange={(e) => setState({ ...state, nroPrecinto: Number(e.target.value) })}>
               <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
               {bagsToClose.length > 0 &&
                 bagsToClose.map(({ nroPrecinto, id, colorPrecinto }) => (
-                  <SelectOpt
-                    value={nroPrecinto}
-                    key={id}
-                    style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
-                  >
+                  <SelectOpt value={nroPrecinto} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
                     {nroPrecinto}
                   </SelectOpt>
                 ))}
@@ -152,19 +141,13 @@ function CloseModal({ closeModal }) {
               <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
               {bagsInProcess.length > 0 &&
                 bagsInProcess.map(({ nroPrecinto, id, colorPrecinto }) => (
-                  <SelectOpt
-                    value={nroPrecinto}
-                    key={id}
-                    style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
-                  >
+                  <SelectOpt value={nroPrecinto} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
                     {nroPrecinto}
                   </SelectOpt>
                 ))}
             </Select>
           </InputContainer>
-          <InputContainer
-            style={{ flexDirection: "column", marginBottom: "2%", paddingTop: "10px", borderBottom: "none" }}
-          >
+          <InputContainer style={{ flexDirection: "column", marginBottom: "2%", paddingTop: "10px", borderBottom: "none" }}>
             <Label>Leyenda</Label>
             <TextArea
               leyenda={true}

@@ -14,6 +14,7 @@ export const CREATE_EFECTOS = "CREATE_EFECTOS";
 export const GET_BUGS_REPORTS = "GET_BUGS_REPORTS";
 export const CLEAR_STATES = "CLEAR_STATES";
 export const ADMIN = "ADMIN";
+export const UPDATE_BOLSAS = "UPDATE_BOLSAS";
 
 export function getAllActas() {
   return function (dispatch) {
@@ -127,7 +128,7 @@ export function createBolsas(bolsa) {
   };
 }
 
-export function createEfecto(efecto, discos, sims, sds) {
+export function createEfecto(efecto, discos, sims, sds, acta_id) {
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims, sds })
@@ -138,6 +139,14 @@ export function createEfecto(efecto, discos, sims, sds) {
         return dispatch({
           type: CREATE_EFECTOS,
           payload: res.data,
+        });
+      })
+      .then(() => {
+        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+          return dispatch({
+            type: UPDATE_BOLSAS,
+            payload: res.data,
+          });
         });
       })
       .catch((err) => {

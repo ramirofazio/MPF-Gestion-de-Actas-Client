@@ -10,6 +10,7 @@ import {
   CLEAR_STATES,
   ADMIN,
   CREATE_PERITOS,
+  UPDATE_BOLSAS,
 } from "./actions";
 
 let initialState = {
@@ -26,6 +27,15 @@ let initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case UPDATE_BOLSAS: {
+      localStorage.setItem("currentBolsas", []);
+      localStorage.setItem("currentBolsas", JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        currenBolsas: action.payload,
+      };
+    }
     case ADMIN: {
       return {
         ...state,

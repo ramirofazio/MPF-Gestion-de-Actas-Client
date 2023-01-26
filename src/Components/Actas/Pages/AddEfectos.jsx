@@ -25,6 +25,7 @@ const modal40x50 = {
 function AddEfectos({ closeModal }) {
   const dispatch = useDispatch();
 
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
 
   const [addDiscosModal, setAddDiscosModal] = React.useState(false);
@@ -76,7 +77,7 @@ function AddEfectos({ closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createEfecto(efecto, discos, sims, sds));
+    dispatch(createEfecto(efecto, discos, sims, sds, currentActa.id));
     closeModal();
   };
 
@@ -161,11 +162,7 @@ function AddEfectos({ closeModal }) {
             {currentBolsas.map((b) => {
               if (b.estado !== "cerrada" && b.estado !== "cerrada en proceso") {
                 return (
-                  <SelectOpt
-                    value={b.id}
-                    key={b.id}
-                    style={b.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}
-                  >
+                  <SelectOpt value={b.id} key={b.id} style={b.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
                     {b.nroPrecinto}
                   </SelectOpt>
                 );
@@ -175,10 +172,7 @@ function AddEfectos({ closeModal }) {
         </InputContainer>
         <InputContainer>
           <Label>Tipo de Elemento</Label>
-          <Select
-            value={efecto.tipoDeElemento}
-            onChange={(e) => setEfecto({ ...efecto, tipoDeElemento: e.target.value })}
-          >
+          <Select value={efecto.tipoDeElemento} onChange={(e) => setEfecto({ ...efecto, tipoDeElemento: e.target.value })}>
             <SelectOpt value="">Tipo de Elemento</SelectOpt>
             <SelectOpt value="celular">Celular</SelectOpt>
             <SelectOpt value="tablet">Tablet</SelectOpt>
@@ -219,9 +213,7 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
         )}
-        {(efecto.tipoDeElemento === "notebook" ||
-          efecto.tipoDeElemento === "pendrive" ||
-          efecto.tipoDeElemento === "tablet") && (
+        {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pendrive" || efecto.tipoDeElemento === "tablet") && (
           <InputContainer>
             <Label>Serial Nº</Label>
             <Input
@@ -259,10 +251,7 @@ function AddEfectos({ closeModal }) {
         {efecto.tipoDeElemento !== "pendrive" && (
           <InputContainer>
             <Label>Tipo de Seguridad</Label>
-            <Select
-              value={efecto.tipoSeguridad}
-              onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}
-            >
+            <Select value={efecto.tipoSeguridad} onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}>
               <SelectOpt value="">Tipo de Seguridad</SelectOpt>
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="patron">Patron</SelectOpt>
@@ -279,10 +268,7 @@ function AddEfectos({ closeModal }) {
             efecto.tipoSeguridad !== "" && (
               <InputContainer>
                 <Label>¿Desbloqueo?</Label>
-                <Select
-                  value={efecto.desbloqueo}
-                  onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}
-                >
+                <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
                   <SelectOpt value="">Desbloqueo</SelectOpt>
                   <SelectOpt value="si">Si</SelectOpt>
                   <SelectOpt value="no">No</SelectOpt>
@@ -293,10 +279,7 @@ function AddEfectos({ closeModal }) {
         {efecto.tipoDeElemento !== "pendrive" && efecto.tipoSeguridad === "ninguna" ? (
           <InputContainer>
             <Label>Tipo de Extracción</Label>
-            <Select
-              value={efecto.tipoExtraccion}
-              onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}
-            >
+            <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
               <SelectOpt value="">Tipo de Extracción</SelectOpt>
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="fisica">Fisica</SelectOpt>
@@ -309,10 +292,7 @@ function AddEfectos({ closeModal }) {
           efecto.desbloqueo === "si" && (
             <InputContainer>
               <Label>Tipo de Extracción</Label>
-              <Select
-                value={efecto.tipoExtraccion}
-                onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}
-              >
+              <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
                 <SelectOpt value="">Tipo de Extracción</SelectOpt>
                 <SelectOpt value="ninguna">Ninguna</SelectOpt>
                 <SelectOpt value="fisica">Fisica</SelectOpt>
@@ -329,10 +309,7 @@ function AddEfectos({ closeModal }) {
             efecto.tipoExtraccion !== "ninguna" && (
               <InputContainer>
                 <Label>Herramienta Software</Label>
-                <Select
-                  value={efecto.herramientaSoft}
-                  onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}
-                >
+                <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
                   <SelectOpt value="">Herramienta Software</SelectOpt>
                   <SelectOpt value="ninguna">Ninguna</SelectOpt>
                   <SelectOpt value="UFED">UFED</SelectOpt>
@@ -493,10 +470,7 @@ function AddEfectos({ closeModal }) {
           </InputContainer>
           <InputContainer>
             <Label>Tipo de Extracción</Label>
-            <Select
-              value={sim.tipoExtraccionSim}
-              onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}
-            >
+            <Select value={sim.tipoExtraccionSim} onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}>
               <SelectOpt value="">Tipo de Extracción</SelectOpt>
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="fisica">Fisica</SelectOpt>
