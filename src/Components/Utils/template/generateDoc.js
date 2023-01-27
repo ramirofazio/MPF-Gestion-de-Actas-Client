@@ -29,7 +29,7 @@ function generateDoc() {
     });
   });
 
-  if (Bolsas.length === 0 || Peritos.length === 0 || Integrantes.length === 0) {
+  if (Bolsas.length === 0 || Peritos.length === 0) {
     return toast.warning("¡Faltan datos para poder imprimir el Acta!");
   }
 
@@ -119,7 +119,7 @@ function generateDoc() {
       type: "blob",
       mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     }); //Output the document using Data-URI
-    saveAs(out, `Acta${currentActa.id}.docx`);
+    saveAs(out, `Acta_${currentActa.nro_mpf || currentActa.nro_coop}.docx`);
   });
 }
 

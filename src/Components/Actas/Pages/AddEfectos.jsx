@@ -225,16 +225,6 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
         )}
-        {/* <InputContainer>
-            <Label>IMEI 2</Label>
-            <Input
-              type="text"
-              name="imei 2"
-              value={efecto.imei2}
-              placeholder="Imei 2"
-              onChange={(e) => setEfecto({ ...efecto, imei2: e.target.value })}
-            />
-          </InputContainer> */}
 
         {efecto.tipoDeElemento !== "pendrive" && (
           <InputContainer>
@@ -256,7 +246,7 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="patron">Patron</SelectOpt>
               <SelectOpt value="contraseña">Contraseña</SelectOpt>
-              <SelectOpt value="PIN de bloqueo">Pin</SelectOpt>
+              <SelectOpt value="PIN de inicio">Pin</SelectOpt>
               <SelectOpt value="huella">Huella</SelectOpt>
             </Select>
           </InputContainer>
@@ -284,6 +274,7 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="fisica">Fisica</SelectOpt>
               <SelectOpt value="logica">Logica</SelectOpt>
+              <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
               <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>
@@ -297,6 +288,7 @@ function AddEfectos({ closeModal }) {
                 <SelectOpt value="ninguna">Ninguna</SelectOpt>
                 <SelectOpt value="fisica">Fisica</SelectOpt>
                 <SelectOpt value="logica">Logica</SelectOpt>
+                <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
                 <SelectOpt value="fisica y logica">Ambas</SelectOpt>
               </Select>
             </InputContainer>
@@ -346,13 +338,7 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="en proceso">En Proceso</SelectOpt>
           </Select>
         </InputContainer>
-        {/* <InputContainer style={{ flexDirection: "column", flex: 1.5 }}>
-          <TextArea
-            placeholder="Descripción Tarea"
-            value={efecto.descripcionTarea}
-            onChange={(e) => setEfecto({ ...efecto, descripcionTarea: e.target.value })}
-          />
-        </InputContainer> */}
+
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
           <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
           {efecto.tipoDeElemento === "celular" && (
@@ -475,6 +461,7 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="fisica">Fisica</SelectOpt>
               <SelectOpt value="logica">Logica</SelectOpt>
+              <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
               <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>
@@ -522,6 +509,7 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="fisica">Fisica</SelectOpt>
               <SelectOpt value="logica">Logica</SelectOpt>
+              <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
               <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>

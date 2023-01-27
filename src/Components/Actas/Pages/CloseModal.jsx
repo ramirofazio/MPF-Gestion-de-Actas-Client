@@ -97,7 +97,7 @@ function CloseModal({ closeModal }) {
               name="nroPrecintoBlanco"
               value={state.nroPrecintoBlanco}
               placeholder="Nro Precinto Blanco"
-              onChange={(e) => setState({ ...state, nroPrecintoBlanco: Number(e.target.value) })}
+              onChange={(e) => setState({ ...state, nroPrecintoBlanco: e.target.value })}
             />
           </InputContainer>
           <Button

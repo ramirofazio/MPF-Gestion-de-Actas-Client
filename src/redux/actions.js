@@ -50,10 +50,10 @@ export function createActa(state, flag, navigate) {
       .then((res) => {
         if (res.status === 200) {
           navigate("/actas/crear/2");
+          flag === "MPF/DEN"
+            ? toast.success(`Acta ${res.data.nro_mpf} creada con exito!`)
+            : toast.success(`Acta ${res.data.nro_coop} creada con exito!`);
         }
-        flag === "MPF/DEN"
-          ? toast.success(`Acta ${res.data.nro_mpf} creada con exito!`)
-          : toast.success(`Acta ${res.data.nro_coop} creada con exito!`);
         return dispatch({
           type: CREATE_ACTA,
           payload: { ...res.data, flag },
@@ -183,7 +183,7 @@ export function updateActa(observaciones, id, navigate) {
       .put(Variables.baseEndpoint + "/updateActa", { observaciones, id })
       .then((res) => {
         navigate("/");
-        toast.success(`Acta ${res.data.id} cerrada con exito!`);
+        toast.success(`Acta_${res.data.nro_mpf || res.data.nro_coop} cerrada con exito!`);
         localStorage.setItem("finalActa", JSON.stringify(res.data));
         generateDoc();
       })

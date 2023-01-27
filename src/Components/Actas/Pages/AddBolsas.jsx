@@ -45,7 +45,7 @@ const modal30x90 = {
 function AddBolsas() {
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => s.currentActa);
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas);
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s.currentEfectos);
 
@@ -85,7 +85,7 @@ function AddBolsas() {
   };
 
   const handleCompleteEfectos = () => {
-    let res = false;
+    let res = "false";
     currentBolsas.map((b) => {
       b.estado !== "cerrada" && b.estado !== "cerrada en proceso" ? (res = "true") : (res = "false");
     });
@@ -96,7 +96,7 @@ function AddBolsas() {
   return (
     <Container>
       <Header>
-        <Title>Creacion de Bolsas y Efectos</Title>
+        <Title>Creacion de Bolsas y Elementos</Title>
       </Header>
       <FormContainer>
         <Form onSubmit={handleSubmitBolsa}>
