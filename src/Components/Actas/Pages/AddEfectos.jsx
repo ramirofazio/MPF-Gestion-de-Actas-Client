@@ -38,14 +38,11 @@ function AddEfectos({ closeModal }) {
     marca: "",
     modelo: "",
     imei: "",
-    //imei2: "",
     estado: "",
-    sistemaOperativo: "",
     tipoSeguridad: "",
     desbloqueo: "",
     herramientaSoft: "",
     tipoExtraccion: "",
-    //descripcionTarea: "",
     extraccion: "",
     almacenamiento: "",
     serialNumber: "",
@@ -58,6 +55,7 @@ function AddEfectos({ closeModal }) {
     modelo: "",
     almacenamiento: "",
     serialNumber: "",
+    estadoDisco: "",
   });
 
   const [sims, setSims] = React.useState([]);
@@ -226,19 +224,7 @@ function AddEfectos({ closeModal }) {
           </InputContainer>
         )}
 
-        {efecto.tipoDeElemento !== "pendrive" && (
-          <InputContainer>
-            <Label>Sistema Operativo</Label>
-            <Input
-              type="text"
-              name="sistemaOperativo"
-              value={efecto.sistemaOperativo}
-              placeholder="SistemaOperativo"
-              onChange={(e) => setEfecto({ ...efecto, sistemaOperativo: e.target.value })}
-            />
-          </InputContainer>
-        )}
-        {efecto.tipoDeElemento !== "pendrive" && (
+        {efecto.tipoDeElemento !== "pendrive" && efecto.tipoDeElemento !== "notebook" && (
           <InputContainer>
             <Label>Tipo de Seguridad</Label>
             <Select value={efecto.tipoSeguridad} onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}>
@@ -426,6 +412,14 @@ function AddEfectos({ closeModal }) {
               placeholder="Almacenamiento"
               onChange={(e) => setDisco({ ...disco, almacenamiento: e.target.value })}
             />
+          </InputContainer>
+          <InputContainer>
+            <Label>Estado</Label>
+            <Select value={disco.estadoDisco} onChange={(e) => setDisco({ ...disco, estadoDisco: e.target.value })}>
+              <SelectOpt value="">Estado</SelectOpt>
+              <SelectOpt value="completo">Completo</SelectOpt>
+              <SelectOpt value="en proceso">En Proceso</SelectOpt>
+            </Select>
           </InputContainer>
           <Button type="submit" value="Agregar Disco" complete={"true"} />
         </Form>
