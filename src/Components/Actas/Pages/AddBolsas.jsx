@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { createBolsas } from "../../../redux/actions";
+import { createBolsas, removeBolsa } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
@@ -10,6 +10,7 @@ import Variables from "../../../Styles/Variables";
 import { Close } from "@styled-icons/ionicons-outline/Close";
 import { TagLock } from "@styled-icons/fluentui-system-filled/TagLock";
 import { LockClosed } from "@styled-icons/fluentui-system-filled/LockClosed";
+import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 //* Modal
 import Modal from "react-modal";
 //* Components
@@ -58,6 +59,10 @@ function AddBolsas() {
     nroPrecinto: "",
     observaciones: "un sobre, papel madera cerrado",
   });
+
+  const handleDeleteBolsa = (bolsaId) => {
+    dispatch(removeBolsa(bolsaId, currentActa.id));
+  };
 
   const handleSubmitBolsa = (e) => {
     e.preventDefault();
@@ -142,6 +147,7 @@ function AddBolsas() {
             currentBolsas.map((bolsa) => {
               return (
                 <BolsaContainer key={bolsa.id}>
+                  {bolsa.Efectos?.length <= 0 && <DeleteIcon onClick={() => handleDeleteBolsa(bolsa.id)} />}
                   <Info style={bolsa.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
                     <CardTitle>Nro Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : "verde"}</CardTitle>
                     <br />
@@ -308,6 +314,16 @@ const LockClosedIcon = styled(LockClosed)`
   width: 6%;
   margin-right: 5%;
   color: ${secondaryColor};
+`;
+
+const DeleteIcon = styled(Delete)`
+  width: 6%;
+  margin-left: 5%;
+  color: ${secondaryColor};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Submit = styled.input`

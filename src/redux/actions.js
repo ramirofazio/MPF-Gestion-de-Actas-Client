@@ -177,6 +177,30 @@ export function updateBolsa(state, acta_id) {
   };
 }
 
+export function removeBolsa(id, acta_id) {
+  return function (dispatch) {
+    axios
+      .delete(Variables.baseEndpoint + `/removeBolsa?bolsa_id=${id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Bolsa eliminada con exito!");
+        }
+      })
+      .then(() => {
+        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+          return dispatch({
+            type: UPDATE_BOLSAS,
+            payload: res.data,
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error al eliminar Bolsa");
+      });
+  };
+}
+
 export function updateActa(observaciones, id, navigate) {
   return async function () {
     axios
