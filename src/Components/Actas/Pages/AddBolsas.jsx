@@ -149,7 +149,7 @@ function AddBolsas() {
                 <BolsaContainer key={bolsa.id}>
                   {bolsa.Efectos?.length <= 0 && <DeleteIcon onClick={() => handleDeleteBolsa(bolsa.id)} />}
                   <Info style={bolsa.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
-                    <CardTitle>Nro Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : "verde"}</CardTitle>
+                    <CardTitle>Nº Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : "verde"}</CardTitle>
                     <br />
                     {bolsa.nroPrecinto}
                   </Info>
