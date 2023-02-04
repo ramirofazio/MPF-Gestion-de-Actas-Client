@@ -17,6 +17,7 @@ import Modal from "react-modal";
 import AddEfectos from "./AddEfectos";
 import CloseModal from "./CloseModal";
 import CreateEfectosCards from "../../Utils/efectos/CreateEfectosCards";
+import getSavedActa from "../../Utils/template/getSavedActa";
 //* Initializations
 const { redColor, greenColor, principalColor, secondaryColor } = Variables;
 const {
@@ -172,9 +173,19 @@ function AddBolsas() {
         <Button complete={handleCompleteEfectos()} onClick={() => setAddEfectosModal(!addEfectosModal)}>
           Añadir Elementos
         </Button>
-        <Button onClick={() => setCloseModal(!closeModal)} complete={handleCompleteClose()}>
-          Cerrar
-        </Button>
+        {currentActa.estado === "en proceso" ? (
+          <Button to="/actas/crear/1" complete={"true"}>
+            Finalizar Acta
+          </Button>
+        ) : currentActa.estado === "completo" ? (
+          <Button onClick={() => getSavedActa(currentActa.id)} complete={"true"}>
+            Imprimir Acta
+          </Button>
+        ) : (
+          <Button onClick={() => setCloseModal(!closeModal)} complete={handleCompleteClose()}>
+            Cerrar
+          </Button>
+        )}
       </div>
       <Modal isOpen={closeModal} style={modal40x40} ariaHideApp={false}>
         <CloseIcon onClick={() => setCloseModal(!closeModal)} />

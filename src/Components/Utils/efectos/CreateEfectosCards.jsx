@@ -77,7 +77,7 @@ function CreateEfectosCards({ efecto, currentBolsas }) {
       <Info>
         <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Almacenamiento" : "Tipo de Seguridad"}</CardTitle>
         <br />
-        {efecto.tipoDeElemento === "pendrive" ? `${efecto.almacenamiento} GB` : efecto.tipoSeguridad}
+        {efecto.tipoDeElemento === "pendrive" ? `${efecto.almacenamiento} GB` : efecto.tipoSeguridad || "Ninguna"}
       </Info>
       <Info style={{ flex: 0.5, marginRight: "10px" }}>
         {efecto.Sims.length !== 0 && <SimIcon />}
