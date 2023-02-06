@@ -173,19 +173,20 @@ function AddBolsas() {
         <Button complete={handleCompleteEfectos()} onClick={() => setAddEfectosModal(!addEfectosModal)} to="#">
           Añadir Elementos
         </Button>
-        {currentActa.estado === "en proceso" ? (
-          <Button to="/actas/crear/1" complete={"true"}>
-            Finalizar Acta
-          </Button>
-        ) : currentActa.estado === "completo" ? (
-          <Button onClick={() => getSavedActa(currentActa.id)} complete={"true"} to="#">
-            Imprimir Acta
-          </Button>
-        ) : (
-          <Button onClick={() => setCloseModal(!closeModal)} complete={handleCompleteClose()} to="#">
-            Cerrar
-          </Button>
+        {currentActa.estado === "en proceso" && (
+          <>
+            <Button onClick={() => getSavedActa(currentActa.id)} complete={"true"} to="#">
+              Imprimir Acta en Proceso
+            </Button>
+            <Button to="/actas/crear/1" complete={"true"}>
+              Cerrar Elementos en Proceso
+            </Button>
+          </>
         )}
+
+        <Button onClick={() => setCloseModal(!closeModal)} complete={handleCompleteClose()} to="#">
+          {currentActa.estado === "completo" ? "Imprimir Acta" : "Cerrar"}
+        </Button>
       </div>
       <Modal isOpen={closeModal} style={modal40x40} ariaHideApp={false}>
         <CloseIcon onClick={() => setCloseModal(!closeModal)} />

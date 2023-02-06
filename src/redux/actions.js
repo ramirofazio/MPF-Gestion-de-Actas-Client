@@ -171,6 +171,14 @@ export function updateBolsa(state, acta_id) {
           });
         });
       })
+      .then(() => {
+        axios.get(Variables.baseEndpoint + `/getActas/${acta_id}`).then((res) => {
+          return dispatch({
+            type: CREATE_ACTA,
+            payload: res.data,
+          });
+        });
+      })
       .catch((err) => {
         console.log(err);
       });
