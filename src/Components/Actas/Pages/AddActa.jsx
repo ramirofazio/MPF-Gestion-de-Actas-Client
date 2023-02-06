@@ -9,18 +9,7 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 //* Initializations
 const { redColor, greenColor } = Variables;
-const {
-  select,
-  input,
-  form,
-  inputLabel,
-  inputContainer,
-  enProcesoContainer,
-  header,
-  headerTitle,
-  formContainer,
-  button,
-} = GlobalStyles;
+const { select, input, form, inputLabel, inputContainer, enProcesoContainer, header, headerTitle, formContainer, button } = GlobalStyles;
 
 function AddActa() {
   const navigate = useNavigate();
@@ -346,12 +335,12 @@ function AddActa() {
         ) : null}
       </FormContainer>
       {!comeBack ? (
-        <Button onClick={() => handleClick()} complete={handleComplete()}>
+        <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
           Siguente
         </Button>
       ) : (
         <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
-          <Button onClick={() => handleClick()} complete={handleComplete()}>
+          <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
             Volver a crear
           </Button>
           <Button to={"/actas/crear/2"} complete={"true"}>

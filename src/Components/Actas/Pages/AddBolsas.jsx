@@ -170,7 +170,7 @@ function AddBolsas() {
         <AddEfectos closeModal={() => setAddEfectosModal(!addEfectosModal)} />
       </Modal>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        <Button complete={handleCompleteEfectos()} onClick={() => setAddEfectosModal(!addEfectosModal)}>
+        <Button complete={handleCompleteEfectos()} onClick={() => setAddEfectosModal(!addEfectosModal)} to="#">
           Añadir Elementos
         </Button>
         {currentActa.estado === "en proceso" ? (
@@ -178,11 +178,11 @@ function AddBolsas() {
             Finalizar Acta
           </Button>
         ) : currentActa.estado === "completo" ? (
-          <Button onClick={() => getSavedActa(currentActa.id)} complete={"true"}>
+          <Button onClick={() => getSavedActa(currentActa.id)} complete={"true"} to="#">
             Imprimir Acta
           </Button>
         ) : (
-          <Button onClick={() => setCloseModal(!closeModal)} complete={handleCompleteClose()}>
+          <Button onClick={() => setCloseModal(!closeModal)} complete={handleCompleteClose()} to="#">
             Cerrar
           </Button>
         )}

@@ -131,12 +131,12 @@ function AddPeritos() {
       </SubContainer>
 
       {!JSON.parse(localStorage.getItem("currentPeritos")) ? (
-        <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()}>
+        <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
           Siguente
         </Button>
       ) : (
         <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
-          <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()}>
+          <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
             Volver a Crear
           </Button>
           <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
