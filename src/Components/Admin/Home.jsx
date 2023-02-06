@@ -6,12 +6,12 @@ import GlobalStyles from "../../Styles/GlobalStyles";
 import Variables from "../../Styles/Variables";
 import { BugFill } from "@styled-icons/bootstrap/BugFill";
 import { StatsChart } from "@styled-icons/ionicons-sharp/StatsChart";
-import { DocumentRemove } from "@styled-icons/heroicons-solid/DocumentRemove";
 //* Initializations
-const { principalColor, secondaryColor, redColor } = Variables;
+const { principalColor, secondaryColor } = Variables;
 const { header, headerTitle, homeCard, enProcesoContainer } = GlobalStyles;
 
 function Home() {
+
   return (
     <Container>
       <Header>
@@ -28,7 +28,6 @@ function Home() {
         </Card>
         <Card to="/admin/eliminarActa">
           <CardTitle>Eliminar un Acta</CardTitle>
-          <DocumentRemoveIcon />
         </Card>
       </CardsContainer>
     </Container>
@@ -105,22 +104,5 @@ const StatsChartIcon = styled(StatsChart)`
   ${Card}:hover & {
     width: 35px;
     color: ${principalColor};
-  }
-`;
-
-const DocumentRemoveIcon = styled(DocumentRemove)`
-  width: 30px;
-  margin-right: 40px;
-  color: ${secondaryColor};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-
-  ${Card}:hover & {
-    width: 35px;
-    color: ${redColor};
   }
 `;
