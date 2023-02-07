@@ -2,7 +2,7 @@ import axios from "axios";
 import Variables from "../../../Styles/Variables";
 import generateDoc from "./generateDoc";
 
-const getSavedActa = async (actaId) => {
+const getSavedActa = async (actaId, navigate) => {
   try {
     const res = await axios.get(Variables.baseEndpoint + `/getActas/${actaId}`);
     if (res) {
@@ -13,6 +13,9 @@ const getSavedActa = async (actaId) => {
         localStorage.setItem("actaFlag", "COOP");
       }
       generateDoc();
+      if (navigate) {
+        navigate("/");
+      }
     }
   } catch (err) {
     console.log(err);

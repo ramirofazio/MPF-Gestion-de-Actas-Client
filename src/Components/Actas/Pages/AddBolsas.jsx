@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
 import { createBolsas, removeBolsa } from "../../../redux/actions";
@@ -17,6 +17,7 @@ import Modal from "react-modal";
 import AddEfectos from "./AddEfectos";
 import CreateEfectosCards from "../../Utils/efectos/CreateEfectosCards";
 import CloseModal from "./CloseModal";
+import getSavedActa from "../../Utils/template/getSavedActa";
 //* Initializations
 const { redColor, greenColor, principalColor, secondaryColor } = Variables;
 const {
@@ -45,6 +46,7 @@ const modal30x90 = {
 
 function AddBolsas() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas);
@@ -189,9 +191,15 @@ function AddBolsas() {
             </Button>
           </>
         )}
-        {currentActa.estado === "en proceso " && (
+        {currentActa.estado === "en proceso" && (
           <>
-            <Button onClick={() => setCloseBagsModal(!closeBagsModal)} complete={"true"} to="#">
+            <Button
+              onClick={() =>
+                currentActa.observaciones !== "" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
+              }
+              complete={"true"}
+              to="#"
+            >
               Imprimir Acta en Proceso
             </Button>
             <Button to="/actas/crear/1" complete={"true"}>
@@ -202,7 +210,13 @@ function AddBolsas() {
 
         {currentActa.estado === "completa" && (
           <>
-            <Button onClick={() => setCloseBagsModal(!closeBagsModal)} complete={"true"} to="#">
+            <Button
+              onClick={() =>
+                currentActa.estado === "completa" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
+              }
+              complete={"true"}
+              to="#"
+            >
               Imprimir Acta
             </Button>
           </>
