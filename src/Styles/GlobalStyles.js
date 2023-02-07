@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 import Variables from "./Variables";
-const { principalColor, secondaryColor, greenColor, redColor, baseTransparentColor } = Variables;
+const { principalColor, secondaryColor, greenColor, yellowColor, baseTransparentColor } = Variables;
 
 const GlobalStyles = {
   container: css`
@@ -189,17 +189,17 @@ const GlobalStyles = {
     transition: all 0.3s ease;
     border: ${(props) =>
       props.estado === "en proceso"
-        ? `2px solid ${principalColor}`
-        : props.estado === "completo"
+        ? `2px solid ${yellowColor}`
+        : props.estado === "completa"
         ? `2px solid ${greenColor}`
-        : `2px solid ${redColor}`};
+        : `2px solid ${principalColor}`};
     transition: all 0.3s ease;
 
     &:hover {
       min-height: 15%;
       background-color: ${baseTransparentColor};
       background-color: ${(props) =>
-        props.estado === "en proceso" ? "#00647335" : props.estado === "completo" ? "#6aa84f35" : "#a84f4f35"};
+        props.estado === "en proceso" ? "#F8E71C35" : props.estado === "completa" ? "#7ED32135" : "#00647335"};
     }
   `,
 

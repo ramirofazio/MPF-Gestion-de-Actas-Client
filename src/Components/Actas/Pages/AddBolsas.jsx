@@ -15,9 +15,8 @@ import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 import Modal from "react-modal";
 //* Components
 import AddEfectos from "./AddEfectos";
-import CloseModal from "./CloseModal";
 import CreateEfectosCards from "../../Utils/efectos/CreateEfectosCards";
-import getSavedActa from "../../Utils/template/getSavedActa";
+import CloseModal from "./CloseModal";
 //* Initializations
 const { redColor, greenColor, principalColor, secondaryColor } = Variables;
 const {
@@ -52,7 +51,7 @@ function AddBolsas() {
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s.currentEfectos);
 
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
-  const [closeModal, setCloseModal] = React.useState(false);
+  const [closeBagsModal, setCloseBagsModal] = React.useState(false);
 
   const [bolsa, setBolsa] = React.useState({
     acta_id: currentActa.id,
@@ -61,11 +60,8 @@ function AddBolsas() {
     observaciones: "un sobre, papel madera cerrado",
   });
 
-  const handleDeleteBolsa = (bolsaId) => {
-    dispatch(removeBolsa(bolsaId, currentActa.id));
-  };
-
   const handleSubmitBolsa = (e) => {
+    //* Crea una bolsa nueva y blanquea los input
     e.preventDefault();
     dispatch(createBolsas(bolsa));
     setBolsa({
@@ -76,27 +72,37 @@ function AddBolsas() {
     });
   };
 
-  const handleCompleteClose = () => {
-    let res = "false";
-
-    currentBolsas.forEach((b) => {
-      b.estado === "abierta con efectos completos" || b.estado === "abierta con efectos en proceso" ? (res = "true") : (res = "false");
-    });
-
-    currentBolsas.forEach((b) => {
-      if (b.estado === "cerrada" || b.estado === "cerrada en proceso") res = "true";
-    });
-
-    return res;
-  };
-
   const handleCompleteEfectos = () => {
+    //* Activa o desactiva el btn de agregar Elementos segun los estados de las bolsas
     let res = "false";
     currentBolsas.map((b) => {
       b.estado !== "cerrada" && b.estado !== "cerrada en proceso" ? (res = "true") : (res = "false");
     });
 
     return res;
+  };
+
+  const handleCompleteCloseBags = () => {
+    //* Activa el btn de cerrar bolsas solo cuando estan abiertas con elementos dentro
+    let res = "false";
+    if (currentBolsas.length !== 0) {
+      currentBolsas.forEach((b) => {
+        if (b.estado === "abierta con efectos en proceso" || b.estado === "abierta con efectos completos") {
+          res = "true";
+        }
+      });
+    }
+
+    return res;
+  };
+
+  const handleCloseBags = () => {
+    setCloseBagsModal(!closeBagsModal);
+  };
+
+  const handleDeleteBolsa = (bolsaId) => {
+    //* Borra una bolsa
+    dispatch(removeBolsa(bolsaId, currentActa.id));
   };
 
   return (
@@ -140,7 +146,9 @@ function AddBolsas() {
           <Submit
             type="submit"
             value="Cargar Bolsa"
-            complete={bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones ? "true" : "false"}
+            complete={
+              bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones && currentActa.estado === "en creacion" ? "true" : "false"
+            }
           />
         </Form>
         <BolsasContainer>
@@ -169,13 +177,21 @@ function AddBolsas() {
         <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
         <AddEfectos closeModal={() => setAddEfectosModal(!addEfectosModal)} />
       </Modal>
+
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        <Button complete={handleCompleteEfectos()} onClick={() => setAddEfectosModal(!addEfectosModal)} to="#">
-          Añadir Elementos
-        </Button>
-        {currentActa.estado === "en proceso" && (
+        {currentActa.estado === "en creacion" && (
           <>
-            <Button onClick={() => getSavedActa(currentActa.id)} complete={"true"} to="#">
+            <Button complete={handleCompleteEfectos()} onClick={() => setAddEfectosModal(!addEfectosModal)} to="#">
+              Añadir Elementos
+            </Button>
+            <Button complete={handleCompleteCloseBags()} onClick={() => handleCloseBags()} to="#">
+              Cerrar Bolsas
+            </Button>
+          </>
+        )}
+        {currentActa.estado === "en proceso " && (
+          <>
+            <Button onClick={() => setCloseBagsModal(!closeBagsModal)} complete={"true"} to="#">
               Imprimir Acta en Proceso
             </Button>
             <Button to="/actas/crear/1" complete={"true"}>
@@ -184,13 +200,18 @@ function AddBolsas() {
           </>
         )}
 
-        <Button onClick={() => setCloseModal(!closeModal)} complete={handleCompleteClose()} to="#">
-          {currentActa.estado === "completo" ? "Imprimir Acta" : "Cerrar"}
-        </Button>
+        {currentActa.estado === "completa" && (
+          <>
+            <Button onClick={() => setCloseBagsModal(!closeBagsModal)} complete={"true"} to="#">
+              Imprimir Acta
+            </Button>
+          </>
+        )}
       </div>
-      <Modal isOpen={closeModal} style={modal40x40} ariaHideApp={false}>
-        <CloseIcon onClick={() => setCloseModal(!closeModal)} />
-        <CloseModal closeModal={() => setCloseModal(!closeModal)} />
+
+      <Modal isOpen={closeBagsModal} style={modal40x40} ariaHideApp={false}>
+        <CloseIcon onClick={() => setCloseBagsModal(!closeBagsModal)} />
+        <CloseModal closeModal={() => setCloseBagsModal(!closeBagsModal)} />
       </Modal>
     </Container>
   );
