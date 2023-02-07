@@ -198,8 +198,6 @@ const GlobalStyles = {
     &:hover {
       min-height: 15%;
       background-color: ${baseTransparentColor};
-      background-color: ${(props) =>
-        props.estado === "en proceso" ? "#F8E71C35" : props.estado === "completa" ? "#7ED32135" : "#00647335"};
     }
   `,
 
