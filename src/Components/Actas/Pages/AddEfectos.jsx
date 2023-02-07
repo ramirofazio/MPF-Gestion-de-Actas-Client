@@ -290,7 +290,12 @@ function AddEfectos({ closeModal }) {
                 <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
                   <SelectOpt value="">Herramienta Software</SelectOpt>
                   <SelectOpt value="ninguna">Ninguna</SelectOpt>
-                  <SelectOpt value="UFED">UFED</SelectOpt>
+                  <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+                  <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+                  <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+                  <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+                  <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+                  <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
                 </Select>
               </InputContainer>
             )}
