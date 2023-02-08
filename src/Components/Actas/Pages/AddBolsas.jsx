@@ -59,7 +59,7 @@ function AddBolsas() {
     acta_id: currentActa.id,
     colorPrecinto: "",
     nroPrecinto: "",
-    observaciones: "un sobre, papel madera cerrado",
+    observaciones: currentActa.estado === "en creacion" ? "un sobre, papel madera cerrado" : "",
   });
 
   const handleSubmitBolsa = (e) => {
@@ -99,6 +99,7 @@ function AddBolsas() {
   };
 
   const handleCloseBags = () => {
+    alert("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!");
     setCloseBagsModal(!closeBagsModal);
   };
 
@@ -117,7 +118,11 @@ function AddBolsas() {
           <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
             <InputContainer>
               <Label>Precinto de Apertura</Label>
-              <Select value={bolsa.colorPrecinto} onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}>
+              <Select
+                disabled={currentActa.estado === "en creacion" ? false : true}
+                value={bolsa.colorPrecinto}
+                onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}
+              >
                 <SelectOpt value="">Color del Precinto</SelectOpt>
                 <SelectOpt value="rojo">Rojo</SelectOpt>
                 <SelectOpt value="verde">Verde</SelectOpt>
@@ -125,13 +130,14 @@ function AddBolsas() {
               </Select>
             </InputContainer>
             <InputContainer>
-              <Label>Nro Precinto</Label>
+              <Label>N° Precinto</Label>
               <Input
-                type="number"
-                name="Numero Precinto"
+                type="text"
+                name="N° Precinto"
                 value={bolsa.nroPrecinto}
-                placeholder="Numero Precinto"
+                placeholder="N° Precinto"
                 onChange={(e) => setBolsa({ ...bolsa, nroPrecinto: e.target.value })}
+                disabled={currentActa.estado === "en creacion" ? false : true}
               />
             </InputContainer>
           </div>
@@ -143,9 +149,12 @@ function AddBolsas() {
               value={bolsa.observaciones}
               placeholder="Observaciones/Descripcion de la Bolsa"
               onChange={(e) => setBolsa({ ...bolsa, observaciones: e.target.value })}
+              disabled={currentActa.estado === "en creacion" ? false : true}
             />
           </InputContainer>
+
           <Submit
+            disabled={currentActa.estado === "en creacion" ? false : true}
             type="submit"
             value="Cargar Bolsa"
             complete={

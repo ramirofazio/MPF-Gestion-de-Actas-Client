@@ -125,7 +125,7 @@ const GlobalStyles = {
     font-weight: 400;
     font-size: small;
     margin-bottom: 5px;
-    color: ${secondaryColor};
+    color: black;
   `,
 
   input: css`
@@ -136,10 +136,6 @@ const GlobalStyles = {
     border: 1px solid ${principalColor};
     font-size: medium;
     font-weight: 400;
-
-    &::placeholder {
-      color: black;
-    }
 
     &:focus {
       border: 2px solid ${principalColor};
