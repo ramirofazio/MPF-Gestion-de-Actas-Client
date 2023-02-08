@@ -99,6 +99,7 @@ function AddBolsas() {
   };
 
   const handleCloseBags = () => {
+    alert("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!");
     setCloseBagsModal(!closeBagsModal);
   };
 
@@ -129,12 +130,12 @@ function AddBolsas() {
               </Select>
             </InputContainer>
             <InputContainer>
-              <Label>Nro Precinto</Label>
+              <Label>N° Precinto</Label>
               <Input
                 type="text"
-                name="Numero Precinto"
+                name="N° Precinto"
                 value={bolsa.nroPrecinto}
-                placeholder="Numero Precinto"
+                placeholder="N° Precinto"
                 onChange={(e) => setBolsa({ ...bolsa, nroPrecinto: e.target.value })}
                 disabled={currentActa.estado === "en creacion" ? false : true}
               />
