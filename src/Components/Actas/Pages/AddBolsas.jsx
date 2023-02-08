@@ -59,7 +59,7 @@ function AddBolsas() {
     acta_id: currentActa.id,
     colorPrecinto: "",
     nroPrecinto: "",
-    observaciones: "un sobre, papel madera cerrado",
+    observaciones: currentActa.estado === "en creacion" ? "un sobre, papel madera cerrado" : "",
   });
 
   const handleSubmitBolsa = (e) => {
@@ -117,7 +117,11 @@ function AddBolsas() {
           <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
             <InputContainer>
               <Label>Precinto de Apertura</Label>
-              <Select value={bolsa.colorPrecinto} onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}>
+              <Select
+                disabled={currentActa.estado === "en creacion" ? false : true}
+                value={bolsa.colorPrecinto}
+                onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}
+              >
                 <SelectOpt value="">Color del Precinto</SelectOpt>
                 <SelectOpt value="rojo">Rojo</SelectOpt>
                 <SelectOpt value="verde">Verde</SelectOpt>
@@ -127,11 +131,12 @@ function AddBolsas() {
             <InputContainer>
               <Label>Nro Precinto</Label>
               <Input
-                type="number"
+                type="text"
                 name="Numero Precinto"
                 value={bolsa.nroPrecinto}
                 placeholder="Numero Precinto"
                 onChange={(e) => setBolsa({ ...bolsa, nroPrecinto: e.target.value })}
+                disabled={currentActa.estado === "en creacion" ? false : true}
               />
             </InputContainer>
           </div>
@@ -143,9 +148,12 @@ function AddBolsas() {
               value={bolsa.observaciones}
               placeholder="Observaciones/Descripcion de la Bolsa"
               onChange={(e) => setBolsa({ ...bolsa, observaciones: e.target.value })}
+              disabled={currentActa.estado === "en creacion" ? false : true}
             />
           </InputContainer>
+
           <Submit
+            disabled={currentActa.estado === "en creacion" ? false : true}
             type="submit"
             value="Cargar Bolsa"
             complete={

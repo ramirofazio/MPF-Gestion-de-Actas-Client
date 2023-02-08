@@ -96,7 +96,7 @@ function generateDoc() {
       integrantes: Integrantes,
       bolsas: Bolsas,
       efectos: Efectos,
-      actaObservaciones: observaciones,
+      observaciones: observaciones,
     });
     try {
       doc.render();
