@@ -1,6 +1,7 @@
 import axios from "axios";
 //* Utils
 import generateDoc from "../Components/Utils/template/generateDoc";
+import editSavedActa from "../Components/Utils/template/editSavedActa";
 import Variables from "../Styles/Variables";
 import { toast } from "react-toastify";
 
@@ -15,6 +16,16 @@ export const GET_BUGS_REPORTS = "GET_BUGS_REPORTS";
 export const CLEAR_STATES = "CLEAR_STATES";
 export const ADMIN = "ADMIN";
 export const UPDATE_BOLSAS = "UPDATE_BOLSAS";
+
+export function closeProcessActa(acta_id, navigate) {
+  return function () {
+    axios.put(Variables.baseEndpoint + `/closeProcessActa?acta_id=${acta_id}`).then((res) => {
+      if (res.status === 200) {
+        editSavedActa(res.data.id, navigate);
+      }
+    });
+  };
+}
 
 export function getAllActas() {
   return function (dispatch) {
@@ -225,10 +236,10 @@ export function updateActa(observaciones, id, navigate) {
   };
 }
 
-export function removePerito(dni) {
+export function removePerito(dni, acta_id) {
   return function () {
     axios
-      .delete(Variables.baseEndpoint + "/removePerito/" + dni)
+      .delete(Variables.baseEndpoint + `/removePerito?dni=${dni}&acta_id=${acta_id}`)
       .then((res) => {
         if (res.status === 200) toast.success("Perito eliminado con exito!");
       })
@@ -238,10 +249,10 @@ export function removePerito(dni) {
   };
 }
 
-export function removeIntegrante(dni) {
+export function removeIntegrante(dni, acta_id) {
   return function () {
     axios
-      .delete(Variables.baseEndpoint + "/removeIntegrante/" + dni)
+      .delete(Variables.baseEndpoint + `/removeIntegrante?dni=${dni}&acta_id=${acta_id}`)
       .then((res) => {
         if (res.status === 200) toast.success("Integrante eliminado con exito!");
       })

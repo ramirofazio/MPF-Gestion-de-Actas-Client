@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { createBolsas, removeBolsa } from "../../../redux/actions";
+import { createBolsas, removeBolsa, closeProcessActa } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
@@ -54,13 +54,16 @@ function AddBolsas() {
 
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
   const [closeBagsModal, setCloseBagsModal] = React.useState(false);
-
   const [bolsa, setBolsa] = React.useState({
     acta_id: currentActa.id,
     colorPrecinto: "",
     nroPrecinto: "",
     observaciones: currentActa.estado === "en creacion" ? "un sobre, papel madera cerrado" : "",
   });
+
+  const handleCloseProcessActa = () => {
+    dispatch(closeProcessActa(currentActa.id, navigate)); //* Mando el ID para que el backend haga toda la logica
+  };
 
   const handleSubmitBolsa = (e) => {
     //* Crea una bolsa nueva y blanquea los input
@@ -211,7 +214,7 @@ function AddBolsas() {
             >
               Imprimir Acta en Proceso
             </Button>
-            <Button to="/actas/crear/1" complete={"true"}>
+            <Button onClick={() => handleCloseProcessActa()} complete={"true"} to="#">
               Cerrar Elementos en Proceso
             </Button>
           </>
