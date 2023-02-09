@@ -18,7 +18,7 @@ function AddPeritos() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => s.currentActa);
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
 
   const [peritos, setPeritos] = React.useState(JSON.parse(localStorage.getItem("currentPeritos")) || []);
   const [perito, setPerito] = React.useState({
@@ -48,7 +48,8 @@ function AddPeritos() {
   };
 
   const handleRemove = (dni) => {
-    dispatch(removePerito(dni)); //* Si estoy editando, tengo que eliminar de la base de datos
+    console.log(currentActa.id);
+    dispatch(removePerito(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
     const newPeritos = peritos.filter((i) => i.dni !== dni);
     setPeritos(newPeritos);

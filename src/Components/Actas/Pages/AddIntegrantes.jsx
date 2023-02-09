@@ -18,7 +18,7 @@ function AddIntegrantes() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => s.currentActa);
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
 
   const [integrantes, setIntegrantes] = React.useState(JSON.parse(localStorage.getItem("currentIntegrantes")) || []);
   const [integrante, setIntegrante] = React.useState({
@@ -50,7 +50,7 @@ function AddIntegrantes() {
   };
 
   const handleRemove = (dni) => {
-    dispatch(removeIntegrante(dni)); //* Si estoy editando, tengo que eliminar de la base de datos
+    dispatch(removeIntegrante(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
     const newIntegrantes = integrantes.filter((i) => i.dni !== dni);
     setIntegrantes(newIntegrantes);
