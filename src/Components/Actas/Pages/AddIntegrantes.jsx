@@ -9,6 +9,7 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
+import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 const { enProcesoContainer, header, headerTitle, button, formContainer, inputContainer, inputLabel, form, input, cardTitle, cardInfo } =
@@ -19,8 +20,9 @@ function AddIntegrantes() {
   const dispatch = useDispatch();
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
+  const currentIntegrantes = useSelector((s) => JSON.parse(localStorage.getItem("currentIntegrantes")) || s.currentIntegrantes);
 
-  const [integrantes, setIntegrantes] = React.useState(JSON.parse(localStorage.getItem("currentIntegrantes")) || []);
+  const [integrantes, setIntegrantes] = React.useState(currentIntegrantes || []);
   const [integrante, setIntegrante] = React.useState({
     nombreYApellido: "",
     dni: "",
@@ -71,6 +73,7 @@ function AddIntegrantes() {
             <InputContainer>
               <Label>Nombre y Apellido</Label>
               <Input
+                disabled={currentIntegrantes.length > 0 ? true : false}
                 type="text"
                 name="nombreYApellido"
                 value={integrante.nombreYApellido}
@@ -81,6 +84,7 @@ function AddIntegrantes() {
             <InputContainer>
               <Label>DNI</Label>
               <Input
+                disabled={currentIntegrantes.length > 0 ? true : false}
                 type="number"
                 name="dni"
                 value={integrante.dni}
@@ -91,6 +95,7 @@ function AddIntegrantes() {
             <InputContainer>
               <Label>Legajo o Matricula</Label>
               <Input
+                disabled={currentIntegrantes.length > 0 ? true : false}
                 type="number"
                 name="legajoOMatricula"
                 value={integrante.legajoOMatricula}
@@ -101,6 +106,7 @@ function AddIntegrantes() {
             <InputContainer>
               <Label>Cargo</Label>
               <Input
+                disabled={currentIntegrantes.length > 0 ? true : false}
                 type="text"
                 name="cargo"
                 value={integrante.cargo}
@@ -140,26 +146,25 @@ function AddIntegrantes() {
                     <br />
                     {i.cargo}
                   </Info>
-                  <RemoveIcon onClick={() => handleRemove(i.dni)} />
+                  <RemoveIcon
+                    onClick={() =>
+                      currentIntegrantes.length > 0 ? toast.error("No se puede eliminar un Integrante ya creado") : handleRemove(i.dni)
+                    }
+                  />
                 </IntegranteContainer>
               );
             })}
         </IntegrantesContainer>
       </SubContainer>
 
-      {!JSON.parse(localStorage.getItem("currentIntegrantes")) ? (
+      {integrantes.length > 0 && !currentIntegrantes.length > 0 ? (
         <Button complete={"true"} onClick={() => handleNext()} to="#">
-          Siguente
+          Crear
         </Button>
       ) : (
-        <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
-          <Button complete={integrantes.length >= "1" ? "true" : "false"} onClick={() => handleNext()} to="#">
-            Volver a Crear
-          </Button>
-          <Button to={"/actas/crear/4"} complete={"true"}>
-            Continuar Asi
-          </Button>
-        </div>
+        <Button to={"/actas/crear/4"} complete={"true"}>
+          Continuar Asi
+        </Button>
       )}
     </Container>
   );

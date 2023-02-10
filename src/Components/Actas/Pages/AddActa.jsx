@@ -127,7 +127,7 @@ function AddActa() {
       <FormContainer>
         <InputContainer>
           <Label>Tipo de Acta</Label>
-          <Select onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
+          <Select disabled={comeBack ? true : false} onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
             <SelectOpt>Tipo de Acta</SelectOpt>
             <SelectOpt>MPF/DEN</SelectOpt>
             <SelectOpt>COOP</SelectOpt>
@@ -137,7 +137,11 @@ function AddActa() {
           <>
             <InputContainer>
               <Label>Solicitante</Label>
-              <Select onChange={(e) => setActa({ ...acta, solicitante: e.target.value })} value={acta.solicitante}>
+              <Select
+                disabled={comeBack ? true : false}
+                onChange={(e) => setActa({ ...acta, solicitante: e.target.value })}
+                value={acta.solicitante}
+              >
                 <SelectOpt value="">Solicitante</SelectOpt>
                 <SelectOpt>Área de Flagrancia Contravencional</SelectOpt>
                 <SelectOpt>Equipo de Análisis de Casos de Comercialización de Estupefacientes</SelectOpt>
@@ -240,6 +244,7 @@ function AddActa() {
               <InputContainer>
                 <Label>Nro MPF/DEN</Label>
                 <Input
+                  disabled={comeBack ? true : false}
                   type="number"
                   name="MPF/DEN"
                   value={!comeBack ? acta.mpfOrDen : acta.nro_mpf}
@@ -250,6 +255,7 @@ function AddActa() {
               <InputContainer>
                 <Label>Nro CIJ</Label>
                 <Input
+                  disabled={comeBack ? true : false}
                   type="number"
                   name="CIJ"
                   value={!comeBack ? acta.cij : acta.nro_cij}
@@ -260,6 +266,7 @@ function AddActa() {
               <InputContainer>
                 <Label>Nro DIL</Label>
                 <Input
+                  disabled={comeBack ? true : false}
                   type="number"
                   name="DIL"
                   value={!comeBack ? acta.dil : acta.nro_dil}
@@ -274,6 +281,7 @@ function AddActa() {
             <InputContainer>
               <Label>Solicitante</Label>
               <Input
+                disabled={comeBack ? true : false}
                 type="text"
                 name="Solicitante"
                 value={acta.solicitante}
@@ -284,6 +292,7 @@ function AddActa() {
             <InputContainer>
               <Label>Nro Coop</Label>
               <Input
+                disabled={comeBack ? true : false}
                 type="number"
                 name="COOP"
                 value={!comeBack ? acta.coop : acta.nro_coop}
@@ -294,6 +303,7 @@ function AddActa() {
             <InputContainer>
               <Label>Nro Causa</Label>
               <Input
+                disabled={comeBack ? true : false}
                 type="number"
                 name="Nro Causa"
                 value={!comeBack ? acta.nroCausa : acta.nro_causa}
@@ -304,6 +314,7 @@ function AddActa() {
             <InputContainer>
               <Label>Caratula</Label>
               <Input
+                disabled={comeBack ? true : false}
                 type="text"
                 name="Caratula"
                 value={acta.caratula}
@@ -314,6 +325,7 @@ function AddActa() {
             <InputContainer>
               <Label>Nro CIJ</Label>
               <Input
+                disabled={comeBack ? true : false}
                 type="number"
                 name="CIJ"
                 value={!comeBack ? acta.cij : acta.nro_cij}
@@ -324,6 +336,7 @@ function AddActa() {
             <InputContainer>
               <Label>Nro DIL</Label>
               <Input
+                disabled={comeBack ? true : false}
                 type="number"
                 name="DIL"
                 value={!comeBack ? acta.dil : acta.nro_dil}
@@ -336,17 +349,12 @@ function AddActa() {
       </FormContainer>
       {!comeBack ? (
         <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
-          Siguente
+          Crear
         </Button>
       ) : (
-        <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
-          <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
-            Volver a crear
-          </Button>
-          <Button to={"/actas/crear/2"} complete={"true"}>
-            Continuar Asi
-          </Button>
-        </div>
+        <Button to={"/actas/crear/2"} complete={"true"}>
+          Continuar Asi
+        </Button>
       )}
     </Container>
   );

@@ -9,6 +9,7 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
+import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 const { enProcesoContainer, header, headerTitle, button, formContainer, inputContainer, inputLabel, form, input, cardTitle, cardInfo } =
@@ -19,8 +20,9 @@ function AddPeritos() {
   const dispatch = useDispatch();
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
+  const currentPeritos = useSelector((s) => JSON.parse(localStorage.getItem("currentPeritos")) || s.currentPeritos);
 
-  const [peritos, setPeritos] = React.useState(JSON.parse(localStorage.getItem("currentPeritos")) || []);
+  const [peritos, setPeritos] = React.useState(currentPeritos || []);
   const [perito, setPerito] = React.useState({
     nombreYApellido: "",
     dni: "",
@@ -48,7 +50,6 @@ function AddPeritos() {
   };
 
   const handleRemove = (dni) => {
-    console.log(currentActa.id);
     dispatch(removePerito(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
     const newPeritos = peritos.filter((i) => i.dni !== dni);
@@ -70,6 +71,7 @@ function AddPeritos() {
             <InputContainer>
               <Label>Nombre y Apellido</Label>
               <Input
+                disabled={currentPeritos ? true : false}
                 type="text"
                 name="nombreYApellido"
                 value={perito.nombreYApellido}
@@ -80,6 +82,7 @@ function AddPeritos() {
             <InputContainer>
               <Label>DNI</Label>
               <Input
+                disabled={currentPeritos ? true : false}
                 type="text"
                 name="dni"
                 value={perito.dni}
@@ -90,6 +93,7 @@ function AddPeritos() {
             <InputContainer>
               <Label>Cargo</Label>
               <Input
+                disabled={currentPeritos ? true : false}
                 type="text"
                 name="cargo"
                 value={perito.cargo}
@@ -124,26 +128,23 @@ function AddPeritos() {
                     <br />
                     {i.cargo}
                   </Info>
-                  <RemoveIcon onClick={() => handleRemove(i.dni)} />
+                  <RemoveIcon
+                    onClick={() => (currentPeritos ? toast.error("No se puede eliminar un Perito ya creado") : handleRemove(i.dni))}
+                  />
                 </PeritoContainer>
               );
             })}
         </PeritosContainer>
       </SubContainer>
 
-      {!JSON.parse(localStorage.getItem("currentPeritos")) ? (
+      {!currentPeritos ? (
         <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
-          Siguente
+          Crear
         </Button>
       ) : (
-        <div style={{ display: "flex", justifyContent: "space-around", width: "50%" }}>
-          <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
-            Volver a Crear
-          </Button>
-          <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
-            Continuar Asi
-          </Button>
-        </div>
+        <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
+          Continuar Asi
+        </Button>
       )}
     </Container>
   );
