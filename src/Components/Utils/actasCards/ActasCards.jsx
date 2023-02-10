@@ -9,7 +9,7 @@ import ActaCard from "./ActaCard";
 const { cardsContainer, button } = GlobalStyles;
 
 function ActasCards({ allActas, typeOfCard }) {
-  const actasToRender = allActas.filter((actas) => actas.estado !== "deprecado");
+  const actasToRender = allActas.filter((actas) => actas.estado !== "deprecada");
 
   return (
     <>
