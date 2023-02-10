@@ -81,7 +81,9 @@ function AddBolsas() {
     //* Activa o desactiva el btn de agregar Elementos segun los estados de las bolsas
     let res = "false";
     currentBolsas.map((b) => {
-      b.estado !== "cerrada" && b.estado !== "cerrada en proceso" ? (res = "true") : (res = "false");
+      b.estado !== "cerrada" && b.estado !== "cerrada en proceso" && currentActa.estado !== "para completar"
+        ? (res = "true")
+        : (res = "false");
     });
 
     return res;
@@ -102,7 +104,9 @@ function AddBolsas() {
   };
 
   const handleCloseBags = () => {
-    alert("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!");
+    if (currentActa.estado !== "para completar") {
+      alert("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!");
+    }
     setCloseBagsModal(!closeBagsModal);
   };
 
@@ -193,7 +197,7 @@ function AddBolsas() {
       </Modal>
 
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        {currentActa.estado === "en creacion" && (
+        {(currentActa.estado === "en creacion" || currentActa.estado === "para completar") && (
           <>
             <Button complete={handleCompleteEfectos()} onClick={() => setAddEfectosModal(!addEfectosModal)} to="#">
               Añadir Elementos
