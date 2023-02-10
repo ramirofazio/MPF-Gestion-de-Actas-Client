@@ -21,11 +21,11 @@ function CloseModal({ closeModal }) {
   const [bagsInProcess, setBagsInProcess] = React.useState([]);
   const [bagsToClose, setBagsToClose] = React.useState([]);
   const [state, setState] = React.useState({
-    nroPrecinto: "",
+    id: "",
     nroPrecintoBlanco: "",
   });
   const [inProcessState, setInProcessState] = React.useState({
-    nroPrecinto: "",
+    id: "",
     leyenda: "se dejaron los elementos en proceso de copiado en el laboratorio",
   });
   const [observaciones, setObservaciones] = React.useState("");
@@ -40,12 +40,12 @@ function CloseModal({ closeModal }) {
   const getPrecintos = () => {
     //* Bolsas completas
     const bagsCompleted = currentBolsas.filter((b) => {
-      if (b.estado === "abierta con efectos completos") return b.nroPrecinto;
+      if (b.estado === "abierta con efectos completos") return b;
     });
     setBagsToClose(bagsCompleted);
     //* Bolsas en proceso
     const bagsInProcess = currentBolsas.filter((b) => {
-      if (b.estado === "abierta con efectos en proceso") return b.nroPrecinto;
+      if (b.estado === "abierta con efectos en proceso") return b;
     });
     setBagsInProcess(bagsInProcess);
   };
@@ -83,11 +83,11 @@ function CloseModal({ closeModal }) {
           <Title>Cerrar Bolsas</Title>
           <InputContainer>
             <Label>Nro Precinto Bolsa</Label>
-            <Select value={state.nroPrecinto} onChange={(e) => setState({ ...state, nroPrecinto: Number(e.target.value) })}>
+            <Select value={state.id} onChange={(e) => setState({ ...state, id: Number(e.target.value) })}>
               <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
               {bagsToClose.length > 0 &&
                 bagsToClose.map(({ nroPrecinto, id, colorPrecinto }) => (
-                  <SelectOpt value={nroPrecinto} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
+                  <SelectOpt value={id} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
                     {nroPrecinto}
                   </SelectOpt>
                 ))}
@@ -137,14 +137,11 @@ function CloseModal({ closeModal }) {
           <Title>Cerrar Bolsa en Proceso</Title>
           <InputContainer>
             <Label>Nro Precinto Bolsa</Label>
-            <Select
-              value={inProcessState.nroPrecinto}
-              onChange={(e) => setInProcessState({ ...inProcessState, nroPrecinto: Number(e.target.value) })}
-            >
+            <Select value={inProcessState.id} onChange={(e) => setInProcessState({ ...inProcessState, id: Number(e.target.value) })}>
               <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
               {bagsInProcess.length > 0 &&
                 bagsInProcess.map(({ nroPrecinto, id, colorPrecinto }) => (
-                  <SelectOpt value={nroPrecinto} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
+                  <SelectOpt value={id} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
                     {nroPrecinto}
                   </SelectOpt>
                 ))}
