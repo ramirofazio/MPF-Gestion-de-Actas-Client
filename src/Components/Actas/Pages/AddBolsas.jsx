@@ -11,6 +11,7 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 import { TagLock } from "@styled-icons/fluentui-system-filled/TagLock";
 import { LockClosed } from "@styled-icons/fluentui-system-filled/LockClosed";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
+import { BoxSeam } from "@styled-icons/bootstrap/BoxSeam";
 //* Modal
 import Modal from "react-modal";
 //* Components
@@ -174,12 +175,20 @@ function AddBolsas() {
             currentBolsas.map((bolsa) => {
               return (
                 <BolsaContainer key={bolsa.id}>
-                  {bolsa.Efectos?.length <= 0 && <DeleteIcon onClick={() => handleDeleteBolsa(bolsa.id)} />}
                   <Info style={bolsa.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
                     <CardTitle>Nº Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : "verde"}</CardTitle>
                     <br />
                     {bolsa.nroPrecinto}
                   </Info>
+                  <Info>
+                    <CardTitle>Nº Elementos</CardTitle>
+                    <br />
+                    {bolsa.Efectos.length}
+                  </Info>
+                  {(bolsa.estado === "abierta con efectos completos" || bolsa.estado === "abierta con efectos en proceso") && (
+                    <BoxSeamIcon />
+                  )}
+                  {bolsa.Efectos?.length <= 0 && <DeleteIcon onClick={() => handleDeleteBolsa(bolsa.id)} />}
                   {bolsa.estado === "cerrada" && <TagLockIcon />}
                   {bolsa.estado === "cerrada en proceso" && <LockClosedIcon />}
                 </BolsaContainer>
@@ -379,9 +388,15 @@ const LockClosedIcon = styled(LockClosed)`
   color: ${secondaryColor};
 `;
 
+const BoxSeamIcon = styled(BoxSeam)`
+  width: 7%;
+  margin-right: 5%;
+  color: ${secondaryColor};
+`;
+
 const DeleteIcon = styled(Delete)`
   width: 6%;
-  margin-left: 5%;
+  margin-right: 5%;
   color: ${secondaryColor};
 
   &:hover {
