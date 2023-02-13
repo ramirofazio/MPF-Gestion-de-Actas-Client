@@ -26,7 +26,7 @@ function CloseModal({ closeModal }) {
   });
   const [inProcessState, setInProcessState] = React.useState({
     id: "",
-    leyenda: "se dejaron los elementos en proceso de copiado en el laboratorio",
+    leyenda: "Finalizadas las tareas técnicas pertinentes, se dejaron los elementos en proceso de copiado en el laboratorio",
   });
   const [observaciones, setObservaciones] = React.useState("");
 

@@ -181,7 +181,7 @@ function AddBolsas() {
                     {bolsa.nroPrecinto}
                   </Info>
                   <Info>
-                    <CardTitle>Nº Elementos</CardTitle>
+                    <CardTitle>Cant. Elementos</CardTitle>
                     <br />
                     {bolsa.Efectos.length}
                   </Info>
@@ -389,7 +389,7 @@ const LockClosedIcon = styled(LockClosed)`
 `;
 
 const BoxSeamIcon = styled(BoxSeam)`
-  width: 7%;
+  width: 6%;
   margin-right: 5%;
   color: ${secondaryColor};
 `;
@@ -398,9 +398,11 @@ const DeleteIcon = styled(Delete)`
   width: 6%;
   margin-right: 5%;
   color: ${secondaryColor};
+  transition: all 0.5s ease;
 
   &:hover {
     cursor: pointer;
+    color: black;
   }
 `;
 
