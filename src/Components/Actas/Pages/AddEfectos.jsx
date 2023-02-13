@@ -119,12 +119,41 @@ function AddEfectos({ closeModal }) {
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeElemento, estado } = efecto;
+    const { bolsa_id, tipoDeElemento, marca, modelo, imei, estado, tipoSeguridad, extraccion, almacenamiento, serialNumber } = efecto;
 
-    if (bolsa_id && tipoDeElemento && estado) {
-      return "true";
-    } else {
-      return "false";
+    switch (tipoDeElemento) {
+      case "celular": {
+        if (bolsa_id && marca && modelo && imei && tipoSeguridad && estado) {
+          return "true";
+        }
+        break;
+      }
+      case "talet": {
+        if (bolsa_id && marca && modelo && serialNumber && tipoSeguridad && estado) {
+          return "true";
+        }
+        break;
+      }
+      case "notebook": {
+        if (bolsa_id && marca && modelo && serialNumber && estado) {
+          return "true";
+        }
+        break;
+      }
+      case "pc": {
+        if (bolsa_id && marca && modelo && serialNumber && estado) {
+          return "true";
+        }
+        break;
+      }
+      case "pendrive": {
+        if (bolsa_id && marca && modelo && serialNumber && almacenamiento && extraccion && estado) {
+          return "true";
+        }
+        break;
+      }
+      default:
+        return "false";
     }
   };
 
@@ -211,7 +240,10 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
         )}
-        {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pendrive" || efecto.tipoDeElemento === "tablet") && (
+        {(efecto.tipoDeElemento === "notebook" ||
+          efecto.tipoDeElemento === "pendrive" ||
+          efecto.tipoDeElemento === "tablet" ||
+          efecto.tipoDeElemento === "pc") && (
           <InputContainer>
             <Label>Serial Nº</Label>
             <Input
@@ -224,7 +256,7 @@ function AddEfectos({ closeModal }) {
           </InputContainer>
         )}
 
-        {efecto.tipoDeElemento !== "pendrive" && efecto.tipoDeElemento !== "notebook" && (
+        {efecto.tipoDeElemento !== "pendrive" && efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "pc" && (
           <InputContainer>
             <Label>Tipo de Seguridad</Label>
             <Select value={efecto.tipoSeguridad} onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}>
@@ -393,7 +425,7 @@ function AddEfectos({ closeModal }) {
             <Input
               type="text"
               name="modelo"
-              value={disco.Modelo}
+              value={disco.modelo}
               placeholder="Modelo"
               onChange={(e) => setDisco({ ...disco, modelo: e.target.value })}
             />
@@ -426,7 +458,15 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="en proceso">En Proceso</SelectOpt>
             </Select>
           </InputContainer>
-          <Button type="submit" value="Agregar Disco" complete={"true"} />
+          <Button
+            type="submit"
+            value="Agregar Disco"
+            complete={
+              disco.tipoDeDisco && disco.marca && disco.modelo && disco.serialNumber && disco.almacenamiento && disco.estadoDisco
+                ? "true"
+                : "false"
+            }
+          />
         </Form>
       </Modal>
       <Modal isOpen={addSimModal} style={modal40x50} ariaHideApp={false}>
@@ -464,7 +504,11 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>
-          <Button type="submit" value="Agregar Sim" complete={"true"} />
+          <Button
+            type="submit"
+            value="Agregar Sim"
+            complete={sim.empresaSim && sim.serialSim && sim.tipoExtraccionSim ? "true" : "false"}
+          />
         </Form>
       </Modal>
       <Modal isOpen={addSdModal} style={modal40x50} ariaHideApp={false}>
@@ -512,7 +556,11 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>
-          <Button type="submit" value="Agregar SD" complete={"true"} />
+          <Button
+            type="submit"
+            value="Agregar SD"
+            complete={sd.marca && sd.modelo && sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"}
+          />
         </Form>
       </Modal>
     </>
