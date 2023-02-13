@@ -12,7 +12,7 @@ function generateDoc() {
   const currentActa = JSON.parse(localStorage.getItem("finalActa")); //* Nos traemos el acta del local storage
   const actaFlag = localStorage.getItem("actaFlag"); //* Nos traemos la flag del local storage
 
-  const { Bolsas, Peritos, Integrantes, dias, mes, anio, hora } = currentActa; //* Sacamos las bolsas y los integrantes del acta
+  const { Bolsas, Peritos, Integrantes, dias, mes, anio, hora, processToComplete } = currentActa; //* Sacamos las bolsas y los integrantes del acta
   const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula } = currentActa; //* Desestructuramos el acta
 
   const Efectos = []; //* Array con todos los efectos con sus nroPrecintoBolsa
@@ -97,6 +97,7 @@ function generateDoc() {
       bolsas: Bolsas,
       efectos: Efectos,
       observaciones: observaciones,
+      processToComplete: processToComplete,
     });
     try {
       doc.render();
