@@ -161,7 +161,7 @@ function CloseModal({ closeModal }) {
             style={{ marginBottom: "-4%" }}
             type="submit"
             value="Cerrar Bolsa en Proceso"
-            complete={inProcessState.nroPrecinto !== "" && inProcessState.leyenda !== "" ? "true" : "false"}
+            complete={inProcessState.id !== "" && inProcessState.leyenda !== "" ? "true" : "false"}
           />
         </Form>
       </>

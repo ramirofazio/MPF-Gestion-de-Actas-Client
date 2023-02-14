@@ -128,7 +128,7 @@ function AddEfectos({ closeModal }) {
         }
         break;
       }
-      case "talet": {
+      case "tablet": {
         if (bolsa_id && marca && modelo && serialNumber && tipoSeguridad && estado) {
           return "true";
         }
@@ -141,7 +141,7 @@ function AddEfectos({ closeModal }) {
         break;
       }
       case "pc": {
-        if (bolsa_id && marca && modelo && serialNumber && estado) {
+        if (bolsa_id && serialNumber && estado) {
           return "true";
         }
         break;
