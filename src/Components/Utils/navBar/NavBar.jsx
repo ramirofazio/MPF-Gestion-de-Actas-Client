@@ -42,13 +42,13 @@ function NavBar() {
       <Container>
         <HiddenButton onDoubleClick={() => setAdminPassModal(!adminPassModal)} />
         <Logo src={logo} alt="logo" />
-        <HomeLinks to="/">Crear Acta</HomeLinks>
-        {adminState === true && (
+        {adminState && (
           <>
+            <HomeLinks to="/">Crear Acta</HomeLinks>
+            <HomeLinks to="/admin">Panel de Administrador</HomeLinks>
             <HomeLinks to="/" onClick={() => dispatch(admin())}>
               Cerrar
             </HomeLinks>
-            <HomeLinks to="/admin">Panel de Administrador</HomeLinks>
           </>
         )}
         <CreateBugReport />

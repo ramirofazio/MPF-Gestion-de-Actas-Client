@@ -6,12 +6,13 @@ import GlobalStyles from "../../Styles/GlobalStyles";
 import Variables from "../../Styles/Variables";
 import { BugFill } from "@styled-icons/bootstrap/BugFill";
 import { StatsChart } from "@styled-icons/ionicons-sharp/StatsChart";
+import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
+
 //* Initializations
 const { principalColor, secondaryColor } = Variables;
-const { header, headerTitle, homeCard, enProcesoContainer } = GlobalStyles;
+const { header, headerTitle, enProcesoContainer } = GlobalStyles;
 
 function Home() {
-
   return (
     <Container>
       <Header>
@@ -28,6 +29,7 @@ function Home() {
         </Card>
         <Card to="/admin/eliminarActa">
           <CardTitle>Eliminar un Acta</CardTitle>
+          <FileRemoveIcon />
         </Card>
       </CardsContainer>
     </Container>
@@ -60,7 +62,16 @@ const CardsContainer = styled.div`
 `;
 
 const Card = styled(NavLink)`
-  ${homeCard}
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 25px;
+  width: 60%;
+  min-height: 15%;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 2px solid ${principalColor};
 `;
 
 const CardTitle = styled.span`
@@ -69,13 +80,12 @@ const CardTitle = styled.span`
   transition: all 0.3s ease;
 
   ${Card}:hover & {
-    font-size: 25px;
+    font-size: 22px;
   }
 `;
 
 const BugIcon = styled(BugFill)`
   width: 30px;
-  margin-right: 40px;
   color: ${secondaryColor};
   transition: all 0.3s ease;
 
@@ -92,7 +102,22 @@ const BugIcon = styled(BugFill)`
 
 const StatsChartIcon = styled(StatsChart)`
   width: 30px;
-  margin-right: 40px;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+  ${Card}:hover & {
+    width: 35px;
+    color: ${principalColor};
+  }
+`;
+
+const FileRemoveIcon = styled(FileRemove)`
+  width: 30px;
   color: ${secondaryColor};
   transition: all 0.3s ease;
 
