@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllActas, clearStates } from "../../redux/actions";
+import { getAllActas, clearStates, admin } from "../../redux/actions";
 //* Styles
 import styled from "styled-components";
 import GlobalStyles from "../../Styles/GlobalStyles";
@@ -13,13 +13,21 @@ const { enProcesoContainer, header, headerTitle } = GlobalStyles;
 function Home() {
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    dispatch(clearStates()); //* Limpio redux
-    dispatch(getAllActas()); // * Pido todas las actas
-    localStorage.clear(); // * Limpio el localStorage
-  }, []);
+  const allActas = useSelector((s) => s.allActas); //* Me traigo todas las actas
+  const adminState = useSelector((s) => s.admin);
 
-  const allActas = useSelector((s) => s?.allActas); //* Me traigo todas las actas
+  React.useEffect(() => {
+    if (adminState) {
+      dispatch(clearStates());
+      dispatch(getAllActas());
+      dispatch(admin());
+      localStorage.clear();
+    } else {
+      dispatch(clearStates());
+      dispatch(getAllActas());
+      localStorage.clear();
+    }
+  }, []);
 
   return (
     <Container>
