@@ -12,6 +12,7 @@ import { TagLock } from "@styled-icons/fluentui-system-filled/TagLock";
 import { LockClosed } from "@styled-icons/fluentui-system-filled/LockClosed";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 import { BoxSeam } from "@styled-icons/bootstrap/BoxSeam";
+import ClipLoader from "react-spinners/ClipLoader";
 //* Modal
 import Modal from "react-modal";
 //* Components
@@ -53,6 +54,7 @@ function AddBolsas() {
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas);
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s.currentEfectos);
 
+  const [loading, setLoading] = React.useState(false);
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
   const [closeBagsModal, setCloseBagsModal] = React.useState(false);
   const [bolsa, setBolsa] = React.useState({
@@ -63,6 +65,7 @@ function AddBolsas() {
   });
 
   const handleCloseProcessActa = () => {
+    setLoading(true);
     dispatch(closeProcessActa(currentActa.id, navigate)); //* Mando el ID para que el backend haga toda la logica
   };
 
@@ -216,7 +219,7 @@ function AddBolsas() {
             </Button>
           </>
         )}
-        {currentActa.estado === "en proceso" && (
+        {currentActa.estado !== "en proceso" && (
           <>
             <Button
               onClick={() =>
@@ -227,9 +230,17 @@ function AddBolsas() {
             >
               Imprimir Acta en Proceso
             </Button>
-            <Button onClick={() => handleCloseProcessActa()} complete={"true"} to="#">
-              Cerrar Elementos en Proceso
-            </Button>
+            {!loading && (
+              <Button onClick={() => handleCloseProcessActa()} complete={"true"} to="#">
+                Cerrar Elementos en Proceso
+              </Button>
+            )}
+            {loading && (
+              <Button complete={"true"} to="#">
+                Cerrando Elementos{" "}
+                <ClipLoader color={"black"} size={18} cssOverride={{ marginBottom: "-2%", marginLeft: "10px" }} loading={true} />
+              </Button>
+            )}
           </>
         )}
 
