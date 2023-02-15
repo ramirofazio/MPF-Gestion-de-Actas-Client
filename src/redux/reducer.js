@@ -203,7 +203,7 @@ function reducer(state = initialState, action) {
       if (mpf || cij || dil || estado) {
         if (actasFiltered?.length === 0) {
           actasFiltered = state.allActasSave;
-          toast.warning("Acta no encontrada");
+          toast.warning("¡No hay actas con esos datos! Mostrando todas");
         }
       }
 

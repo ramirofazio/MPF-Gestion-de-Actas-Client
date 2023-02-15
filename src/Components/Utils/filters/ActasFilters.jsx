@@ -42,37 +42,24 @@ function ActasFilters() {
       <Form onSubmit={handleReset}>
         <InputContainer>
           <Label>Nro MPF</Label>
-          <Input
-            type="text"
-            value={filters.mpf}
-            onChange={(e) => setFilters({ ...filters, mpf: e.target.value })}
-            maxLength={12}
-          />
+          <Input type="text" value={filters.mpf} onChange={(e) => setFilters({ ...filters, mpf: e.target.value })} maxLength={12} />
         </InputContainer>
         <InputContainer>
           <Label>Nro CIJ</Label>
-          <Input
-            type="text"
-            value={filters.cij}
-            onChange={(e) => setFilters({ ...filters, cij: e.target.value })}
-            maxLength={12}
-          />
+          <Input type="text" value={filters.cij} onChange={(e) => setFilters({ ...filters, cij: e.target.value })} maxLength={12} />
         </InputContainer>
         <InputContainer>
           <Label>Nro DIL</Label>
-          <Input
-            type="text"
-            value={filters.dil}
-            onChange={(e) => setFilters({ ...filters, dil: e.target.value })}
-            maxLength={12}
-          />
+          <Input type="text" value={filters.dil} onChange={(e) => setFilters({ ...filters, dil: e.target.value })} maxLength={12} />
         </InputContainer>
         <InputContainer>
           <Label>Estado</Label>
           <Select value={filters.estado} onChange={(e) => setFilters({ ...filters, estado: e.target.value })}>
             <option value="">Todas</option>
             <option value="en proceso">En Proceso</option>
-            <option value="completo">Completas</option>
+            <option value="completa">Completas</option>
+            <option value="en creacion">En Creacion</option>
+            <option value="para cerrar">Para Cerrar</option>
           </Select>
         </InputContainer>
         <InputContainer
