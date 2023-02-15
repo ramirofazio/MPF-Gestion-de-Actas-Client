@@ -219,7 +219,7 @@ function AddBolsas() {
             </Button>
           </>
         )}
-        {currentActa.estado !== "en proceso" && (
+        {currentActa.estado === "en proceso" && (
           <>
             <Button
               onClick={() =>
