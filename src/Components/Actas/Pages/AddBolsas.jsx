@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { createBolsas, removeBolsa, closeProcessActa } from "../../../redux/actions";
+import { createBolsas, removeBolsa, closeProcessActa, removeEfecto } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
@@ -63,6 +63,12 @@ function AddBolsas() {
     nroPrecinto: "",
     observaciones: currentActa.estado === "en creacion" ? "un sobre, papel madera cerrado" : "",
   });
+
+  const handleRemoveEfecto = (efecto_id) => {
+    if (currentActa.estado === "en creacion") {
+      dispatch(removeEfecto(efecto_id, currentActa.id));
+    }
+  };
 
   const handleCloseProcessActa = () => {
     setLoading(true);
@@ -201,7 +207,15 @@ function AddBolsas() {
       </FormContainer>
       <EfectosContainer>
         {currentEfectos &&
-          currentEfectos.map((efecto) => <CreateEfectosCards efecto={efecto} currentBolsas={currentBolsas} key={efecto.id} />)}
+          currentEfectos.map((efecto) => (
+            <CreateEfectosCards
+              efecto={efecto}
+              currentBolsas={currentBolsas}
+              estadoActa={currentActa.estado}
+              handleRemoveEfecto={handleRemoveEfecto}
+              key={efecto.id}
+            />
+          ))}
       </EfectosContainer>
       <Modal isOpen={addEfectosModal} style={modal30x90} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />

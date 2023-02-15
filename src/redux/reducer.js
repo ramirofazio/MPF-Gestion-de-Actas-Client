@@ -11,6 +11,7 @@ import {
   ADMIN,
   CREATE_PERITOS,
   UPDATE_BOLSAS,
+  UPDATE_EFECTOS,
 } from "./actions";
 
 let initialState = {
@@ -27,6 +28,15 @@ let initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case UPDATE_EFECTOS: {
+      localStorage.setItem("currentEfectos", []);
+      localStorage.setItem("currentEfectos", JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        currenEfectos: action.payload,
+      };
+    }
     case UPDATE_BOLSAS: {
       localStorage.setItem("currentBolsas", []);
       localStorage.setItem("currentBolsas", JSON.stringify(action.payload));

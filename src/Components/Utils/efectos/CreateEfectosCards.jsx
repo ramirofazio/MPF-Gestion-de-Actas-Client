@@ -11,11 +11,12 @@ import { Computer } from "@styled-icons/material-outlined/Computer";
 import { DeviceHddFill } from "@styled-icons/bootstrap/DeviceHddFill";
 import { SimFill } from "@styled-icons/bootstrap/SimFill";
 import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
+import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 //* Initializations
 const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
 const { cardTitle, cardInfo } = GlobalStyles;
 
-function CreateEfectosCards({ efecto, currentBolsas }) {
+function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa }) {
   const [nroPrecintoBolsa, setNroPrecintoBolsa] = React.useState();
   const [colorPrecintoBolsa, setColorPrecintoBolsa] = React.useState();
 
@@ -84,6 +85,7 @@ function CreateEfectosCards({ efecto, currentBolsas }) {
         {efecto.Discos.length !== 0 && <DiscoIcon />}
         {efecto.Sds.length !== 0 && <SdIcon />}
       </Info>
+      {estadoActa === "en creacion" && <DeleteIcon onClick={() => handleRemoveEfecto(efecto.id)} />}
     </EfectoContainer>
   );
 }
@@ -152,4 +154,16 @@ const DiscoIcon = styled(DeviceHddFill)`
 const SimIcon = styled(SimFill)`
   width: 25px;
   color: ${secondaryColor};
+`;
+
+const DeleteIcon = styled(Delete)`
+  width: 25px;
+  color: ${secondaryColor};
+  transition: all 0.5s ease;
+  margin-right: 20px;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
 `;

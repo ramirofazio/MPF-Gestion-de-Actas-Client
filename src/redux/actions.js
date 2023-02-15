@@ -16,6 +16,37 @@ export const GET_BUGS_REPORTS = "GET_BUGS_REPORTS";
 export const CLEAR_STATES = "CLEAR_STATES";
 export const ADMIN = "ADMIN";
 export const UPDATE_BOLSAS = "UPDATE_BOLSAS";
+export const UPDATE_EFECTOS = "UPDATE_EFECTOS";
+
+export function removeEfecto(efecto_id, acta_id) {
+  return function (dispatch) {
+    axios
+      .delete(Variables.baseEndpoint + `/removeEfecto?efecto_id=${efecto_id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Efecto eliminado con exito!");
+        }
+        console.log(res.data);
+        return dispatch({
+          type: UPDATE_EFECTOS,
+          payload: res.data,
+        });
+      })
+      .then(() => {
+        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+          console.log(res.data);
+          return dispatch({
+            type: UPDATE_BOLSAS,
+            payload: res.data,
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error al eliminar Efecto");
+      });
+  };
+}
 
 export function closeProcessActa(acta_id, navigate) {
   return function () {
