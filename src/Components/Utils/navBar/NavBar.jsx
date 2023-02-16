@@ -20,6 +20,7 @@ function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
   const adminState = useSelector((s) => s.admin);
 
   const [adminPassModal, setAdminPassModal] = React.useState(false);
@@ -42,6 +43,7 @@ function NavBar() {
       <Container>
         <HiddenButton onDoubleClick={() => setAdminPassModal(!adminPassModal)} />
         <Logo src={logo} alt="logo" />
+        {currentActa.estado && <HomeLinks to="/">Volver a Inicio</HomeLinks>}
         {adminState && (
           <>
             <HomeLinks to="/">Crear Acta</HomeLinks>
