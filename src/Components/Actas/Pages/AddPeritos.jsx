@@ -50,10 +50,11 @@ function AddPeritos() {
   };
 
   const handleRemove = (dni) => {
-    dispatch(removePerito(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
+    //dispatch(removePerito(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
     const newPeritos = peritos.filter((i) => i.dni !== dni);
     setPeritos(newPeritos);
+    toast.success("Perito eliminado con exito!");
   };
 
   const handleSubmitPeritos = () => {
@@ -71,7 +72,7 @@ function AddPeritos() {
             <InputContainer>
               <Label>Nombre y Apellido</Label>
               <Input
-                disabled={currentPeritos ? true : false}
+                disabled={currentActa.estado === "en creacion" && currentPeritos.length > 0 ? true : false}
                 type="text"
                 name="nombreYApellido"
                 value={perito.nombreYApellido}
@@ -82,8 +83,8 @@ function AddPeritos() {
             <InputContainer>
               <Label>DNI</Label>
               <Input
-                disabled={currentPeritos ? true : false}
-                type="text"
+                disabled={currentActa.estado === "en creacion" && currentPeritos.length > 0 ? true : false}
+                type="number"
                 name="dni"
                 value={perito.dni}
                 placeholder="DNI"
@@ -93,7 +94,7 @@ function AddPeritos() {
             <InputContainer>
               <Label>Cargo</Label>
               <Input
-                disabled={currentPeritos ? true : false}
+                disabled={currentActa.estado === "en creacion" && currentPeritos.length > 0 ? true : false}
                 type="text"
                 name="cargo"
                 value={perito.cargo}
@@ -129,7 +130,11 @@ function AddPeritos() {
                     {i.cargo}
                   </Info>
                   <RemoveIcon
-                    onClick={() => (currentPeritos ? toast.error("No se puede eliminar un Perito ya creado") : handleRemove(i.dni))}
+                    onClick={() =>
+                      currentActa.estado === "en creacion" && currentPeritos.length > 0
+                        ? toast.error("No se puede eliminar un Perito ya creado")
+                        : handleRemove(i.dni)
+                    }
                   />
                 </PeritoContainer>
               );
@@ -137,7 +142,7 @@ function AddPeritos() {
         </PeritosContainer>
       </SubContainer>
 
-      {!currentPeritos ? (
+      {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
         <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
           Crear
         </Button>

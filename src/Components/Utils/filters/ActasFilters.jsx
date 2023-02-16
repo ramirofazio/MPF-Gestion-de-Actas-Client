@@ -42,15 +42,15 @@ function ActasFilters() {
       <Form onSubmit={handleReset}>
         <InputContainer>
           <Label>Nro MPF</Label>
-          <Input type="text" value={filters.mpf} onChange={(e) => setFilters({ ...filters, mpf: e.target.value })} maxLength={12} />
+          <Input type="number" value={filters.mpf} onChange={(e) => setFilters({ ...filters, mpf: e.target.value })} maxLength={12} />
         </InputContainer>
         <InputContainer>
           <Label>Nro CIJ</Label>
-          <Input type="text" value={filters.cij} onChange={(e) => setFilters({ ...filters, cij: e.target.value })} maxLength={12} />
+          <Input type="number" value={filters.cij} onChange={(e) => setFilters({ ...filters, cij: e.target.value })} maxLength={12} />
         </InputContainer>
         <InputContainer>
           <Label>Nro DIL</Label>
-          <Input type="text" value={filters.dil} onChange={(e) => setFilters({ ...filters, dil: e.target.value })} maxLength={12} />
+          <Input type="number" value={filters.dil} onChange={(e) => setFilters({ ...filters, dil: e.target.value })} maxLength={12} />
         </InputContainer>
         <InputContainer>
           <Label>Estado</Label>

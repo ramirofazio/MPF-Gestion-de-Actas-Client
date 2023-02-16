@@ -76,6 +76,10 @@ const GlobalStyles = {
     &:focus {
       outline: none;
     }
+
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
   `,
 
   submitBtn: css`

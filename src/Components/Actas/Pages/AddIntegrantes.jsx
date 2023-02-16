@@ -52,10 +52,11 @@ function AddIntegrantes() {
   };
 
   const handleRemove = (dni) => {
-    dispatch(removeIntegrante(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
+    //dispatch(removeIntegrante(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
     const newIntegrantes = integrantes.filter((i) => i.dni !== dni);
     setIntegrantes(newIntegrantes);
+    toast.success("Integrante eliminado con exito!");
   };
 
   const handleNext = () => {
@@ -73,7 +74,7 @@ function AddIntegrantes() {
             <InputContainer>
               <Label>Nombre y Apellido</Label>
               <Input
-                disabled={currentIntegrantes.length > 0 ? true : false}
+                disabled={currentActa.estado === "en creacion" && currentIntegrantes.length > 0 ? true : false}
                 type="text"
                 name="nombreYApellido"
                 value={integrante.nombreYApellido}
