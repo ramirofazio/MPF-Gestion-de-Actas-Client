@@ -75,9 +75,8 @@ function AddBolsas() {
     dispatch(closeProcessActa(currentActa.id, navigate)); //* Mando el ID para que el backend haga toda la logica
   };
 
-  const handleSubmitBolsa = (e) => {
+  const handleSubmitBolsa = () => {
     //* Crea una bolsa nueva y blanquea los input
-    e.preventDefault();
     dispatch(createBolsas(bolsa));
     setBolsa({
       acta_id: currentActa.id,
@@ -131,7 +130,7 @@ function AddBolsas() {
         <Title>Creacion de Bolsas y Elementos</Title>
       </Header>
       <FormContainer>
-        <Form onSubmit={handleSubmitBolsa}>
+        <Form>
           <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
             <InputContainer>
               <Label>Precinto de Apertura</Label>
@@ -149,7 +148,7 @@ function AddBolsas() {
             <InputContainer>
               <Label>N° Precinto</Label>
               <Input
-                type="text"
+                type="number"
                 name="N° Precinto"
                 value={bolsa.nroPrecinto}
                 placeholder="N° Precinto"
@@ -169,15 +168,6 @@ function AddBolsas() {
               disabled={currentActa.estado === "en creacion" ? false : true}
             />
           </InputContainer>
-
-          <Submit
-            disabled={currentActa.estado === "en creacion" ? false : true}
-            type="submit"
-            value="Cargar Bolsa"
-            complete={
-              bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones && currentActa.estado === "en creacion" ? "true" : "false"
-            }
-          />
         </Form>
         <BolsasContainer>
           {currentBolsas &&
@@ -225,8 +215,22 @@ function AddBolsas() {
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
         {(currentActa.estado === "en creacion" || currentActa.estado === "para completar") && (
           <>
-            <Button complete={handleCompleteEfectos()} onClick={() => setAddEfectosModal(!addEfectosModal)} to="#">
-              Añadir Elementos
+            <Button
+              complete={
+                bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones && currentActa.estado === "en creacion"
+                  ? "true"
+                  : handleCompleteEfectos()
+              }
+              onClick={() =>
+                bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones && currentActa.estado === "en creacion"
+                  ? handleSubmitBolsa()
+                  : setAddEfectosModal(!addEfectosModal)
+              }
+              to="#"
+            >
+              {bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones && currentActa.estado === "en creacion"
+                ? "Añadir Bolsa"
+                : "Añadir Elementos"}
             </Button>
             <Button complete={handleCompleteCloseBags()} onClick={() => handleCloseBags()} to="#">
               Cerrar Bolsas

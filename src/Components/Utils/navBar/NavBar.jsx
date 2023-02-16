@@ -46,7 +46,7 @@ function NavBar() {
         {currentActa.estado && <HomeLinks to="/">Volver a Inicio</HomeLinks>}
         {adminState && (
           <>
-            <HomeLinks to="/">Crear Acta</HomeLinks>
+            {!currentActa.estado && <HomeLinks to="/">Volver a Inicio</HomeLinks>}
             <HomeLinks to="/admin">Panel de Administrador</HomeLinks>
             <HomeLinks to="/" onClick={() => dispatch(admin())}>
               Cerrar
