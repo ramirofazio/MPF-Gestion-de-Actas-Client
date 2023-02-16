@@ -26,7 +26,6 @@ export function removeEfecto(efecto_id, acta_id) {
         if (res.status === 200) {
           toast.success("Efecto eliminado con exito!");
         }
-        console.log(res.data);
         return dispatch({
           type: UPDATE_EFECTOS,
           payload: res.data,
@@ -34,7 +33,6 @@ export function removeEfecto(efecto_id, acta_id) {
       })
       .then(() => {
         axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
-          console.log(res.data);
           return dispatch({
             type: UPDATE_BOLSAS,
             payload: res.data,
