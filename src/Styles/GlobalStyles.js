@@ -134,15 +134,16 @@ const GlobalStyles = {
 
   input: css`
     width: 100%;
-    height: 60%;
+    height: 30px;
     text-align: center;
     border-radius: 5px;
     border: 1px solid ${principalColor};
     font-size: medium;
     font-weight: 400;
+    color: ${secondaryColor};
 
     &:focus {
-      border: 2px solid ${principalColor};
+      border: 1px solid ${principalColor};
       outline: none;
     }
 
@@ -153,15 +154,16 @@ const GlobalStyles = {
 
   select: css`
     width: 100%;
-    height: 60%;
+    height: 30px;
     text-align: center;
     border: 1px solid ${principalColor};
     border-radius: 5px;
     font-size: medium;
     font-weight: 400;
+    color: ${secondaryColor};
 
     &:focus {
-      outline: 2px solid ${principalColor};
+      outline: 1px solid ${principalColor};
       border: none;
     }
   `,
@@ -220,7 +222,7 @@ const GlobalStyles = {
   button: css`
     padding: 10px;
     padding-inline: 40px;
-    border-radius: 25px;
+    border-radius: 15px;
     border: 2px solid ${principalColor};
     color: ${secondaryColor};
     font-size: 15px;

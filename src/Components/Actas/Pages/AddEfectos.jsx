@@ -18,7 +18,7 @@ const modal40x50 = {
   content: {
     ...modal40x40.content,
     width: "40%",
-    height: "50%",
+    height: "max-content",
   },
 };
 
@@ -232,7 +232,7 @@ function AddEfectos({ closeModal }) {
           <InputContainer>
             <Label>IMEI</Label>
             <Input
-              type="text"
+              type="number"
               name="imei"
               value={efecto.imei}
               placeholder="Imei"
@@ -256,19 +256,40 @@ function AddEfectos({ closeModal }) {
           </InputContainer>
         )}
 
-        {efecto.tipoDeElemento !== "pendrive" && efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "pc" && (
-          <InputContainer>
-            <Label>Tipo de Seguridad</Label>
-            <Select value={efecto.tipoSeguridad} onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}>
-              <SelectOpt value="">Tipo de Seguridad</SelectOpt>
-              <SelectOpt value="ninguna">Ninguna</SelectOpt>
-              <SelectOpt value="patron">Patron</SelectOpt>
-              <SelectOpt value="contraseña">Contraseña</SelectOpt>
-              <SelectOpt value="PIN de inicio">Pin</SelectOpt>
-              <SelectOpt value="huella">Huella</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
+        {efecto.tipoDeElemento === ""
+          ? null
+          : efecto.tipoDeElemento !== "pendrive" && (
+              <InputContainer>
+                <Label>Herramienta Software</Label>
+                <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
+                  <SelectOpt value="">Herramienta Software</SelectOpt>
+                  <SelectOpt value="ninguna">Ninguna</SelectOpt>
+                  <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+                  <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+                  <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+                  <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+                  <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+                  <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+                </Select>
+              </InputContainer>
+            )}
+
+        {efecto.tipoDeElemento !== "pendrive" &&
+          efecto.tipoDeElemento !== "notebook" &&
+          efecto.tipoDeElemento !== "pc" &&
+          efecto.herramientaSoft !== "" && (
+            <InputContainer>
+              <Label>Tipo de Seguridad</Label>
+              <Select value={efecto.tipoSeguridad} onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}>
+                <SelectOpt value="">Tipo de Seguridad</SelectOpt>
+                <SelectOpt value="ninguna">Ninguna</SelectOpt>
+                <SelectOpt value="patron">Patron</SelectOpt>
+                <SelectOpt value="contraseña">Contraseña</SelectOpt>
+                <SelectOpt value="PIN de inicio">Pin</SelectOpt>
+                <SelectOpt value="huella">Huella</SelectOpt>
+              </Select>
+            </InputContainer>
+          )}
         {efecto.tipoDeElemento === ""
           ? null
           : efecto.tipoDeElemento !== "pendrive" &&
@@ -312,25 +333,7 @@ function AddEfectos({ closeModal }) {
             </InputContainer>
           )
         )}
-        {efecto.tipoDeElemento === ""
-          ? null
-          : efecto.tipoDeElemento !== "pendrive" &&
-            efecto.tipoExtraccion !== "" &&
-            efecto.tipoExtraccion !== "ninguna" && (
-              <InputContainer>
-                <Label>Herramienta Software</Label>
-                <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
-                  <SelectOpt value="">Herramienta Software</SelectOpt>
-                  <SelectOpt value="ninguna">Ninguna</SelectOpt>
-                  <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-                  <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-                  <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-                  <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-                  <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-                  <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-                </Select>
-              </InputContainer>
-            )}
+
         {efecto.tipoDeElemento === "pendrive" && (
           <InputContainer>
             <Label>Almacenamiento (GB)</Label>
@@ -588,13 +591,14 @@ const Form = styled.form`
 `;
 
 const InputContainer = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-height: 100px;
+  height: 50px;
   border-bottom: 1px solid ${secondaryColor};
+  padding-bottom: 10px;
+  margin-block: 5px;
 `;
 
 const Label = styled.label`
@@ -605,7 +609,7 @@ const Input = styled.input`
   ${input}
   font-size: medium;
   flex: 1;
-  min-height: 65%;
+  height: 100%;
   text-align: center;
 `;
 
@@ -613,7 +617,7 @@ const Select = styled.select`
   ${select}
   font-size: medium;
   flex: 1;
-  min-height: 65%;
+  height: 100%;
   text-align: center;
 `;
 

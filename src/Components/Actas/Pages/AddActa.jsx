@@ -8,7 +8,7 @@ import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 //* Initializations
-const { redColor, greenColor } = Variables;
+const { redColor, greenColor, secondaryColor } = Variables;
 const { select, input, form, inputLabel, inputContainer, enProcesoContainer, header, headerTitle, formContainer, button } = GlobalStyles;
 
 function AddActa() {
@@ -396,6 +396,7 @@ const Select = styled.select`
 const SelectOpt = styled.option`
   font-size: medium;
   font-weight: 400;
+  color: ${secondaryColor};
 `;
 
 const Form = styled.form`
