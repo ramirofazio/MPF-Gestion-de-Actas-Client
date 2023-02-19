@@ -7,7 +7,6 @@ import Variables from "../../Styles/Variables";
 import { BugFill } from "@styled-icons/bootstrap/BugFill";
 import { StatsChart } from "@styled-icons/ionicons-sharp/StatsChart";
 import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
-
 //* Initializations
 const { principalColor, secondaryColor } = Variables;
 const { header, headerTitle, enProcesoContainer } = GlobalStyles;

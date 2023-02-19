@@ -18,6 +18,26 @@ export const ADMIN = "ADMIN";
 export const UPDATE_BOLSAS = "UPDATE_BOLSAS";
 export const UPDATE_EFECTOS = "UPDATE_EFECTOS";
 
+export function removeActa(acta_id) {
+  return function (dispatch) {
+    axios
+      .delete(Variables.baseEndpoint + `/removeActa?acta_id=${acta_id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Acta eliminada con exito!");
+          return dispatch({
+            type: GET_ACTAS,
+            payload: res.data,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error al eliminar Efecto");
+      });
+  };
+}
+
 export function removeEfecto(efecto_id, acta_id) {
   return function (dispatch) {
     axios

@@ -1,20 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { removeActa } from "../../../redux/actions";
 //* Styles
 import styled from "styled-components";
 import Variables from "../../../Styles/Variables";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import { FileDownload } from "@styled-icons/remix-line/FileDownload";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
+import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
 //* Utils
 import getSavedActa from "../template/getSavedActa";
 import editSavedActa from "../template/editSavedActa";
+import { useDispatch } from "react-redux";
 //* Initialization
 const { secondaryColor } = Variables;
 const { actaCardContainer, cardInfo, cardTitle } = GlobalStyles;
 
-function ActaCard({ acta }) {
+function ActaCard({ acta, type }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [totalEfectos, setTotalEfectos] = React.useState(0);
 
@@ -76,8 +80,16 @@ function ActaCard({ acta }) {
         <br />
         {totalEfectos}
       </Info>
-      <DownloadIcon onClick={() => getSavedActa(acta.id)} />
-      <EditIcon onClick={() => editSavedActa(acta.id, navigate)} />
+      {type === "remove" ? (
+        <>
+          <RemoveIcon onClick={() => dispatch(removeActa(acta.id))} />
+        </>
+      ) : (
+        <>
+          <DownloadIcon onClick={() => getSavedActa(acta.id)} />
+          <EditIcon onClick={() => editSavedActa(acta.id, navigate)} />
+        </>
+      )}
     </ActaContainer>
   );
 }
@@ -109,6 +121,18 @@ const DownloadIcon = styled(FileDownload)`
 `;
 
 const EditIcon = styled(DocumentEdit)`
+  width: 25px;
+  margin-right: 40px;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+`;
+
+const RemoveIcon = styled(FileRemove)`
   width: 25px;
   margin-right: 40px;
   color: ${secondaryColor};
