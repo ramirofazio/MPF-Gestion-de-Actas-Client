@@ -14,10 +14,10 @@ import Modal from "react-modal";
 const { button, select, input, modal40x40 } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 
-const modal40x50 = {
+const modal40x30 = {
   content: {
     ...modal40x40.content,
-    width: "40%",
+    width: "30%",
     height: "max-content",
   },
 };
@@ -55,6 +55,7 @@ function AddEfectos({ closeModal }) {
     modelo: "",
     almacenamiento: "",
     serialNumber: "",
+    herramientaSoftDisco: "",
     estadoDisco: "",
   });
 
@@ -88,6 +89,7 @@ function AddEfectos({ closeModal }) {
       marca: "",
       modelo: "",
       almacenamiento: "",
+      herramientaSoftDisco: "",
       serialNumber: "",
     });
     toast.success("Disco Guardado con Exito!");
@@ -258,7 +260,9 @@ function AddEfectos({ closeModal }) {
 
         {efecto.tipoDeElemento === ""
           ? null
-          : efecto.tipoDeElemento !== "pendrive" && (
+          : efecto.tipoDeElemento !== "pendrive" &&
+            efecto.tipoDeElemento !== "notebook" &&
+            efecto.tipoDeElemento !== "pc" && (
               <InputContainer>
                 <Label>Herramienta Software</Label>
                 <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
@@ -399,7 +403,7 @@ function AddEfectos({ closeModal }) {
           )}
         </div>
       </Form>
-      <Modal isOpen={addDiscosModal} style={modal40x50} ariaHideApp={false}>
+      <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddDiscosModal(!addDiscosModal)} />
         <Form onSubmit={handleDiscoSubmit}>
           <Title>Agregar Disco</Title>
@@ -454,6 +458,19 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
           <InputContainer>
+            <Label>Herramienta Software</Label>
+            <Select value={disco.herramientaSoftDisco} onChange={(e) => setDisco({ ...disco, herramientaSoftDisco: e.target.value })}>
+              <SelectOpt value="">Herramienta Software</SelectOpt>
+              <SelectOpt value="ninguna">Ninguna</SelectOpt>
+              <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+              <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+              <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+              <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+              <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+              <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+            </Select>
+          </InputContainer>
+          <InputContainer>
             <Label>Estado</Label>
             <Select value={disco.estadoDisco} onChange={(e) => setDisco({ ...disco, estadoDisco: e.target.value })}>
               <SelectOpt value="">Estado</SelectOpt>
@@ -472,7 +489,7 @@ function AddEfectos({ closeModal }) {
           />
         </Form>
       </Modal>
-      <Modal isOpen={addSimModal} style={modal40x50} ariaHideApp={false}>
+      <Modal isOpen={addSimModal} style={modal40x30} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddSimModal(!addSimModal)} />
         <Form onSubmit={handleSimSubmit}>
           <Title>Agregar SIM</Title>
@@ -514,7 +531,7 @@ function AddEfectos({ closeModal }) {
           />
         </Form>
       </Modal>
-      <Modal isOpen={addSdModal} style={modal40x50} ariaHideApp={false}>
+      <Modal isOpen={addSdModal} style={modal40x30} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddSdModal(!addSdModal)} />
         <Form onSubmit={handleSdSubmit}>
           <Title>Agregar SD</Title>
