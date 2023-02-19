@@ -213,9 +213,8 @@ function AddBolsas() {
       </Modal>
 
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        {(currentActa.estado === "en creacion" || currentActa.estado === "para completar") &&
-        currentBolsas.length === 0 &&
-        currentEfectos.length === 0 ? (
+        {currentActa.estado !== "en creacion" || currentActa.estado !== "para completar" ? null : currentBolsas.length === 0 &&
+          currentEfectos.length === 0 ? (
           <>
             <Button
               complete={bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones && "true"}
