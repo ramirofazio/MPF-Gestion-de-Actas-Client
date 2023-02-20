@@ -213,7 +213,6 @@ const Input = styled.input`
   ${input}
   font-size: small;
   flex: 1;
-  height: 35%;
   text-align: center;
 `;
 
@@ -221,7 +220,6 @@ const Select = styled.select`
   ${select}
   font-size: small;
   flex: 1;
-  height: 35%;
   text-align: center;
 `;
 
@@ -229,7 +227,7 @@ const SelectOpt = styled.option``;
 
 const Button = styled.input`
   ${button}
-  padding: 5px;
+  padding: 10px;
   padding-inline: 15px;
   text-decoration: none;
   background: white;

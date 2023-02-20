@@ -188,14 +188,8 @@ const Title = styled.h1`
 
 const AddButton = styled.button`
   ${button}
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-block: 5px;
-  padding-inline: 15px;
-  margin: 0;
   font-size: small;
-  text-decoration: none;
+  padding: 10px;
   background: white;
   border: 2px solid ${redColor};
   pointer-events: none;
