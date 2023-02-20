@@ -13,7 +13,7 @@ import getSavedActa from "../template/getSavedActa";
 import editSavedActa from "../template/editSavedActa";
 import { useDispatch } from "react-redux";
 //* Initialization
-const { secondaryColor } = Variables;
+const { secondaryColor, redColor } = Variables;
 const { actaCardContainer, cardInfo, cardTitle } = GlobalStyles;
 
 function ActaCard({ acta, type }) {
@@ -139,7 +139,7 @@ const RemoveIcon = styled(FileRemove)`
   transition: all 0.3s ease;
 
   &:hover {
-    color: black;
+    color: ${redColor};
     cursor: pointer;
   }
 `;
