@@ -18,14 +18,14 @@ function ActaRemoev() {
 
   React.useEffect(() => {
     if (adminState) {
+      localStorage.clear();
       dispatch(clearStates());
       dispatch(getAllActas());
       dispatch(admin());
-      localStorage.clear();
     } else {
+      localStorage.clear();
       dispatch(clearStates());
       dispatch(getAllActas());
-      localStorage.clear();
     }
   }, []);
 

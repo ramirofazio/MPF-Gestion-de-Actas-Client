@@ -15,7 +15,7 @@ import {
 } from "./actions";
 
 let initialState = {
-  admin: false,
+  admin: JSON.parse(localStorage.getItem("admin")) || false,
   allActas: [],
   allActasSave: [],
   currentActa: JSON.parse(localStorage.getItem("currentActa")) || [],
@@ -47,6 +47,7 @@ function reducer(state = initialState, action) {
       };
     }
     case ADMIN: {
+      localStorage.setItem("admin", !state.admin);
       return {
         ...state,
         admin: !state.admin,

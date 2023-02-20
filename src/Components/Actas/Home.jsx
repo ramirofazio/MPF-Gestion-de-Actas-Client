@@ -14,18 +14,18 @@ function Home() {
   const dispatch = useDispatch();
 
   const allActas = useSelector((s) => s.allActas); //* Me traigo todas las actas
-  const adminState = useSelector((s) => s.admin);
+  const adminState = useSelector((s) => JSON.parse(localStorage.getItem("admin")) || s.admin);
 
   React.useEffect(() => {
     if (adminState) {
+      localStorage.clear();
       dispatch(clearStates());
       dispatch(getAllActas());
       dispatch(admin());
-      localStorage.clear();
     } else {
+      localStorage.clear();
       dispatch(clearStates());
       dispatch(getAllActas());
-      localStorage.clear();
     }
   }, []);
 
