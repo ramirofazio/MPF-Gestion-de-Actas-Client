@@ -52,11 +52,11 @@ function AddIntegrantes() {
   };
 
   const handleRemove = (dni) => {
-    //dispatch(removeIntegrante(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
+    dispatch(removeIntegrante(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
     const newIntegrantes = integrantes.filter((i) => i.dni !== dni);
+    localStorage.setItem("currentIntegrantes", JSON.stringify(newIntegrantes));
     setIntegrantes(newIntegrantes);
-    toast.success("Integrante eliminado con exito!");
   };
 
   const handleNext = () => {
@@ -74,7 +74,7 @@ function AddIntegrantes() {
             <InputContainer>
               <Label>Nombre y Apellido</Label>
               <Input
-                disabled={currentActa.estado === "en creacion" && currentIntegrantes.length > 0 ? true : false}
+                disabled={currentActa.estado !== "en creacion"}
                 type="text"
                 name="nombreYApellido"
                 value={integrante.nombreYApellido}
@@ -85,7 +85,7 @@ function AddIntegrantes() {
             <InputContainer>
               <Label>DNI</Label>
               <Input
-                disabled={currentIntegrantes.length > 0 ? true : false}
+                disabled={currentActa.estado !== "en creacion"}
                 type="number"
                 name="dni"
                 value={integrante.dni}
@@ -96,7 +96,7 @@ function AddIntegrantes() {
             <InputContainer>
               <Label>Legajo o Matricula</Label>
               <Input
-                disabled={currentIntegrantes.length > 0 ? true : false}
+                disabled={currentActa.estado !== "en creacion"}
                 type="number"
                 name="legajoOMatricula"
                 value={integrante.legajoOMatricula}
@@ -107,7 +107,7 @@ function AddIntegrantes() {
             <InputContainer>
               <Label>Cargo</Label>
               <Input
-                disabled={currentIntegrantes.length > 0 ? true : false}
+                disabled={currentActa.estado !== "en creacion"}
                 type="text"
                 name="cargo"
                 value={integrante.cargo}
@@ -147,11 +147,7 @@ function AddIntegrantes() {
                     <br />
                     {i.cargo}
                   </Info>
-                  <RemoveIcon
-                    onClick={() =>
-                      currentIntegrantes.length > 0 ? toast.error("No se puede eliminar un Integrante ya creado") : handleRemove(i.dni)
-                    }
-                  />
+                  <RemoveIcon onClick={() => handleRemove(i.dni)} />
                 </IntegranteContainer>
               );
             })}

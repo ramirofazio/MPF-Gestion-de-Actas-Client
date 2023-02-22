@@ -250,7 +250,7 @@ const GlobalStyles = {
       padding: 0,
       overflowX: "hidden",
       width: "40%",
-      height: "40%",
+      height: "max-content",
     },
   },
 };

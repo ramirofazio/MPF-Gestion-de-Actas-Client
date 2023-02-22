@@ -38,7 +38,7 @@ const {
   modal40x40,
 } = GlobalStyles;
 
-const modal30x90 = {
+const modal30Width = {
   content: {
     ...modal40x40.content,
     width: "30%",
@@ -106,6 +106,9 @@ function AddBolsas() {
         if (b.estado === "abierta con efectos en proceso" || b.estado === "abierta con efectos completos") {
           res = "true";
         }
+        if (b.estado === "abierta sin efectos") {
+          res = "false";
+        }
       });
     }
 
@@ -135,7 +138,7 @@ function AddBolsas() {
             <InputContainer>
               <Label>Precinto de Apertura</Label>
               <Select
-                disabled={currentActa.estado === "en creacion" ? false : true}
+                disabled={currentActa.estado !== "en creacion"}
                 value={bolsa.colorPrecinto}
                 onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}
               >
@@ -148,24 +151,24 @@ function AddBolsas() {
             <InputContainer>
               <Label>N° Precinto</Label>
               <Input
+                disabled={currentActa.estado !== "en creacion"}
                 type="number"
                 name="N° Precinto"
                 value={bolsa.nroPrecinto}
                 placeholder="N° Precinto"
                 onChange={(e) => setBolsa({ ...bolsa, nroPrecinto: e.target.value })}
-                disabled={currentActa.estado === "en creacion" ? false : true}
               />
             </InputContainer>
           </div>
           <InputContainer style={{ width: "100%", marginTop: "5%" }}>
             <Label>Observaciones/Descripción de la Bolsa</Label>
             <Input
+              disabled={currentActa.estado !== "en creacion"}
               type="text"
               name="Observaciones/Descripcion de la Bolsa"
               value={bolsa.observaciones}
               placeholder="Observaciones/Descripcion de la Bolsa"
               onChange={(e) => setBolsa({ ...bolsa, observaciones: e.target.value })}
-              disabled={currentActa.estado === "en creacion" ? false : true}
             />
           </InputContainer>
         </Form>
@@ -207,7 +210,7 @@ function AddBolsas() {
             />
           ))}
       </EfectosContainer>
-      <Modal isOpen={addEfectosModal} style={modal30x90} ariaHideApp={false}>
+      <Modal isOpen={addEfectosModal} style={modal30Width} ariaHideApp={false}>
         <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
         <AddEfectos closeModal={() => setAddEfectosModal(!addEfectosModal)} />
       </Modal>
@@ -224,7 +227,7 @@ function AddBolsas() {
             </Button>
           </>
         ) : (
-          currentActa.estado !== ("completa" || "en proceso") && (
+          (currentActa.estado === "en creacion" || currentActa.estado === "para completar") && (
             <>
               <Button
                 complete={

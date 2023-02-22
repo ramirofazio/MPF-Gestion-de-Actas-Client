@@ -22,7 +22,7 @@ function AddPeritos() {
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
   const currentPeritos = useSelector((s) => JSON.parse(localStorage.getItem("currentPeritos")) || s.currentPeritos);
 
-  const [peritos, setPeritos] = React.useState(currentPeritos || []);
+  const [peritos, setPeritos] = React.useState(currentPeritos);
   const [perito, setPerito] = React.useState({
     nombreYApellido: "",
     dni: "",
@@ -50,11 +50,11 @@ function AddPeritos() {
   };
 
   const handleRemove = (dni) => {
-    //dispatch(removePerito(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
+    dispatch(removePerito(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
     const newPeritos = peritos.filter((i) => i.dni !== dni);
+    localStorage.setItem("currentPeritos", JSON.stringify(newPeritos));
     setPeritos(newPeritos);
-    toast.success("Perito eliminado con exito!");
   };
 
   const handleSubmitPeritos = () => {
@@ -72,7 +72,7 @@ function AddPeritos() {
             <InputContainer>
               <Label>Nombre y Apellido</Label>
               <Input
-                disabled={currentActa.estado === "en creacion" && peritos.length > 0 ? true : false}
+                disabled={currentActa.estado !== "en creacion"}
                 type="text"
                 name="nombreYApellido"
                 value={perito.nombreYApellido}
@@ -83,7 +83,7 @@ function AddPeritos() {
             <InputContainer>
               <Label>DNI</Label>
               <Input
-                disabled={currentActa.estado === "en creacion" && peritos.length > 0 ? true : false}
+                disabled={currentActa.estado !== "en creacion"}
                 type="number"
                 name="dni"
                 value={perito.dni}
@@ -94,7 +94,7 @@ function AddPeritos() {
             <InputContainer>
               <Label>Cargo</Label>
               <Input
-                disabled={currentActa.estado === "en creacion" && peritos.length > 0 ? true : false}
+                disabled={currentActa.estado !== "en creacion"}
                 type="text"
                 name="cargo"
                 value={perito.cargo}
@@ -131,9 +131,7 @@ function AddPeritos() {
                   </Info>
                   <RemoveIcon
                     onClick={() =>
-                      currentActa.estado === "en creacion" && currentPeritos?.length > 0
-                        ? toast.error("No se puede eliminar un Perito ya creado")
-                        : handleRemove(i.dni)
+                      currentActa.estado !== "en creacion" ? toast.error("No se puede eliminar un Perito ya creado") : handleRemove(i.dni)
                     }
                   />
                 </PeritoContainer>
@@ -142,7 +140,7 @@ function AddPeritos() {
         </PeritosContainer>
       </SubContainer>
 
-      {currentActa.estado === "en creacion" && currentPeritos?.length <= 0 ? (
+      {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
         <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
           Crear
         </Button>

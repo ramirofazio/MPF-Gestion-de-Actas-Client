@@ -9,7 +9,7 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 //* Initializations
 const { button, input, select } = GlobalStyles;
-const { redColor, greenColor, secondaryColor } = Variables;
+const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 
 function CloseModal({ closeModal }) {
   const navigate = useNavigate();
@@ -147,7 +147,7 @@ function CloseModal({ closeModal }) {
                 ))}
             </Select>
           </InputContainer>
-          <InputContainer style={{ flexDirection: "column", marginBottom: "2%", paddingTop: "10px", borderBottom: "none" }}>
+          <InputContainer style={{ height: "100px" }}>
             <Label>Leyenda</Label>
             <TextArea
               leyenda={true}
@@ -158,7 +158,6 @@ function CloseModal({ closeModal }) {
             />
           </InputContainer>
           <Button
-            style={{ marginBottom: "-4%" }}
             type="submit"
             value="Cerrar Bolsa en Proceso"
             complete={inProcessState.id !== "" && inProcessState.leyenda !== "" ? "true" : "false"}
@@ -183,6 +182,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   padding: 5%;
@@ -190,12 +190,14 @@ const Form = styled.form`
 `;
 
 const InputContainer = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  height: 50px;
   border-bottom: 1px solid ${secondaryColor};
+  padding-bottom: 10px;
+  margin-block: 5px;
 
   ${(props) =>
     props.closeActa &&
@@ -211,15 +213,17 @@ const Label = styled.label`
 
 const Input = styled.input`
   ${input}
-  font-size: small;
+  font-size: medium;
   flex: 1;
+  height: 100%;
   text-align: center;
 `;
 
 const Select = styled.select`
   ${select}
-  font-size: small;
+  font-size: medium;
   flex: 1;
+  height: 100%;
   text-align: center;
 `;
 
@@ -227,13 +231,21 @@ const SelectOpt = styled.option``;
 
 const Button = styled.input`
   ${button}
-  padding: 10px;
+  padding: 5px;
   padding-inline: 15px;
   text-decoration: none;
   background: white;
   border: 2px solid ${redColor};
   pointer-events: none;
-  margin-top: 20px;
+  margin-bottom: -2.5%;
+  margin-top: 1%;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: ${principalColor};
+    border: 2px solid transparent;
+  }
 
   ${(props) =>
     props.complete === "true" &&
@@ -245,31 +257,14 @@ const Button = styled.input`
 
 const TextArea = styled.textarea`
   ${input}
-  flex: 1;
-  min-height: 90%;
-  max-height: 0px;
-  max-width: 100%;
-  min-width: 100%;
-  text-align: center;
   font-size: medium;
+  flex: 1;
+  min-height: 100%;
+  max-height: 100%;
+
+  text-align: center;
 
   &:focus {
-    border: none;
-    outline: none;
     all: none;
   }
-
-  ${(props) =>
-    props.leyenda &&
-    css`
-      margin-top: 2%;
-      min-width: 75%;
-    `}
-
-  ${(props) =>
-    props.closeActa &&
-    css`
-      min-height: 70%;
-      margin-bottom: 3%;
-    `}
 `;
