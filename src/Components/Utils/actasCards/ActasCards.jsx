@@ -11,12 +11,22 @@ const { cardsContainer, button } = GlobalStyles;
 function ActasCards({ allActas, typeOfCard }) {
   const actasToRender = allActas.filter((actas) => actas.estado !== "deprecada");
 
+  const loadLocalStorage = () => {
+    localStorage.setItem("actaFlag", "");
+    localStorage.setItem("currentActa", JSON.stringify([]));
+    localStorage.setItem("currentIntegrantes", JSON.stringify([]));
+    localStorage.setItem("currentPeritos", JSON.stringify([]));
+    localStorage.setItem("currentBolsas", JSON.stringify([]));
+    localStorage.setItem("currentEfectos", JSON.stringify([]));
+  };
   return (
     <>
       <CardsContainer>
         {actasToRender && actasToRender.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)}
       </CardsContainer>
-      <Button to="/actas/crear/1">Crear Acta</Button>
+      <Button to="/actas/crear/1" onClick={() => loadLocalStorage()}>
+        Crear Acta
+      </Button>
     </>
   );
 }
