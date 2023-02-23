@@ -46,6 +46,10 @@ function AddEfectos({ closeModal }) {
     extraccion: "",
     almacenamiento: "",
     serialNumber: "",
+    encendido: "",
+    observacionEncendido: "",
+    elementoFallado: "",
+    observacionFalla: "",
   });
 
   const [discos, setDiscos] = React.useState([]);
@@ -230,6 +234,53 @@ function AddEfectos({ closeModal }) {
             onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value })}
           />
         </InputContainer>
+
+        <InputContainer>
+          <Label>Encendido</Label>
+          <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
+            <SelectOpt value="">Encendido</SelectOpt>
+            <SelectOpt value="si">Si</SelectOpt>
+            <SelectOpt value="no">No</SelectOpt>
+          </Select>
+        </InputContainer>
+
+        {efecto.encendido === "no" && (
+          <InputContainer>
+            <Label>Observacion Encendido</Label>
+            <Input
+              type="text"
+              name="observacionEncendido"
+              value={efecto.observacionEncendido}
+              placeholder="¿Por que no enciende?"
+              onChange={(e) => setEfecto({ ...efecto, observacionEncendido: e.target.value })}
+            />
+          </InputContainer>
+        )}
+
+        {efecto.encendido === "si" && (
+          <InputContainer>
+            <Label>Elemento Fallado</Label>
+            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
+              <SelectOpt value="">Elemento Fallado</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
+
+        {efecto.elementoFallado === "si" && (
+          <InputContainer>
+            <Label>Observacion Falla</Label>
+            <Input
+              type="text"
+              name="observacionFalla"
+              value={efecto.observacionFalla}
+              placeholder="¿Por que Falla?"
+              onChange={(e) => setEfecto({ ...efecto, observacionFalla: e.target.value })}
+            />
+          </InputContainer>
+        )}
+
         {efecto.tipoDeElemento === "celular" && (
           <InputContainer>
             <Label>IMEI</Label>
@@ -242,6 +293,7 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
         )}
+
         {(efecto.tipoDeElemento === "notebook" ||
           efecto.tipoDeElemento === "pendrive" ||
           efecto.tipoDeElemento === "tablet" ||
@@ -262,12 +314,13 @@ function AddEfectos({ closeModal }) {
           ? null
           : efecto.tipoDeElemento !== "pendrive" &&
             efecto.tipoDeElemento !== "notebook" &&
-            efecto.tipoDeElemento !== "pc" && (
+            efecto.tipoDeElemento !== "pc" &&
+            efecto.encendido === "si" &&
+            efecto.elementoFallado === "no" && (
               <InputContainer>
                 <Label>Herramienta Software</Label>
                 <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
                   <SelectOpt value="">Herramienta Software</SelectOpt>
-                  <SelectOpt value="ninguna">Ninguna</SelectOpt>
                   <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
                   <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
                   <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
@@ -612,7 +665,7 @@ const InputContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 50px;
+  height: max-content;
   border-bottom: 1px solid ${secondaryColor};
   padding-bottom: 10px;
   margin-block: 5px;
@@ -626,7 +679,7 @@ const Input = styled.input`
   ${input}
   font-size: medium;
   flex: 1;
-  height: 100%;
+  height: 30px;
   text-align: center;
 `;
 
@@ -634,7 +687,7 @@ const Select = styled.select`
   ${select}
   font-size: medium;
   flex: 1;
-  height: 100%;
+  height: 30px;
   text-align: center;
 `;
 

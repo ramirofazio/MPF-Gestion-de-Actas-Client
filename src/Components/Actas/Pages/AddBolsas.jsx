@@ -42,7 +42,7 @@ const modal30Width = {
   content: {
     ...modal40x40.content,
     width: "30%",
-    height: "max-content",
+    height: "min-content",
   },
 };
 
