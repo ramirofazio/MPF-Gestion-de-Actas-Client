@@ -640,17 +640,6 @@ const Select = styled.select`
 
 const SelectOpt = styled.option``;
 
-// const TextArea = styled.textarea`
-//   ${input}
-//   font-size: medium;
-//   flex: 1;
-//   max-height: 100%;
-//   min-height: 100%;
-//   max-width: 100%;
-//   min-width: 100%;
-//   text-align: center;
-// `;
-
 const Button = styled.input`
   ${button}
   padding: 5px;

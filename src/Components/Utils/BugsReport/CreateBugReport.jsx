@@ -11,7 +11,15 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 import Modal from "react-modal";
 //* Initializations
 const { button, input, modal40x40 } = GlobalStyles;
-const { secondaryColor, redColor, greenColor } = Variables;
+const { secondaryColor, redColor, greenColor, principalColor } = Variables;
+
+const modal40 = {
+  content: {
+    ...modal40x40.content,
+    width: "40%",
+    height: "max-content",
+  },
+};
 
 function CreateBugReport() {
   const dispatch = useDispatch();
@@ -35,7 +43,7 @@ function CreateBugReport() {
   return (
     <>
       <ChatPollIcon onClick={() => setBugReportModal(!bugReportModal)} />
-      <Modal isOpen={bugReportModal} style={modal40x40} ariaHideApp={false}>
+      <Modal isOpen={bugReportModal} style={modal40} ariaHideApp={false}>
         <CloseIcon onClick={() => setBugReportModal(!bugReportModal)} />
         <Form onSubmit={handleBugReport}>
           <Title>Reportar un Bug</Title>
@@ -92,29 +100,23 @@ const CloseIcon = styled(Close)`
 const TextArea = styled.textarea`
   ${input}
   font-size: medium;
+  flex: 1;
+  min-height: 100%;
+  max-height: 100%;
+
   text-align: center;
-  max-height: 70%;
-  max-width: 100%;
-  min-height: 70%;
-  min-width: 100%;
+
+  &:focus {
+    all: none;
+  }
 `;
 
-const Button = styled.input`
-  ${button}
-  padding: 10px;
-  padding-inline: 25px;
-  text-decoration: none;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-  margin-top: 10px;
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
+const Title = styled.h4`
+  border-bottom: 2px solid white;
+  width: 120%;
+  text-align: center;
+  margin-bottom: 2%;
+  padding-bottom: 10px;
 `;
 
 const Form = styled.form`
@@ -127,20 +129,39 @@ const Form = styled.form`
   color: white;
 `;
 
-const Title = styled.h4`
-  border-bottom: 2px solid white;
-  width: 120%;
-  text-align: center;
-  margin-bottom: 2%;
-  padding-bottom: 10px;
-`;
-
 const InputContainer = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
+  height: 100px;
   border-bottom: 1px solid ${secondaryColor};
+  padding-bottom: 10px;
+  margin-block: 5px;
+`;
+
+const Button = styled.input`
+  ${button}
+  padding: 5px;
+  padding-inline: 15px;
+  text-decoration: none;
+  background: white;
+  border: 2px solid ${redColor};
+  pointer-events: none;
+  margin-bottom: -2.5%;
+  margin-top: 1%;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: ${principalColor};
+    border: 2px solid transparent;
+  }
+
+  ${(props) =>
+    props.complete === "true" &&
+    css`
+      pointer-events: all;
+      border: 2px solid ${greenColor};
+    `}
 `;

@@ -4,17 +4,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { admin } from "../../../redux/actions";
 //* Styles
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Variables from "../../../Styles/Variables";
 import GlobalStyles from "../../../Styles/GlobalStyles";
+import { toast } from "react-toastify";
+import { Close } from "@styled-icons/ionicons-outline/Close";
 import logo from "../../../Assets/logo.png";
 //* Modal
 import Modal from "react-modal";
 //* Utils
 import CreateBugReport from "../BugsReport/CreateBugReport";
 //* Initializations
-const { input, modal40x40 } = GlobalStyles;
-const { principalColor, secondaryColor } = Variables;
+const { input, modal40x40, button } = GlobalStyles;
+const { principalColor, secondaryColor, redColor, greenColor } = Variables;
+const adminModal = {
+  content: {
+    ...modal40x40.content,
+    width: "40%",
+    height: "max-content",
+  },
+};
 
 function NavBar() {
   const navigate = useNavigate();
@@ -31,6 +40,8 @@ function NavBar() {
     if (adminPass.toUpperCase() === "CIJGIDSI") {
       navigate("/admin");
       dispatch(admin());
+    } else {
+      toast.error("Contraseña Incorrecta");
     }
   };
 
@@ -56,7 +67,8 @@ function NavBar() {
         <CreateBugReport />
       </Container>
 
-      <Modal isOpen={adminPassModal} style={modal40x40} ariaHideApp={false}>
+      <Modal isOpen={adminPassModal} style={adminModal} ariaHideApp={false}>
+        <CloseIcon onClick={() => setAdminPassModal(!adminPassModal)} />
         <Form onSubmit={handleAdm}>
           <Title onClick={() => setAdminPassModal(!adminPassModal)}>Contraseña Administrador</Title>
           <InputContainer>
@@ -68,6 +80,7 @@ function NavBar() {
               onChange={(e) => setAdminPass(e.target.value)}
             />
           </InputContainer>
+          <Button type="submit" value="Entrar" complete={adminPass ? "true" : "false"} />
         </Form>
       </Modal>
     </NavBarContainer>
@@ -129,6 +142,14 @@ const Logo = styled.img`
   transition: all 0.5s ease;
 `;
 
+const Title = styled.h4`
+  border-bottom: 2px solid white;
+  width: 120%;
+  text-align: center;
+  margin-bottom: 2%;
+  padding-bottom: 10px;
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -139,30 +160,49 @@ const Form = styled.form`
   color: white;
 `;
 
-const Title = styled.h4`
-  border-bottom: 2px solid white;
-  width: 120%;
-  text-align: center;
-  margin-bottom: 2%;
-  padding-bottom: 10px;
-`;
-
 const InputContainer = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
+  justify-content: space-between;
+  width: 80%;
+  height: 50px;
   border-bottom: 1px solid ${secondaryColor};
+  padding-bottom: 10px;
+  margin-block: 5px;
+`;
+
+const Button = styled.input`
+  ${button}
+  padding: 5px;
+  padding-inline: 15px;
+  text-decoration: none;
+  background: white;
+  border: 2px solid ${redColor};
+  pointer-events: none;
+  margin-bottom: -2.5%;
+  margin-top: 1%;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: ${principalColor};
+    border: 2px solid transparent;
+  }
+
+  ${(props) =>
+    props.complete === "true" &&
+    css`
+      pointer-events: all;
+      border: 2px solid ${greenColor};
+    `}
 `;
 
 const Input = styled.input`
   ${input}
   font-size: medium;
+  flex: 1;
+  height: 100%;
   text-align: center;
-  max-height: 30%;
-  max-width: 60%;
 `;
 
 const HiddenButton = styled.button`
@@ -177,5 +217,20 @@ const HiddenButton = styled.button`
 
   &:hover {
     cursor: help;
+  }
+`;
+
+const CloseIcon = styled(Close)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 8%;
+  margin-top: 1%;
+  color: white;
+  transition: all 0.5s ease;
+
+  &:hover {
+    color: ${secondaryColor};
+    cursor: pointer;
   }
 `;
