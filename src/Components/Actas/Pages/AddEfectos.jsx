@@ -129,13 +129,13 @@ function AddEfectos({ closeModal }) {
 
     switch (tipoDeElemento) {
       case "celular": {
-        if (bolsa_id && marca && modelo && imei && tipoSeguridad && estado) {
+        if (bolsa_id && marca && modelo && imei && estado) {
           return "true";
         }
         break;
       }
       case "tablet": {
-        if (bolsa_id && marca && modelo && serialNumber && tipoSeguridad && estado) {
+        if (bolsa_id && marca && modelo && serialNumber && estado) {
           return "true";
         }
         break;
@@ -235,14 +235,16 @@ function AddEfectos({ closeModal }) {
           />
         </InputContainer>
 
-        <InputContainer>
-          <Label>Encendido</Label>
-          <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
-            <SelectOpt value="">Encendido</SelectOpt>
-            <SelectOpt value="si">Si</SelectOpt>
-            <SelectOpt value="no">No</SelectOpt>
-          </Select>
-        </InputContainer>
+        {efecto.tipoDeElemento !== "pc" && efecto.tipoDeElemento !== "pendrive" && efecto.tipoDeElemento !== "notebook" && (
+          <InputContainer>
+            <Label>Encendido</Label>
+            <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
+              <SelectOpt value="">Encendido</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
 
         {efecto.encendido === "no" && (
           <InputContainer>
@@ -254,6 +256,17 @@ function AddEfectos({ closeModal }) {
               placeholder="¿Por que no enciende?"
               onChange={(e) => setEfecto({ ...efecto, observacionEncendido: e.target.value })}
             />
+          </InputContainer>
+        )}
+
+        {efecto.tipoDeElemento === "pendrive" && (
+          <InputContainer>
+            <Label>Elemento Fallado</Label>
+            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
+              <SelectOpt value="">Elemento Fallado</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
+            </Select>
           </InputContainer>
         )}
 
