@@ -125,35 +125,35 @@ function AddEfectos({ closeModal }) {
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeElemento, marca, modelo, imei, estado, tipoSeguridad, extraccion, almacenamiento, serialNumber } = efecto;
+    const { bolsa_id, tipoDeElemento, marca, modelo, estado, extraccion, almacenamiento, encendido, elementoFallado } = efecto;
 
     switch (tipoDeElemento) {
       case "celular": {
-        if (bolsa_id && marca && modelo && imei && estado) {
+        if (bolsa_id && marca && modelo && estado && encendido) {
           return "true";
         }
         break;
       }
       case "tablet": {
-        if (bolsa_id && marca && modelo && serialNumber && estado) {
+        if (bolsa_id && marca && modelo && estado && encendido) {
           return "true";
         }
         break;
       }
       case "notebook": {
-        if (bolsa_id && marca && modelo && serialNumber && estado) {
+        if (bolsa_id && marca && modelo && estado) {
           return "true";
         }
         break;
       }
       case "pc": {
-        if (bolsa_id && serialNumber && estado) {
+        if (bolsa_id && estado) {
           return "true";
         }
         break;
       }
       case "pendrive": {
-        if (bolsa_id && marca && modelo && serialNumber && almacenamiento && extraccion && estado) {
+        if (bolsa_id && elementoFallado === "si" ? estado : almacenamiento && extraccion && estado) {
           return "true";
         }
         break;
@@ -404,7 +404,7 @@ function AddEfectos({ closeModal }) {
           )
         )}
 
-        {efecto.tipoDeElemento === "pendrive" && (
+        {efecto.tipoDeElemento === "pendrive" && efecto.elementoFallado === "no" && (
           <InputContainer>
             <Label>Almacenamiento (GB)</Label>
             <Input
@@ -416,7 +416,7 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
         )}
-        {efecto.tipoDeElemento === "pendrive" && (
+        {efecto.tipoDeElemento === "pendrive" && efecto.elementoFallado === "no" && (
           <InputContainer>
             <Label>Extracción</Label>
             <Select value={efecto.extraccion} onChange={(e) => setEfecto({ ...efecto, extraccion: e.target.value })}>

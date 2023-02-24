@@ -70,16 +70,67 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         <br />
         {efecto.modelo || "Ninguna"}
       </Info>
-      <Info>
-        <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
-        <br />
-        {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion || "Ninguna"}
-      </Info>
-      <Info>
-        <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Almacenamiento" : "Tipo de Seguridad"}</CardTitle>
-        <br />
-        {efecto.tipoDeElemento === "pendrive" ? `${efecto.almacenamiento} GB` : efecto.tipoSeguridad || "Ninguna"}
-      </Info>
+      {efecto.encendido === "no" && (
+        <>
+          <Info>
+            <CardTitle>Encendido</CardTitle>
+            <br />
+            {efecto.encendido}
+          </Info>
+          <Info>
+            <CardTitle>Observacion</CardTitle>
+            <br />
+            {efecto.observacionEncendido}
+          </Info>
+        </>
+      )}
+      {(efecto.encendido === "si" || efecto.tipoDeElemento === "pendrive") && (
+        <>
+          {efecto.elementoFallado === "si" ? (
+            <>
+              <Info>
+                <CardTitle>Fallado</CardTitle>
+                <br />
+                {efecto.elementoFallado}
+              </Info>
+              <Info>
+                <CardTitle>Observacion</CardTitle>
+                <br />
+                {efecto.observacionFalla}
+              </Info>
+            </>
+          ) : (
+            <>
+              <Info>
+                <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Almacenamiento" : "Tipo de Seguridad"}</CardTitle>
+                <br />
+                {efecto.tipoDeElemento === "pendrive" ? `${efecto.almacenamiento} GB` : efecto.tipoSeguridad || "Ninguna"}
+              </Info>
+              {(efecto.desbloqueo === "si" || efecto.extraccion) && (
+                <Info>
+                  <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
+                  <br />
+                  {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion || "Ninguna"}
+                </Info>
+              )}
+              {efecto.desbloqueo === "no" && (
+                <Info>
+                  <CardTitle>Desbloqueo</CardTitle>
+                  <br />
+                  {efecto.desbloqueo}
+                </Info>
+              )}
+            </>
+          )}
+        </>
+      )}
+      {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc") && (
+        <Info>
+          <CardTitle>Cant. Discos</CardTitle>
+          <br />
+          {efecto.Discos.length}
+        </Info>
+      )}
       <Info style={{ flex: 0.5, marginRight: "10px" }}>
         {efecto.Sims.length !== 0 && <SimIcon />}
         {efecto.Discos.length !== 0 && <DiscoIcon />}
