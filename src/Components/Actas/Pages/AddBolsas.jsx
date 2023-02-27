@@ -7,6 +7,7 @@ import { createBolsas, removeBolsa, closeProcessActa, removeEfecto } from "../..
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
+import { toast } from "react-toastify";
 import { Close } from "@styled-icons/ionicons-outline/Close";
 import { TagLock } from "@styled-icons/fluentui-system-filled/TagLock";
 import { LockClosed } from "@styled-icons/fluentui-system-filled/LockClosed";
@@ -55,6 +56,7 @@ function AddBolsas() {
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s.currentEfectos);
 
   const [loading, setLoading] = React.useState(false);
+  const [alertFlag, setAlertFlag] = React.useState(true);
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
   const [closeBagsModal, setCloseBagsModal] = React.useState(false);
   const [bolsa, setBolsa] = React.useState({
@@ -116,8 +118,9 @@ function AddBolsas() {
   };
 
   const handleCloseBags = () => {
-    if (currentActa.estado !== "para completar") {
-      alert("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!");
+    if (currentActa.estado !== "para completar" && alertFlag) {
+      toast.warning("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!");
+      setAlertFlag(false);
     }
     setCloseBagsModal(!closeBagsModal);
   };

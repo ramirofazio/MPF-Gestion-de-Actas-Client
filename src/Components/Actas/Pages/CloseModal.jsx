@@ -62,11 +62,14 @@ function CloseModal({ closeModal }) {
 
   const handleInProcessSubmit = (e) => {
     e.preventDefault();
-    alert(
-      "¡Bolsa en proceso! \n\n Este Acta quedara bloqueada en proceso. \n\n ¡puede imprimirla y luego volver a cerrar los elementos pendientes!"
+    const res = prompt(
+      "¡Bolsa en proceso! \n\n Este Acta quedara bloqueada en proceso. \n\n ¡puede imprimirla y luego volver a cerrar los elementos pendientes! \n\n Escriba 'cerrar' para continuar o aprete cancelar"
     );
-    dispatch(updateBolsa(inProcessState, currentActa.id));
-    closeModal();
+    console.log(res);
+    if (res === "cerrar") {
+      dispatch(updateBolsa(inProcessState, currentActa.id));
+      closeModal();
+    }
   };
 
   const handleFinish = (e) => {
