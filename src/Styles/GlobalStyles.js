@@ -189,13 +189,15 @@ const GlobalStyles = {
     margin-top: 5px;
     border-radius: 5px;
     transition: all 0.3s ease;
-    border: 2px solid ${principalColor};
+    border: ${(props) => (props.estado === "en creacion" ? `3px solid ${yellowColor}` : `2px solid ${principalColor}`)};
     border-right: ${(props) =>
       props.estado === "en proceso"
         ? `15px solid ${yellowColor}`
         : props.estado === "completa"
         ? `15px solid ${principalColor}`
-        : `15px solid ${redColor}`};
+        : props.estado === "deprecada"
+        ? `15px solid ${redColor}`
+        : `3px solid ${yellowColor}`};
     transition: all 0.3s ease;
 
     &:hover {
