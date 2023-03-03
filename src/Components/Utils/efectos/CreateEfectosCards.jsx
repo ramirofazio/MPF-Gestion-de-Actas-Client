@@ -3,13 +3,11 @@ import React from "react";
 import styled from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
+import { PcHorizontal, PcDisplay, DeviceHddFill, SimFill } from "styled-icons/bootstrap";
 import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
 import { UDisk } from "@styled-icons/remix-line/UDisk";
-import { PcDisplay } from "@styled-icons/bootstrap/PcDisplay";
 import { Tablet } from "@styled-icons/entypo/Tablet";
 import { Computer } from "@styled-icons/material-outlined/Computer";
-import { DeviceHddFill } from "@styled-icons/bootstrap/DeviceHddFill";
-import { SimFill } from "@styled-icons/bootstrap/SimFill";
 import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 //* Initializations
@@ -45,6 +43,12 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       }
       case "notebook": {
         return <NotebookIcon />;
+      }
+      case "disco": {
+        return <DiscoIcon />;
+      }
+      case "dvr": {
+        return <DvrIcon />;
       }
       default: {
         return;
@@ -101,11 +105,14 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
             </>
           ) : (
             <>
-              <Info>
-                <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Almacenamiento" : "Tipo de Seguridad"}</CardTitle>
-                <br />
-                {efecto.tipoDeElemento === "pendrive" ? `${efecto.almacenamiento} GB` : efecto.tipoSeguridad || "Ninguna"}
-              </Info>
+              {efecto.tipoDeElemento === "pendrive" ||
+                (efecto.tipoDeElemento === "disco" && (
+                  <Info>
+                    <CardTitle>Almacenamiento</CardTitle>
+                    <br />
+                    {efecto.almacenamiento} GB
+                  </Info>
+                ))}
               {(efecto.desbloqueo === "si" || efecto.extraccion) && (
                 <Info>
                   <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
@@ -124,7 +131,14 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           )}
         </>
       )}
-      {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc") && (
+      {efecto.tipoDeElemento === "disco" && (
+        <Info>
+          <CardTitle>Almacenamiento</CardTitle>
+          <br />
+          {efecto.almacenamiento} GB
+        </Info>
+      )}
+      {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc" || efecto.tipoDeElemento === "dvr") && (
         <Info>
           <CardTitle>Cant. Discos</CardTitle>
           <br />
@@ -203,6 +217,11 @@ const DiscoIcon = styled(DeviceHddFill)`
 `;
 
 const SimIcon = styled(SimFill)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+
+const DvrIcon = styled(PcHorizontal)`
   width: 25px;
   color: ${secondaryColor};
 `;

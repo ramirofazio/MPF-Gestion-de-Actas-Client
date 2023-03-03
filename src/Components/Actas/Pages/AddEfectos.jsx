@@ -35,6 +35,7 @@ function AddEfectos({ closeModal }) {
   const [efecto, setEfecto] = React.useState({
     bolsa_id: "",
     tipoDeElemento: "",
+    tipoDeDisco: "",
     marca: "",
     modelo: "",
     imei: "",
@@ -125,7 +126,20 @@ function AddEfectos({ closeModal }) {
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeElemento, marca, modelo, estado, extraccion, almacenamiento, encendido, elementoFallado } = efecto;
+    const {
+      bolsa_id,
+      tipoDeDisco,
+      tipoDeElemento,
+      serialNumber,
+      marca,
+      modelo,
+      estado,
+      extraccion,
+      almacenamiento,
+      encendido,
+      elementoFallado,
+      herramientaSoft,
+    } = efecto;
 
     switch (tipoDeElemento) {
       case "celular": {
@@ -154,6 +168,19 @@ function AddEfectos({ closeModal }) {
       }
       case "pendrive": {
         if (bolsa_id && elementoFallado === "si" ? estado : almacenamiento && extraccion && estado) {
+          return "true";
+        }
+        break;
+      }
+      case "dvr": {
+        if (bolsa_id && tipoDeElemento && marca && modelo && serialNumber && estado) {
+          return "true";
+        }
+        break;
+      }
+      case "disco": {
+        console.log(efecto);
+        if (bolsa_id && tipoDeElemento && tipoDeDisco && marca && modelo && serialNumber && almacenamiento && herramientaSoft && estado) {
           return "true";
         }
         break;
@@ -212,8 +239,23 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="notebook">Notebook</SelectOpt>
             <SelectOpt value="pc">PC</SelectOpt>
             <SelectOpt value="pendrive">Pendrive</SelectOpt>
+            <SelectOpt value="dvr">DVR</SelectOpt>
+            <SelectOpt value="disco">Disco</SelectOpt>
           </Select>
         </InputContainer>
+        {efecto.tipoDeElemento === "disco" && (
+          <InputContainer>
+            <Label>Tipo de Disco</Label>
+            <Input
+              type="text"
+              name="tipo de Disco"
+              value={efecto.tipoDeDisco}
+              placeholder="Tipo de Disco"
+              onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}
+            />
+          </InputContainer>
+        )}
+
         <InputContainer>
           <Label>Marca</Label>
           <Input
@@ -235,16 +277,20 @@ function AddEfectos({ closeModal }) {
           />
         </InputContainer>
 
-        {efecto.tipoDeElemento !== "pc" && efecto.tipoDeElemento !== "pendrive" && efecto.tipoDeElemento !== "notebook" && (
-          <InputContainer>
-            <Label>Encendido</Label>
-            <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
-              <SelectOpt value="">Encendido</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
+        {efecto.tipoDeElemento !== "pc" &&
+          efecto.tipoDeElemento !== "pendrive" &&
+          efecto.tipoDeElemento !== "notebook" &&
+          efecto.tipoDeElemento !== "dvr" &&
+          efecto.tipoDeElemento !== "disco" && (
+            <InputContainer>
+              <Label>Encendido</Label>
+              <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
+                <SelectOpt value="">Encendido</SelectOpt>
+                <SelectOpt value="si">Si</SelectOpt>
+                <SelectOpt value="no">No</SelectOpt>
+              </Select>
+            </InputContainer>
+          )}
 
         {efecto.encendido === "no" && (
           <InputContainer>
@@ -310,7 +356,9 @@ function AddEfectos({ closeModal }) {
         {(efecto.tipoDeElemento === "notebook" ||
           efecto.tipoDeElemento === "pendrive" ||
           efecto.tipoDeElemento === "tablet" ||
-          efecto.tipoDeElemento === "pc") && (
+          efecto.tipoDeElemento === "pc" ||
+          efecto.tipoDeElemento === "dvr" ||
+          efecto.tipoDeElemento === "disco") && (
           <InputContainer>
             <Label>Serial Nº</Label>
             <Input
@@ -321,6 +369,33 @@ function AddEfectos({ closeModal }) {
               onChange={(e) => setEfecto({ ...efecto, serialNumber: e.target.value })}
             />
           </InputContainer>
+        )}
+
+        {efecto.tipoDeElemento === "disco" && (
+          <>
+            <InputContainer>
+              <Label>Almacenamiento (GB)</Label>
+              <Input
+                type="number"
+                name="almacenamiento"
+                value={efecto.almacenamiento}
+                placeholder="Almacenamiento (GB)"
+                onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value })}
+              />
+            </InputContainer>
+            <InputContainer>
+              <Label>Herramienta Software</Label>
+              <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
+                <SelectOpt value="">Herramienta Software</SelectOpt>
+                <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+                <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+                <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+                <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+                <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+                <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+              </Select>
+            </InputContainer>
+          </>
         )}
 
         {efecto.tipoDeElemento === ""
@@ -346,6 +421,7 @@ function AddEfectos({ closeModal }) {
 
         {efecto.tipoDeElemento !== "pendrive" &&
           efecto.tipoDeElemento !== "notebook" &&
+          efecto.tipoDeElemento !== "disco" &&
           efecto.tipoDeElemento !== "pc" &&
           efecto.herramientaSoft !== "" && (
             <InputContainer>
@@ -437,7 +513,7 @@ function AddEfectos({ closeModal }) {
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
           <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
-          {efecto.tipoDeElemento === "celular" && (
+          {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
             <>
               <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">
                 Agregar SIM
@@ -447,22 +523,8 @@ function AddEfectos({ closeModal }) {
               </OptButton>
             </>
           )}
-          {efecto.tipoDeElemento === "tablet" && (
-            <>
-              <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">
-                Agregar SIM
-              </OptButton>
-              <OptButton onClick={(e) => handleOptButtonClick(e)} value="sd">
-                Agregar SD
-              </OptButton>
-            </>
-          )}
-          {efecto.tipoDeElemento === "notebook" && (
-            <OptButton onClick={(e) => handleOptButtonClick(e)} value="discos">
-              Agregar Discos
-            </OptButton>
-          )}
-          {efecto.tipoDeElemento === "pc" && (
+
+          {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc" || efecto.tipoDeElemento === "dvr") && (
             <OptButton onClick={(e) => handleOptButtonClick(e)} value="discos">
               Agregar Discos
             </OptButton>
