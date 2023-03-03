@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
-import { PcHorizontal, PcDisplay, DeviceHddFill, SimFill } from "styled-icons/bootstrap";
+import { PcHorizontal, PcDisplay, DeviceHddFill, SimFill, DeviceSsdFill } from "styled-icons/bootstrap";
 import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
 import { UDisk } from "@styled-icons/remix-line/UDisk";
 import { Tablet } from "@styled-icons/entypo/Tablet";
@@ -45,6 +45,11 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         return <NotebookIcon />;
       }
       case "disco": {
+        if (efecto.tipoDeDisco === "Disco rigido") {
+          return <HddIcon />;
+        } else {
+          return <SsdIcon />;
+        }
         return <DiscoIcon />;
       }
       case "dvr": {
@@ -211,7 +216,7 @@ const SdIcon = styled(SdCardMini)`
   width: 25px;
   color: ${secondaryColor};
 `;
-const DiscoIcon = styled(DeviceHddFill)`
+const HddIcon = styled(DeviceHddFill)`
   width: 25px;
   color: ${secondaryColor};
 `;
@@ -222,6 +227,11 @@ const SimIcon = styled(SimFill)`
 `;
 
 const DvrIcon = styled(PcHorizontal)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+
+const SsdIcon = styled(DeviceSsdFill)`
   width: 25px;
   color: ${secondaryColor};
 `;

@@ -246,13 +246,11 @@ function AddEfectos({ closeModal }) {
         {efecto.tipoDeElemento === "disco" && (
           <InputContainer>
             <Label>Tipo de Disco</Label>
-            <Input
-              type="text"
-              name="tipo de Disco"
-              value={efecto.tipoDeDisco}
-              placeholder="Tipo de Disco"
-              onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}
-            />
+            <Select value={efecto.tipoDeDisco} onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}>
+              <SelectOpt value="">Tipo De Disco</SelectOpt>
+              <SelectOpt value="Disco rigido">Disco Rigido</SelectOpt>
+              <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
+            </Select>
           </InputContainer>
         )}
 
@@ -537,13 +535,11 @@ function AddEfectos({ closeModal }) {
           <Title>Agregar Disco</Title>
           <InputContainer>
             <Label>Tipo de Disco</Label>
-            <Input
-              type="text"
-              name="tipo de Disco"
-              value={disco.tipoDeDisco}
-              placeholder="Tipo de Disco"
-              onChange={(e) => setDisco({ ...disco, tipoDeDisco: e.target.value })}
-            />
+            <Select value={efecto.tipoDeDisco} onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}>
+              <SelectOpt value="">Tipo De Disco</SelectOpt>
+              <SelectOpt value="Disco rigido">Disco Rigido</SelectOpt>
+              <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
+            </Select>
           </InputContainer>
           <InputContainer>
             <Label>Marca</Label>
