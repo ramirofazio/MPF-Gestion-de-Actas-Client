@@ -4,19 +4,22 @@ import generateDoc from "../Components/Utils/template/generateDoc";
 import editSavedActa from "../Components/Utils/template/editSavedActa";
 import Variables from "../Styles/Variables";
 import { toast } from "react-toastify";
-
-export const GET_ACTAS = "GET_ACTAS";
-export const GET_ACTAS_FILTERED = "GET_ACTAS_FILTERED";
-export const CREATE_ACTA = "CREATE_ACTA";
-export const CREATE_PERITOS = "CREATE_PERITOS";
-export const CREATE_INTEGRANTES = "CREATE_INTEGRANTES";
-export const CREATE_BOLSAS = "CREATE_BOLSAS";
-export const CREATE_EFECTOS = "CREATE_EFECTOS";
-export const GET_BUGS_REPORTS = "GET_BUGS_REPORTS";
-export const CLEAR_STATES = "CLEAR_STATES";
-export const ADMIN = "ADMIN";
-export const UPDATE_BOLSAS = "UPDATE_BOLSAS";
-export const UPDATE_EFECTOS = "UPDATE_EFECTOS";
+import {
+  GET_ACTAS,
+  GET_ACTAS_FILTERED,
+  CREATE_ACTA,
+  CREATE_INTEGRANTES,
+  CREATE_BOLSAS,
+  CREATE_EFECTOS,
+  GET_BUGS_REPORTS,
+  CLEAR_STATES,
+  ADMIN,
+  CREATE_PERITOS,
+  UPDATE_BOLSAS,
+  UPDATE_EFECTOS,
+  GET_USERS,
+  SET_CURRENT_USER,
+} from "./variables";
 
 export function removeActa(acta_id) {
   return function (dispatch) {
@@ -354,6 +357,28 @@ export function admin() {
   return function (dispatch) {
     return dispatch({
       type: ADMIN,
+    });
+  };
+}
+
+export function getUsers() {
+  return function (dispatch) {
+    axios.get(Variables.baseEndpoint + "/getUsers").then((res) => {
+      if (res.status === 200) {
+        return dispatch({
+          type: GET_USERS,
+          payload: res.data,
+        });
+      }
+    });
+  };
+}
+
+export function setCurrentUser(currentUser) {
+  return function (dispatch) {
+    dispatch({
+      type: SET_CURRENT_USER,
+      payload: currentUser,
     });
   };
 }

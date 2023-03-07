@@ -1,0 +1,14 @@
+export const GET_ACTAS = "GET_ACTAS";
+export const GET_ACTAS_FILTERED = "GET_ACTAS_FILTERED";
+export const CREATE_ACTA = "CREATE_ACTA";
+export const CREATE_PERITOS = "CREATE_PERITOS";
+export const CREATE_INTEGRANTES = "CREATE_INTEGRANTES";
+export const CREATE_BOLSAS = "CREATE_BOLSAS";
+export const CREATE_EFECTOS = "CREATE_EFECTOS";
+export const GET_BUGS_REPORTS = "GET_BUGS_REPORTS";
+export const CLEAR_STATES = "CLEAR_STATES";
+export const ADMIN = "ADMIN";
+export const UPDATE_BOLSAS = "UPDATE_BOLSAS";
+export const UPDATE_EFECTOS = "UPDATE_EFECTOS";
+export const GET_USERS = "GET_USERS";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";

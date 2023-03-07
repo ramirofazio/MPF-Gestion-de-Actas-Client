@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { admin } from "../../../redux/actions";
+import { admin, clearStates } from "../../../redux/actions";
 //* Styles
 import styled, { css } from "styled-components";
 import Variables from "../../../Styles/Variables";
@@ -25,15 +25,20 @@ const adminModal = {
   },
 };
 
-function NavBar() {
+function NavBar({ setFlag }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
   const adminState = useSelector((s) => s.admin);
+  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
   const [adminPassModal, setAdminPassModal] = React.useState(false);
   const [adminPass, setAdminPass] = React.useState("");
+
+  React.useEffect(() => {
+    setAdminPassModal(false);
+  }, [adminState === true]);
 
   const handleAdm = (e) => {
     e.preventDefault();
@@ -45,9 +50,14 @@ function NavBar() {
     }
   };
 
-  React.useEffect(() => {
-    setAdminPassModal(false);
-  }, [adminState === true]);
+  const handleCloseSession = () => {
+    const users = localStorage.getItem("users");
+    setFlag(false);
+    localStorage.clear();
+    dispatch(clearStates());
+    toast.success("Sesion cerrada con exito!");
+    localStorage.setItem("users", users);
+  };
 
   return (
     <NavBarContainer>
@@ -59,10 +69,12 @@ function NavBar() {
           <>
             {!currentActa.estado && <HomeLinks to="/">Volver a Inicio</HomeLinks>}
             <HomeLinks to="/admin">Panel de Administrador</HomeLinks>
-            <HomeLinks to="/" onClick={() => dispatch(admin())}>
-              Cerrar
-            </HomeLinks>
           </>
+        )}
+        {currentUser && (
+          <HomeLinks to="/" onClick={() => handleCloseSession()}>
+            Cerrar sesion
+          </HomeLinks>
         )}
         <CreateBugReport />
       </Container>

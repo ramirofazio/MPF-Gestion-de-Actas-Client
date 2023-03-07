@@ -12,7 +12,9 @@ import {
   CREATE_PERITOS,
   UPDATE_BOLSAS,
   UPDATE_EFECTOS,
-} from "./actions";
+  GET_USERS,
+  SET_CURRENT_USER,
+} from "./variables";
 
 let initialState = {
   admin: JSON.parse(localStorage.getItem("admin")) || false,
@@ -24,10 +26,28 @@ let initialState = {
   currentBolsas: JSON.parse(localStorage.getItem("currentBolsas")) || [],
   currentEfectos: JSON.parse(localStorage.getItem("currentEfectos")) || [],
   bugsReports: [],
+  users: [],
+  currentUser: [],
 };
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case SET_CURRENT_USER: {
+      localStorage.setItem("currentUser", JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
+    }
+    case GET_USERS: {
+      localStorage.setItem("users", JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        users: action.payload,
+      };
+    }
     case UPDATE_EFECTOS: {
       localStorage.setItem("currentEfectos", []);
       localStorage.setItem("currentEfectos", JSON.stringify(action.payload));

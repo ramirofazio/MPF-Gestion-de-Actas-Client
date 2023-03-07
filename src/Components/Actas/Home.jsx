@@ -17,15 +17,21 @@ function Home() {
   const adminState = useSelector((s) => JSON.parse(localStorage.getItem("admin")) || s.admin);
 
   React.useEffect(() => {
-    if (adminState) {
-      localStorage.clear();
-      dispatch(clearStates());
-      dispatch(getAllActas());
-      dispatch(admin());
-    } else {
-      localStorage.clear();
-      dispatch(clearStates());
-      dispatch(getAllActas());
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const users = JSON.parse(localStorage.getItem("users"));
+    if (currentUser) {
+      if (adminState) {
+        localStorage.clear();
+        dispatch(clearStates());
+        dispatch(getAllActas());
+        dispatch(admin());
+      } else {
+        localStorage.clear();
+        dispatch(clearStates());
+        dispatch(getAllActas());
+      }
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      localStorage.setItem("users", JSON.stringify(users));
     }
   }, []);
 

@@ -2,7 +2,6 @@ import axios from "axios";
 import Variables from "../../../Styles/Variables";
 
 const editSavedActa = async (actaId, navigate) => {
-  localStorage.clear();
   try {
     const res = await axios.get(Variables.baseEndpoint + `/getActas/${actaId}`);
     if (res) {
