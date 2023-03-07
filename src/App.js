@@ -24,6 +24,7 @@ import Variables from "./Styles/Variables";
 import GlobalStyles from "./Styles/GlobalStyles";
 //* Utils
 import { toast } from "react-toastify";
+import logo2 from "./Assets/logo2.png";
 //* Initializations
 const { principalColor, secondaryColor } = Variables;
 const { select, form, inputLabel, inputContainer } = GlobalStyles;
@@ -75,6 +76,7 @@ function App() {
   if (!flag) {
     return (
       <Container>
+        <Logo src={logo2} />
         <Form onSubmit={handleSubmit}>
           <InputContainer>
             <Label>Usuario</Label>
@@ -188,4 +190,10 @@ const Input = styled.input`
     display: none;
   }
   width: 100%;
+`;
+
+const Logo = styled.img`
+  position: absolute;
+  top: 0;
+  margin-top: 4%;
 `;
