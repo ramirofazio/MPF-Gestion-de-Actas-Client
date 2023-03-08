@@ -9,7 +9,6 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
-import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 const { enProcesoContainer, header, headerTitle, button, formContainer, inputContainer, inputLabel, form, input, cardTitle, cardInfo } =
@@ -25,7 +24,6 @@ function AddIntegrantes() {
   const [integrantes, setIntegrantes] = React.useState(currentIntegrantes || []);
   const [integrante, setIntegrante] = React.useState({
     nombreYApellido: "",
-    dni: "",
     legajoOMatricula: "",
     cargo: "",
   });
@@ -34,7 +32,6 @@ function AddIntegrantes() {
     setIntegrantes([...integrantes, { ...integrante, acta_id: currentActa.id }]);
     setIntegrante({
       nombreYApellido: "",
-      dni: "",
       legajoOMatricula: "",
       cargo: "",
     });
@@ -42,19 +39,19 @@ function AddIntegrantes() {
 
   const handleComplete = () => {
     //* Logica para habilitar el boton cuando esta todo completado
-    const { nombreYApellido, dni, legajoOMatricula, cargo } = integrante;
+    const { nombreYApellido, legajoOMatricula, cargo } = integrante;
 
-    if (nombreYApellido && dni && legajoOMatricula && cargo) {
+    if (nombreYApellido && legajoOMatricula && cargo) {
       return "true";
     } else {
       return "false";
     }
   };
 
-  const handleRemove = (dni) => {
-    dispatch(removeIntegrante(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
+  const handleRemove = (legajoOMatricula) => {
+    dispatch(removeIntegrante(legajoOMatricula, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
-    const newIntegrantes = integrantes.filter((i) => i.dni !== dni);
+    const newIntegrantes = integrantes.filter((i) => i.legajoOMatricula !== legajoOMatricula);
     localStorage.setItem("currentIntegrantes", JSON.stringify(newIntegrantes));
     setIntegrantes(newIntegrantes);
   };
@@ -80,17 +77,6 @@ function AddIntegrantes() {
                 value={integrante.nombreYApellido}
                 placeholder="Nombre y Apellido"
                 onChange={(e) => setIntegrante({ ...integrante, nombreYApellido: e.target.value })}
-              />
-            </InputContainer>
-            <InputContainer>
-              <Label>DNI</Label>
-              <Input
-                disabled={currentActa.estado !== "en creacion"}
-                type="number"
-                name="dni"
-                value={integrante.dni}
-                placeholder="DNI"
-                onChange={(e) => setIntegrante({ ...integrante, dni: e.target.value })}
               />
             </InputContainer>
             <InputContainer>
@@ -132,11 +118,7 @@ function AddIntegrantes() {
                     <br />
                     {i.nombreYApellido}
                   </Info>
-                  <Info>
-                    <CardTitle>DNI</CardTitle>
-                    <br />
-                    {i.dni}
-                  </Info>
+
                   <Info>
                     <CardTitle>Legajo o Matricula</CardTitle>
                     <br />
@@ -147,7 +129,7 @@ function AddIntegrantes() {
                     <br />
                     {i.cargo}
                   </Info>
-                  <RemoveIcon onClick={() => handleRemove(i.dni)} />
+                  <RemoveIcon onClick={() => handleRemove(i.legajoOMatricula)} />
                 </IntegranteContainer>
               );
             })}

@@ -8,12 +8,13 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import { FileDownload } from "@styled-icons/remix-line/FileDownload";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
+import { Warning } from "@styled-icons/entypo/Warning";
 //* Utils
 import getSavedActa from "../template/getSavedActa";
 import editSavedActa from "../template/editSavedActa";
 import { useDispatch } from "react-redux";
 //* Initialization
-const { secondaryColor, redColor } = Variables;
+const { secondaryColor, redColor, yellowColor } = Variables;
 const { actaCardContainer, cardInfo, cardTitle } = GlobalStyles;
 
 function ActaCard({ acta, type }) {
@@ -36,6 +37,7 @@ function ActaCard({ acta, type }) {
 
   return (
     <ActaContainer estado={acta.estado}>
+      {acta.estado === "en creacion" && <WarningIcon />}
       <Info>
         <CardTitle>Fecha</CardTitle>
         <br />
@@ -86,7 +88,7 @@ function ActaCard({ acta, type }) {
         </>
       ) : (
         <>
-          <DownloadIcon onClick={() => getSavedActa(acta.id)} />
+          {acta.estado !== "en creacion" && <DownloadIcon onClick={() => getSavedActa(acta.id)} />}
           <EditIcon onClick={() => editSavedActa(acta.id, navigate)} />
         </>
       )}
@@ -142,4 +144,11 @@ const RemoveIcon = styled(FileRemove)`
     color: ${redColor};
     cursor: pointer;
   }
+`;
+
+const WarningIcon = styled(Warning)`
+  width: 25px;
+  margin-left: 10px;
+  color: ${yellowColor};
+  transition: all 0.3s ease;
 `;

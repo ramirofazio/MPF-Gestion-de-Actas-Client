@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
-import { createPeritos, removePerito } from "../../../redux/actions";
+import { createPeritos, removePerito, setCurrentUser } from "../../../redux/actions";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
@@ -12,8 +12,21 @@ import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
-const { enProcesoContainer, header, headerTitle, button, formContainer, inputContainer, inputLabel, form, input, cardTitle, cardInfo } =
-  GlobalStyles;
+const {
+  enProcesoContainer,
+  header,
+  headerTitle,
+  button,
+  formContainer,
+  inputContainer,
+  select,
+  selectOpt,
+  inputLabel,
+  form,
+  input,
+  cardTitle,
+  cardInfo,
+} = GlobalStyles;
 
 function AddPeritos() {
   const navigate = useNavigate();
@@ -21,11 +34,12 @@ function AddPeritos() {
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
   const currentPeritos = useSelector((s) => JSON.parse(localStorage.getItem("currentPeritos")) || s.currentPeritos);
+  const users = useSelector((s) => JSON.parse(localStorage.getItem("users")) || s.users);
 
   const [peritos, setPeritos] = React.useState(currentPeritos);
   const [perito, setPerito] = React.useState({
     nombreYApellido: "",
-    dni: "",
+    legajo: "",
     cargo: "",
   });
 
@@ -33,26 +47,26 @@ function AddPeritos() {
     setPeritos([...peritos, { ...perito, acta_id: currentActa.id }]);
     setPerito({
       nombreYApellido: "",
-      dni: "",
+      legajo: "",
       cargo: "",
     });
   };
 
   const handleComplete = () => {
     //* Logica para habilitar el boton cuando esta todo completado
-    const { nombreYApellido, dni, cargo } = perito;
+    const { nombreYApellido, legajo, cargo } = perito;
 
-    if (nombreYApellido && dni && cargo) {
+    if (nombreYApellido && legajo && cargo) {
       return "true";
     } else {
       return "false";
     }
   };
 
-  const handleRemove = (dni) => {
-    dispatch(removePerito(dni, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
+  const handleRemove = (legajo) => {
+    dispatch(removePerito(legajo, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
-    const newPeritos = peritos.filter((i) => i.dni !== dni);
+    const newPeritos = peritos.filter((i) => i.legajo !== legajo);
     localStorage.setItem("currentPeritos", JSON.stringify(newPeritos));
     setPeritos(newPeritos);
   };
@@ -61,6 +75,13 @@ function AddPeritos() {
     dispatch(createPeritos(peritos, navigate));
   };
 
+  const peritoSelected = (p) => {
+    setPerito({
+      nombreYApellido: p.nombreYApellido,
+      cargo: p.cargo,
+      legajo: p.legajo,
+    });
+  };
   return (
     <Container>
       <Header>
@@ -70,9 +91,16 @@ function AddPeritos() {
         <FormContainer>
           <Form>
             <InputContainer>
+              <Label>Elegir Perito</Label>
+              <Select onChange={(e) => peritoSelected(JSON.parse(e.target.value))}>
+                <SelectOpt value="">Elegir Perito</SelectOpt>
+                {users && users.map((u) => u.username !== "admin" && <SelectOpt value={JSON.stringify(u)}>{u.nombreYApellido}</SelectOpt>)}
+              </Select>
+            </InputContainer>
+            <InputContainer>
               <Label>Nombre y Apellido</Label>
               <Input
-                disabled={currentActa.estado !== "en creacion"}
+                disabled={true}
                 type="text"
                 name="nombreYApellido"
                 value={perito.nombreYApellido}
@@ -81,20 +109,20 @@ function AddPeritos() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>DNI</Label>
+              <Label>Legajo</Label>
               <Input
-                disabled={currentActa.estado !== "en creacion"}
+                disabled={true}
                 type="number"
-                name="dni"
-                value={perito.dni}
-                placeholder="DNI"
-                onChange={(e) => setPerito({ ...perito, dni: e.target.value })}
+                name="legajo"
+                value={perito.legajo}
+                placeholder="Legajo"
+                onChange={(e) => setPerito({ ...perito, legajo: e.target.value })}
               />
             </InputContainer>
             <InputContainer>
               <Label>Cargo</Label>
               <Input
-                disabled={currentActa.estado !== "en creacion"}
+                disabled={true}
                 type="text"
                 name="cargo"
                 value={perito.cargo}
@@ -120,9 +148,9 @@ function AddPeritos() {
                     {i.nombreYApellido}
                   </Info>
                   <Info>
-                    <CardTitle>DNI</CardTitle>
+                    <CardTitle>Legajo</CardTitle>
                     <br />
-                    {i.dni}
+                    {i.legajo}
                   </Info>
                   <Info>
                     <CardTitle>Cargo</CardTitle>
@@ -131,7 +159,9 @@ function AddPeritos() {
                   </Info>
                   <RemoveIcon
                     onClick={() =>
-                      currentActa.estado !== "en creacion" ? toast.error("No se puede eliminar un Perito ya creado") : handleRemove(i.dni)
+                      currentActa.estado !== "en creacion"
+                        ? toast.error("No se puede eliminar un Perito ya creado")
+                        : handleRemove(i.legajo)
                     }
                   />
                 </PeritoContainer>
@@ -209,6 +239,14 @@ const FormContainer = styled.div`
 const InputContainer = styled.div`
   ${inputContainer}
   width: 100%;
+`;
+
+const Select = styled.select`
+  ${select}
+`;
+
+const SelectOpt = styled.option`
+  ${selectOpt}
 `;
 
 const Label = styled.label`
