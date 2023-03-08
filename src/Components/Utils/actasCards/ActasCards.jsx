@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 //* Style
 import styled from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
@@ -9,7 +10,12 @@ import ActaCard from "./ActaCard";
 const { cardsContainer, button } = GlobalStyles;
 
 function ActasCards({ allActas, typeOfCard }) {
-  const actasToRender = allActas.filter((actas) => actas.estado !== "deprecada");
+  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
+  let actasToRender = allActas.filter((a) => a.estado !== "deprecada");
+
+  if (currentUser.username !== "admin") {
+    actasToRender = allActas.filter((a) => a.Peritos[0].nombreYApellido === currentUser.nombreYApellido);
+  }
 
   const loadLocalStorage = () => {
     localStorage.setItem("actaFlag", "");
