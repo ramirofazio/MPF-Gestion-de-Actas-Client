@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { createActa } from "../../../redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 //* Style
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
@@ -20,6 +20,8 @@ function AddActa() {
   const [acta, setActa] = React.useState("");
   const [tipoDeActa, setTipoDeActa] = React.useState("");
   const [comeBack, setComeBack] = React.useState(false);
+
+  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
   React.useEffect(() => {
     getLocalStorageOrState();
@@ -116,7 +118,7 @@ function AddActa() {
   };
 
   const handleClick = () => {
-    dispatch(createActa(acta, tipoDeActa, navigate));
+    dispatch(createActa(acta, tipoDeActa, navigate, dispatch));
   };
 
   return (
@@ -352,7 +354,7 @@ function AddActa() {
           Crear
         </Button>
       ) : (
-        <Button to={"/actas/crear/2"} complete={"true"}>
+        <Button to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"} complete={"true"}>
           Continuar Asi
         </Button>
       )}

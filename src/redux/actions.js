@@ -108,13 +108,20 @@ export function getActasFiltered(filters) {
 
 export function createActa(state, flag, navigate) {
   localStorage.setItem("actaFlag", flag);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + "/addActa", { ...state })
       .then((res) => {
         if (res.status === 200) {
-          navigate("/actas/crear/2");
+          if (currentUser.username === "admin") {
+            navigate("/actas/crear/2");
+          } else {
+            console.log("llegue");
+            dispatch(createPeritos([{ ...currentUser, acta_id: res.data.id }], navigate));
+          }
+
           flag === "MPF/DEN"
             ? toast.success(`Acta ${res.data.nro_mpf} creada con exito!`)
             : toast.success(`Acta ${res.data.nro_coop} creada con exito!`);
@@ -138,7 +145,7 @@ export function createPeritos(peritos, navigate) {
       .then((res) => {
         if (res.status === 200) {
           navigate("/actas/crear/3");
-          toast.success("Peritos creados con exito!");
+          toast.success("Perito creados con exito!");
         }
         return dispatch({
           type: CREATE_PERITOS,
@@ -147,7 +154,7 @@ export function createPeritos(peritos, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al crear Peritos");
+        toast.error("Error al crear Perito");
       });
   };
 }

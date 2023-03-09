@@ -34,6 +34,7 @@ function App() {
 
   const adminState = useSelector((s) => JSON.parse(localStorage.getItem("admin")) || s.admin);
   const users = useSelector((s) => JSON.parse(localStorage.getItem("users")) || s.users);
+  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
   const [flag, setFlag] = React.useState(false);
   const [user, setUser] = React.useState({
@@ -113,7 +114,7 @@ function App() {
             {/*Router Actas*/}
             <Route path="/" exact element={<Home />} />
             <Route path="/actas/crear/1" exact element={<AddActa />} />
-            <Route path="/actas/crear/2" exact element={<AddPeritos />} />
+            {currentUser.username === "admin" && <Route path="/actas/crear/2" exact element={<AddPeritos />} />}
             <Route path="/actas/crear/3" exact element={<AddIntegrantes />} />
             <Route path="/actas/crear/4" exact element={<AddBolsas />} />
             {/*Admin*/}
