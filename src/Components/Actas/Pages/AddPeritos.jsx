@@ -140,6 +140,7 @@ function AddPeritos() {
         <PeritosContainer>
           {peritos &&
             peritos.map((i, index) => {
+              console.log(i.legajo);
               return (
                 <PeritoContainer key={index}>
                   <Info>

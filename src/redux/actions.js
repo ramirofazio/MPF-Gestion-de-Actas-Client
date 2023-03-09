@@ -290,10 +290,10 @@ export function updateActa(observaciones, id, navigate) {
   };
 }
 
-export function removePerito(dni, acta_id) {
+export function removePerito(legajo, acta_id) {
   return function () {
     axios
-      .delete(Variables.baseEndpoint + `/removePerito?dni=${dni}&acta_id=${acta_id}`)
+      .delete(Variables.baseEndpoint + `/removePerito?legajo=${legajo}&acta_id=${acta_id}`)
       .then((res) => {
         if (res.status === 200) toast.success("Perito eliminado con exito!");
       })
