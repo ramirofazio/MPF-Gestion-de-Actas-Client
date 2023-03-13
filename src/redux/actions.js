@@ -119,7 +119,7 @@ export function createActa(state, flag, navigate) {
             navigate("/actas/crear/2");
           } else {
             console.log("llegue");
-            dispatch(createPeritos([{ ...currentUser, acta_id: res.data.id }], navigate));
+            dispatch(createPeritos([{ ...currentUser, acta_id: res.data.id, id: null }], navigate));
           }
 
           flag === "MPF/DEN"
