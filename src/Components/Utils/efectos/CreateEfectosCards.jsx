@@ -50,7 +50,6 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         } else {
           return <SsdIcon />;
         }
-        return <DiscoIcon />;
       }
       case "dvr": {
         return <DvrIcon />;
@@ -144,15 +143,22 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         </Info>
       )}
       {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc" || efecto.tipoDeElemento === "dvr") && (
-        <Info>
-          <CardTitle>Cant. Discos</CardTitle>
-          <br />
-          {efecto.Discos.length}
-        </Info>
+        <>
+          <Info>
+            <CardTitle>Serial Number</CardTitle>
+            <br />
+            {efecto.serialNumber}
+          </Info>
+          <Info>
+            <CardTitle>Cant. Discos</CardTitle>
+            <br />
+            {efecto.Discos.length}
+          </Info>
+        </>
       )}
       <Info style={{ flex: 0.5, marginRight: "10px" }}>
         {efecto.Sims.length !== 0 && <SimIcon />}
-        {efecto.Discos.length !== 0 && <DiscoIcon />}
+        {efecto.Discos.length !== 0 && <HddIcon />}
         {efecto.Sds.length !== 0 && <SdIcon />}
       </Info>
       {estadoActa === "en creacion" && <DeleteIcon onClick={() => handleRemoveEfecto(efecto.id)} />}

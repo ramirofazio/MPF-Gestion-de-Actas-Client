@@ -535,7 +535,7 @@ function AddEfectos({ closeModal }) {
           <Title>Agregar Disco</Title>
           <InputContainer>
             <Label>Tipo de Disco</Label>
-            <Select value={efecto.tipoDeDisco} onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}>
+            <Select value={efecto.tipoDeDisco} onChange={(e) => setDisco({ ...efecto, tipoDeDisco: e.target.value })}>
               <SelectOpt value="">Tipo De Disco</SelectOpt>
               <SelectOpt value="Disco rigido">Disco Rigido</SelectOpt>
               <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
@@ -606,7 +606,13 @@ function AddEfectos({ closeModal }) {
             type="submit"
             value="Agregar Disco"
             complete={
-              disco.tipoDeDisco && disco.marca && disco.modelo && disco.serialNumber && disco.almacenamiento && disco.estadoDisco
+              disco.tipoDeDisco &&
+              disco.marca &&
+              disco.modelo &&
+              disco.serialNumber &&
+              disco.almacenamiento &&
+              disco.herramientaSoftDisco &&
+              disco.estadoDisco
                 ? "true"
                 : "false"
             }
