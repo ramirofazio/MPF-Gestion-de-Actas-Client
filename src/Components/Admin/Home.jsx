@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllActas } from "../../redux/actions";
 //* Styles
 import styled from "styled-components";
 import GlobalStyles from "../../Styles/GlobalStyles";
@@ -7,11 +9,51 @@ import Variables from "../../Styles/Variables";
 import { BugFill } from "@styled-icons/bootstrap/BugFill";
 import { StatsChart } from "@styled-icons/ionicons-sharp/StatsChart";
 import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
+//*
+import * as XLSX from "xlsx";
 //* Initializations
 const { principalColor, secondaryColor } = Variables;
 const { header, headerTitle, enProcesoContainer } = GlobalStyles;
 
+function flatten(obj, prefix = "") {
+  if (!obj || typeof obj !== "object") {
+    return {};
+  }
+  return Object.keys(obj).reduce((acc, k) => {
+    const pre = prefix.length ? prefix + "_" : "";
+    if (Array.isArray(obj[k])) {
+      obj[k].forEach((item, index) => {
+        Object.assign(acc, flatten(item, `${pre}${k}_${index}`));
+      });
+    } else if (typeof obj[k] === "object") {
+      Object.assign(acc, flatten(obj[k], pre + k));
+    } else {
+      acc[pre + k] = obj[k];
+    }
+    return acc;
+  }, {});
+}
+
+const convertirJSONaExcel = (allActas) => {
+  if (!Array.isArray(allActas)) {
+    return;
+  }
+  const flatData = allActas.map((a) => flatten(a));
+  const worksheet = XLSX.utils.json_to_sheet(flatData);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Hoja 1");
+  XLSX.writeFile(workbook, "Gestion_de_actas_DB.xlsx");
+};
+
 function Home() {
+  const dispatch = useDispatch();
+
+  const allActas = useSelector((s) => s.allActas);
+
+  React.useEffect(() => {
+    dispatch(getAllActas());
+  }, []);
+
   return (
     <Container>
       <Header>
@@ -22,8 +64,8 @@ function Home() {
           <CardTitle>Reporte de Bugs</CardTitle>
           <BugIcon />
         </Card>
-        <Card to="/admin/estadisticas">
-          <CardTitle>Estadisticas</CardTitle>
+        <Card to="#" onClick={() => convertirJSONaExcel(allActas)}>
+          <CardTitle>Exportar DB</CardTitle>
           <StatsChartIcon />
         </Card>
         <Card to="/admin/eliminarActa">
