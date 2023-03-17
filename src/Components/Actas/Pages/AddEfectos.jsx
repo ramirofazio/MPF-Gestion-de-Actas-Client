@@ -218,7 +218,7 @@ function AddEfectos({ closeModal }) {
         <InputContainer>
           <Label>Bolsa</Label>
           <Select value={efecto.bolsa_id} onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}>
-            <SelectOpt value="">precinto</SelectOpt>
+            <SelectOpt value="">Precinto</SelectOpt>
             {currentBolsas.map((b) => {
               if (b.estado !== "cerrada" && b.estado !== "cerrada en proceso") {
                 return (

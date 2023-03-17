@@ -85,9 +85,9 @@ function CloseModal({ closeModal }) {
         <Form onSubmit={(e) => handleCompleteSubmit(e)}>
           <Title>Cerrar Bolsas</Title>
           <InputContainer>
-            <Label>Nro Precinto Bolsa</Label>
+            <Label>Bolsa</Label>
             <Select value={state.id} onChange={(e) => setState({ ...state, id: Number(e.target.value) })}>
-              <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
+              <SelectOpt value="">Precinto</SelectOpt>
               {bagsToClose.length > 0 &&
                 bagsToClose.map(({ nroPrecinto, id, colorPrecinto }) => (
                   <SelectOpt value={id} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
@@ -97,7 +97,7 @@ function CloseModal({ closeModal }) {
             </Select>
           </InputContainer>
           <InputContainer>
-            <Label>Nro Precinto Blanco</Label>
+            <Label>Precinto Blanco</Label>
             <Input
               type="number"
               name="nroPrecintoBlanco"

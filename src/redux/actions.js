@@ -118,7 +118,6 @@ export function createActa(state, flag, navigate) {
           if (currentUser.username === "admin") {
             navigate("/actas/crear/2");
           } else {
-            console.log("llegue");
             dispatch(createPeritos([{ ...currentUser, acta_id: res.data.id, id: null }], navigate));
           }
 
@@ -233,7 +232,9 @@ export function updateBolsa(state, acta_id) {
     axios
       .put(Variables.baseEndpoint + "/updateBolsa", state)
       .then((res) => {
-        toast.success(`Bolsa ${res.data.nroPrecinto} cerrada con exito!`);
+        if (res.status === 200) {
+          toast.success(`¡Bolsa ${res.data.nroPrecinto} cerrada con exito!`);
+        }
       })
       .then(() => {
         axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
@@ -245,10 +246,12 @@ export function updateBolsa(state, acta_id) {
       })
       .then(() => {
         axios.get(Variables.baseEndpoint + `/getActas/${acta_id}`).then((res) => {
-          return dispatch({
-            type: CREATE_ACTA,
-            payload: res.data,
-          });
+          if (res.status === 200) {
+            return dispatch({
+              type: CREATE_ACTA,
+              payload: res.data,
+            });
+          }
         });
       })
       .catch((err) => {
