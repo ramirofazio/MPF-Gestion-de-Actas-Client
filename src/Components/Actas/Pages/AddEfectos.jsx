@@ -535,7 +535,7 @@ function AddEfectos({ closeModal }) {
           <Title>Agregar Disco</Title>
           <InputContainer>
             <Label>Tipo de Disco</Label>
-            <Select value={efecto.tipoDeDisco} onChange={(e) => setDisco({ ...efecto, tipoDeDisco: e.target.value })}>
+            <Select value={disco.tipoDeDisco} onChange={(e) => setDisco({ ...disco, tipoDeDisco: e.target.value })}>
               <SelectOpt value="">Tipo De Disco</SelectOpt>
               <SelectOpt value="Disco rigido">Disco Rigido</SelectOpt>
               <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
