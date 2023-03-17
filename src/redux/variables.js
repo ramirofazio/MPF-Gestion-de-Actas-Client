@@ -12,3 +12,4 @@ export const UPDATE_BOLSAS = "UPDATE_BOLSAS";
 export const UPDATE_EFECTOS = "UPDATE_EFECTOS";
 export const GET_USERS = "GET_USERS";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const UPDATE_BOLSA = "UPDATE_BOLSA";

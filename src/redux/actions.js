@@ -239,18 +239,20 @@ export function updateBolsa(state, acta_id) {
       .then(() => {
         axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
           if (res.status === 200) {
-            axios.get(Variables.baseEndpoint + `/getActas/${acta_id}`).then((res) => {
-              if (res.status === 200) {
-                return dispatch({
-                  type: CREATE_ACTA,
-                  payload: res.data,
-                });
-              }
-            });
-
             return dispatch({
               type: UPDATE_BOLSAS,
               payload: res.data,
+            });
+          }
+        });
+      })
+      .then(() => {
+        axios.get(Variables.baseEndpoint + `/getActas`).then((res) => {
+          if (res.status === 200) {
+            const acta = res.data.find((a) => a.id === acta_id);
+            return dispatch({
+              type: CREATE_ACTA,
+              payload: acta,
             });
           }
         });
