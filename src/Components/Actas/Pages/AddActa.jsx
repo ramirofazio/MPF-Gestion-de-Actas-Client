@@ -355,7 +355,7 @@ function AddActa() {
         </Button>
       ) : (
         <Button to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"} complete={"true"}>
-          Continuar Asi
+          Continuar
         </Button>
       )}
     </Container>

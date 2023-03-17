@@ -176,7 +176,7 @@ function AddPeritos() {
         </Button>
       ) : (
         <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
-          Continuar Asi
+          Continuar
         </Button>
       )}
     </Container>

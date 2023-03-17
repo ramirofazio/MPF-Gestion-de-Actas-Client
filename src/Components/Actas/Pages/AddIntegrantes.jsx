@@ -142,7 +142,7 @@ function AddIntegrantes() {
         </Button>
       ) : (
         <Button to={"/actas/crear/4"} complete={"true"}>
-          Continuar Asi
+          Continuar
         </Button>
       )}
     </Container>
