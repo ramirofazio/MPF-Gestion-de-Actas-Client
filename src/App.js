@@ -65,11 +65,11 @@ function App() {
       if (user.username === "admin") {
         dispatch(admin());
       }
-      toast.success("Usuario autenticado con exito!");
+      toast.success("¡Usuario autenticado con exito!");
       dispatch(setCurrentUser(currentUser));
       setFlag(true);
     } else {
-      toast.error("Contraseña incorrecta!");
+      toast.error("¡Contraseña incorrecta!");
       setUser({ ...user, password: "" });
     }
   };

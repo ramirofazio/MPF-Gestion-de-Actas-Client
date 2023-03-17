@@ -160,7 +160,7 @@ function AddPeritos() {
                   <RemoveIcon
                     onClick={() =>
                       currentActa.estado !== "en creacion"
-                        ? toast.error("No se puede eliminar un Perito ya creado")
+                        ? toast.error("¡No se puede eliminar un Perito ya creado!")
                         : handleRemove(i.legajo)
                     }
                   />

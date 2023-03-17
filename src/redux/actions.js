@@ -27,7 +27,7 @@ export function removeActa(acta_id) {
       .delete(Variables.baseEndpoint + `/removeActa?acta_id=${acta_id}`)
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Acta eliminada con exito!");
+          toast.success("¡Acta eliminada con exito!");
           return dispatch({
             type: GET_ACTAS,
             payload: res.data,
@@ -36,7 +36,7 @@ export function removeActa(acta_id) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al eliminar Efecto");
+        toast.error("¡Error al eliminar Efecto");
       });
   };
 }
@@ -47,7 +47,7 @@ export function removeEfecto(efecto_id, acta_id) {
       .delete(Variables.baseEndpoint + `/removeEfecto?efecto_id=${efecto_id}`)
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Efecto eliminado con exito!");
+          toast.success("¡Efecto eliminado con exito!");
         }
         return dispatch({
           type: UPDATE_EFECTOS,
@@ -64,7 +64,7 @@ export function removeEfecto(efecto_id, acta_id) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al eliminar Efecto");
+        toast.error("¡Error al eliminar Efecto!");
       });
   };
 }
@@ -123,8 +123,8 @@ export function createActa(state, flag, navigate) {
           }
 
           flag === "MPF/DEN"
-            ? toast.success(`Acta ${res.data.nro_mpf} creada con exito!`)
-            : toast.success(`Acta ${res.data.nro_coop} creada con exito!`);
+            ? toast.success(`¡Acta ${res.data.nro_mpf} creada con exito!`)
+            : toast.success(`¡Acta ${res.data.nro_coop} creada con exito!`);
         }
         return dispatch({
           type: CREATE_ACTA,
@@ -133,7 +133,7 @@ export function createActa(state, flag, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al crear la acta");
+        toast.error("¡Error al crear la acta");
       });
   };
 }
@@ -145,7 +145,7 @@ export function createPeritos(peritos, navigate) {
       .then((res) => {
         if (res.status === 200) {
           navigate("/actas/crear/3");
-          toast.success("Perito creados con exito!");
+          toast.success("¡Perito creados con exito!");
         }
         return dispatch({
           type: CREATE_PERITOS,
@@ -154,7 +154,7 @@ export function createPeritos(peritos, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al crear Perito");
+        toast.error("¡Error al crear Perito");
       });
   };
 }
@@ -166,7 +166,7 @@ export function createIntegrantes(integrantes, navigate) {
       .then((res) => {
         if (res.status === 200) {
           navigate("/actas/crear/4");
-          toast.success("Integrantes creados con exito!");
+          toast.success("¡Integrantes creados con exito!");
         }
         return dispatch({
           type: CREATE_INTEGRANTES,
@@ -175,7 +175,7 @@ export function createIntegrantes(integrantes, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al crear Integrantes");
+        toast.error("¡Error al crear Integrantes");
       });
   };
 }
@@ -186,7 +186,7 @@ export function createBolsas(bolsa) {
       .post(Variables.baseEndpoint + "/addBolsa", bolsa)
       .then((res) => {
         if (res.status === 200) {
-          toast.success(`Bolsa ${res.data.nroPrecinto} creada con exito!`);
+          toast.success(`¡Bolsa ${res.data.nroPrecinto} creada con exito!`);
         }
         return dispatch({
           type: CREATE_BOLSAS,
@@ -195,7 +195,7 @@ export function createBolsas(bolsa) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al crear la bolsa");
+        toast.error("¡Error al crear la bolsa");
       });
   };
 }
@@ -206,7 +206,7 @@ export function createEfecto(efecto, discos, sims, sds, acta_id) {
       .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims, sds })
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Efecto creado con exito!");
+          toast.success("¡Efecto creado con exito!");
         }
         return dispatch({
           type: CREATE_EFECTOS,
@@ -223,7 +223,7 @@ export function createEfecto(efecto, discos, sims, sds, acta_id) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al crear Efecto");
+        toast.error("¡Error al crear Efecto");
       });
   };
 }
@@ -263,7 +263,7 @@ export function removeBolsa(id, acta_id) {
       .delete(Variables.baseEndpoint + `/removeBolsa?bolsa_id=${id}`)
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Bolsa eliminada con exito!");
+          toast.success("¡Bolsa eliminada con exito!");
         }
       })
       .then(() => {
@@ -276,7 +276,7 @@ export function removeBolsa(id, acta_id) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al eliminar Bolsa");
+        toast.error("¡Error al eliminar Bolsa!");
       });
   };
 }
@@ -287,7 +287,7 @@ export function updateActa(observaciones, id, navigate) {
       .put(Variables.baseEndpoint + "/updateActa", { observaciones, id })
       .then((res) => {
         navigate("/");
-        toast.success(`Acta_${res.data.nro_mpf || res.data.nro_coop} cerrada con exito!`);
+        toast.success(`¡Acta_${res.data.nro_mpf || res.data.nro_coop} cerrada con exito!`);
         localStorage.setItem("finalActa", JSON.stringify(res.data));
         generateDoc();
       })
@@ -315,7 +315,7 @@ export function removeIntegrante(dni, acta_id) {
     axios
       .delete(Variables.baseEndpoint + `/removeIntegrante?dni=${dni}&acta_id=${acta_id}`)
       .then((res) => {
-        if (res.status === 200) toast.success("Integrante eliminado con exito!");
+        if (res.status === 200) toast.success("¡Integrante eliminado con exito!");
       })
       .catch((err) => {
         console.log(err);
@@ -328,7 +328,7 @@ export function createBugReport(bugReport) {
     axios
       .post(Variables.baseEndpoint + "/createBugReport", { bugReport })
       .then((res) => {
-        if (res.status === 200) toast.success("Bug reportado con exito! Gracias por tu ayuda!");
+        if (res.status === 200) toast.success("¡Bug reportado con exito! Gracias por tu ayuda!");
       })
       .catch((err) => {
         console.log(err);

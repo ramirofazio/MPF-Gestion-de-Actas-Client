@@ -97,7 +97,7 @@ function AddEfectos({ closeModal }) {
       herramientaSoftDisco: "",
       serialNumber: "",
     });
-    toast.success("Disco Guardado con Exito!");
+    toast.success("¡Disco Guardado con Exito!");
   };
 
   const handleSimSubmit = (e) => {
@@ -109,7 +109,7 @@ function AddEfectos({ closeModal }) {
       serialSim: "",
       tipoExtraccionSim: "",
     });
-    toast.success("Disco Guardado con Exito!");
+    toast.success("¡Sim Guardado con Exito!");
   };
 
   const handleSdSubmit = (e) => {
@@ -122,7 +122,7 @@ function AddEfectos({ closeModal }) {
       almacenamiento: "",
       tipoExtraccionSd: "",
     });
-    toast.success("SD Guardada con Exito!");
+    toast.success("¡SD Guardada con Exito!");
   };
 
   const handleComplete = () => {
@@ -216,9 +216,9 @@ function AddEfectos({ closeModal }) {
       <Form onSubmit={handleSubmit}>
         <Title>Agregar Elemento</Title>
         <InputContainer>
-          <Label>Nro Bolsa</Label>
+          <Label>Bolsa</Label>
           <Select value={efecto.bolsa_id} onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}>
-            <SelectOpt value="">Nro Bolsa</SelectOpt>
+            <SelectOpt value="">precinto</SelectOpt>
             {currentBolsas.map((b) => {
               if (b.estado !== "cerrada" && b.estado !== "cerrada en proceso") {
                 return (
@@ -281,9 +281,9 @@ function AddEfectos({ closeModal }) {
           efecto.tipoDeElemento !== "dvr" &&
           efecto.tipoDeElemento !== "disco" && (
             <InputContainer>
-              <Label>Encendido</Label>
+              <Label>¿Enciende?</Label>
               <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
-                <SelectOpt value="">Encendido</SelectOpt>
+                <SelectOpt value="">¿Enciende?</SelectOpt>
                 <SelectOpt value="si">Si</SelectOpt>
                 <SelectOpt value="no">No</SelectOpt>
               </Select>
