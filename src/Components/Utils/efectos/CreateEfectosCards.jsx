@@ -64,7 +64,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
     <EfectoContainer estado={efecto.estado}>
       <Info style={{ flex: 0, marginLeft: "10px" }}>{selectIcon(efecto.tipoDeElemento)}</Info>
       <Info style={colorPrecintoBolsa === "rojo" ? { color: redColor } : { color: greenColor }}>
-        <CardTitle>Bolsa Nro</CardTitle>
+        <CardTitle>Precinto</CardTitle>
         <br />
         {nroPrecintoBolsa}
       </Info>
@@ -117,19 +117,35 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
                     {efecto.almacenamiento} GB
                   </Info>
                 ))}
-              {(efecto.desbloqueo === "si" || efecto.extraccion) && (
-                <Info>
-                  <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
-                  <br />
-                  {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion || "Ninguna"}
-                </Info>
+              {(efecto.desbloqueo === "si" || efecto.extraccion || efecto.tipoExtraccion) && (
+                <>
+                  {efecto.tipoDeElemento !== "prendrive" && (
+                    <Info>
+                      <CardTitle>Tipo de Seguridad</CardTitle>
+                      <br />
+                      {efecto.tipoSeguridad}
+                    </Info>
+                  )}
+                  <Info>
+                    <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
+                    <br />
+                    {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion || "Ninguna"}
+                  </Info>
+                </>
               )}
               {efecto.desbloqueo === "no" && (
-                <Info>
-                  <CardTitle>Desbloqueo</CardTitle>
-                  <br />
-                  {efecto.desbloqueo}
-                </Info>
+                <>
+                  <Info>
+                    <CardTitle>Tipo de Seguridad</CardTitle>
+                    <br />
+                    {efecto.tipoSeguridad}
+                  </Info>
+                  <Info>
+                    <CardTitle>Desbloqueo</CardTitle>
+                    <br />
+                    {efecto.desbloqueo}
+                  </Info>
+                </>
               )}
             </>
           )}

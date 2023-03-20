@@ -706,11 +706,7 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>
-          <Button
-            type="submit"
-            value="Agregar SD"
-            complete={sd.marca && sd.modelo && sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"}
-          />
+          <Button type="submit" value="Agregar SD" complete={sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"} />
         </Form>
       </Modal>
     </>
