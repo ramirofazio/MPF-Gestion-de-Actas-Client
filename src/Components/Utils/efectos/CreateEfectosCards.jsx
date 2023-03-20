@@ -76,7 +76,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       <Info>
         <CardTitle>Modelo</CardTitle>
         <br />
-        {efecto.modelo || "Ninguna"}
+        {efecto.modelo || "Ninguno"}
       </Info>
       {efecto.encendido === "no" && (
         <>
@@ -119,11 +119,18 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
                 ))}
               {(efecto.desbloqueo === "si" || efecto.extraccion || efecto.tipoExtraccion) && (
                 <>
-                  {efecto.tipoDeElemento !== "prendrive" && (
+                  {efecto.tipoDeElemento !== "pendrive" && (
                     <Info>
                       <CardTitle>Tipo de Seguridad</CardTitle>
                       <br />
                       {efecto.tipoSeguridad}
+                    </Info>
+                  )}
+                  {efecto.tipoDeElemento === "pendrive" && (
+                    <Info>
+                      <CardTitle>Almacenamiento</CardTitle>
+                      <br />
+                      {efecto.almacenamiento} GB
                     </Info>
                   )}
                   <Info>
@@ -163,7 +170,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           <Info>
             <CardTitle>Serial Number</CardTitle>
             <br />
-            {efecto.serialNumber}
+            {efecto.serialNumber || "Ninguno"}
           </Info>
           <Info>
             <CardTitle>Cant. Discos</CardTitle>
