@@ -130,6 +130,10 @@ function AddBolsas() {
     dispatch(removeBolsa(bolsaId, currentActa.id));
   };
 
+  console.log(currentActa.estado);
+  console.log(currentActa);
+
+
   return (
     <Container>
       <Header>
