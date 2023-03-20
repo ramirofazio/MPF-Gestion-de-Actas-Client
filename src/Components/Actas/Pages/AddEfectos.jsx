@@ -585,7 +585,6 @@ function AddEfectos({ closeModal }) {
             <Label>Herramienta Software</Label>
             <Select value={disco.herramientaSoftDisco} onChange={(e) => setDisco({ ...disco, herramientaSoftDisco: e.target.value })}>
               <SelectOpt value="">Herramienta Software</SelectOpt>
-              <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
               <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
               <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
@@ -608,7 +607,6 @@ function AddEfectos({ closeModal }) {
             complete={
               disco.tipoDeDisco &&
               disco.marca &&
-              disco.modelo &&
               disco.serialNumber &&
               disco.almacenamiento &&
               disco.herramientaSoftDisco &&

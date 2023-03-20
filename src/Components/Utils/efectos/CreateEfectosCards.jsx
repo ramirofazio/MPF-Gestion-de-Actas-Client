@@ -190,7 +190,7 @@ const EfectoContainer = styled.div`
   align-items: center;
   justify-content: space-evenly;
   width: 90%;
-  min-height: 60px;
+  min-height: 70px;
   margin-top: 5px;
   border: 2px solid ${principalColor};
   border-radius: 5px;
