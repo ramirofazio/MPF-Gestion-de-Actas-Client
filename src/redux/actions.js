@@ -395,3 +395,60 @@ export function setCurrentUser(currentUser) {
     });
   };
 }
+
+export function createUsers() {
+  return function () {
+    axios.post(Variables.baseEndpoint + "/addUser", [
+      { id: 1, nombreYApellido: "", legajo: 0, cargo: "", username: "admin", password: "GIDSI12345" },
+      { id: 2, nombreYApellido: "Esteban Diego Armando Bucci", legajo: 6004, cargo: "Oficial", username: "ebucci", password: "Ebucci6004" },
+      {
+        id: 3,
+        nombreYApellido: "Federico Martin Palacios",
+        legajo: 7069,
+        cargo: "Auxiliar",
+        username: "fpalacios",
+        password: "Fpalacios7069",
+      },
+      {
+        id: 4,
+        nombreYApellido: "Pablo Javier Marques",
+        legajo: 6330,
+        cargo: "Escribiente",
+        username: "pmarques",
+        password: "Pmarques6330",
+      },
+      {
+        id: 5,
+        nombreYApellido: "Leando Antonio Pollastrini",
+        legajo: 6003,
+        cargo: "Escribiente",
+        username: "lpollastrini",
+        password: "Lpollastrini6003",
+      },
+      {
+        id: 6,
+        nombreYApellido: "Sabrina Melisa Marzana Mendoza",
+        legajo: 8773,
+        cargo: "Auxiliar de Servicio",
+        username: "smarzana",
+        password: "Smarzana8773",
+      },
+      {
+        id: 7,
+        nombreYApellido: "Karina Marcela Valdez",
+        legajo: 8765,
+        cargo: "Auxiliar de Servicio",
+        username: "kvaldez",
+        password: "Kvaldez8765",
+      },
+      {
+        id: 8,
+        nombreYApellido: "Florencia Ailin Alvarez",
+        legajo: 8772,
+        cargo: "Auxiliar de Servicio",
+        username: "falvarez",
+        password: "Falvarez8772",
+      },
+    ]);
+  };
+}
