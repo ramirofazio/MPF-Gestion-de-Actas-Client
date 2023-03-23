@@ -126,36 +126,24 @@ function AddEfectos({ closeModal }) {
   };
 
   const handleComplete = () => {
-    const {
-      bolsa_id,
-      tipoDeDisco,
-      tipoDeElemento,
-      serialNumber,
-      marca,
-      modelo,
-      estado,
-      extraccion,
-      almacenamiento,
-      encendido,
-      elementoFallado,
-      herramientaSoft,
-    } = efecto;
+    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, extraccion, almacenamiento, encendido, elementoFallado, herramientaSoft } =
+      efecto;
 
     switch (tipoDeElemento) {
       case "celular": {
-        if (bolsa_id && marca && modelo && estado && encendido) {
+        if (bolsa_id && estado && encendido && elementoFallado) {
           return "true";
         }
         break;
       }
       case "tablet": {
-        if (bolsa_id && marca && modelo && estado && encendido) {
+        if (bolsa_id && estado && encendido && elementoFallado) {
           return "true";
         }
         break;
       }
       case "notebook": {
-        if (bolsa_id && marca && modelo && estado) {
+        if (bolsa_id && estado) {
           return "true";
         }
         break;
@@ -173,14 +161,14 @@ function AddEfectos({ closeModal }) {
         break;
       }
       case "dvr": {
-        if (bolsa_id && tipoDeElemento && marca && modelo && serialNumber && estado) {
+        if (bolsa_id && tipoDeElemento && estado) {
           return "true";
         }
         break;
       }
       case "disco": {
         console.log(efecto);
-        if (bolsa_id && tipoDeElemento && tipoDeDisco && marca && modelo && serialNumber && almacenamiento && herramientaSoft && estado) {
+        if (bolsa_id && tipoDeElemento && tipoDeDisco && almacenamiento && herramientaSoft && estado) {
           return "true";
         }
         break;
