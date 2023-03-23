@@ -167,7 +167,6 @@ function AddEfectos({ closeModal }) {
         break;
       }
       case "disco": {
-        console.log(efecto);
         if (bolsa_id && tipoDeElemento && tipoDeDisco && almacenamiento && herramientaSoft && estado) {
           return "true";
         }

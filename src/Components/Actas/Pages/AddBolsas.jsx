@@ -19,7 +19,7 @@ import Modal from "react-modal";
 //* Components
 import AddEfectos from "./AddEfectos";
 import CreateEfectosCards from "../../Utils/efectos/CreateEfectosCards";
-import CloseModal from "./CloseModal";
+import CloseBagsModal from "./CloseBagsModal";
 import getSavedActa from "../../Utils/template/getSavedActa";
 //* Initializations
 const { redColor, greenColor, principalColor, secondaryColor } = Variables;
@@ -129,10 +129,6 @@ function AddBolsas() {
     //* Borra una bolsa
     dispatch(removeBolsa(bolsaId, currentActa.id));
   };
-
-  console.log(currentActa.estado);
-  console.log(currentActa);
-
 
   return (
     <Container>
@@ -301,7 +297,7 @@ function AddBolsas() {
 
       <Modal isOpen={closeBagsModal} style={modal40x40} ariaHideApp={false}>
         <CloseIcon onClick={() => setCloseBagsModal(!closeBagsModal)} />
-        <CloseModal closeModal={() => setCloseBagsModal(!closeBagsModal)} />
+        <CloseBagsModal closeModal={() => setCloseBagsModal(!closeBagsModal)} />
       </Modal>
     </Container>
   );
