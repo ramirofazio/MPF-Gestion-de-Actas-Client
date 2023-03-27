@@ -59,7 +59,7 @@ function ActasFilters() {
             <option value="en proceso">En Proceso</option>
             <option value="completa">Completas</option>
             <option value="en creacion">En Creacion</option>
-            <option value="para cerrar">Para Cerrar</option>
+            <option value="para completar">Para completar</option>
           </Select>
         </InputContainer>
         <InputContainer
