@@ -365,7 +365,7 @@ function AddEfectos({ closeModal }) {
             <InputContainer>
               <Label>Almacenamiento</Label>
               <Input
-                type="number"
+                type="text"
                 name="almacenamiento"
                 value={efecto.almacenamiento}
                 placeholder="500 GB / 1 TB"
@@ -473,7 +473,7 @@ function AddEfectos({ closeModal }) {
           <InputContainer>
             <Label>Almacenamiento</Label>
             <Input
-              type="number"
+              type="text"
               name="almacenamiento"
               value={efecto.almacenamiento}
               placeholder="500 GB / 1 TB"
@@ -664,7 +664,7 @@ function AddEfectos({ closeModal }) {
           <InputContainer>
             <Label>Almacenamiento</Label>
             <Input
-              type="number"
+              type="text"
               name="almacenamiento"
               value={sd.almacenamiento}
               placeholder="500 GB / 1 TB"
