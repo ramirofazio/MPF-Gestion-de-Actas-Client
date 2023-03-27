@@ -159,11 +159,18 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         </>
       )}
       {efecto.tipoDeElemento === "disco" && (
-        <Info>
-          <CardTitle>Almacenamiento</CardTitle>
-          <br />
-          {efecto.almacenamiento} GB
-        </Info>
+        <>
+          <Info>
+            <CardTitle>Serial Number</CardTitle>
+            <br />
+            {efecto.serialNumber || "Ninguno"}
+          </Info>
+          <Info>
+            <CardTitle>Almacenamiento</CardTitle>
+            <br />
+            {efecto.almacenamiento} GB
+          </Info>
+        </>
       )}
       {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc" || efecto.tipoDeElemento === "dvr") && (
         <>
@@ -179,6 +186,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           </Info>
         </>
       )}
+
       <Info style={{ flex: 0.5, marginRight: "10px" }}>
         {efecto.Sims.length !== 0 && <SimIcon />}
         {efecto.Discos.length !== 0 && <HddIcon />}

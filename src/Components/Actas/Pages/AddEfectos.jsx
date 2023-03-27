@@ -81,8 +81,12 @@ function AddEfectos({ closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createEfecto(efecto, discos, sims, sds, currentActa.id));
-    closeModal();
+    if (efecto.bolsa_id && efecto.tipoDeElemento && efecto.estado) {
+      dispatch(createEfecto(efecto, discos, sims, sds, currentActa.id));
+      closeModal();
+    } else {
+      toast.error("¡Faltan datos necesarios para el Elemento!");
+    }
   };
 
   const handleDiscoSubmit = (e) => {
@@ -235,8 +239,8 @@ function AddEfectos({ closeModal }) {
             <Label>Tipo de Disco</Label>
             <Select value={efecto.tipoDeDisco} onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}>
               <SelectOpt value="">Tipo De Disco</SelectOpt>
-              <SelectOpt value="Disco rigido">Disco Rigido</SelectOpt>
-              <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
+              <SelectOpt value="Disco Rígido">Disco Rígido</SelectOpt>
+              <SelectOpt value="Disco Sólido">Disco Sólido</SelectOpt>
             </Select>
           </InputContainer>
         )}
@@ -524,8 +528,8 @@ function AddEfectos({ closeModal }) {
             <Label>Tipo de Disco</Label>
             <Select value={disco.tipoDeDisco} onChange={(e) => setDisco({ ...disco, tipoDeDisco: e.target.value })}>
               <SelectOpt value="">Tipo De Disco</SelectOpt>
-              <SelectOpt value="Disco rigido">Disco Rigido</SelectOpt>
-              <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
+              <SelectOpt value="Disco Rígido">Disco Rígido</SelectOpt>
+              <SelectOpt value="Disco Sólido">Disco Sólido</SelectOpt>
             </Select>
           </InputContainer>
           <InputContainer>
@@ -591,16 +595,7 @@ function AddEfectos({ closeModal }) {
           <Button
             type="submit"
             value="Agregar Disco"
-            complete={
-              disco.tipoDeDisco &&
-              disco.marca &&
-              disco.serialNumber &&
-              disco.almacenamiento &&
-              disco.herramientaSoftDisco &&
-              disco.estadoDisco
-                ? "true"
-                : "false"
-            }
+            complete={disco.tipoDeDisco && disco.almacenamiento && disco.herramientaSoftDisco && disco.estadoDisco ? "true" : "false"}
           />
         </Form>
       </Modal>
@@ -639,11 +634,7 @@ function AddEfectos({ closeModal }) {
               <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>
-          <Button
-            type="submit"
-            value="Agregar Sim"
-            complete={sim.empresaSim && sim.serialSim && sim.tipoExtraccionSim ? "true" : "false"}
-          />
+          <Button type="submit" value="Agregar Sim" complete={sim.tipoExtraccionSim ? "true" : "false"} />
         </Form>
       </Modal>
       <Modal isOpen={addSdModal} style={modal40x30} ariaHideApp={false}>
