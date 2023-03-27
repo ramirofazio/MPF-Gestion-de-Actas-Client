@@ -152,7 +152,7 @@ function AddEfectos({ closeModal }) {
         }
         break;
       }
-      case "pc": {
+      case "gabinete": {
         if (bolsa_id && estado) {
           return "true";
         }
@@ -228,7 +228,7 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="celular">Celular</SelectOpt>
             <SelectOpt value="tablet">Tablet</SelectOpt>
             <SelectOpt value="notebook">Notebook</SelectOpt>
-            <SelectOpt value="pc">PC</SelectOpt>
+            <SelectOpt value="gabinete">Gabinete</SelectOpt>
             <SelectOpt value="pendrive">Pendrive</SelectOpt>
             <SelectOpt value="dvr">DVR</SelectOpt>
             <SelectOpt value="disco">Disco</SelectOpt>
@@ -252,7 +252,7 @@ function AddEfectos({ closeModal }) {
             name="marca"
             value={efecto.marca}
             placeholder="Marca"
-            onChange={(e) => setEfecto({ ...efecto, marca: e.target.value })}
+            onChange={(e) => setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })}
           />
         </InputContainer>
         <InputContainer>
@@ -262,11 +262,42 @@ function AddEfectos({ closeModal }) {
             name="modelo"
             value={efecto.modelo}
             placeholder="Modelo"
-            onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value })}
+            onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
           />
         </InputContainer>
 
-        {efecto.tipoDeElemento !== "pc" &&
+        {efecto.tipoDeElemento === "celular" && (
+          <InputContainer>
+            <Label>IMEI</Label>
+            <Input
+              type="number"
+              name="imei"
+              value={efecto.imei}
+              placeholder="Imei"
+              onChange={(e) => setEfecto({ ...efecto, imei: e.target.value })}
+            />
+          </InputContainer>
+        )}
+
+        {(efecto.tipoDeElemento === "notebook" ||
+          efecto.tipoDeElemento === "pendrive" ||
+          efecto.tipoDeElemento === "tablet" ||
+          efecto.tipoDeElemento === "gabinete" ||
+          efecto.tipoDeElemento === "dvr" ||
+          efecto.tipoDeElemento === "disco") && (
+          <InputContainer>
+            <Label>Serial Nº</Label>
+            <Input
+              type="text"
+              name="serialNumber"
+              value={efecto.serialNumber}
+              placeholder="Serial Nº"
+              onChange={(e) => setEfecto({ ...efecto, serialNumber: e.target.value.toUpperCase() })}
+            />
+          </InputContainer>
+        )}
+
+        {efecto.tipoDeElemento !== "gabinete" &&
           efecto.tipoDeElemento !== "pendrive" &&
           efecto.tipoDeElemento !== "notebook" &&
           efecto.tipoDeElemento !== "dvr" &&
@@ -296,9 +327,9 @@ function AddEfectos({ closeModal }) {
 
         {efecto.tipoDeElemento === "pendrive" && (
           <InputContainer>
-            <Label>Elemento Fallado</Label>
+            <Label>¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">Elemento Fallado</SelectOpt>
+              <SelectOpt value="">¿Falla?</SelectOpt>
               <SelectOpt value="si">Si</SelectOpt>
               <SelectOpt value="no">No</SelectOpt>
             </Select>
@@ -307,9 +338,9 @@ function AddEfectos({ closeModal }) {
 
         {efecto.encendido === "si" && (
           <InputContainer>
-            <Label>Elemento Fallado</Label>
+            <Label>¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">Elemento Fallado</SelectOpt>
+              <SelectOpt value="">¿Falla?</SelectOpt>
               <SelectOpt value="si">Si</SelectOpt>
               <SelectOpt value="no">No</SelectOpt>
             </Select>
@@ -329,46 +360,15 @@ function AddEfectos({ closeModal }) {
           </InputContainer>
         )}
 
-        {efecto.tipoDeElemento === "celular" && (
-          <InputContainer>
-            <Label>IMEI</Label>
-            <Input
-              type="number"
-              name="imei"
-              value={efecto.imei}
-              placeholder="Imei"
-              onChange={(e) => setEfecto({ ...efecto, imei: e.target.value })}
-            />
-          </InputContainer>
-        )}
-
-        {(efecto.tipoDeElemento === "notebook" ||
-          efecto.tipoDeElemento === "pendrive" ||
-          efecto.tipoDeElemento === "tablet" ||
-          efecto.tipoDeElemento === "pc" ||
-          efecto.tipoDeElemento === "dvr" ||
-          efecto.tipoDeElemento === "disco") && (
-          <InputContainer>
-            <Label>Serial Nº</Label>
-            <Input
-              type="text"
-              name="serialNumber"
-              value={efecto.serialNumber}
-              placeholder="Serial Nº"
-              onChange={(e) => setEfecto({ ...efecto, serialNumber: e.target.value })}
-            />
-          </InputContainer>
-        )}
-
         {efecto.tipoDeElemento === "disco" && (
           <>
             <InputContainer>
-              <Label>Almacenamiento (GB)</Label>
+              <Label>Almacenamiento</Label>
               <Input
                 type="number"
                 name="almacenamiento"
                 value={efecto.almacenamiento}
-                placeholder="Almacenamiento (GB)"
+                placeholder="500 GB / 1 TB"
                 onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value })}
               />
             </InputContainer>
@@ -391,7 +391,7 @@ function AddEfectos({ closeModal }) {
           ? null
           : efecto.tipoDeElemento !== "pendrive" &&
             efecto.tipoDeElemento !== "notebook" &&
-            efecto.tipoDeElemento !== "pc" &&
+            efecto.tipoDeElemento !== "gabinete" &&
             efecto.encendido === "si" &&
             efecto.elementoFallado === "no" && (
               <InputContainer>
@@ -411,7 +411,7 @@ function AddEfectos({ closeModal }) {
         {efecto.tipoDeElemento !== "pendrive" &&
           efecto.tipoDeElemento !== "notebook" &&
           efecto.tipoDeElemento !== "disco" &&
-          efecto.tipoDeElemento !== "pc" &&
+          efecto.tipoDeElemento !== "gabinete" &&
           efecto.herramientaSoft !== "" && (
             <InputContainer>
               <Label>Tipo de Seguridad</Label>
@@ -471,12 +471,12 @@ function AddEfectos({ closeModal }) {
 
         {efecto.tipoDeElemento === "pendrive" && efecto.elementoFallado === "no" && (
           <InputContainer>
-            <Label>Almacenamiento (GB)</Label>
+            <Label>Almacenamiento</Label>
             <Input
               type="number"
               name="almacenamiento"
               value={efecto.almacenamiento}
-              placeholder="Almacenamiento (GB)"
+              placeholder="500 GB / 1 TB"
               onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value })}
             />
           </InputContainer>
@@ -513,7 +513,7 @@ function AddEfectos({ closeModal }) {
             </>
           )}
 
-          {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc" || efecto.tipoDeElemento === "dvr") && (
+          {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "gabinete" || efecto.tipoDeElemento === "dvr") && (
             <OptButton onClick={(e) => handleOptButtonClick(e)} value="discos">
               Agregar Discos
             </OptButton>
@@ -539,7 +539,7 @@ function AddEfectos({ closeModal }) {
               name="marca"
               value={disco.marca}
               placeholder="Marca"
-              onChange={(e) => setDisco({ ...disco, marca: e.target.value })}
+              onChange={(e) => setDisco({ ...disco, marca: e.target.value.toUpperCase() })}
             />
           </InputContainer>
           <InputContainer>
@@ -549,7 +549,7 @@ function AddEfectos({ closeModal }) {
               name="modelo"
               value={disco.modelo}
               placeholder="Modelo"
-              onChange={(e) => setDisco({ ...disco, modelo: e.target.value })}
+              onChange={(e) => setDisco({ ...disco, modelo: e.target.value.toUpperCase() })}
             />
           </InputContainer>
           <InputContainer>
@@ -559,16 +559,16 @@ function AddEfectos({ closeModal }) {
               name="serialNumber"
               value={disco.serialNumber}
               placeholder="Serial Nº"
-              onChange={(e) => setDisco({ ...disco, serialNumber: e.target.value })}
+              onChange={(e) => setDisco({ ...disco, serialNumber: e.target.value.toUpperCase() })}
             />
           </InputContainer>
           <InputContainer>
-            <Label>almacenamiento (GB)</Label>
+            <Label>almacenamiento</Label>
             <Input
               type="text"
               name="almacenamiento"
               value={disco.almacenamiento}
-              placeholder="Almacenamiento"
+              placeholder="500 GB / 1 TB"
               onChange={(e) => setDisco({ ...disco, almacenamiento: e.target.value })}
             />
           </InputContainer>
@@ -648,7 +648,7 @@ function AddEfectos({ closeModal }) {
               name="marca"
               value={sd.marca}
               placeholder="Marca"
-              onChange={(e) => setSd({ ...sd, marca: e.target.value })}
+              onChange={(e) => setSd({ ...sd, marca: e.target.value.toUpperCase() })}
             />
           </InputContainer>
           <InputContainer>
@@ -658,16 +658,16 @@ function AddEfectos({ closeModal }) {
               name="modelo"
               value={sd.modelo}
               placeholder="Modelo"
-              onChange={(e) => setSd({ ...sd, modelo: e.target.value })}
+              onChange={(e) => setSd({ ...sd, modelo: e.target.value.toUpperCase() })}
             />
           </InputContainer>
           <InputContainer>
-            <Label>Almacenamiento (GB)</Label>
+            <Label>Almacenamiento</Label>
             <Input
               type="number"
               name="almacenamiento"
               value={sd.almacenamiento}
-              placeholder="Almacenamient (GB)"
+              placeholder="500 GB / 1 TB"
               onChange={(e) => setSd({ ...sd, almacenamiento: e.target.value })}
             />
           </InputContainer>
