@@ -56,7 +56,6 @@ function AddBolsas() {
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s.currentEfectos);
 
   const [loading, setLoading] = React.useState(false);
-  const [alertFlag, setAlertFlag] = React.useState(true);
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
   const [closeBagsModal, setCloseBagsModal] = React.useState(false);
   const [bolsa, setBolsa] = React.useState({
@@ -118,9 +117,11 @@ function AddBolsas() {
   };
 
   const handleCloseBags = () => {
-    if (currentActa.estado !== "para completar" && alertFlag) {
-      toast.warning("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!");
-      setAlertFlag(false);
+    if (currentActa.estado !== "para completar") {
+      toast.warning("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!", {
+        position: "top-center",
+        autoClose: false,
+      });
     }
     setCloseBagsModal(!closeBagsModal);
   };
