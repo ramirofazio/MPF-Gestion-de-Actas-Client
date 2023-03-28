@@ -158,7 +158,7 @@ function AddEfectos({ closeModal }) {
         }
         break;
       }
-      case "pendrive": {
+      case "unidad de almacenamiento flash": {
         if (bolsa_id && elementoFallado === "si" ? estado : almacenamiento && extraccion && estado) {
           return "true";
         }
@@ -229,7 +229,7 @@ function AddEfectos({ closeModal }) {
             <SelectOpt value="tablet">Tablet</SelectOpt>
             <SelectOpt value="notebook">Notebook</SelectOpt>
             <SelectOpt value="gabinete">Gabinete</SelectOpt>
-            <SelectOpt value="pendrive">Pendrive</SelectOpt>
+            <SelectOpt value="unidad de almacenamiento flash">Unidad de Almacenamiento Flash</SelectOpt>
             <SelectOpt value="dvr">DVR</SelectOpt>
             <SelectOpt value="disco">Disco</SelectOpt>
           </Select>
@@ -280,7 +280,7 @@ function AddEfectos({ closeModal }) {
         )}
 
         {(efecto.tipoDeElemento === "notebook" ||
-          efecto.tipoDeElemento === "pendrive" ||
+          efecto.tipoDeElemento === "unidad de almacenamiento flash" ||
           efecto.tipoDeElemento === "tablet" ||
           efecto.tipoDeElemento === "gabinete" ||
           efecto.tipoDeElemento === "dvr" ||
@@ -298,7 +298,7 @@ function AddEfectos({ closeModal }) {
         )}
 
         {efecto.tipoDeElemento !== "gabinete" &&
-          efecto.tipoDeElemento !== "pendrive" &&
+          efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
           efecto.tipoDeElemento !== "notebook" &&
           efecto.tipoDeElemento !== "dvr" &&
           efecto.tipoDeElemento !== "disco" && (
@@ -325,7 +325,7 @@ function AddEfectos({ closeModal }) {
           </InputContainer>
         )}
 
-        {efecto.tipoDeElemento === "pendrive" && (
+        {efecto.tipoDeElemento === "unidad de almacenamiento flash" && (
           <InputContainer>
             <Label>¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
@@ -389,7 +389,7 @@ function AddEfectos({ closeModal }) {
 
         {efecto.tipoDeElemento === ""
           ? null
-          : efecto.tipoDeElemento !== "pendrive" &&
+          : efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
             efecto.tipoDeElemento !== "notebook" &&
             efecto.tipoDeElemento !== "gabinete" &&
             efecto.encendido === "si" &&
@@ -408,7 +408,7 @@ function AddEfectos({ closeModal }) {
               </InputContainer>
             )}
 
-        {efecto.tipoDeElemento !== "pendrive" &&
+        {efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
           efecto.tipoDeElemento !== "notebook" &&
           efecto.tipoDeElemento !== "disco" &&
           efecto.tipoDeElemento !== "gabinete" &&
@@ -427,7 +427,7 @@ function AddEfectos({ closeModal }) {
           )}
         {efecto.tipoDeElemento === ""
           ? null
-          : efecto.tipoDeElemento !== "pendrive" &&
+          : efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
             efecto.tipoSeguridad !== "ninguna" &&
             efecto.tipoSeguridad !== "" && (
               <InputContainer>
@@ -440,7 +440,7 @@ function AddEfectos({ closeModal }) {
               </InputContainer>
             )}
 
-        {efecto.tipoDeElemento !== "pendrive" && efecto.tipoSeguridad === "ninguna" ? (
+        {efecto.tipoDeElemento !== "unidad de almacenamiento flash" && efecto.tipoSeguridad === "ninguna" ? (
           <InputContainer>
             <Label>Tipo de Extracción</Label>
             <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
@@ -453,7 +453,7 @@ function AddEfectos({ closeModal }) {
             </Select>
           </InputContainer>
         ) : (
-          efecto.tipoDeElemento !== "pendrive" &&
+          efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
           efecto.desbloqueo === "si" && (
             <InputContainer>
               <Label>Tipo de Extracción</Label>
@@ -469,7 +469,7 @@ function AddEfectos({ closeModal }) {
           )
         )}
 
-        {efecto.tipoDeElemento === "pendrive" && efecto.elementoFallado === "no" && (
+        {efecto.tipoDeElemento === "unidad de almacenamiento flash" && efecto.elementoFallado === "no" && (
           <InputContainer>
             <Label>Almacenamiento</Label>
             <Input
@@ -481,7 +481,7 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
         )}
-        {efecto.tipoDeElemento === "pendrive" && efecto.elementoFallado === "no" && (
+        {efecto.tipoDeElemento === "unidad de almacenamiento flash" && efecto.elementoFallado === "no" && (
           <InputContainer>
             <Label>Extracción</Label>
             <Select value={efecto.extraccion} onChange={(e) => setEfecto({ ...efecto, extraccion: e.target.value })}>

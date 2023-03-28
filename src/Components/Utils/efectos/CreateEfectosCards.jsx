@@ -35,7 +35,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       case "tablet": {
         return <TabletIcon />;
       }
-      case "pendrive": {
+      case "unidad de almacenamiento flash": {
         return <PendriveIcon />;
       }
       case "pc": {
@@ -92,7 +92,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           </Info>
         </>
       )}
-      {(efecto.encendido === "si" || efecto.tipoDeElemento === "pendrive") && (
+      {(efecto.encendido === "si" || efecto.tipoDeElemento === "unidad de almacenamiento flash") && (
         <>
           {efecto.elementoFallado === "si" ? (
             <>
@@ -109,7 +109,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
             </>
           ) : (
             <>
-              {efecto.tipoDeElemento === "pendrive" ||
+              {efecto.tipoDeElemento === "unidad de almacenamiento flash" ||
                 (efecto.tipoDeElemento === "disco" && (
                   <Info>
                     <CardTitle>Almacenamiento</CardTitle>
@@ -119,14 +119,14 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
                 ))}
               {(efecto.desbloqueo === "si" || efecto.extraccion || efecto.tipoExtraccion) && (
                 <>
-                  {efecto.tipoDeElemento !== "pendrive" && (
+                  {efecto.tipoDeElemento !== "unidad de almacenamiento flash" && (
                     <Info>
                       <CardTitle>Tipo de Seguridad</CardTitle>
                       <br />
                       {efecto.tipoSeguridad}
                     </Info>
                   )}
-                  {efecto.tipoDeElemento === "pendrive" && (
+                  {efecto.tipoDeElemento === "unidad de almacenamiento flash" && (
                     <Info>
                       <CardTitle>Almacenamiento</CardTitle>
                       <br />
@@ -134,9 +134,11 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
                     </Info>
                   )}
                   <Info>
-                    <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
+                    <CardTitle>
+                      {efecto.tipoDeElemento === "unidad de almacenamiento flash" ? "Extraccion" : "Tipo de Extraccion"}
+                    </CardTitle>
                     <br />
-                    {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion || "Ninguna"}
+                    {efecto.tipoDeElemento === "unidad de almacenamiento flash" ? efecto.extraccion : efecto.tipoExtraccion || "Ninguna"}
                   </Info>
                 </>
               )}
