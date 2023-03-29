@@ -60,8 +60,11 @@ function AddEfectos({ closeModal }) {
     modelo: "",
     almacenamiento: "",
     serialNumber: "",
+    tipoExtraccionDisco: "",
     herramientaSoftDisco: "",
     estadoDisco: "",
+    discoFallado: "",
+    observacionFallaDisco: "",
   });
 
   const [sims, setSims] = React.useState([]);
@@ -98,8 +101,12 @@ function AddEfectos({ closeModal }) {
       marca: "",
       modelo: "",
       almacenamiento: "",
-      herramientaSoftDisco: "",
       serialNumber: "",
+      tipoExtraccionDisco: "",
+      herramientaSoftDisco: "",
+      estadoDisco: "",
+      discoFallado: "",
+      observacionFallaDisco: "",
     });
     toast.success("¡Disco Guardado con Exito!");
   };
@@ -159,7 +166,7 @@ function AddEfectos({ closeModal }) {
         break;
       }
       case "unidad de almacenamiento flash": {
-        if (bolsa_id && elementoFallado === "si" ? estado : almacenamiento && extraccion && estado) {
+        if (bolsa_id && extraccion && estado) {
           return "true";
         }
         break;
@@ -171,7 +178,7 @@ function AddEfectos({ closeModal }) {
         break;
       }
       case "disco": {
-        if (bolsa_id && tipoDeElemento && tipoDeDisco && almacenamiento && herramientaSoft && estado) {
+        if (bolsa_id && tipoDeElemento && tipoDeDisco && estado) {
           return "true";
         }
         break;
@@ -297,6 +304,19 @@ function AddEfectos({ closeModal }) {
           </InputContainer>
         )}
 
+        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento flash") && (
+          <InputContainer>
+            <Label>Almacenamiento</Label>
+            <Input
+              type="text"
+              name="almacenamiento"
+              value={efecto.almacenamiento}
+              placeholder="500 GB / 1 TB"
+              onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value })}
+            />
+          </InputContainer>
+        )}
+
         {efecto.tipoDeElemento !== "gabinete" &&
           efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
           efecto.tipoDeElemento !== "notebook" &&
@@ -325,7 +345,7 @@ function AddEfectos({ closeModal }) {
           </InputContainer>
         )}
 
-        {efecto.tipoDeElemento === "unidad de almacenamiento flash" && (
+        {(efecto.tipoDeElemento === "unidad de almacenamiento flash" || efecto.tipoDeElemento === "disco") && (
           <InputContainer>
             <Label>¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
@@ -358,33 +378,6 @@ function AddEfectos({ closeModal }) {
               onChange={(e) => setEfecto({ ...efecto, observacionFalla: e.target.value })}
             />
           </InputContainer>
-        )}
-
-        {efecto.tipoDeElemento === "disco" && (
-          <>
-            <InputContainer>
-              <Label>Almacenamiento</Label>
-              <Input
-                type="text"
-                name="almacenamiento"
-                value={efecto.almacenamiento}
-                placeholder="500 GB / 1 TB"
-                onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value })}
-              />
-            </InputContainer>
-            <InputContainer>
-              <Label>Herramienta Software</Label>
-              <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
-                <SelectOpt value="">Herramienta Software</SelectOpt>
-                <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-                <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-                <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-                <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-                <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-                <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-              </Select>
-            </InputContainer>
-          </>
         )}
 
         {efecto.tipoDeElemento === ""
@@ -469,28 +462,37 @@ function AddEfectos({ closeModal }) {
           )
         )}
 
-        {efecto.tipoDeElemento === "unidad de almacenamiento flash" && efecto.elementoFallado === "no" && (
-          <InputContainer>
-            <Label>Almacenamiento</Label>
-            <Input
-              type="text"
-              name="almacenamiento"
-              value={efecto.almacenamiento}
-              placeholder="500 GB / 1 TB"
-              onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value })}
-            />
-          </InputContainer>
-        )}
-        {efecto.tipoDeElemento === "unidad de almacenamiento flash" && efecto.elementoFallado === "no" && (
-          <InputContainer>
-            <Label>Extracción</Label>
-            <Select value={efecto.extraccion} onChange={(e) => setEfecto({ ...efecto, extraccion: e.target.value })}>
-              <SelectOpt value="">Extracción</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
+        {(efecto.tipoDeElemento === "unidad de almacenamiento flash" || efecto.tipoDeElemento === "disco") &&
+          efecto.elementoFallado === "no" && (
+            <>
+              <InputContainer>
+                <Label>Herramienta Software</Label>
+                <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
+                  <SelectOpt value="">Herramienta Software</SelectOpt>
+                  <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+                  <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+                  <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+                  <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+                  <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+                  <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+                </Select>
+              </InputContainer>
+              {efecto.herramientaSoft !== "" && (
+                <InputContainer>
+                  <Label>Tipo de Extracción</Label>
+                  <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
+                    <SelectOpt value="">Tipo de Extracción</SelectOpt>
+                    <SelectOpt value="ninguna">Ninguna</SelectOpt>
+                    <SelectOpt value="fisica">Fisica</SelectOpt>
+                    <SelectOpt value="logica">Logica</SelectOpt>
+                    <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
+                    <SelectOpt value="fisica y logica">Ambas</SelectOpt>
+                  </Select>
+                </InputContainer>
+              )}
+            </>
+          )}
+
         <InputContainer>
           <Label>Estado</Label>
           <Select value={efecto.estado} onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}>
@@ -573,17 +575,53 @@ function AddEfectos({ closeModal }) {
             />
           </InputContainer>
           <InputContainer>
-            <Label>Herramienta Software</Label>
-            <Select value={disco.herramientaSoftDisco} onChange={(e) => setDisco({ ...disco, herramientaSoftDisco: e.target.value })}>
-              <SelectOpt value="">Herramienta Software</SelectOpt>
-              <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-              <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-              <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-              <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-              <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-              <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+            <Label>¿Falla?</Label>
+            <Select value={disco.discoFallado} onChange={(e) => setDisco({ ...disco, discoFallado: e.target.value })}>
+              <SelectOpt value="">¿Falla?</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
             </Select>
           </InputContainer>
+
+          {disco.discoFallado === "si" && (
+            <InputContainer>
+              <Label>Observacion Falla</Label>
+              <Input
+                type="text"
+                name="observacionFalla"
+                value={disco.observacionFallaDisco}
+                placeholder="¿Por que Falla?"
+                onChange={(e) => setDisco({ ...disco, observacionFallaDisco: e.target.value })}
+              />
+            </InputContainer>
+          )}
+          {disco.discoFallado === "no" && (
+            <InputContainer>
+              <Label>Herramienta Software</Label>
+              <Select value={disco.herramientaSoftDisco} onChange={(e) => setDisco({ ...disco, herramientaSoftDisco: e.target.value })}>
+                <SelectOpt value="">Herramienta Software</SelectOpt>
+                <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+                <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+                <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+                <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+                <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+                <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+              </Select>
+            </InputContainer>
+          )}
+          {disco.herramientaSoftDisco !== "" && (
+            <InputContainer>
+              <Label>Tipo de Extracción</Label>
+              <Select value={disco.tipoExtraccionDisco} onChange={(e) => setDisco({ ...disco, tipoExtraccionDisco: e.target.value })}>
+                <SelectOpt value="">Tipo de Extracción</SelectOpt>
+                <SelectOpt value="ninguna">Ninguna</SelectOpt>
+                <SelectOpt value="fisica">Fisica</SelectOpt>
+                <SelectOpt value="logica">Logica</SelectOpt>
+                <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
+                <SelectOpt value="fisica y logica">Ambas</SelectOpt>
+              </Select>
+            </InputContainer>
+          )}
           <InputContainer>
             <Label>Estado</Label>
             <Select value={disco.estadoDisco} onChange={(e) => setDisco({ ...disco, estadoDisco: e.target.value })}>
