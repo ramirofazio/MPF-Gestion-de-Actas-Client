@@ -135,16 +135,20 @@ function AddIntegrantes() {
             })}
         </IntegrantesContainer>
       </SubContainer>
-
-      {integrantes.length > 0 && !currentIntegrantes.length > 0 ? (
-        <Button complete={"true"} onClick={() => handleNext()} to="#">
-          Crear
+      <ButtonContainer>
+        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+          Volver
         </Button>
-      ) : (
-        <Button to={"/actas/crear/4"} complete={"true"}>
-          Continuar
-        </Button>
-      )}
+        {integrantes.length > 0 && !currentIntegrantes.length > 0 ? (
+          <Button complete={"true"} onClick={() => handleNext()} to="#">
+            Crear
+          </Button>
+        ) : (
+          <Button to={"/actas/crear/4"} complete={"true"}>
+            Continuar
+          </Button>
+        )}
+      </ButtonContainer>
     </Container>
   );
 }
@@ -280,4 +284,11 @@ const Info = styled.span`
 
 const CardTitle = styled.strong`
   ${cardTitle}
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: space-around;
 `;

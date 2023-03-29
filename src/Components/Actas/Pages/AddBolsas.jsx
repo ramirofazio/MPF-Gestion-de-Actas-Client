@@ -220,6 +220,9 @@ function AddBolsas() {
       </Modal>
 
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
+        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+          Volver
+        </Button>
         {currentActa.estado === ("en creacion" || "para completar") && currentBolsas.length === 0 ? (
           <>
             <Button

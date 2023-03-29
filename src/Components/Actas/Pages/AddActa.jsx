@@ -350,15 +350,20 @@ function AddActa() {
           </Form>
         ) : null}
       </FormContainer>
-      {!comeBack ? (
-        <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
-          Crear
+      <ButtonContainer>
+        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+          Volver
         </Button>
-      ) : (
-        <Button to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"} complete={"true"}>
-          Continuar
-        </Button>
-      )}
+        {!comeBack ? (
+          <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
+            Crear
+          </Button>
+        ) : (
+          <Button to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"} complete={"true"}>
+            Continuar
+          </Button>
+        )}
+      </ButtonContainer>
     </Container>
   );
 }
@@ -424,5 +429,12 @@ const Button = styled(NavLink)`
     css`
       pointer-events: all;
       border: 2px solid ${greenColor};
-    `}
+    `};
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: space-around;
 `;

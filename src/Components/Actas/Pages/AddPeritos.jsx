@@ -169,16 +169,20 @@ function AddPeritos() {
             })}
         </PeritosContainer>
       </SubContainer>
-
-      {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
-        <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
-          Crear
+      <ButtonContainer>
+        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+          Volver
         </Button>
-      ) : (
-        <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
-          Continuar
-        </Button>
-      )}
+        {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
+          <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
+            Crear
+          </Button>
+        ) : (
+          <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
+            Continuar
+          </Button>
+        )}
+      </ButtonContainer>
     </Container>
   );
 }
@@ -322,4 +326,11 @@ const Info = styled.span`
 
 const CardTitle = styled.strong`
   ${cardTitle}
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: space-around;
 `;
