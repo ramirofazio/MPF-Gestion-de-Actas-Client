@@ -137,8 +137,7 @@ function AddEfectos({ closeModal }) {
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, extraccion, almacenamiento, encendido, elementoFallado, herramientaSoft } =
-      efecto;
+    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, elementoFallado } = efecto;
 
     switch (tipoDeElemento) {
       case "celular": {
@@ -166,19 +165,19 @@ function AddEfectos({ closeModal }) {
         break;
       }
       case "unidad de almacenamiento flash": {
-        if (bolsa_id && extraccion && estado) {
+        if (bolsa_id && elementoFallado && estado) {
           return "true";
         }
         break;
       }
       case "dvr": {
-        if (bolsa_id && tipoDeElemento && estado) {
+        if (bolsa_id && estado) {
           return "true";
         }
         break;
       }
       case "disco": {
-        if (bolsa_id && tipoDeElemento && tipoDeDisco && estado) {
+        if (bolsa_id && tipoDeDisco && estado) {
           return "true";
         }
         break;
@@ -633,7 +632,7 @@ function AddEfectos({ closeModal }) {
           <Button
             type="submit"
             value="Agregar Disco"
-            complete={disco.tipoDeDisco && disco.almacenamiento && disco.herramientaSoftDisco && disco.estadoDisco ? "true" : "false"}
+            complete={disco.tipoDeDisco && disco.discoFallado && disco.estadoDisco ? "true" : "false"}
           />
         </Form>
       </Modal>

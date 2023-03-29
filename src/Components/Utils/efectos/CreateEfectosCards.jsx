@@ -114,7 +114,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
                   <Info>
                     <CardTitle>Almacenamiento</CardTitle>
                     <br />
-                    {efecto.almacenamiento} GB
+                    {efecto.almacenamiento || "No visible"}
                   </Info>
                 ))}
               {(efecto.desbloqueo === "si" || efecto.extraccion || efecto.tipoExtraccion) && (
@@ -130,15 +130,13 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
                     <Info>
                       <CardTitle>Almacenamiento</CardTitle>
                       <br />
-                      {efecto.almacenamiento} GB
+                      {efecto.almacenamiento || "No visible"}
                     </Info>
                   )}
                   <Info>
-                    <CardTitle>
-                      {efecto.tipoDeElemento === "unidad de almacenamiento flash" ? "Extraccion" : "Tipo de Extraccion"}
-                    </CardTitle>
+                    <CardTitle>Tipo de Extraccion</CardTitle>
                     <br />
-                    {efecto.tipoDeElemento === "unidad de almacenamiento flash" ? efecto.extraccion : efecto.tipoExtraccion || "Ninguna"}
+                    {efecto.tipoExtraccion || "Ninguna"}
                   </Info>
                 </>
               )}
@@ -170,7 +168,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           <Info>
             <CardTitle>Almacenamiento</CardTitle>
             <br />
-            {efecto.almacenamiento} GB
+            {efecto.almacenamiento || "No Visible"}
           </Info>
         </>
       )}
