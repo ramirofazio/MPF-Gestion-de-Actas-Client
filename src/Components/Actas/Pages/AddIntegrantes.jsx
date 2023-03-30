@@ -11,8 +11,21 @@ import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
-const { enProcesoContainer, header, headerTitle, button, formContainer, inputContainer, inputLabel, form, input, cardTitle, cardInfo } =
-  GlobalStyles;
+const {
+  select,
+  selectOpt,
+  enProcesoContainer,
+  header,
+  headerTitle,
+  button,
+  formContainer,
+  inputContainer,
+  inputLabel,
+  form,
+  input,
+  cardTitle,
+  cardInfo,
+} = GlobalStyles;
 
 function AddIntegrantes() {
   const navigate = useNavigate();
@@ -26,6 +39,7 @@ function AddIntegrantes() {
     nombreYApellido: "",
     legajoOMatricula: "",
     cargo: "",
+    locacion: "",
   });
 
   const handleClick = () => {
@@ -34,14 +48,15 @@ function AddIntegrantes() {
       nombreYApellido: "",
       legajoOMatricula: "",
       cargo: "",
+      locacion: "",
     });
   };
 
   const handleComplete = () => {
     //* Logica para habilitar el boton cuando esta todo completado
-    const { nombreYApellido, legajoOMatricula, cargo } = integrante;
+    const { nombreYApellido, legajoOMatricula, cargo, locacion } = integrante;
 
-    if (nombreYApellido && legajoOMatricula && cargo) {
+    if (nombreYApellido && legajoOMatricula && cargo && locacion) {
       return "true";
     } else {
       return "false";
@@ -101,6 +116,14 @@ function AddIntegrantes() {
                 onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value })}
               />
             </InputContainer>
+            <InputContainer>
+              <Label>Locacion</Label>
+              <Select value={integrante.locacion} onChange={(e) => setIntegrante({ ...integrante, locacion: e.target.value })}>
+                <SelectOpt value="">Locacion</SelectOpt>
+                <SelectOpt value="presencial">Presencial</SelectOpt>
+                <SelectOpt value="videollamada">Videollamada</SelectOpt>
+              </Select>
+            </InputContainer>
           </Form>
           <AddButton onClick={() => handleClick()} complete={handleComplete()}>
             <AddIcon />
@@ -128,6 +151,11 @@ function AddIntegrantes() {
                     <CardTitle>Cargo</CardTitle>
                     <br />
                     {i.cargo}
+                  </Info>
+                  <Info>
+                    <CardTitle>Locacion</CardTitle>
+                    <br />
+                    {i.locacion}
                   </Info>
                   <RemoveIcon onClick={() => handleRemove(i.legajoOMatricula)} />
                 </IntegranteContainer>
@@ -220,6 +248,14 @@ const Form = styled.form`
 
 const Input = styled.input`
   ${input}
+`;
+
+const Select = styled.select`
+  ${select}
+`;
+
+const SelectOpt = styled.option`
+  ${selectOpt}
 `;
 
 const AddIcon = styled(PersonAdd)`
