@@ -51,6 +51,7 @@ function AddEfectos({ closeModal }) {
     observacionEncendido: "",
     elementoFallado: "",
     observacionFalla: "",
+    color: "",
   });
 
   const [discos, setDiscos] = React.useState([]);
@@ -282,6 +283,26 @@ function AddEfectos({ closeModal }) {
               placeholder="Imei"
               onChange={(e) => setEfecto({ ...efecto, imei: e.target.value })}
             />
+          </InputContainer>
+        )}
+
+        {(efecto.tipoDeElemento !== "disco" || efecto.tipoDeElemento !== "dvr") && (
+          <InputContainer>
+            <Label>Color</Label>
+            <Select value={efecto.color} onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}>
+              <SelectOpt value="">Selecciona un color</SelectOpt>
+              <SelectOpt value="negro">Negro</SelectOpt>
+              <SelectOpt value="blanco">Blanco</SelectOpt>
+              <SelectOpt value="gris">Gris</SelectOpt>
+              <SelectOpt value="rojo">Rojo</SelectOpt>
+              <SelectOpt value="azul">Azul</SelectOpt>
+              <SelectOpt value="verde">Verde</SelectOpt>
+              <SelectOpt value="amarillo">Amarillo</SelectOpt>
+              <SelectOpt value="naranja">Naranja</SelectOpt>
+              <SelectOpt value="morado">Morado</SelectOpt>
+              <SelectOpt value="rosado">Rosado</SelectOpt>
+              <SelectOpt value="marrón">Marrón</SelectOpt>
+            </Select>
           </InputContainer>
         )}
 
