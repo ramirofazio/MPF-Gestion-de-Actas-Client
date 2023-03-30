@@ -62,7 +62,7 @@ function AddBolsas() {
     acta_id: currentActa.id,
     colorPrecinto: "",
     nroPrecinto: "",
-    observaciones: currentActa.estado === "en creacion" ? "un sobre, papel madera cerrado" : "",
+    observaciones: currentActa.estado === "en creacion" ? "un sobre, papel madera cerrado que contiene" : "",
   });
 
   const handleRemoveEfecto = (efecto_id) => {

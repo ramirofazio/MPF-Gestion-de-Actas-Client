@@ -311,7 +311,7 @@ function AddEfectos({ closeModal }) {
               name="almacenamiento"
               value={efecto.almacenamiento}
               placeholder="500 GB / 1 TB"
-              onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value })}
+              onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value.toUpperCase() })}
             />
           </InputContainer>
         )}
@@ -570,7 +570,7 @@ function AddEfectos({ closeModal }) {
               name="almacenamiento"
               value={disco.almacenamiento}
               placeholder="500 GB / 1 TB"
-              onChange={(e) => setDisco({ ...disco, almacenamiento: e.target.value })}
+              onChange={(e) => setDisco({ ...disco, almacenamiento: e.target.value.toUpperCase() })}
             />
           </InputContainer>
           <InputContainer>
@@ -705,7 +705,7 @@ function AddEfectos({ closeModal }) {
               name="almacenamiento"
               value={sd.almacenamiento}
               placeholder="500 GB / 1 TB"
-              onChange={(e) => setSd({ ...sd, almacenamiento: e.target.value })}
+              onChange={(e) => setSd({ ...sd, almacenamiento: e.target.value.toUpperCase() })}
             />
           </InputContainer>
           <InputContainer>
