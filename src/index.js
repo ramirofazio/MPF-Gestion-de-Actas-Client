@@ -25,7 +25,7 @@ root.render(
         draggable
         pauseOnHover
         transition={Flip}
-        limit={2}
+        limit={4}
       />
     </Provider>
   </React.StrictMode>
