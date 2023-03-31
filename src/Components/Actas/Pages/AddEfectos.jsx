@@ -85,7 +85,7 @@ function AddEfectos({ closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (efecto.bolsa_id && efecto.tipoDeElemento && efecto.estado) {
+    if (efecto.bolsa_id && efecto.tipoDeElemento) {
       dispatch(createEfecto(efecto, discos, sims, sds, currentActa.id));
       closeModal();
     } else {
@@ -142,25 +142,25 @@ function AddEfectos({ closeModal }) {
 
     switch (tipoDeElemento) {
       case "celular": {
-        if (bolsa_id && estado && encendido && elementoFallado) {
+        if (bolsa_id && estado && encendido) {
           return "true";
         }
         break;
       }
       case "tablet": {
-        if (bolsa_id && estado && encendido && elementoFallado) {
+        if (bolsa_id && estado && encendido) {
           return "true";
         }
         break;
       }
       case "notebook": {
-        if (bolsa_id && estado) {
+        if (bolsa_id) {
           return "true";
         }
         break;
       }
       case "gabinete": {
-        if (bolsa_id && estado) {
+        if (bolsa_id) {
           return "true";
         }
         break;
@@ -523,14 +523,16 @@ function AddEfectos({ closeModal }) {
             </>
           )}
 
-        <InputContainer>
-          <Label>Estado</Label>
-          <Select value={efecto.estado} onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}>
-            <SelectOpt value="">Estado</SelectOpt>
-            <SelectOpt value="completo">Completo</SelectOpt>
-            <SelectOpt value="en proceso">En Proceso</SelectOpt>
-          </Select>
-        </InputContainer>
+        {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && (
+          <InputContainer>
+            <Label>Estado</Label>
+            <Select value={efecto.estado} onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}>
+              <SelectOpt value="">Estado</SelectOpt>
+              <SelectOpt value="completo">Completo</SelectOpt>
+              <SelectOpt value="en proceso">En Proceso</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
           <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
@@ -630,17 +632,17 @@ function AddEfectos({ closeModal }) {
               <Label>Herramienta Software</Label>
               <Select value={disco.herramientaSoftDisco} onChange={(e) => setDisco({ ...disco, herramientaSoftDisco: e.target.value })}>
                 <SelectOpt value="">Herramienta Software</SelectOpt>
-                  <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-                  <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-                  <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-                  <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-                  <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-                  <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-                  <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
-                  <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
-                  <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-                    TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-                  </SelectOpt>
+                <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+                <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+                <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+                <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+                <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+                <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+                <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
+                <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
+                <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
+                  TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
+                </SelectOpt>
               </Select>
             </InputContainer>
           )}

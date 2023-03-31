@@ -38,7 +38,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       case "unidad de almacenamiento flash": {
         return <PendriveIcon />;
       }
-      case "pc": {
+      case "gabinete": {
         return <PcIcon />;
       }
       case "notebook": {
