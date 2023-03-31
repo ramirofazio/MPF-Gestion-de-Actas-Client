@@ -89,7 +89,7 @@ function ActaCard({ acta, type }) {
       ) : (
         <>
           {acta.estado !== "en creacion" && <DownloadIcon onClick={() => getSavedActa(acta.id)} />}
-          <EditIcon onClick={() => editSavedActa(acta.id, navigate)} />
+          <EditIcon onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />
         </>
       )}
     </ActaContainer>

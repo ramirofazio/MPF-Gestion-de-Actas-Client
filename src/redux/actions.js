@@ -74,7 +74,7 @@ export function closeProcessActa(acta_id, navigate) {
     axios.put(Variables.baseEndpoint + `/closeProcessActa?acta_id=${acta_id}`).then((res) => {
       if (res.status === 200) {
         setTimeout(() => {
-          editSavedActa(res.data.id, navigate);
+          editSavedActa(res.data.id, navigate, "/actas/crear/4");
         }, 1000);
       }
     });

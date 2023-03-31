@@ -1,7 +1,7 @@
 import axios from "axios";
 import Variables from "../../../Styles/Variables";
 
-const editSavedActa = async (actaId, navigate) => {
+const editSavedActa = async (actaId, navigate, route) => {
   localStorage.setItem("currentEfectos", null);
   localStorage.setItem("currentBolsas", null);
 
@@ -30,7 +30,7 @@ const editSavedActa = async (actaId, navigate) => {
       }
 
       if (navigate) {
-        navigate("/actas/crear/1");
+        navigate(route);
       }
     }
   } catch (err) {
