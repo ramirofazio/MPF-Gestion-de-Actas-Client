@@ -10,6 +10,10 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 import { toast } from "react-toastify";
 //* Modal
 import Modal from "react-modal";
+//* Components
+import AddDiscoModal from "./AddDiscoModal";
+import AddSimModal from "./AddSimModal";
+import AddSdModal from "./AddSdModal";
 //* Initializations
 const { button, select, input, modal40x40 } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
@@ -29,8 +33,13 @@ function AddEfectos({ closeModal }) {
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
 
   const [addDiscosModal, setAddDiscosModal] = React.useState(false);
+  const [discos, setDiscos] = React.useState([]);
+
   const [addSimModal, setAddSimModal] = React.useState(false);
+  const [sims, setSims] = React.useState([]);
+
   const [addSdModal, setAddSdModal] = React.useState(false);
+  const [sds, setSds] = React.useState([]);
 
   const [efecto, setEfecto] = React.useState({
     bolsa_id: "",
@@ -54,35 +63,6 @@ function AddEfectos({ closeModal }) {
     color: "",
   });
 
-  const [discos, setDiscos] = React.useState([]);
-  const [disco, setDisco] = React.useState({
-    tipoDeDisco: "",
-    marca: "",
-    modelo: "",
-    almacenamiento: "",
-    serialNumber: "",
-    tipoExtraccionDisco: "",
-    herramientaSoftDisco: "",
-    estadoDisco: "",
-    discoFallado: "",
-    observacionFallaDisco: "",
-  });
-
-  const [sims, setSims] = React.useState([]);
-  const [sim, setSim] = React.useState({
-    empresaSim: "",
-    serialSim: "",
-    tipoExtraccionSim: "",
-  });
-
-  const [sds, setSds] = React.useState([]);
-  const [sd, setSd] = React.useState({
-    marca: "",
-    modelo: "",
-    almacenamiento: "",
-    tipoExtraccionSd: "",
-  });
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (efecto.bolsa_id && efecto.tipoDeElemento) {
@@ -91,50 +71,6 @@ function AddEfectos({ closeModal }) {
     } else {
       toast.error("¡Faltan datos necesarios para el Elemento!");
     }
-  };
-
-  const handleDiscoSubmit = (e) => {
-    e.preventDefault();
-    setAddDiscosModal(false);
-    setDiscos([...discos, disco]);
-    setDisco({
-      tipoDeDisco: "",
-      marca: "",
-      modelo: "",
-      almacenamiento: "",
-      serialNumber: "",
-      tipoExtraccionDisco: "",
-      herramientaSoftDisco: "",
-      estadoDisco: "",
-      discoFallado: "",
-      observacionFallaDisco: "",
-    });
-    toast.success("¡Disco Guardado con Exito!");
-  };
-
-  const handleSimSubmit = (e) => {
-    e.preventDefault();
-    setAddSimModal(false);
-    setSims([...sims, sim]);
-    setSim({
-      empresaSim: "",
-      serialSim: "",
-      tipoExtraccionSim: "",
-    });
-    toast.success("¡Sim Guardado con Exito!");
-  };
-
-  const handleSdSubmit = (e) => {
-    e.preventDefault();
-    setAddSdModal(false);
-    setSds([...sds, sd]);
-    setSd({
-      marca: "",
-      modelo: "",
-      almacenamiento: "",
-      tipoExtraccionSd: "",
-    });
-    toast.success("¡SD Guardada con Exito!");
   };
 
   const handleComplete = () => {
@@ -554,211 +490,17 @@ function AddEfectos({ closeModal }) {
           )}
         </div>
       </Form>
-      <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
-        <CloseIcon onClick={() => setAddDiscosModal(!addDiscosModal)} />
-        <Form onSubmit={handleDiscoSubmit}>
-          <Title>Agregar Disco</Title>
-          <InputContainer>
-            <Label>Tipo de Disco</Label>
-            <Select value={disco.tipoDeDisco} onChange={(e) => setDisco({ ...disco, tipoDeDisco: e.target.value })}>
-              <SelectOpt value="">Tipo De Disco</SelectOpt>
-              <SelectOpt value="Disco Rígido">Disco Rígido</SelectOpt>
-              <SelectOpt value="Disco Sólido">Disco Sólido</SelectOpt>
-            </Select>
-          </InputContainer>
-          <InputContainer>
-            <Label>Marca</Label>
-            <Input
-              type="text"
-              name="marca"
-              value={disco.marca}
-              placeholder="Marca"
-              onChange={(e) => setDisco({ ...disco, marca: e.target.value.toUpperCase() })}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Modelo</Label>
-            <Input
-              type="text"
-              name="modelo"
-              value={disco.modelo}
-              placeholder="Modelo"
-              onChange={(e) => setDisco({ ...disco, modelo: e.target.value.toUpperCase() })}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Serial Nº</Label>
-            <Input
-              type="text"
-              name="serialNumber"
-              value={disco.serialNumber}
-              placeholder="Serial Nº"
-              onChange={(e) => setDisco({ ...disco, serialNumber: e.target.value.toUpperCase() })}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>almacenamiento</Label>
-            <Input
-              type="text"
-              name="almacenamiento"
-              value={disco.almacenamiento}
-              placeholder="500 GB / 1 TB"
-              onChange={(e) => setDisco({ ...disco, almacenamiento: e.target.value.toUpperCase() })}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>¿Falla?</Label>
-            <Select value={disco.discoFallado} onChange={(e) => setDisco({ ...disco, discoFallado: e.target.value })}>
-              <SelectOpt value="">¿Falla?</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
 
-          {disco.discoFallado === "si" && (
-            <InputContainer>
-              <Label>Observacion Falla</Label>
-              <Input
-                type="text"
-                name="observacionFalla"
-                value={disco.observacionFallaDisco}
-                placeholder="¿Por que Falla?"
-                onChange={(e) => setDisco({ ...disco, observacionFallaDisco: e.target.value })}
-              />
-            </InputContainer>
-          )}
-          {disco.discoFallado === "no" && (
-            <InputContainer>
-              <Label>Herramienta Software</Label>
-              <Select value={disco.herramientaSoftDisco} onChange={(e) => setDisco({ ...disco, herramientaSoftDisco: e.target.value })}>
-                <SelectOpt value="">Herramienta Software</SelectOpt>
-                <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-                <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-                <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-                <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-                <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-                <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-                <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
-                <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
-                <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-                  TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-                </SelectOpt>
-              </Select>
-            </InputContainer>
-          )}
-          {disco.herramientaSoftDisco !== "" && (
-            <InputContainer>
-              <Label>Tipo de Extracción</Label>
-              <Select value={disco.tipoExtraccionDisco} onChange={(e) => setDisco({ ...disco, tipoExtraccionDisco: e.target.value })}>
-                <SelectOpt value="">Tipo de Extracción</SelectOpt>
-                <SelectOpt value="ninguna">Ninguna</SelectOpt>
-                <SelectOpt value="fisica">Fisica</SelectOpt>
-                <SelectOpt value="logica">Logica</SelectOpt>
-                <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-                <SelectOpt value="fisica y logica">Ambas</SelectOpt>
-              </Select>
-            </InputContainer>
-          )}
-          <InputContainer>
-            <Label>Estado</Label>
-            <Select value={disco.estadoDisco} onChange={(e) => setDisco({ ...disco, estadoDisco: e.target.value })}>
-              <SelectOpt value="">Estado</SelectOpt>
-              <SelectOpt value="completo">Completo</SelectOpt>
-              <SelectOpt value="en proceso">En Proceso</SelectOpt>
-            </Select>
-          </InputContainer>
-          <Button
-            type="submit"
-            value="Agregar Disco"
-            complete={disco.tipoDeDisco && disco.discoFallado && disco.estadoDisco ? "true" : "false"}
-          />
-        </Form>
+      <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
+        <AddDiscoModal discos={discos} setDiscos={setDiscos} setAddDiscoModal={setAddDiscosModal} toast={toast} />
       </Modal>
+
       <Modal isOpen={addSimModal} style={modal40x30} ariaHideApp={false}>
-        <CloseIcon onClick={() => setAddSimModal(!addSimModal)} />
-        <Form onSubmit={handleSimSubmit}>
-          <Title>Agregar SIM</Title>
-          <InputContainer>
-            <Label>Empresa Sim</Label>
-            <Input
-              type="text"
-              name="empresa sim"
-              value={sim.empresaSim}
-              placeholder="Empresa Sim"
-              onChange={(e) => setSim({ ...sim, empresaSim: e.target.value })}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Serial Sim</Label>
-            <Input
-              type="text"
-              name="serial sim"
-              value={sim.serialSim}
-              placeholder="Serial Sim"
-              onChange={(e) => setSim({ ...sim, serialSim: e.target.value })}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Tipo de Extracción</Label>
-            <Select value={sim.tipoExtraccionSim} onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}>
-              <SelectOpt value="">Tipo de Extracción</SelectOpt>
-              <SelectOpt value="ninguna">Ninguna</SelectOpt>
-              <SelectOpt value="fisica">Fisica</SelectOpt>
-              <SelectOpt value="logica">Logica</SelectOpt>
-              <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-              <SelectOpt value="fisica y logica">Ambas</SelectOpt>
-            </Select>
-          </InputContainer>
-          <Button type="submit" value="Agregar Sim" complete={sim.tipoExtraccionSim ? "true" : "false"} />
-        </Form>
+        <AddSimModal sims={sims} setSims={setSims} setAddSimModal={setAddSimModal} toast={toast} />
       </Modal>
+
       <Modal isOpen={addSdModal} style={modal40x30} ariaHideApp={false}>
-        <CloseIcon onClick={() => setAddSdModal(!addSdModal)} />
-        <Form onSubmit={handleSdSubmit}>
-          <Title>Agregar SD</Title>
-          <InputContainer>
-            <Label>Marca</Label>
-            <Input
-              type="text"
-              name="marca"
-              value={sd.marca}
-              placeholder="Marca"
-              onChange={(e) => setSd({ ...sd, marca: e.target.value.toUpperCase() })}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Modelo</Label>
-            <Input
-              type="text"
-              name="modelo"
-              value={sd.modelo}
-              placeholder="Modelo"
-              onChange={(e) => setSd({ ...sd, modelo: e.target.value.toUpperCase() })}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Almacenamiento</Label>
-            <Input
-              type="text"
-              name="almacenamiento"
-              value={sd.almacenamiento}
-              placeholder="500 GB / 1 TB"
-              onChange={(e) => setSd({ ...sd, almacenamiento: e.target.value.toUpperCase() })}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Tipo de Extracción</Label>
-            <Select value={sd.tipoExtraccionSd} onChange={(e) => setSd({ ...sd, tipoExtraccionSd: e.target.value })}>
-              <SelectOpt value="">Tipo de Extracción</SelectOpt>
-              <SelectOpt value="ninguna">Ninguna</SelectOpt>
-              <SelectOpt value="fisica">Fisica</SelectOpt>
-              <SelectOpt value="logica">Logica</SelectOpt>
-              <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-              <SelectOpt value="fisica y logica">Ambas</SelectOpt>
-            </Select>
-          </InputContainer>
-          <Button type="submit" value="Agregar SD" complete={sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"} />
-        </Form>
+        <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdModal} toast={toast} />
       </Modal>
     </>
   );
