@@ -1,6 +1,6 @@
 import React from "react";
 //* Redux
-import { createEfecto } from "../../../redux/actions";
+import { createEfecto, EditEfecto } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 //* Style
 import styled, { css } from "styled-components";
@@ -26,8 +26,14 @@ const modal40x30 = {
   },
 };
 
-function AddEfectos({ closeModal }) {
+function AddEfectos({ alternModal }) {
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    return () => {
+      localStorage.setItem("currentEfecto", null);
+    };
+  });
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
@@ -41,33 +47,41 @@ function AddEfectos({ closeModal }) {
   const [addSdModal, setAddSdModal] = React.useState(false);
   const [sds, setSds] = React.useState([]);
 
-  const [efecto, setEfecto] = React.useState({
-    bolsa_id: "",
-    tipoDeElemento: "",
-    tipoDeDisco: "",
-    marca: "",
-    modelo: "",
-    imei: "",
-    estado: "",
-    tipoSeguridad: "",
-    desbloqueo: "",
-    herramientaSoft: "",
-    tipoExtraccion: "",
-    extraccion: "",
-    almacenamiento: "",
-    serialNumber: "",
-    encendido: "",
-    observacionEncendido: "",
-    elementoFallado: "",
-    observacionFalla: "",
-    color: "",
-  });
+  const [efecto, setEfecto] = React.useState(
+    JSON.parse(localStorage.getItem("currentEfecto")) || {
+      bolsa_id: "",
+      tipoDeElemento: "",
+      tipoDeDisco: "",
+      marca: "",
+      modelo: "",
+      imei: "",
+      estado: "",
+      tipoSeguridad: "",
+      desbloqueo: "",
+      herramientaSoft: "",
+      tipoExtraccion: "",
+      extraccion: "",
+      almacenamiento: "",
+      serialNumber: "",
+      encendido: "",
+      observacionEncendido: "",
+      elementoFallado: "",
+      observacionFalla: "",
+      color: "",
+    }
+  );
+
+  console.log(efecto);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (efecto.bolsa_id && efecto.tipoDeElemento) {
-      dispatch(createEfecto(efecto, discos, sims, sds, currentActa.id));
-      closeModal();
+      if (efecto.edit) {
+        dispatch(EditEfecto(efecto, discos, sims, sds, currentActa.id));
+      } else {
+        dispatch(createEfecto(efecto, discos, sims, sds, currentActa.id));
+      }
+      alternModal();
     } else {
       toast.error("¡Faltan datos necesarios para el Elemento!");
     }
@@ -471,7 +485,7 @@ function AddEfectos({ closeModal }) {
         )}
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
-          <Button type="submit" value="Cargar Elemento" complete={handleComplete()} />
+          <Button type="submit" value={efecto.edit ? "Editar Elemento" : "Cargar Elemento"} complete={handleComplete()} />
           {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
             <>
               <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">

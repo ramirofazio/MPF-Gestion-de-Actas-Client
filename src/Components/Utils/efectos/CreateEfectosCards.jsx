@@ -10,11 +10,12 @@ import { Tablet } from "@styled-icons/entypo/Tablet";
 import { Computer } from "@styled-icons/material-outlined/Computer";
 import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
+import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 //* Initializations
 const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
 const { cardTitle, cardInfo } = GlobalStyles;
 
-function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa }) {
+function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
   const [nroPrecintoBolsa, setNroPrecintoBolsa] = React.useState();
   const [colorPrecintoBolsa, setColorPrecintoBolsa] = React.useState();
 
@@ -26,6 +27,12 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       }
     });
   }, []);
+
+  const LoadEfecto = () => {
+    localStorage.setItem("currentEfecto", JSON.stringify({ ...efecto, edit: true }));
+    setAddEfectosModal(true);
+    renderAddEfectosModal();
+  };
 
   const selectIcon = (tipoDeElemento) => {
     switch (tipoDeElemento) {
@@ -192,6 +199,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         {efecto.Discos.length !== 0 && <HddIcon />}
         {efecto.Sds.length !== 0 && <SdIcon />}
       </Info>
+      {(estadoActa === "en creacion" || estadoActa === "en proceso") && <EditIcon onClick={() => LoadEfecto()} />}
       {estadoActa === "en creacion" && <DeleteIcon onClick={() => handleRemoveEfecto(efecto.id)} />}
     </EfectoContainer>
   );
@@ -278,6 +286,18 @@ const DeleteIcon = styled(Delete)`
   color: ${secondaryColor};
   transition: all 0.5s ease;
   margin-right: 20px;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+`;
+
+const EditIcon = styled(DocumentEdit)`
+  width: 25px;
+  margin-right: 40px;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
 
   &:hover {
     color: black;

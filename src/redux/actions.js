@@ -21,6 +21,25 @@ import {
   SET_CURRENT_USER,
 } from "./variables";
 
+export function EditEfecto(efecto, discos, sims, sds, acta_id) {
+  return function (dispatch) {
+    axios
+      .put(Variables.baseEndpoint + `/editEfecto`, { efecto, discos, sims, sds, acta_id })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("¡Efecto editado con exito!");
+        }
+        return dispatch({
+          type: UPDATE_EFECTOS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
 export function removeActa(acta_id) {
   return function (dispatch) {
     axios

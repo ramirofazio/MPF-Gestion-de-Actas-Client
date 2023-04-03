@@ -131,6 +131,17 @@ function AddBolsas() {
     dispatch(removeBolsa(bolsaId, currentActa.id));
   };
 
+  const renderAddEfectosModal = () => {
+    return (
+      <Modal isOpen={addEfectosModal} style={modal30Width} ariaHideApp={false}>
+        <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
+        <AddEfectos alternModal={() => setAddEfectosModal(!addEfectosModal)} />
+      </Modal>
+    );
+  };
+
+  console.log(addEfectosModal);
+
   return (
     <Container>
       <Header>
@@ -210,15 +221,13 @@ function AddBolsas() {
               currentBolsas={currentBolsas}
               estadoActa={currentActa.estado}
               handleRemoveEfecto={handleRemoveEfecto}
+              renderAddEfectosModal={renderAddEfectosModal}
+              setAddEfectosModal={setAddEfectosModal}
               key={efecto.id}
             />
           ))}
       </EfectosContainer>
-      <Modal isOpen={addEfectosModal} style={modal30Width} ariaHideApp={false}>
-        <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
-        <AddEfectos closeModal={() => setAddEfectosModal(!addEfectosModal)} />
-      </Modal>
-
+      {renderAddEfectosModal()}
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
         <Button onClick={() => navigate(-1)} complete={"true"} to="#">
           Volver
@@ -298,7 +307,6 @@ function AddBolsas() {
           </>
         )}
       </div>
-
       <Modal isOpen={closeBagsModal} style={modal40x40} ariaHideApp={false}>
         <CloseIcon onClick={() => setCloseBagsModal(!closeBagsModal)} />
         <CloseBagsModal closeModal={() => setCloseBagsModal(!closeBagsModal)} />
