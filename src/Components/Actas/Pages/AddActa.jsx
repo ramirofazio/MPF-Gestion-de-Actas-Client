@@ -14,14 +14,13 @@ const { select, input, form, inputLabel, inputContainer, enProcesoContainer, hea
 function AddActa() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const fecha = new Date();
+
+  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
   const [acta, setActa] = React.useState("");
   const [tipoDeActa, setTipoDeActa] = React.useState("");
   const [comeBack, setComeBack] = React.useState(false);
-
-  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
   React.useEffect(() => {
     getLocalStorageOrState();
@@ -356,7 +355,7 @@ function AddActa() {
         </Button>
         {!comeBack ? (
           <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
-            Crear
+            Siguente
           </Button>
         ) : (
           <Button to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"} complete={"true"}>
