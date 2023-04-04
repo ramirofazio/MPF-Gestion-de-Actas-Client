@@ -34,6 +34,14 @@ export function EditEfecto(efecto, discos, sims, sds, acta_id) {
           payload: res.data,
         });
       })
+      .then(() => {
+        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+          return dispatch({
+            type: UPDATE_BOLSAS,
+            payload: res.data,
+          });
+        });
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -335,10 +343,10 @@ export function removePerito(legajo, acta_id) {
   };
 }
 
-export function removeIntegrante(dni, acta_id) {
+export function removeIntegrante(legajoOMatricula, acta_id) {
   return function () {
     axios
-      .delete(Variables.baseEndpoint + `/removeIntegrante?dni=${dni}&acta_id=${acta_id}`)
+      .delete(Variables.baseEndpoint + `/removeIntegrante?legajoOMatricula=${legajoOMatricula}&acta_id=${acta_id}`)
       .then((res) => {
         if (res.status === 200) toast.success("¡Integrante eliminado con exito!");
       })

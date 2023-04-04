@@ -71,8 +71,6 @@ function AddEfectos({ alternModal }) {
     }
   );
 
-  console.log(efecto);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (efecto.bolsa_id && efecto.tipoDeElemento) {
@@ -162,10 +160,14 @@ function AddEfectos({ alternModal }) {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Title>Agregar Elemento</Title>
+        <Title>{efecto.edit ? "Editar Elemento" : "Agregar Elemento"}</Title>
         <InputContainer>
           <Label>Bolsa</Label>
-          <Select value={efecto.bolsa_id} onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}>
+          <Select
+            disabled={efecto.edit ? true : false}
+            value={efecto.bolsa_id}
+            onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}
+          >
             <SelectOpt value="">Precinto</SelectOpt>
             {currentBolsas.map((b) => {
               if (b.estado !== "cerrada" && b.estado !== "cerrada en proceso") {
@@ -180,7 +182,11 @@ function AddEfectos({ alternModal }) {
         </InputContainer>
         <InputContainer>
           <Label>Tipo de Elemento</Label>
-          <Select value={efecto.tipoDeElemento} onChange={(e) => setEfecto({ ...efecto, tipoDeElemento: e.target.value })}>
+          <Select
+            disabled={efecto.edit ? true : false}
+            value={efecto.tipoDeElemento}
+            onChange={(e) => setEfecto({ ...efecto, tipoDeElemento: e.target.value })}
+          >
             <SelectOpt value="">Tipo de Elemento</SelectOpt>
             <SelectOpt value="celular">Celular</SelectOpt>
             <SelectOpt value="tablet">Tablet</SelectOpt>

@@ -131,10 +131,6 @@ function AddPeritos() {
               />
             </InputContainer>
           </Form>
-          <AddButton onClick={() => handleAddPerito()} complete={handleComplete()}>
-            <AddIcon />
-            Agregar
-          </AddButton>
         </FormContainer>
 
         <PeritosContainer>
@@ -174,9 +170,18 @@ function AddPeritos() {
           Volver
         </Button>
         {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
-          <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
-            Crear
-          </Button>
+          <>
+            {perito.nombreYApellido && perito.legajo && perito.cargo ? (
+              <Button onClick={() => handleAddPerito()} complete={handleComplete()}>
+                <AddIcon />
+                Agregar Perito
+              </Button>
+            ) : (
+              <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
+                Siguente
+              </Button>
+            )}
+          </>
         ) : (
           <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
             Continuar

@@ -125,10 +125,6 @@ function AddIntegrantes() {
               </Select>
             </InputContainer>
           </Form>
-          <AddButton onClick={() => handleClick()} complete={handleComplete()}>
-            <AddIcon />
-            Agregar
-          </AddButton>
         </FormContainer>
 
         <IntegrantesContainer>
@@ -167,10 +163,19 @@ function AddIntegrantes() {
         <Button onClick={() => navigate(-1)} complete={"true"} to="#">
           Volver
         </Button>
-        {integrantes.length > 0 && !currentIntegrantes.length > 0 ? (
-          <Button complete={"true"} onClick={() => handleNext()} to="#">
-            Crear
-          </Button>
+        {currentActa.estado === "en creacion" && currentIntegrantes.length <= 0 ? (
+          <>
+            {integrante.nombreYApellido && integrante.legajoOMatricula && integrante.cargo && integrante.locacion ? (
+              <Button onClick={() => handleClick()} complete={handleComplete()}>
+                <AddIcon />
+                Agregar Integrante
+              </Button>
+            ) : (
+              <Button complete={"true"} onClick={() => handleNext()} to="#">
+                Siguente
+              </Button>
+            )}
+          </>
         ) : (
           <Button to={"/actas/crear/4"} complete={"true"}>
             Continuar
