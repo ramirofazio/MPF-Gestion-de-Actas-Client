@@ -405,9 +405,9 @@ function AddEfectos({ alternModal }) {
             efecto.tipoSeguridad !== "ninguna" &&
             efecto.tipoSeguridad !== "" && (
               <InputContainer>
-                <Label>¿Desbloqueo?</Label>
+                <Label>¿Desbloqueo por Software?</Label>
                 <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
-                  <SelectOpt value="">Desbloqueo</SelectOpt>
+                  <SelectOpt value="">¿Se pudo desbloquear?</SelectOpt>
                   <SelectOpt value="si">Si</SelectOpt>
                   <SelectOpt value="no">No</SelectOpt>
                 </Select>
@@ -422,8 +422,8 @@ function AddEfectos({ alternModal }) {
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="fisica">Fisica</SelectOpt>
               <SelectOpt value="logica">Logica</SelectOpt>
+              <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
               <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-              <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>
         ) : (
@@ -436,8 +436,8 @@ function AddEfectos({ alternModal }) {
                 <SelectOpt value="ninguna">Ninguna</SelectOpt>
                 <SelectOpt value="fisica">Fisica</SelectOpt>
                 <SelectOpt value="logica">Logica</SelectOpt>
+                <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
                 <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-                <SelectOpt value="fisica y logica">Ambas</SelectOpt>
               </Select>
             </InputContainer>
           )
@@ -471,8 +471,8 @@ function AddEfectos({ alternModal }) {
                     <SelectOpt value="ninguna">Ninguna</SelectOpt>
                     <SelectOpt value="fisica">Fisica</SelectOpt>
                     <SelectOpt value="logica">Logica</SelectOpt>
+                    <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
                     <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-                    <SelectOpt value="fisica y logica">Ambas</SelectOpt>
                   </Select>
                 </InputContainer>
               )}
@@ -491,7 +491,7 @@ function AddEfectos({ alternModal }) {
         )}
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
-          <Button type="submit" value={efecto.edit ? "Editar Elemento" : "Cargar Elemento"} complete={handleComplete()} />
+          <Button type="submit" value={efecto.edit ? "Guardar" : "Cargar Elemento"} complete={handleComplete()} />
           {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
             <>
               <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">

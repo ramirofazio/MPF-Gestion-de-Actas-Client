@@ -142,8 +142,8 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
               <SelectOpt value="fisica">Fisica</SelectOpt>
               <SelectOpt value="logica">Logica</SelectOpt>
+              <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
               <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-              <SelectOpt value="fisica y logica">Ambas</SelectOpt>
             </Select>
           </InputContainer>
         )}
