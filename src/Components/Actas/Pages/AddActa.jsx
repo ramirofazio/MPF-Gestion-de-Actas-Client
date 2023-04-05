@@ -106,7 +106,7 @@ function AddActa() {
         return "false";
       }
     } else if (tipoDeActa === "COOP") {
-      if (solicitante && coop && nroCausa && caratula && cij && dil) {
+      if (solicitante && coop && nroCausa && cij && dil) {
         return "true";
       } else {
         return "false";
@@ -247,7 +247,7 @@ function AddActa() {
                 <Label>Nro MPF/DEN</Label>
                 <Input
                   disabled={comeBack ? true : false}
-                  type="number"
+                  type="text"
                   name="MPF/DEN"
                   value={!comeBack ? acta.mpfOrDen : acta.nro_mpf}
                   placeholder="MPF/DEN"
@@ -258,7 +258,7 @@ function AddActa() {
                 <Label>Nro CIJ</Label>
                 <Input
                   disabled={comeBack ? true : false}
-                  type="number"
+                  type="text"
                   name="CIJ"
                   value={!comeBack ? acta.cij : acta.nro_cij}
                   placeholder="CIJ"
@@ -269,7 +269,7 @@ function AddActa() {
                 <Label>Nro DIL</Label>
                 <Input
                   disabled={comeBack ? true : false}
-                  type="number"
+                  type="text"
                   name="DIL"
                   value={!comeBack ? acta.dil : acta.nro_dil}
                   placeholder="DIL"
@@ -295,7 +295,7 @@ function AddActa() {
               <Label>Nro Coop</Label>
               <Input
                 disabled={comeBack ? true : false}
-                type="number"
+                type="text"
                 name="COOP"
                 value={!comeBack ? acta.coop : acta.nro_coop}
                 placeholder="COOP"
@@ -306,7 +306,7 @@ function AddActa() {
               <Label>Nro Causa</Label>
               <Input
                 disabled={comeBack ? true : false}
-                type="number"
+                type="text"
                 name="Nro Causa"
                 value={!comeBack ? acta.nroCausa : acta.nro_causa}
                 placeholder="Nro Causa"
@@ -328,7 +328,7 @@ function AddActa() {
               <Label>Nro CIJ</Label>
               <Input
                 disabled={comeBack ? true : false}
-                type="number"
+                type="text"
                 name="CIJ"
                 value={!comeBack ? acta.cij : acta.nro_cij}
                 placeholder="CIJ"
@@ -339,7 +339,7 @@ function AddActa() {
               <Label>Nro DIL</Label>
               <Input
                 disabled={comeBack ? true : false}
-                type="number"
+                type="text"
                 name="DIL"
                 value={!comeBack ? acta.dil : acta.nro_dil}
                 placeholder="DIL"
