@@ -308,61 +308,12 @@ function AddEfectos({ alternModal }) {
             </InputContainer>
           )}
 
-        {efecto.encendido === "no" && (
-          <InputContainer>
-            <Label>Observacion Encendido</Label>
-            <Input
-              type="text"
-              name="observacionEncendido"
-              value={efecto.observacionEncendido}
-              placeholder="¿Por que no enciende?"
-              onChange={(e) => setEfecto({ ...efecto, observacionEncendido: e.target.value })}
-            />
-          </InputContainer>
-        )}
-
-        {(efecto.tipoDeElemento === "unidad de almacenamiento flash" || efecto.tipoDeElemento === "disco") && (
-          <InputContainer>
-            <Label>¿Falla?</Label>
-            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">¿Falla?</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
-
-        {efecto.encendido === "si" && (
-          <InputContainer>
-            <Label>¿Falla?</Label>
-            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">¿Falla?</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
-
-        {efecto.elementoFallado === "si" && (
-          <InputContainer>
-            <Label>Observacion Falla</Label>
-            <Input
-              type="text"
-              name="observacionFalla"
-              value={efecto.observacionFalla}
-              placeholder="¿Por que Falla?"
-              onChange={(e) => setEfecto({ ...efecto, observacionFalla: e.target.value })}
-            />
-          </InputContainer>
-        )}
-
         {efecto.tipoDeElemento === ""
           ? null
           : efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
             efecto.tipoDeElemento !== "notebook" &&
             efecto.tipoDeElemento !== "gabinete" &&
-            efecto.encendido === "si" &&
-            efecto.elementoFallado === "no" && (
+            efecto.encendido === "si" && (
               <InputContainer>
                 <Label>Herramienta Software</Label>
                 <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
@@ -413,6 +364,54 @@ function AddEfectos({ alternModal }) {
                 </Select>
               </InputContainer>
             )}
+
+        {efecto.encendido === "no" && (
+          <InputContainer>
+            <Label>Observacion Encendido</Label>
+            <Input
+              type="text"
+              name="observacionEncendido"
+              value={efecto.observacionEncendido}
+              placeholder="¿Por que no enciende?"
+              onChange={(e) => setEfecto({ ...efecto, observacionEncendido: e.target.value })}
+            />
+          </InputContainer>
+        )}
+
+        {(efecto.tipoDeElemento === "unidad de almacenamiento flash" || efecto.tipoDeElemento === "disco") && (
+          <InputContainer>
+            <Label>¿Falla?</Label>
+            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
+              <SelectOpt value="">¿Falla?</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
+
+        {efecto.encendido === "si" && (
+          <InputContainer>
+            <Label>¿Falla?</Label>
+            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
+              <SelectOpt value="">¿Falla?</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
+
+        {efecto.elementoFallado === "si" && (
+          <InputContainer>
+            <Label>Observacion Falla</Label>
+            <Input
+              type="text"
+              name="observacionFalla"
+              value={efecto.observacionFalla}
+              placeholder="¿Por que Falla?"
+              onChange={(e) => setEfecto({ ...efecto, observacionFalla: e.target.value })}
+            />
+          </InputContainer>
+        )}
 
         {efecto.tipoDeElemento !== "unidad de almacenamiento flash" && efecto.tipoSeguridad === "ninguna" ? (
           <InputContainer>
