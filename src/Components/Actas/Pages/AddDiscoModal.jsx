@@ -94,6 +94,25 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
             onChange={(e) => setDisco({ ...disco, almacenamiento: e.target.value.toUpperCase() })}
           />
         </InputContainer>
+
+        <InputContainer>
+          <Label>Herramienta Software</Label>
+          <Select value={disco.herramientaSoftDisco} onChange={(e) => setDisco({ ...disco, herramientaSoftDisco: e.target.value })}>
+            <SelectOpt value="">Herramienta Software</SelectOpt>
+            <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+            <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+            <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+            <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+            <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+            <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+            <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
+            <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
+            <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
+              TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
+            </SelectOpt>
+          </Select>
+        </InputContainer>
+
         <InputContainer>
           <Label>¿Falla?</Label>
           <Select value={disco.discoFallado} onChange={(e) => setDisco({ ...disco, discoFallado: e.target.value })}>
@@ -115,26 +134,8 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
             />
           </InputContainer>
         )}
-        {disco.discoFallado === "no" && (
-          <InputContainer>
-            <Label>Herramienta Software</Label>
-            <Select value={disco.herramientaSoftDisco} onChange={(e) => setDisco({ ...disco, herramientaSoftDisco: e.target.value })}>
-              <SelectOpt value="">Herramienta Software</SelectOpt>
-              <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-              <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-              <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-              <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-              <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-              <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-              <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
-              <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
-              <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-                TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-              </SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
-        {disco.herramientaSoftDisco !== "" && (
+
+        {disco.herramientaSoftDisco !== "" && disco.discoFallado == "no" && (
           <InputContainer>
             <Label>Tipo de Extracción</Label>
             <Select value={disco.tipoExtraccionDisco} onChange={(e) => setDisco({ ...disco, tipoExtraccionDisco: e.target.value })}>
