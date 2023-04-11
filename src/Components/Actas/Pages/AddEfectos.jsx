@@ -481,7 +481,11 @@ function AddEfectos({ alternModal }) {
         {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && (
           <InputContainer>
             <Label>Estado</Label>
-            <Select value={efecto.estado} onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}>
+            <Select
+              disabled={efecto.edit && currentActa.estado === "en proceso" ? true : false}
+              value={efecto.estado}
+              onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}
+            >
               <SelectOpt value="">Estado</SelectOpt>
               <SelectOpt value="completo">Completo</SelectOpt>
               <SelectOpt value="en proceso">En Proceso</SelectOpt>
