@@ -114,9 +114,9 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
         </InputContainer>
 
         <InputContainer>
-          <Label>¿Falla?</Label>
+          <Label>¿El Disco Falla?</Label>
           <Select value={disco.discoFallado} onChange={(e) => setDisco({ ...disco, discoFallado: e.target.value })}>
-            <SelectOpt value="">¿Falla?</SelectOpt>
+            <SelectOpt value="">Si / No</SelectOpt>
             <SelectOpt value="si">Si</SelectOpt>
             <SelectOpt value="no">No</SelectOpt>
           </Select>
