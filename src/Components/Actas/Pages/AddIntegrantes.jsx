@@ -95,13 +95,13 @@ function AddIntegrantes() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Legajo o Matricula</Label>
+              <Label>Legajo, matricula o DNI</Label>
               <Input
                 disabled={currentActa.estado !== "en creacion"}
                 type="number"
                 name="legajoOMatricula"
                 value={integrante.legajoOMatricula}
-                placeholder="Legajo o Matricula"
+                placeholder="Legajo, matricula o DNI"
                 onChange={(e) => setIntegrante({ ...integrante, legajoOMatricula: e.target.value })}
               />
             </InputContainer>
