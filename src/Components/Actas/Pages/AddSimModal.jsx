@@ -38,7 +38,7 @@ function AddSimModal({ sims, setSims, setAddSimModal, toast }) {
             name="empresa sim"
             value={sim.empresaSim}
             placeholder="Empresa Sim"
-            onChange={(e) => setSim({ ...sim, empresaSim: e.target.value })}
+            onChange={(e) => setSim({ ...sim, empresaSim: e.target.value.toUpperCase() })}
           />
         </InputContainer>
         <InputContainer>
@@ -48,7 +48,7 @@ function AddSimModal({ sims, setSims, setAddSimModal, toast }) {
             name="serial sim"
             value={sim.serialSim}
             placeholder="Serial Sim"
-            onChange={(e) => setSim({ ...sim, serialSim: e.target.value })}
+            onChange={(e) => setSim({ ...sim, serialSim: e.target.value.toUpperCase() })}
           />
         </InputContainer>
         <InputContainer>
