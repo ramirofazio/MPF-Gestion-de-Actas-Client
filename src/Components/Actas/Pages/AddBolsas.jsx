@@ -192,8 +192,14 @@ function AddBolsas() {
             currentBolsas.map((bolsa) => {
               return (
                 <BolsaContainer key={bolsa.id}>
-                  <Info style={bolsa.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
-                    <CardTitle>Nº Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : "verde"}</CardTitle>
+                  <Info
+                    style={
+                      bolsa.colorPrecinto === "rojo" ? { color: redColor } : bolsa.colorPrecinto === "verde" ? { color: greenColor } : null
+                    }
+                  >
+                    <CardTitle>
+                      Nº Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : bolsa.colorPrecinto === "verde" ? "verde" : "blanco"}
+                    </CardTitle>
                     <br />
                     {bolsa.nroPrecinto}
                   </Info>

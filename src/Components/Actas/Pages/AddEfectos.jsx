@@ -172,7 +172,11 @@ function AddEfectos({ alternModal }) {
             {currentBolsas.map((b) => {
               if (b.estado !== "cerrada" && b.estado !== "cerrada en proceso") {
                 return (
-                  <SelectOpt value={b.id} key={b.id} style={b.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
+                  <SelectOpt
+                    value={b.id}
+                    key={b.id}
+                    style={b.colorPrecinto === "rojo" ? { color: redColor } : b.colorPrecinto === "verde" ? { color: greenColor } : null}
+                  >
                     {b.nroPrecinto}
                   </SelectOpt>
                 );
