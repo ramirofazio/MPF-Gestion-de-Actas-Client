@@ -251,48 +251,20 @@ function AddEfectos({ alternModal }) {
             <Label>Color</Label>
             <Select value={efecto.color} onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}>
               <SelectOpt value="">Seleccione un Color</SelectOpt>
-              <SelectOpt value="negro" style={{ backgroundColor: "black" }}>
-                Negro
-              </SelectOpt>
-              <SelectOpt value="blanco" style={{ backgroundColor: "white" }}>
-                Blanco
-              </SelectOpt>
-              <SelectOpt value="gris" style={{ backgroundColor: "gray" }}>
-                Gris
-              </SelectOpt>
-              <SelectOpt value="rojo" style={{ backgroundColor: "red" }}>
-                Rojo
-              </SelectOpt>
-              <SelectOpt value="azul" style={{ backgroundColor: "blue" }}>
-                Azul
-              </SelectOpt>
-              <SelectOpt value="verde" style={{ backgroundColor: "green" }}>
-                Verde
-              </SelectOpt>
-              <SelectOpt value="amarillo" style={{ backgroundColor: "yellow" }}>
-                Amarillo
-              </SelectOpt>
-              <SelectOpt value="naranja" style={{ backgroundColor: "orange" }}>
-                Naranja
-              </SelectOpt>
-              <SelectOpt value="morado" style={{ backgroundColor: "purple" }}>
-                Morado
-              </SelectOpt>
-              <SelectOpt value="rosado" style={{ backgroundColor: "pink" }}>
-                Rosado
-              </SelectOpt>
-              <SelectOpt value="marrón" style={{ backgroundColor: "brown" }}>
-                Marrón
-              </SelectOpt>
-              <SelectOpt value="turquesa" style={{ backgroundColor: "turquoise" }}>
-                Turquesa
-              </SelectOpt>
-              <SelectOpt value="plateado" style={{ backgroundColor: "silver" }}>
-                Plateado
-              </SelectOpt>
-              <SelectOpt value="dorado" style={{ backgroundColor: "gold" }}>
-                Dorado
-              </SelectOpt>
+              <SelectOpt value="negro">Negro</SelectOpt>
+              <SelectOpt value="blanco">Blanco</SelectOpt>
+              <SelectOpt value="gris">Gris</SelectOpt>
+              <SelectOpt value="rojo">Rojo</SelectOpt>
+              <SelectOpt value="azul">Azul</SelectOpt>
+              <SelectOpt value="verde">Verde</SelectOpt>
+              <SelectOpt value="amarillo">Amarillo</SelectOpt>
+              <SelectOpt value="naranja">Naranja</SelectOpt>
+              <SelectOpt value="morado">Morado</SelectOpt>
+              <SelectOpt value="rosado">Rosado</SelectOpt>
+              <SelectOpt value="marrón">Marrón</SelectOpt>
+              <SelectOpt value="turquesa">Turquesa</SelectOpt>
+              <SelectOpt value="plateado">Plateado</SelectOpt>
+              <SelectOpt value="dorado">Dorado</SelectOpt>
             </Select>
           </InputContainer>
         )}

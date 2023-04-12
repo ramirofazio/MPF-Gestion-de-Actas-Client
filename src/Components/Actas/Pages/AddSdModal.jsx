@@ -11,7 +11,7 @@ const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
   const [sd, setSd] = React.useState({
     marca: "",
-    modelo: "",
+    serialNumber: "",
     almacenamiento: "",
     tipoExtraccionSd: "",
   });
@@ -22,7 +22,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
     setSds([...sds, sd]);
     setSd({
       marca: "",
-      modelo: "",
+      serialNumber: "",
       almacenamiento: "",
       tipoExtraccionSd: "",
     });
@@ -45,13 +45,13 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
           />
         </InputContainer>
         <InputContainer>
-          <Label>Modelo</Label>
+          <Label>Serial N°</Label>
           <Input
             type="text"
-            name="modelo"
-            value={sd.modelo}
-            placeholder="Modelo"
-            onChange={(e) => setSd({ ...sd, modelo: e.target.value.toUpperCase() })}
+            name="serialNumber"
+            value={sd.serialNumber}
+            placeholder="Serial N°"
+            onChange={(e) => setSd({ ...sd, serialNumber: e.target.value.toUpperCase() })}
           />
         </InputContainer>
         <InputContainer>
