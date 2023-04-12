@@ -42,7 +42,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       case "tablet": {
         return <TabletIcon />;
       }
-      case "unidad de almacenamiento flash": {
+      case "unidad de almacenamiento": {
         return <PendriveIcon />;
       }
       case "gabinete": {
@@ -99,7 +99,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           </Info>
         </>
       )}
-      {(efecto.encendido === "si" || efecto.tipoDeElemento === "unidad de almacenamiento flash") && (
+      {(efecto.encendido === "si" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
         <>
           {efecto.elementoFallado === "si" ? (
             <>
@@ -116,7 +116,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
             </>
           ) : (
             <>
-              {efecto.tipoDeElemento === "unidad de almacenamiento flash" ||
+              {efecto.tipoDeElemento === "unidad de almacenamiento" ||
                 (efecto.tipoDeElemento === "disco" && (
                   <Info>
                     <CardTitle>Almacenamiento</CardTitle>
@@ -126,14 +126,14 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
                 ))}
               {(efecto.desbloqueo === "si" || efecto.extraccion || efecto.tipoExtraccion) && (
                 <>
-                  {efecto.tipoDeElemento !== "unidad de almacenamiento flash" && (
+                  {efecto.tipoDeElemento !== "unidad de almacenamiento" && (
                     <Info>
                       <CardTitle>Tipo de Seguridad</CardTitle>
                       <br />
                       {efecto.tipoSeguridad}
                     </Info>
                   )}
-                  {efecto.tipoDeElemento === "unidad de almacenamiento flash" && (
+                  {efecto.tipoDeElemento === "unidad de almacenamiento" && (
                     <Info>
                       <CardTitle>Almacenamiento</CardTitle>
                       <br />

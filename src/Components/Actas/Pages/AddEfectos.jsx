@@ -113,7 +113,7 @@ function AddEfectos({ alternModal }) {
         }
         break;
       }
-      case "unidad de almacenamiento flash": {
+      case "unidad de almacenamiento": {
         if (bolsa_id && elementoFallado && estado) {
           return "true";
         }
@@ -168,7 +168,7 @@ function AddEfectos({ alternModal }) {
             value={efecto.bolsa_id}
             onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}
           >
-            <SelectOpt value="">Precinto</SelectOpt>
+            <SelectOpt value="">Selecciona Precinto</SelectOpt>
             {currentBolsas.map((b) => {
               if (b.estado !== "cerrada" && b.estado !== "cerrada en proceso") {
                 return (
@@ -185,7 +185,7 @@ function AddEfectos({ alternModal }) {
           </Select>
         </InputContainer>
         <InputContainer>
-          <Label>Tipo de Elemento</Label>
+          <Label>Elemento</Label>
           <Select
             disabled={efecto.edit ? true : false}
             value={efecto.tipoDeElemento}
@@ -196,7 +196,7 @@ function AddEfectos({ alternModal }) {
             <SelectOpt value="tablet">Tablet</SelectOpt>
             <SelectOpt value="notebook">Notebook</SelectOpt>
             <SelectOpt value="gabinete">Gabinete</SelectOpt>
-            <SelectOpt value="unidad de almacenamiento flash">Unidad de Almacenamiento Flash</SelectOpt>
+            <SelectOpt value="unidad de almacenamiento">Unidad de Almacenamiento</SelectOpt>
             <SelectOpt value="dvr">DVR</SelectOpt>
             <SelectOpt value="disco">Disco</SelectOpt>
           </Select>
@@ -205,7 +205,7 @@ function AddEfectos({ alternModal }) {
           <InputContainer>
             <Label>Tipo de Disco</Label>
             <Select value={efecto.tipoDeDisco} onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}>
-              <SelectOpt value="">Tipo De Disco</SelectOpt>
+              <SelectOpt value="">Rigido / Solido</SelectOpt>
               <SelectOpt value="Disco Rígido">Disco Rígido</SelectOpt>
               <SelectOpt value="Disco Sólido">Disco Sólido</SelectOpt>
             </Select>
@@ -250,24 +250,55 @@ function AddEfectos({ alternModal }) {
           <InputContainer>
             <Label>Color</Label>
             <Select value={efecto.color} onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}>
-              <SelectOpt value="">Selecciona un color</SelectOpt>
-              <SelectOpt value="negro">Negro</SelectOpt>
-              <SelectOpt value="blanco">Blanco</SelectOpt>
-              <SelectOpt value="gris">Gris</SelectOpt>
-              <SelectOpt value="rojo">Rojo</SelectOpt>
-              <SelectOpt value="azul">Azul</SelectOpt>
-              <SelectOpt value="verde">Verde</SelectOpt>
-              <SelectOpt value="amarillo">Amarillo</SelectOpt>
-              <SelectOpt value="naranja">Naranja</SelectOpt>
-              <SelectOpt value="morado">Morado</SelectOpt>
-              <SelectOpt value="rosado">Rosado</SelectOpt>
-              <SelectOpt value="marrón">Marrón</SelectOpt>
+              <SelectOpt value="">Seleccione un Color</SelectOpt>
+              <SelectOpt value="negro" style={{ backgroundColor: "black" }}>
+                Negro
+              </SelectOpt>
+              <SelectOpt value="blanco" style={{ backgroundColor: "white" }}>
+                Blanco
+              </SelectOpt>
+              <SelectOpt value="gris" style={{ backgroundColor: "gray" }}>
+                Gris
+              </SelectOpt>
+              <SelectOpt value="rojo" style={{ backgroundColor: "red" }}>
+                Rojo
+              </SelectOpt>
+              <SelectOpt value="azul" style={{ backgroundColor: "blue" }}>
+                Azul
+              </SelectOpt>
+              <SelectOpt value="verde" style={{ backgroundColor: "green" }}>
+                Verde
+              </SelectOpt>
+              <SelectOpt value="amarillo" style={{ backgroundColor: "yellow" }}>
+                Amarillo
+              </SelectOpt>
+              <SelectOpt value="naranja" style={{ backgroundColor: "orange" }}>
+                Naranja
+              </SelectOpt>
+              <SelectOpt value="morado" style={{ backgroundColor: "purple" }}>
+                Morado
+              </SelectOpt>
+              <SelectOpt value="rosado" style={{ backgroundColor: "pink" }}>
+                Rosado
+              </SelectOpt>
+              <SelectOpt value="marrón" style={{ backgroundColor: "brown" }}>
+                Marrón
+              </SelectOpt>
+              <SelectOpt value="turquesa" style={{ backgroundColor: "turquoise" }}>
+                Turquesa
+              </SelectOpt>
+              <SelectOpt value="plateado" style={{ backgroundColor: "silver" }}>
+                Plateado
+              </SelectOpt>
+              <SelectOpt value="dorado" style={{ backgroundColor: "gold" }}>
+                Dorado
+              </SelectOpt>
             </Select>
           </InputContainer>
         )}
 
         {(efecto.tipoDeElemento === "notebook" ||
-          efecto.tipoDeElemento === "unidad de almacenamiento flash" ||
+          efecto.tipoDeElemento === "unidad de almacenamiento" ||
           efecto.tipoDeElemento === "tablet" ||
           efecto.tipoDeElemento === "gabinete" ||
           efecto.tipoDeElemento === "dvr" ||
@@ -278,13 +309,13 @@ function AddEfectos({ alternModal }) {
               type="text"
               name="serialNumber"
               value={efecto.serialNumber}
-              placeholder="Serial Nº"
+              placeholder="123456789"
               onChange={(e) => setEfecto({ ...efecto, serialNumber: e.target.value.toUpperCase() })}
             />
           </InputContainer>
         )}
 
-        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento flash") && (
+        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
           <InputContainer>
             <Label>Almacenamiento</Label>
             <Input
@@ -298,14 +329,14 @@ function AddEfectos({ alternModal }) {
         )}
 
         {efecto.tipoDeElemento !== "gabinete" &&
-          efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
+          efecto.tipoDeElemento !== "unidad de almacenamiento" &&
           efecto.tipoDeElemento !== "notebook" &&
           efecto.tipoDeElemento !== "dvr" &&
           efecto.tipoDeElemento !== "disco" && (
             <InputContainer>
               <Label>¿Enciende?</Label>
               <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
-                <SelectOpt value="">¿Enciende?</SelectOpt>
+                <SelectOpt value="">Si / No</SelectOpt>
                 <SelectOpt value="si">Si</SelectOpt>
                 <SelectOpt value="no">No</SelectOpt>
               </Select>
@@ -314,14 +345,14 @@ function AddEfectos({ alternModal }) {
 
         {efecto.tipoDeElemento === ""
           ? null
-          : efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
+          : efecto.tipoDeElemento !== "unidad de almacenamiento" &&
             efecto.tipoDeElemento !== "notebook" &&
             efecto.tipoDeElemento !== "gabinete" &&
             efecto.encendido === "si" && (
               <InputContainer>
-                <Label>Herramienta Software</Label>
+                <Label>Software</Label>
                 <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
-                  <SelectOpt value="">Herramienta Software</SelectOpt>
+                  <SelectOpt value="">Seleccione Herramienta</SelectOpt>
                   <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
                   <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
                   <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
@@ -337,13 +368,13 @@ function AddEfectos({ alternModal }) {
               </InputContainer>
             )}
 
-        {efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
+        {efecto.tipoDeElemento !== "unidad de almacenamiento" &&
           efecto.tipoDeElemento !== "notebook" &&
           efecto.tipoDeElemento !== "disco" &&
           efecto.tipoDeElemento !== "gabinete" &&
           efecto.herramientaSoft !== "" && (
             <InputContainer>
-              <Label>Tipo de Seguridad</Label>
+              <Label>Seguridad</Label>
               <Select value={efecto.tipoSeguridad} onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}>
                 <SelectOpt value="">Tipo de Seguridad</SelectOpt>
                 <SelectOpt value="ninguna">Ninguna</SelectOpt>
@@ -356,13 +387,13 @@ function AddEfectos({ alternModal }) {
           )}
         {efecto.tipoDeElemento === ""
           ? null
-          : efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
+          : efecto.tipoDeElemento !== "unidad de almacenamiento" &&
             efecto.tipoSeguridad !== "ninguna" &&
             efecto.tipoSeguridad !== "" && (
               <InputContainer>
-                <Label>¿Desbloqueo por Software?</Label>
+                <Label>¿Se pudo desbloquear?</Label>
                 <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
-                  <SelectOpt value="">¿Se pudo desbloquear?</SelectOpt>
+                  <SelectOpt value="">Si / No</SelectOpt>
                   <SelectOpt value="si">Si</SelectOpt>
                   <SelectOpt value="no">No</SelectOpt>
                 </Select>
@@ -371,7 +402,7 @@ function AddEfectos({ alternModal }) {
 
         {efecto.encendido === "no" && (
           <InputContainer>
-            <Label>Observacion Encendido</Label>
+            <Label>Observacion</Label>
             <Input
               type="text"
               name="observacionEncendido"
@@ -382,11 +413,11 @@ function AddEfectos({ alternModal }) {
           </InputContainer>
         )}
 
-        {(efecto.tipoDeElemento === "unidad de almacenamiento flash" || efecto.tipoDeElemento === "disco") && (
+        {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
           <InputContainer>
             <Label>¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">¿Falla?</SelectOpt>
+              <SelectOpt value="">Si / No</SelectOpt>
               <SelectOpt value="si">Si</SelectOpt>
               <SelectOpt value="no">No</SelectOpt>
             </Select>
@@ -397,7 +428,7 @@ function AddEfectos({ alternModal }) {
           <InputContainer>
             <Label>¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">¿Falla?</SelectOpt>
+              <SelectOpt value="">Si / No</SelectOpt>
               <SelectOpt value="si">Si</SelectOpt>
               <SelectOpt value="no">No</SelectOpt>
             </Select>
@@ -406,7 +437,7 @@ function AddEfectos({ alternModal }) {
 
         {efecto.elementoFallado === "si" && (
           <InputContainer>
-            <Label>Observacion Falla</Label>
+            <Label>Observacion</Label>
             <Input
               type="text"
               name="observacionFalla"
@@ -417,9 +448,9 @@ function AddEfectos({ alternModal }) {
           </InputContainer>
         )}
 
-        {efecto.tipoDeElemento !== "unidad de almacenamiento flash" && efecto.tipoSeguridad === "ninguna" ? (
+        {efecto.tipoDeElemento !== "unidad de almacenamiento" && efecto.tipoSeguridad === "ninguna" ? (
           <InputContainer>
-            <Label>Tipo de Extracción</Label>
+            <Label>Extracción</Label>
             <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
               <SelectOpt value="">Tipo de Extracción</SelectOpt>
               <SelectOpt value="ninguna">Ninguna</SelectOpt>
@@ -430,10 +461,10 @@ function AddEfectos({ alternModal }) {
             </Select>
           </InputContainer>
         ) : (
-          efecto.tipoDeElemento !== "unidad de almacenamiento flash" &&
+          efecto.tipoDeElemento !== "unidad de almacenamiento" &&
           efecto.desbloqueo === "si" && (
             <InputContainer>
-              <Label>Tipo de Extracción</Label>
+              <Label>Extracción</Label>
               <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
                 <SelectOpt value="">Tipo de Extracción</SelectOpt>
                 <SelectOpt value="ninguna">Ninguna</SelectOpt>
@@ -446,41 +477,40 @@ function AddEfectos({ alternModal }) {
           )
         )}
 
-        {(efecto.tipoDeElemento === "unidad de almacenamiento flash" || efecto.tipoDeElemento === "disco") &&
-          efecto.elementoFallado === "no" && (
-            <>
+        {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && efecto.elementoFallado === "no" && (
+          <>
+            <InputContainer>
+              <Label>Software</Label>
+              <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
+                <SelectOpt value="">Seleccione Herramienta</SelectOpt>
+                <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+                <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+                <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+                <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+                <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+                <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+                <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
+                <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
+                <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
+                  TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
+                </SelectOpt>
+              </Select>
+            </InputContainer>
+            {efecto.herramientaSoft !== "" && (
               <InputContainer>
-                <Label>Herramienta Software</Label>
-                <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
-                  <SelectOpt value="">Herramienta Software</SelectOpt>
-                  <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-                  <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-                  <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-                  <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-                  <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-                  <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-                  <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
-                  <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
-                  <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-                    TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-                  </SelectOpt>
+                <Label>Extracción</Label>
+                <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
+                  <SelectOpt value="">Tipo de Extracción</SelectOpt>
+                  <SelectOpt value="ninguna">Ninguna</SelectOpt>
+                  <SelectOpt value="fisica">Fisica</SelectOpt>
+                  <SelectOpt value="logica">Logica</SelectOpt>
+                  <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
+                  <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
                 </Select>
               </InputContainer>
-              {efecto.herramientaSoft !== "" && (
-                <InputContainer>
-                  <Label>Tipo de Extracción</Label>
-                  <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
-                    <SelectOpt value="">Tipo de Extracción</SelectOpt>
-                    <SelectOpt value="ninguna">Ninguna</SelectOpt>
-                    <SelectOpt value="fisica">Fisica</SelectOpt>
-                    <SelectOpt value="logica">Logica</SelectOpt>
-                    <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
-                    <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-                  </Select>
-                </InputContainer>
-              )}
-            </>
-          )}
+            )}
+          </>
+        )}
 
         {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && (
           <InputContainer>
@@ -490,7 +520,7 @@ function AddEfectos({ alternModal }) {
               value={efecto.estado}
               onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}
             >
-              <SelectOpt value="">Estado</SelectOpt>
+              <SelectOpt value="">Seleccione el Estado</SelectOpt>
               <SelectOpt value="completo">Completo</SelectOpt>
               <SelectOpt value="en proceso">En Proceso</SelectOpt>
             </Select>
