@@ -65,10 +65,11 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
           />
         </InputContainer>
         <InputContainer>
-          <Label>Tipo de Extracción</Label>
+          <Label>Extracción</Label>
           <Select value={sd.tipoExtraccionSd} onChange={(e) => setSd({ ...sd, tipoExtraccionSd: e.target.value })}>
             <SelectOpt value="">Tipo de Extracción</SelectOpt>
             <SelectOpt value="ninguna">Ninguna</SelectOpt>
+            <SelectOpt value="no interes">No Interes</SelectOpt>
             <SelectOpt value="fisica">Fisica</SelectOpt>
             <SelectOpt value="logica">Logica</SelectOpt>
             <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>

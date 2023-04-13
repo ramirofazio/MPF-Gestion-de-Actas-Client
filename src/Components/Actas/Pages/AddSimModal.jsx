@@ -52,10 +52,11 @@ function AddSimModal({ sims, setSims, setAddSimModal, toast }) {
           />
         </InputContainer>
         <InputContainer>
-          <Label>Tipo de Extracción</Label>
+          <Label>Extracción</Label>
           <Select value={sim.tipoExtraccionSim} onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}>
             <SelectOpt value="">Tipo de Extracción</SelectOpt>
             <SelectOpt value="ninguna">Ninguna</SelectOpt>
+            <SelectOpt value="no interes">No Interes</SelectOpt>
             <SelectOpt value="fisica">Fisica</SelectOpt>
             <SelectOpt value="logica">Logica</SelectOpt>
             <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
