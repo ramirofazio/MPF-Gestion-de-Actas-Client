@@ -120,7 +120,7 @@ function AddBolsas() {
     if (currentActa.estado !== "para completar") {
       toast.warning("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!", {
         position: "top-center",
-        autoClose: false,
+        autoClose: 10000,
       });
     }
     setCloseBagsModal(!closeBagsModal);
@@ -245,7 +245,7 @@ function AddBolsas() {
               onClick={() => handleSubmitBolsa()}
               to="#"
             >
-              Añadir Bolsa
+              Agregar Bolsa
             </Button>
           </>
         ) : (
@@ -265,11 +265,11 @@ function AddBolsas() {
                 to="#"
               >
                 {bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones && currentActa.estado === "en creacion"
-                  ? "Añadir Bolsa"
-                  : "Añadir Elementos"}
+                  ? "Agregar Bolsa"
+                  : "Agregar Elementos"}
               </Button>
               <Button complete={handleCompleteCloseBags()} onClick={() => handleCloseBags()} to="#">
-                Cerrar Bolsas
+                Agregar Precinto Blanco / Leyenda
               </Button>
             </>
           )

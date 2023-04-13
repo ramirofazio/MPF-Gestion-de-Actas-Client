@@ -168,7 +168,7 @@ function AddEfectos({ alternModal }) {
             value={efecto.bolsa_id}
             onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}
           >
-            <SelectOpt value="">Selecciona Precinto</SelectOpt>
+            <SelectOpt value="">Seleccione Precinto</SelectOpt>
             {currentBolsas.map((b) => {
               if (b.estado !== "cerrada" && b.estado !== "cerrada en proceso") {
                 return (
@@ -500,7 +500,7 @@ function AddEfectos({ alternModal }) {
         )}
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
-          <Button type="submit" value={efecto.edit ? "Guardar" : "Cargar Elemento"} complete={handleComplete()} />
+          <Button type="submit" value={efecto.edit ? "Guardar" : "Agregar"} complete={handleComplete()} />
           {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
             <>
               <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">

@@ -75,7 +75,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
             <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
           </Select>
         </InputContainer>
-        <Button type="submit" value="Agregar SD" complete={sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"} />
+        <Button type="submit" value="Agregar" complete={sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"} />
       </Form>
     </>
   );

@@ -42,7 +42,7 @@ function CloseModal({ closeModal }) {
   if (bagsToClose.length !== 0) {
     return (
       <CloseBagsCompleted
-        closeModal={closeModal}s
+        closeModal={closeModal}
         dispatch={dispatch}
         bagsToClose={bagsToClose}
         updateBolsa={updateBolsa}

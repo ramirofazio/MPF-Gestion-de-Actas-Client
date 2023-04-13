@@ -21,11 +21,11 @@ function CloseBagsCompleted({ closeModal, dispatch, bagsToClose, updateBolsa, ac
 
   return (
     <Form onSubmit={(e) => handleCompleteSubmit(e)}>
-      <Title>Cerrar Bolsas</Title>
+      <Title>Cerrar Bolsa Completa</Title>
       <InputContainer>
         <Label>Bolsa</Label>
         <Select value={state.id} onChange={(e) => setState({ ...state, id: Number(e.target.value) })}>
-          <SelectOpt value="">Precinto</SelectOpt>
+          <SelectOpt value="">Seleccione Precinto</SelectOpt>
           {bagsToClose.length > 0 &&
             bagsToClose.map(({ nroPrecinto, id, colorPrecinto }) => (
               <SelectOpt value={id} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
@@ -44,7 +44,7 @@ function CloseBagsCompleted({ closeModal, dispatch, bagsToClose, updateBolsa, ac
           onChange={(e) => setState({ ...state, nroPrecintoBlanco: e.target.value })}
         />
       </InputContainer>
-      <Button type="submit" value="Cerrar Bolsa" complete={state.nroPrecintoBlanco !== "" && state.nroPrecinto !== "" ? "true" : "false"} />
+      <Button type="submit" value="Guardar" complete={state.nroPrecintoBlanco !== "" && state.nroPrecinto !== "" ? "true" : "false"} />
     </Form>
   );
 }

@@ -27,9 +27,9 @@ function CloseBagsInProcess({ closeModal, dispatch, bagsInProcess, updateBolsa, 
     <Form onSubmit={(e) => handleInProcessSubmit(e)}>
       <Title>Cerrar Bolsa en Proceso</Title>
       <InputContainer>
-        <Label>Nro Precinto Bolsa</Label>
+        <Label>Bolsa</Label>
         <Select value={inProcessState.id} onChange={(e) => setInProcessState({ ...inProcessState, id: Number(e.target.value) })}>
-          <SelectOpt value="">Nro Precinto Bolsa</SelectOpt>
+          <SelectOpt value="">Seleccione Precinto</SelectOpt>
           {bagsInProcess.length > 0 &&
             bagsInProcess.map(({ nroPrecinto, id, colorPrecinto }) => (
               <SelectOpt value={id} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
@@ -50,7 +50,7 @@ function CloseBagsInProcess({ closeModal, dispatch, bagsInProcess, updateBolsa, 
       </InputContainer>
       <Button
         type="submit"
-        value="Cerrar Bolsa en Proceso"
+        value="Guardar"
         complete={inProcessState.id !== "" && inProcessState.leyenda !== "" ? "true" : "false"}
       />
     </Form>

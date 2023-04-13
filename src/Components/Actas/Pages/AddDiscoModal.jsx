@@ -158,7 +158,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
         </InputContainer>
         <Button
           type="submit"
-          value="Agregar Disco"
+          value="Agregar"
           complete={disco.tipoDeDisco && disco.discoFallado && disco.estadoDisco ? "true" : "false"}
         />
       </Form>
