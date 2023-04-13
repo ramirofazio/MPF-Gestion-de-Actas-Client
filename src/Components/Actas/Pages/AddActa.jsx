@@ -212,7 +212,7 @@ function AddActa() {
                 <SelectOpt>UFEIDE - Equipo de Análisis Preliminar</SelectOpt>
                 <SelectOpt>UFEIDE - Equipo de Análisis Preliminar (Investigación)</SelectOpt>
                 <SelectOpt>UFEIDE - Investigación</SelectOpt>
-                <SelectOpt>UFEDyCDI - Unidad Fiscal Especializada en Delitos y Contravenciones Informáticas</SelectOpt>
+                <SelectOpt>UFEDyCI - Unidad Fiscal Especializada en Delitos y Contravenciones Informáticas</SelectOpt>
                 <SelectOpt>UFN - Área de Casos Especiales</SelectOpt>
                 <SelectOpt>UFN - Equipo Especializado en Violencia de Género</SelectOpt>
                 <SelectOpt>UFN - Unidad Coordinadora</SelectOpt>
