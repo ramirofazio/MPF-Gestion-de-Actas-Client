@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
-import { Close } from "@styled-icons/ionicons-outline/Close";
 import { toast } from "react-toastify";
 //* Modal
 import Modal from "react-modal";
@@ -68,6 +67,7 @@ function AddEfectos({ alternModal }) {
       elementoFallado: "",
       observacionFalla: "",
       color: "",
+      unidadAlmacenamientoDetalle: "",
     }
   );
 
@@ -208,6 +208,26 @@ function AddEfectos({ alternModal }) {
               <SelectOpt value="">Rigido / Solido</SelectOpt>
               <SelectOpt value="Disco Rígido">Disco Rígido</SelectOpt>
               <SelectOpt value="Disco Sólido">Disco Sólido</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
+
+        {efecto.tipoDeElemento === "unidad de almacenamiento" && (
+          <InputContainer>
+            <Label>Detalle de la unidad</Label>
+            <Select
+              value={efecto.unidadAlmacenamientoDetalle}
+              onChange={(e) =>
+                setEfecto({
+                  ...efecto,
+                  unidadAlmacenamientoDetalle: e.target.value,
+                })
+              }
+            >
+              <SelectOpt value="">Seleccione</SelectOpt>
+              <SelectOpt value="Pendrive">Pendrive</SelectOpt>
+              <SelectOpt value="DVD">Disco DVD</SelectOpt>
+              <SelectOpt value="CD">Disco CD</SelectOpt>
             </Select>
           </InputContainer>
         )}
@@ -629,20 +649,5 @@ const OptButton = styled.button`
     background-color: white;
     color: ${principalColor};
     border: 2px solid transparent;
-  }
-`;
-
-const CloseIcon = styled(Close)`
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 8%;
-  margin-top: 1%;
-  color: white;
-  transition: all 0.5s ease;
-
-  &:hover {
-    color: ${secondaryColor};
-    cursor: pointer;
   }
 `;
