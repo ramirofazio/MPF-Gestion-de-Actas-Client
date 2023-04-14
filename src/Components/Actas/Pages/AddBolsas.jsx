@@ -140,8 +140,6 @@ function AddBolsas() {
     );
   };
 
-  console.log(addEfectosModal);
-
   return (
     <Container>
       <Header>
