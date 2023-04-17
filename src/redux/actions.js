@@ -27,7 +27,7 @@ export function EditEfecto(efecto, discos, sims, sds, acta_id) {
       .put(Variables.baseEndpoint + `/editEfecto`, { efecto, discos, sims, sds, acta_id })
       .then((res) => {
         if (res.status === 200) {
-          toast.success("¡Efecto editado con exito!");
+          toast.success("¡Elemento editado con exito!");
         }
         return dispatch({
           type: UPDATE_EFECTOS,
@@ -63,7 +63,7 @@ export function removeActa(acta_id) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al eliminar Efecto");
+        toast.error("¡Error al eliminar Elemento!");
       });
   };
 }
@@ -74,7 +74,7 @@ export function removeEfecto(efecto_id, acta_id) {
       .delete(Variables.baseEndpoint + `/removeEfecto?efecto_id=${efecto_id}`)
       .then((res) => {
         if (res.status === 200) {
-          toast.success("¡Efecto eliminado con exito!");
+          toast.success("¡Elemento eliminado con exito!");
         }
         return dispatch({
           type: UPDATE_EFECTOS,
@@ -91,7 +91,7 @@ export function removeEfecto(efecto_id, acta_id) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al eliminar Efecto!");
+        toast.error("¡Error al eliminar Elemento!");
       });
   };
 }
@@ -159,7 +159,7 @@ export function createActa(state, flag, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear la acta");
+        toast.error("¡Error al crear  acta!");
       });
   };
 }
@@ -171,7 +171,7 @@ export function createPeritos(peritos, navigate) {
       .then((res) => {
         if (res.status === 200) {
           navigate("/actas/crear/3");
-          toast.success("¡Perito creados con exito!");
+          toast.success("¡Peritos creados con exito!");
         }
         return dispatch({
           type: CREATE_PERITOS,
@@ -180,7 +180,7 @@ export function createPeritos(peritos, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear Perito");
+        toast.error("¡Error al crear Peritos!");
       });
   };
 }
@@ -201,7 +201,7 @@ export function createIntegrantes(integrantes, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear Integrantes");
+        toast.error("¡Error al crear Integrantes!");
       });
   };
 }
@@ -221,7 +221,7 @@ export function createBolsas(bolsa) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear la bolsa");
+        toast.error("¡Error al crear bolsa!");
       });
   };
 }
@@ -232,7 +232,7 @@ export function createEfecto(efecto, discos, sims, sds, acta_id) {
       .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims, sds })
       .then((res) => {
         if (res.status === 200) {
-          toast.success("¡Efecto creado con exito!");
+          toast.success("¡Elemento creado con exito!");
         }
         return dispatch({
           type: CREATE_EFECTOS,
@@ -249,7 +249,7 @@ export function createEfecto(efecto, discos, sims, sds, acta_id) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear Efecto");
+        toast.error("¡Error al crear Elemento!");
       });
   };
 }
@@ -335,7 +335,7 @@ export function removePerito(legajo, acta_id) {
     axios
       .delete(Variables.baseEndpoint + `/removePerito?legajo=${legajo}&acta_id=${acta_id}`)
       .then((res) => {
-        if (res.status === 200) toast.success("Perito eliminado con exito!");
+        if (res.status === 200) toast.success("¡Perito eliminado con exito!");
       })
       .catch((err) => {
         console.log(err);
@@ -446,7 +446,7 @@ export function createUsers() {
       },
       {
         id: 5,
-        nombreYApellido: "Leando Antonio Pollastrini",
+        nombreYApellido: "Leandro Antonio Pollastrini",
         legajo: 6003,
         cargo: "Escribiente",
         username: "lpollastrini",
@@ -475,6 +475,14 @@ export function createUsers() {
         cargo: "Auxiliar de Servicio",
         username: "falvarez",
         password: "Falvarez8772",
+      },
+      {
+        id: 9,
+        nombreYApellido: "Juan Ignacio Burgos",
+        legajo: 20381,
+        cargo: "NINGUNO",
+        username: "jburgos",
+        password: "Jburgos20381",
       },
     ]);
   };
