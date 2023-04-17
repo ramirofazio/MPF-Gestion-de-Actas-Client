@@ -11,6 +11,7 @@ import { Computer } from "@styled-icons/material-outlined/Computer";
 import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
+import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
 const { cardTitle, cardInfo } = GlobalStyles;
@@ -29,6 +30,10 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
   }, []);
 
   const LoadEfecto = () => {
+    toast.warning("¡Para ver reflejados los cambios hay que guardar el elemento!", {
+      position: "top-center",
+      autoClose: 5000,
+    });
     localStorage.setItem("currentEfecto", JSON.stringify({ ...efecto, edit: true }));
     setAddEfectosModal(true);
     renderAddEfectosModal();
@@ -295,7 +300,7 @@ const DeleteIcon = styled(Delete)`
 
 const EditIcon = styled(DocumentEdit)`
   width: 25px;
-  margin-right: 40px;
+  margin-right: 15px;
   color: ${secondaryColor};
   transition: all 0.3s ease;
 
