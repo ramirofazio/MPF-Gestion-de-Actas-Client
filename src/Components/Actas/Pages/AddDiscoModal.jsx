@@ -9,18 +9,26 @@ const { button, select, input } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 
 function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
-  const [disco, setDisco] = React.useState({
-    tipoDeDisco: "",
-    marca: "",
-    modelo: "",
-    almacenamiento: "",
-    serialNumber: "",
-    tipoExtraccionDisco: "",
-    herramientaSoftDisco: "",
-    estadoDisco: "",
-    discoFallado: "",
-    observacionFallaDisco: "",
+  React.useEffect(() => {
+    return () => {
+      localStorage.setItem("currentDisco", null);
+    };
   });
+
+  const [disco, setDisco] = React.useState(
+    JSON.parse(localStorage.getItem("currentDisco")) || {
+      tipoDeDisco: "",
+      marca: "",
+      modelo: "",
+      almacenamiento: "",
+      serialNumber: "",
+      tipoExtraccionDisco: "",
+      herramientaSoftDisco: "",
+      estadoDisco: "",
+      discoFallado: "",
+      observacionFallaDisco: "",
+    }
+  );
 
   const handleDiscoSubmit = (e) => {
     e.preventDefault();
@@ -38,20 +46,24 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
       discoFallado: "",
       observacionFallaDisco: "",
     });
-    toast.success("¡Disco Guardado con Exito!");
+    if (disco.edit) {
+      toast.success("¡Disco Editado con Exito!");
+    } else {
+      toast.success("¡Disco Guardado con Exito!");
+    }
   };
 
   return (
     <>
       <CloseIcon onClick={() => setAddDiscoModal(false)} />
       <Form onSubmit={handleDiscoSubmit}>
-        <Title>Agregar Disco</Title>
+        <Title>{disco.edit ? "Editar" : "Agregar"} Disco</Title>
         <InputContainer>
           <Label>Tipo de Disco</Label>
-          <Select value={disco.tipoDeDisco} onChange={(e) => setDisco({ ...disco, tipoDeDisco: e.target.value })}>
+          <Select disabled={disco.edit} value={disco.tipoDeDisco} onChange={(e) => setDisco({ ...disco, tipoDeDisco: e.target.value })}>
             <SelectOpt value="">Tipo De Disco</SelectOpt>
-            <SelectOpt value="Disco Rígido">Disco Rígido</SelectOpt>
-            <SelectOpt value="Disco Sólido">Disco Sólido</SelectOpt>
+            <SelectOpt value="Disco Rigido">Disco Rigido</SelectOpt>
+            <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
           </Select>
         </InputContainer>
         <InputContainer>
@@ -158,7 +170,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
         </InputContainer>
         <Button
           type="submit"
-          value="Agregar"
+          value={disco.edit ? "Guardar" : "Agregar"}
           complete={disco.tipoDeDisco && disco.discoFallado && disco.estadoDisco ? "true" : "false"}
         />
       </Form>

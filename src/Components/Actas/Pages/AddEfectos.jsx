@@ -13,6 +13,7 @@ import Modal from "react-modal";
 import AddDiscoModal from "./AddDiscoModal";
 import AddSimModal from "./AddSimModal";
 import AddSdModal from "./AddSdModal";
+import EditDiscoModal from "./EditDiscoModal";
 //* Initializations
 const { button, select, input, modal40x40 } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
@@ -22,6 +23,7 @@ const modal40x30 = {
     ...modal40x40.content,
     width: "30%",
     height: "max-content",
+    minHeight: "50%",
   },
 };
 
@@ -38,6 +40,7 @@ function AddEfectos({ alternModal }) {
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
 
   const [addDiscosModal, setAddDiscosModal] = React.useState(false);
+  const [editDiscosModal, setEditDiscosModal] = React.useState(false);
   const [discos, setDiscos] = React.useState([]);
 
   const [addSimModal, setAddSimModal] = React.useState(false);
@@ -155,6 +158,19 @@ function AddEfectos({ alternModal }) {
         break;
       }
     }
+  };
+
+  const handleEditDiscoButtonClick = (e) => {
+    e.preventDefault();
+    setEditDiscosModal(true);
+  };
+
+  const renderAddDiscoModal = () => {
+    return (
+      <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
+        <AddDiscoModal discos={discos} setDiscos={setDiscos} setAddDiscoModal={setAddDiscosModal} toast={toast} />
+      </Modal>
+    );
   };
 
   return (
@@ -533,16 +549,14 @@ function AddEfectos({ alternModal }) {
           )}
 
           {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "gabinete" || efecto.tipoDeElemento === "dvr") && (
-            <OptButton onClick={(e) => handleOptButtonClick(e)} value="discos">
-              Agregar Discos
+            <OptButton onClick={(e) => (efecto.edit ? handleEditDiscoButtonClick(e) : handleOptButtonClick(e))} value="discos">
+              {efecto.edit ? "Agregar/Editar Discos" : "Agregar Discos"}
             </OptButton>
           )}
         </div>
       </Form>
 
-      <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
-        <AddDiscoModal discos={discos} setDiscos={setDiscos} setAddDiscoModal={setAddDiscosModal} toast={toast} />
-      </Modal>
+      {renderAddDiscoModal()}
 
       <Modal isOpen={addSimModal} style={modal40x30} ariaHideApp={false}>
         <AddSimModal sims={sims} setSims={setSims} setAddSimModal={setAddSimModal} toast={toast} />
@@ -550,6 +564,19 @@ function AddEfectos({ alternModal }) {
 
       <Modal isOpen={addSdModal} style={modal40x30} ariaHideApp={false}>
         <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdModal} toast={toast} />
+      </Modal>
+
+      <Modal
+        isOpen={editDiscosModal}
+        style={{ content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" } }}
+        ariaHideApp={false}
+      >
+        <EditDiscoModal
+          setEditDiscosModal={setEditDiscosModal}
+          setAddDiscosModal={setAddDiscosModal}
+          discos={efecto.Discos}
+          renderAddDiscoModal={renderAddDiscoModal}
+        />
       </Modal>
     </>
   );
