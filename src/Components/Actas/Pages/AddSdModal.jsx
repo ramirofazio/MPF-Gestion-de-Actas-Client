@@ -9,12 +9,20 @@ const { button, select, input } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 
 function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
-  const [sd, setSd] = React.useState({
-    marca: "",
-    serialNumber: "",
-    almacenamiento: "",
-    tipoExtraccionSd: "",
+  React.useEffect(() => {
+    return () => {
+      localStorage.setItem("currentSd", null);
+    };
   });
+
+  const [sd, setSd] = React.useState(
+    JSON.parse(localStorage.getItem("currentSd")) || {
+      marca: "",
+      serialNumber: "",
+      almacenamiento: "",
+      tipoExtraccionSd: "",
+    }
+  );
 
   const handleSdSubmit = (e) => {
     e.preventDefault();
@@ -26,14 +34,18 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
       almacenamiento: "",
       tipoExtraccionSd: "",
     });
-    toast.success("¡SD Guardada con Exito!");
+    if (sd.edit) {
+      toast.success("¡Sd Editada con Exito!");
+    } else {
+      toast.success("¡Sd Guardada con Exito!");
+    }
   };
 
   return (
     <>
       <CloseIcon onClick={() => setAddSdModal(false)} />
       <Form onSubmit={handleSdSubmit}>
-        <Title>Agregar SD</Title>
+        <Title>{sd.edit ? "Editar" : "Agregar"} SD</Title>
         <InputContainer>
           <Label>Marca</Label>
           <Input

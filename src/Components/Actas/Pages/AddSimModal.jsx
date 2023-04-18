@@ -9,11 +9,19 @@ const { button, select, input } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 
 function AddSimModal({ sims, setSims, setAddSimModal, toast }) {
-  const [sim, setSim] = React.useState({
-    empresaSim: "",
-    serialSim: "",
-    tipoExtraccionSim: "",
+  React.useEffect(() => {
+    return () => {
+      localStorage.setItem("currentSim", null);
+    };
   });
+
+  const [sim, setSim] = React.useState(
+    JSON.parse(localStorage.getItem("currentSim")) || {
+      empresaSim: "",
+      serialSim: "",
+      tipoExtraccionSim: "",
+    }
+  );
 
   const handleSimSubmit = (e) => {
     e.preventDefault();
@@ -24,13 +32,17 @@ function AddSimModal({ sims, setSims, setAddSimModal, toast }) {
       serialSim: "",
       tipoExtraccionSim: "",
     });
-    toast.success("¡Sim Guardado con Exito!");
+    if (sim.edit) {
+      toast.success("¡Sim Editado con Exito!");
+    } else {
+      toast.success("¡Sim Guardado con Exito!");
+    }
   };
   return (
     <>
       <CloseIcon onClick={() => setAddSimModal(false)} />
       <Form onSubmit={handleSimSubmit}>
-        <Title>Agregar SIM</Title>
+        <Title>{sim.edit ? "Editar Sim" : "Agregar SIM"}</Title>
         <InputContainer>
           <Label>Empresa Sim</Label>
           <Input

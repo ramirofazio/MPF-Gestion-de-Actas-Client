@@ -14,6 +14,8 @@ import AddDiscoModal from "./AddDiscoModal";
 import AddSimModal from "./AddSimModal";
 import AddSdModal from "./AddSdModal";
 import EditDiscoModal from "./EditDiscoModal";
+import EditSimModal from "./EditSimModal";
+import EditSdsModal from "./EditSdModal";
 //* Initializations
 const { button, select, input, modal40x40 } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
@@ -43,10 +45,12 @@ function AddEfectos({ alternModal }) {
   const [editDiscosModal, setEditDiscosModal] = React.useState(false);
   const [discos, setDiscos] = React.useState([]);
 
-  const [addSimModal, setAddSimModal] = React.useState(false);
+  const [addSimsModal, setAddSimsModal] = React.useState(false);
+  const [editSimsModal, setEditSimsModal] = React.useState(false);
   const [sims, setSims] = React.useState([]);
 
-  const [addSdModal, setAddSdModal] = React.useState(false);
+  const [addSdsModal, setAddSdsModal] = React.useState(false);
+  const [editSdsModal, setEditSdsModal] = React.useState(false);
   const [sds, setSds] = React.useState([]);
 
   const [efecto, setEfecto] = React.useState(
@@ -143,7 +147,7 @@ function AddEfectos({ alternModal }) {
     e.preventDefault();
     switch (e.target.value) {
       case "sim": {
-        setAddSimModal(true);
+        setAddSimsModal(true);
         break;
       }
       case "discos": {
@@ -169,6 +173,32 @@ function AddEfectos({ alternModal }) {
     return (
       <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
         <AddDiscoModal discos={discos} setDiscos={setDiscos} setAddDiscoModal={setAddDiscosModal} toast={toast} />
+      </Modal>
+    );
+  };
+
+  const handleEditSimButtonClick = (e) => {
+    e.preventDefault();
+    setEditSimsModal(true);
+  };
+
+  const renderAddSimModal = () => {
+    return (
+      <Modal isOpen={addSimsModal} style={modal40x30} ariaHideApp={false}>
+        <AddSimModal sims={sims} setSims={setSims} setAddSimModal={setAddSimsModal} toast={toast} />
+      </Modal>
+    );
+  };
+
+  const handleEditSdButtonClick = (e) => {
+    e.preventDefault();
+    setEditSdsModal(true);
+  };
+
+  const renderAddSdModal = () => {
+    return (
+      <Modal isOpen={addSdsModal} style={modal40x30} ariaHideApp={false}>
+        <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdsModal} toast={toast} />
       </Modal>
     );
   };
@@ -539,11 +569,11 @@ function AddEfectos({ alternModal }) {
           <Button type="submit" value={efecto.edit ? "Guardar" : "Agregar"} complete={handleComplete()} />
           {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
             <>
-              <OptButton onClick={(e) => handleOptButtonClick(e)} value="sim">
-                Agregar SIM
+              <OptButton onClick={(e) => (efecto.edit ? handleEditSimButtonClick(e) : handleOptButtonClick(e))} value="sim">
+                {efecto.edit ? "Agregar/Editar Sim" : "Agregar Sim"}
               </OptButton>
-              <OptButton onClick={(e) => handleOptButtonClick(e)} value="sd">
-                Agregar SD
+              <OptButton onClick={(e) => (efecto.edit ? handleEditSdButtonClick(e) : handleOptButtonClick(e))} value="sd">
+                {efecto.edit ? "Agregar/Editar Sd" : "Agregar Sd"}
               </OptButton>
             </>
           )}
@@ -557,14 +587,8 @@ function AddEfectos({ alternModal }) {
       </Form>
 
       {renderAddDiscoModal()}
-
-      <Modal isOpen={addSimModal} style={modal40x30} ariaHideApp={false}>
-        <AddSimModal sims={sims} setSims={setSims} setAddSimModal={setAddSimModal} toast={toast} />
-      </Modal>
-
-      <Modal isOpen={addSdModal} style={modal40x30} ariaHideApp={false}>
-        <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdModal} toast={toast} />
-      </Modal>
+      {renderAddSimModal()}
+      {renderAddSdModal()}
 
       <Modal
         isOpen={editDiscosModal}
@@ -576,6 +600,32 @@ function AddEfectos({ alternModal }) {
           setAddDiscosModal={setAddDiscosModal}
           discos={efecto.Discos}
           renderAddDiscoModal={renderAddDiscoModal}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={editSimsModal}
+        style={{ content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" } }}
+        ariaHideApp={false}
+      >
+        <EditSimModal
+          setEditSimsModal={setEditSimsModal}
+          setAddSimsModal={setAddSimsModal}
+          sims={efecto.Sims}
+          renderAddSimModal={renderAddSimModal}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={editSdsModal}
+        style={{ content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" } }}
+        ariaHideApp={false}
+      >
+        <EditSdsModal
+          setEditSdsModal={setEditSdsModal}
+          setAddSdsModal={setAddSdsModal}
+          sds={efecto.Sds}
+          renderAddSdModal={renderAddSdModal}
         />
       </Modal>
     </>
