@@ -91,7 +91,7 @@ function AddPeritos() {
         <FormContainer>
           <Form>
             <InputContainer>
-              <Label>Elegir Perito</Label>
+              <Label>*Elegir Perito</Label>
               <Select onChange={(e) => peritoSelected(JSON.parse(e.target.value))}>
                 <SelectOpt value="">Elegir Perito</SelectOpt>
                 {users && users.map((u) => u.username !== "admin" && <SelectOpt value={JSON.stringify(u)}>{u.nombreYApellido}</SelectOpt>)}

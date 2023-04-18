@@ -127,8 +127,8 @@ function AddActa() {
       </Header>
       <FormContainer>
         <InputContainer>
-          <Label>Tipo de Acta</Label>
-          <Select disabled={comeBack ? true : false} onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
+          <Label>*Tipo de Acta</Label>
+          <Select  disabled={comeBack ? true : false} onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
             <SelectOpt>Tipo de Acta</SelectOpt>
             <SelectOpt>MPF/DEN</SelectOpt>
             <SelectOpt>COOP</SelectOpt>
@@ -137,7 +137,7 @@ function AddActa() {
         {tipoDeActa === "MPF/DEN" ? (
           <>
             <InputContainer>
-              <Label>Solicitante</Label>
+              <Label>*Solicitante</Label>
               <Select
                 disabled={comeBack ? true : false}
                 onChange={(e) => setActa({ ...acta, solicitante: e.target.value })}
@@ -244,7 +244,7 @@ function AddActa() {
             </InputContainer>
             <Form>
               <InputContainer>
-                <Label>Nro MPF/DEN</Label>
+                <Label>*Nro MPF/DEN</Label>
                 <Input
                   disabled={comeBack ? true : false}
                   type="text"
@@ -255,7 +255,7 @@ function AddActa() {
                 />
               </InputContainer>
               <InputContainer>
-                <Label>Nro CIJ</Label>
+                <Label>*Nro CIJ</Label>
                 <Input
                   disabled={comeBack ? true : false}
                   type="text"
@@ -266,7 +266,7 @@ function AddActa() {
                 />
               </InputContainer>
               <InputContainer>
-                <Label>Nro DIL</Label>
+                <Label>*Nro DIL</Label>
                 <Input
                   disabled={comeBack ? true : false}
                   type="text"
@@ -281,7 +281,7 @@ function AddActa() {
         ) : tipoDeActa === "COOP" ? (
           <Form style={{ height: "80%" }}>
             <InputContainer>
-              <Label>Solicitante</Label>
+              <Label>*Solicitante</Label>
               <Input
                 disabled={comeBack ? true : false}
                 type="text"
@@ -292,7 +292,7 @@ function AddActa() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Nro Coop</Label>
+              <Label>*Nro Coop</Label>
               <Input
                 disabled={comeBack ? true : false}
                 type="text"
@@ -303,7 +303,7 @@ function AddActa() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Nro Causa</Label>
+              <Label>*Nro Causa</Label>
               <Input
                 disabled={comeBack ? true : false}
                 type="text"
@@ -325,7 +325,7 @@ function AddActa() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Nro CIJ</Label>
+              <Label>*Nro CIJ</Label>
               <Input
                 disabled={comeBack ? true : false}
                 type="text"
@@ -336,7 +336,7 @@ function AddActa() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Nro DIL</Label>
+              <Label>*Nro DIL</Label>
               <Input
                 disabled={comeBack ? true : false}
                 type="text"

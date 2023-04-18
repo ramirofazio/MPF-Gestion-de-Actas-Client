@@ -8,7 +8,7 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 const { button, select, input } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 
-function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
+function AddSdModal({ sds, setSds, setAddSdsModal, toast }) {
   React.useEffect(() => {
     return () => {
       localStorage.setItem("currentSd", null);
@@ -26,7 +26,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
 
   const handleSdSubmit = (e) => {
     e.preventDefault();
-    setAddSdModal(false);
+    setAddSdsModal(false);
     setSds([...sds, sd]);
     setSd({
       marca: "",
@@ -43,7 +43,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
 
   return (
     <>
-      <CloseIcon onClick={() => setAddSdModal(false)} />
+      <CloseIcon onClick={() => setAddSdsModal(false)} />
       <Form onSubmit={handleSdSubmit}>
         <Title>{sd.edit ? "Editar" : "Agregar"} SD</Title>
         <InputContainer>
@@ -67,7 +67,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
           />
         </InputContainer>
         <InputContainer>
-          <Label>Almacenamiento</Label>
+          <Label>*Almacenamiento</Label>
           <Input
             type="text"
             name="almacenamiento"
@@ -77,7 +77,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
           />
         </InputContainer>
         <InputContainer>
-          <Label>Extracción</Label>
+          <Label>*Extracción</Label>
           <Select value={sd.tipoExtraccionSd} onChange={(e) => setSd({ ...sd, tipoExtraccionSd: e.target.value })}>
             <SelectOpt value="">Tipo de Extracción</SelectOpt>
             <SelectOpt value="ninguna">Ninguna</SelectOpt>
@@ -88,7 +88,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
             <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
           </Select>
         </InputContainer>
-        <Button type="submit" value="Agregar" complete={sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"} />
+        <Button type="submit" value={sd.edit ? "Guardar" : "Agregar"} complete={sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"} />
       </Form>
     </>
   );

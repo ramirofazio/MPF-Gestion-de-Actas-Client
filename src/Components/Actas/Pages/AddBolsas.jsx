@@ -149,7 +149,7 @@ function AddBolsas() {
         <Form>
           <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
             <InputContainer>
-              <Label>Precinto de Apertura</Label>
+              <Label>*Precinto de Apertura</Label>
               <Select
                 disabled={currentActa.estado !== "en creacion"}
                 value={bolsa.colorPrecinto}
@@ -162,7 +162,7 @@ function AddBolsas() {
               </Select>
             </InputContainer>
             <InputContainer>
-              <Label>N° Precinto</Label>
+              <Label>*N° Precinto</Label>
               <Input
                 disabled={currentActa.estado !== "en creacion"}
                 type="number"
@@ -174,7 +174,7 @@ function AddBolsas() {
             </InputContainer>
           </div>
           <InputContainer style={{ width: "100%", marginTop: "5%" }}>
-            <Label>Observaciones/Descripción de la Bolsa</Label>
+            <Label>*Observaciones/Descripción de la Bolsa</Label>
             <Input
               disabled={currentActa.estado !== "en creacion"}
               type="text"

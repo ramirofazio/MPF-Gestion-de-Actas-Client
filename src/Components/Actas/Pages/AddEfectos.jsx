@@ -25,7 +25,7 @@ const modal40x30 = {
     ...modal40x40.content,
     width: "30%",
     height: "max-content",
-    minHeight: "50%",
+    minHeight: "30%",
   },
 };
 
@@ -93,47 +93,47 @@ function AddEfectos({ alternModal }) {
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, elementoFallado } = efecto;
+    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, elementoFallado, color } = efecto;
 
     switch (tipoDeElemento) {
       case "celular": {
-        if (bolsa_id && estado && encendido) {
+        if (bolsa_id && estado && encendido && color && elementoFallado) {
           return "true";
         }
         break;
       }
       case "tablet": {
-        if (bolsa_id && estado && encendido) {
+        if (bolsa_id && estado && encendido && color && elementoFallado) {
           return "true";
         }
         break;
       }
       case "notebook": {
-        if (bolsa_id) {
+        if (bolsa_id && color) {
           return "true";
         }
         break;
       }
       case "gabinete": {
-        if (bolsa_id) {
+        if (bolsa_id && color) {
           return "true";
         }
         break;
       }
       case "unidad de almacenamiento": {
-        if (bolsa_id && elementoFallado && estado) {
+        if (bolsa_id && elementoFallado && estado && color) {
           return "true";
         }
         break;
       }
       case "dvr": {
-        if (bolsa_id && estado) {
+        if (bolsa_id && estado && color) {
           return "true";
         }
         break;
       }
       case "disco": {
-        if (bolsa_id && tipoDeDisco && estado) {
+        if (bolsa_id && tipoDeDisco && estado && color && elementoFallado) {
           return "true";
         }
         break;
@@ -155,7 +155,7 @@ function AddEfectos({ alternModal }) {
         break;
       }
       case "sd": {
-        setAddSdModal(true);
+        setAddSdsModal(true);
         break;
       }
       default: {
@@ -198,7 +198,7 @@ function AddEfectos({ alternModal }) {
   const renderAddSdModal = () => {
     return (
       <Modal isOpen={addSdsModal} style={modal40x30} ariaHideApp={false}>
-        <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdsModal} toast={toast} />
+        <AddSdModal sds={sds} setSds={setSds} setAddSdsModal={setAddSdsModal} toast={toast} />
       </Modal>
     );
   };
@@ -208,7 +208,7 @@ function AddEfectos({ alternModal }) {
       <Form onSubmit={handleSubmit}>
         <Title>{efecto.edit ? "Editar Elemento" : "Agregar Elemento"}</Title>
         <InputContainer>
-          <Label>Bolsa</Label>
+          <Label>*Bolsa</Label>
           <Select
             disabled={efecto.edit ? true : false}
             value={efecto.bolsa_id}
@@ -231,7 +231,7 @@ function AddEfectos({ alternModal }) {
           </Select>
         </InputContainer>
         <InputContainer>
-          <Label>Elemento</Label>
+          <Label>*Elemento</Label>
           <Select
             disabled={efecto.edit ? true : false}
             value={efecto.tipoDeElemento}
@@ -249,7 +249,7 @@ function AddEfectos({ alternModal }) {
         </InputContainer>
         {efecto.tipoDeElemento === "disco" && (
           <InputContainer>
-            <Label>Tipo de Disco</Label>
+            <Label>*Tipo de Disco</Label>
             <Select value={efecto.tipoDeDisco} onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}>
               <SelectOpt value="">Rigido / Solido</SelectOpt>
               <SelectOpt value="Disco Rígido">Disco Rígido</SelectOpt>
@@ -314,7 +314,7 @@ function AddEfectos({ alternModal }) {
 
         {(efecto.tipoDeElemento !== "disco" || efecto.tipoDeElemento !== "dvr") && (
           <InputContainer>
-            <Label>Color</Label>
+            <Label>*Color</Label>
             <Select value={efecto.color} onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}>
               <SelectOpt value="">Seleccione un Color</SelectOpt>
               <SelectOpt value="negro">Negro</SelectOpt>
@@ -372,7 +372,7 @@ function AddEfectos({ alternModal }) {
           efecto.tipoDeElemento !== "dvr" &&
           efecto.tipoDeElemento !== "disco" && (
             <InputContainer>
-              <Label>¿Enciende?</Label>
+              <Label>*¿Enciende?</Label>
               <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
                 <SelectOpt value="">Si / No</SelectOpt>
                 <SelectOpt value="si">Si</SelectOpt>
@@ -453,7 +453,7 @@ function AddEfectos({ alternModal }) {
 
         {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
           <InputContainer>
-            <Label>¿Falla?</Label>
+            <Label>*¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
               <SelectOpt value="">Si / No</SelectOpt>
               <SelectOpt value="si">Si</SelectOpt>
@@ -464,7 +464,7 @@ function AddEfectos({ alternModal }) {
 
         {efecto.encendido === "si" && (
           <InputContainer>
-            <Label>¿Falla?</Label>
+            <Label>*¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
               <SelectOpt value="">Si / No</SelectOpt>
               <SelectOpt value="si">Si</SelectOpt>
@@ -552,7 +552,7 @@ function AddEfectos({ alternModal }) {
 
         {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && (
           <InputContainer>
-            <Label>Estado</Label>
+            <Label>*Estado</Label>
             <Select
               disabled={efecto.edit && currentActa.estado === "en proceso" ? true : false}
               value={efecto.estado}

@@ -27,7 +27,7 @@ function CloseBagsInProcess({ closeModal, dispatch, bagsInProcess, updateBolsa, 
     <Form onSubmit={(e) => handleInProcessSubmit(e)}>
       <Title>Cerrar Bolsa en Proceso</Title>
       <InputContainer>
-        <Label>Bolsa</Label>
+        <Label>*Bolsa</Label>
         <Select value={inProcessState.id} onChange={(e) => setInProcessState({ ...inProcessState, id: Number(e.target.value) })}>
           <SelectOpt value="">Seleccione Precinto</SelectOpt>
           {bagsInProcess.length > 0 &&
@@ -39,7 +39,7 @@ function CloseBagsInProcess({ closeModal, dispatch, bagsInProcess, updateBolsa, 
         </Select>
       </InputContainer>
       <InputContainer style={{ height: "100px" }}>
-        <Label>Leyenda</Label>
+        <Label>*Leyenda</Label>
         <TextArea
           leyenda={true}
           name="leyenda"

@@ -23,7 +23,7 @@ function CloseBagsCompleted({ closeModal, dispatch, bagsToClose, updateBolsa, ac
     <Form onSubmit={(e) => handleCompleteSubmit(e)}>
       <Title>Cerrar Bolsa Completa</Title>
       <InputContainer>
-        <Label>Bolsa</Label>
+        <Label>*Bolsa</Label>
         <Select value={state.id} onChange={(e) => setState({ ...state, id: Number(e.target.value) })}>
           <SelectOpt value="">Seleccione Precinto</SelectOpt>
           {bagsToClose.length > 0 &&
@@ -35,7 +35,7 @@ function CloseBagsCompleted({ closeModal, dispatch, bagsToClose, updateBolsa, ac
         </Select>
       </InputContainer>
       <InputContainer>
-        <Label>Precinto Blanco</Label>
+        <Label>*Precinto Blanco</Label>
         <Input
           type="number"
           name="nroPrecintoBlanco"

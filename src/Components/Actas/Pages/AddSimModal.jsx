@@ -64,7 +64,7 @@ function AddSimModal({ sims, setSims, setAddSimModal, toast }) {
           />
         </InputContainer>
         <InputContainer>
-          <Label>Extracción</Label>
+          <Label>*Extracción</Label>
           <Select value={sim.tipoExtraccionSim} onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}>
             <SelectOpt value="">Tipo de Extracción</SelectOpt>
             <SelectOpt value="ninguna">Ninguna</SelectOpt>
@@ -75,7 +75,7 @@ function AddSimModal({ sims, setSims, setAddSimModal, toast }) {
             <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
           </Select>
         </InputContainer>
-        <Button type="submit" value="Agregar" complete={sim.tipoExtraccionSim ? "true" : "false"} />
+        <Button type="submit" value={sim.edit ? "Guardar" : "Agregar"} complete={sim.tipoExtraccionSim ? "true" : "false"} />
       </Form>
     </>
   );
