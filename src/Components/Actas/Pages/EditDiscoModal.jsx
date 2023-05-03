@@ -6,6 +6,7 @@ import Variables from "../../../Styles/Variables";
 import { Close } from "@styled-icons/ionicons-outline/Close";
 import { DeviceHddFill, DeviceSsdFill } from "styled-icons/bootstrap";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
+import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
 //* Initializations
 const { cardTitle, cardInfo, button } = GlobalStyles;
 const { redColor, greenColor, yellowColor, secondaryColor, principalColor } = Variables;
@@ -56,6 +57,12 @@ function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, renderA
             <EditIcon onClick={() => handleEditDisco(d)} />
           </DiscoContainer>
         ))}
+        {discos.length === 0 && (
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", height: "100%", width: "50%" }}>
+            <h3 style={{ color: "white" }}>¡No hay Discos, agrega una!</h3>
+            <AppsAddInIcon />
+          </div>
+        )}
       </DiscosContainer>
       <OptButton onClick={(e) => handleAddAnotherDisk(e)}>Agregar Nuevo Disco</OptButton>
     </>
@@ -133,6 +140,11 @@ const HddIcon = styled(DeviceHddFill)`
 `;
 
 const SsdIcon = styled(DeviceSsdFill)`
+  width: 25px;
+  color: ${secondaryColor};
+`;
+
+const AppsAddInIcon = styled(AppsAddIn)`
   width: 25px;
   color: ${secondaryColor};
 `;

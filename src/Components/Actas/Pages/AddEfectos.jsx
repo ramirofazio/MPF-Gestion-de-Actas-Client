@@ -97,13 +97,13 @@ function AddEfectos({ alternModal }) {
 
     switch (tipoDeElemento) {
       case "celular": {
-        if (bolsa_id && estado && encendido && color && elementoFallado) {
+        if (bolsa_id && estado && encendido && color) {
           return "true";
         }
         break;
       }
       case "tablet": {
-        if (bolsa_id && estado && encendido && color && elementoFallado) {
+        if (bolsa_id && estado && encendido && color) {
           return "true";
         }
         break;
@@ -453,7 +453,7 @@ function AddEfectos({ alternModal }) {
 
         {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
           <InputContainer>
-            <Label>*¿Falla?</Label>
+            <Label>¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
               <SelectOpt value="">Si / No</SelectOpt>
               <SelectOpt value="si">Si</SelectOpt>
@@ -464,7 +464,7 @@ function AddEfectos({ alternModal }) {
 
         {efecto.encendido === "si" && (
           <InputContainer>
-            <Label>*¿Falla?</Label>
+            <Label>¿Falla?</Label>
             <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
               <SelectOpt value="">Si / No</SelectOpt>
               <SelectOpt value="si">Si</SelectOpt>

@@ -6,6 +6,7 @@ import Variables from "../../../Styles/Variables";
 import { Close } from "@styled-icons/ionicons-outline/Close";
 import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
+import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
 //* Initializations
 const { cardTitle, cardInfo, button } = GlobalStyles;
 const { redColor, greenColor, yellowColor, secondaryColor, principalColor } = Variables;
@@ -54,6 +55,12 @@ function EditSdsModal({ setEditSdsModal, setAddSdsModal, sds, renderAddSdModal }
             <EditIcon onClick={() => handleEditSds(s)} />
           </SdContainer>
         ))}
+        {sds.length === 0 && (
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", height: "100%", width: "50%" }}>
+            <h3 style={{ color: "white" }}>¡No hay Sds, agrega una!</h3>
+            <AppsAddInIcon />
+          </div>
+        )}
       </SdsContainer>
       <OptButton onClick={(e) => handleAnotherSd(e)}>Agregar Nueva Sd</OptButton>
     </>
@@ -128,6 +135,11 @@ const CardTitle = styled.strong`
 const SdIcon = styled(SdCardMini)`
   width: 25px;
   color: ${secondaryColor};
+`;
+
+const AppsAddInIcon = styled(AppsAddIn)`
+  width: 35px;
+  color: white;
 `;
 
 const EditIcon = styled(DocumentEdit)`
