@@ -10,18 +10,15 @@ const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 function CloseBagsInProcess({ closeModal, dispatch, bagsInProcess, updateBolsa, acta_id }) {
   const [inProcessState, setInProcessState] = React.useState({
     id: "",
-    leyenda: "Finalizadas las tareas técnicas pertinentes, se dejaron los elementos en proceso de copiado en el laboratorio",
+    leyenda:
+      "Finalizadas las tareas técnicas pertinentes, se dejaron los elementos que quedaron en proceso, finalizando su extraccion en el laboratorio de informatica forense",
   });
 
   const handleInProcessSubmit = (e) => {
     e.preventDefault();
-    const res = prompt(
-      "¡Bolsa en proceso! \n\n Este Acta quedara bloqueada en proceso. \n\n ¡puede imprimirla y luego volver a cerrar los elementos pendientes! \n\n Escriba 'cerrar' para continuar o aprete cancelar"
-    );
-    if (res === "cerrar") {
-      dispatch(updateBolsa(inProcessState, acta_id));
-      closeModal();
-    }
+
+    dispatch(updateBolsa(inProcessState, acta_id));
+    closeModal();
   };
   return (
     <Form onSubmit={(e) => handleInProcessSubmit(e)}>
@@ -48,11 +45,7 @@ function CloseBagsInProcess({ closeModal, dispatch, bagsInProcess, updateBolsa, 
           onChange={(e) => setInProcessState({ ...inProcessState, leyenda: e.target.value })}
         />
       </InputContainer>
-      <Button
-        type="submit"
-        value="Guardar"
-        complete={inProcessState.id !== "" && inProcessState.leyenda !== "" ? "true" : "false"}
-      />
+      <Button type="submit" value="Guardar" complete={inProcessState.id !== "" && inProcessState.leyenda !== "" ? "true" : "false"} />
     </Form>
   );
 }
