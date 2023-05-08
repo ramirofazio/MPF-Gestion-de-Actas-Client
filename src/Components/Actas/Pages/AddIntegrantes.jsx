@@ -11,8 +11,21 @@ import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 //* Initializations
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
-const { enProcesoContainer, header, headerTitle, button, formContainer, inputContainer, inputLabel, form, input, cardTitle, cardInfo } =
-  GlobalStyles;
+const {
+  select,
+  selectOpt,
+  enProcesoContainer,
+  header,
+  headerTitle,
+  button,
+  formContainer,
+  inputContainer,
+  inputLabel,
+  form,
+  input,
+  cardTitle,
+  cardInfo,
+} = GlobalStyles;
 
 function AddIntegrantes() {
   const navigate = useNavigate();
@@ -26,6 +39,7 @@ function AddIntegrantes() {
     nombreYApellido: "",
     legajoOMatricula: "",
     cargo: "",
+    locacion: "",
   });
 
   const handleClick = () => {
@@ -34,14 +48,15 @@ function AddIntegrantes() {
       nombreYApellido: "",
       legajoOMatricula: "",
       cargo: "",
+      locacion: "",
     });
   };
 
   const handleComplete = () => {
     //* Logica para habilitar el boton cuando esta todo completado
-    const { nombreYApellido, legajoOMatricula, cargo } = integrante;
+    const { nombreYApellido, legajoOMatricula, cargo, locacion } = integrante;
 
-    if (nombreYApellido && legajoOMatricula && cargo) {
+    if (nombreYApellido && legajoOMatricula && cargo && locacion) {
       return "true";
     } else {
       return "false";
@@ -80,13 +95,13 @@ function AddIntegrantes() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Legajo o Matricula</Label>
+              <Label>Legajo, matricula o DNI</Label>
               <Input
                 disabled={currentActa.estado !== "en creacion"}
                 type="number"
                 name="legajoOMatricula"
                 value={integrante.legajoOMatricula}
-                placeholder="Legajo o Matricula"
+                placeholder="Legajo, matricula o DNI"
                 onChange={(e) => setIntegrante({ ...integrante, legajoOMatricula: e.target.value })}
               />
             </InputContainer>
@@ -101,11 +116,15 @@ function AddIntegrantes() {
                 onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value })}
               />
             </InputContainer>
+            <InputContainer>
+              <Label>Locacion</Label>
+              <Select value={integrante.locacion} onChange={(e) => setIntegrante({ ...integrante, locacion: e.target.value })}>
+                <SelectOpt value="">Locacion</SelectOpt>
+                <SelectOpt value="presencial">Presencial</SelectOpt>
+                <SelectOpt value="videollamada">Videollamada</SelectOpt>
+              </Select>
+            </InputContainer>
           </Form>
-          <AddButton onClick={() => handleClick()} complete={handleComplete()}>
-            <AddIcon />
-            Agregar
-          </AddButton>
         </FormContainer>
 
         <IntegrantesContainer>
@@ -129,22 +148,40 @@ function AddIntegrantes() {
                     <br />
                     {i.cargo}
                   </Info>
+                  <Info>
+                    <CardTitle>Locacion</CardTitle>
+                    <br />
+                    {i.locacion}
+                  </Info>
                   <RemoveIcon onClick={() => handleRemove(i.legajoOMatricula)} />
                 </IntegranteContainer>
               );
             })}
         </IntegrantesContainer>
       </SubContainer>
-
-      {integrantes.length > 0 && !currentIntegrantes.length > 0 ? (
-        <Button complete={"true"} onClick={() => handleNext()} to="#">
-          Crear
+      <ButtonContainer>
+        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+          Volver
         </Button>
-      ) : (
-        <Button to={"/actas/crear/4"} complete={"true"}>
-          Continuar
-        </Button>
-      )}
+        {currentActa.estado === "en creacion" && currentIntegrantes.length <= 0 ? (
+          <>
+            {integrante.nombreYApellido && integrante.legajoOMatricula && integrante.cargo && integrante.locacion ? (
+              <Button onClick={() => handleClick()} complete={handleComplete()}>
+                <AddIcon />
+                Agregar Integrante
+              </Button>
+            ) : (
+              <Button complete={"true"} onClick={() => handleNext()} to="#">
+                Siguente
+              </Button>
+            )}
+          </>
+        ) : (
+          <Button to={"/actas/crear/4"} complete={"true"}>
+            Continuar
+          </Button>
+        )}
+      </ButtonContainer>
     </Container>
   );
 }
@@ -218,6 +255,14 @@ const Input = styled.input`
   ${input}
 `;
 
+const Select = styled.select`
+  ${select}
+`;
+
+const SelectOpt = styled.option`
+  ${selectOpt}
+`;
+
 const AddIcon = styled(PersonAdd)`
   width: 20px;
   color: ${secondaryColor};
@@ -280,4 +325,11 @@ const Info = styled.span`
 
 const CardTitle = styled.strong`
   ${cardTitle}
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: space-around;
 `;

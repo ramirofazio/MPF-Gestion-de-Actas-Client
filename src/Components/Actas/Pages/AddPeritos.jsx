@@ -91,7 +91,7 @@ function AddPeritos() {
         <FormContainer>
           <Form>
             <InputContainer>
-              <Label>Elegir Perito</Label>
+              <Label>*Elegir Perito</Label>
               <Select onChange={(e) => peritoSelected(JSON.parse(e.target.value))}>
                 <SelectOpt value="">Elegir Perito</SelectOpt>
                 {users && users.map((u) => u.username !== "admin" && <SelectOpt value={JSON.stringify(u)}>{u.nombreYApellido}</SelectOpt>)}
@@ -131,10 +131,6 @@ function AddPeritos() {
               />
             </InputContainer>
           </Form>
-          <AddButton onClick={() => handleAddPerito()} complete={handleComplete()}>
-            <AddIcon />
-            Agregar
-          </AddButton>
         </FormContainer>
 
         <PeritosContainer>
@@ -169,16 +165,29 @@ function AddPeritos() {
             })}
         </PeritosContainer>
       </SubContainer>
-
-      {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
-        <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
-          Crear
+      <ButtonContainer>
+        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+          Volver
         </Button>
-      ) : (
-        <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
-          Continuar
-        </Button>
-      )}
+        {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
+          <>
+            {perito.nombreYApellido && perito.legajo && perito.cargo ? (
+              <Button onClick={() => handleAddPerito()} complete={handleComplete()}>
+                <AddIcon />
+                Agregar Perito
+              </Button>
+            ) : (
+              <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
+                Siguente
+              </Button>
+            )}
+          </>
+        ) : (
+          <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
+            Continuar
+          </Button>
+        )}
+      </ButtonContainer>
     </Container>
   );
 }
@@ -322,4 +331,11 @@ const Info = styled.span`
 
 const CardTitle = styled.strong`
   ${cardTitle}
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: space-around;
 `;

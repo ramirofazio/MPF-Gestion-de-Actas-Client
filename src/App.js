@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, setCurrentUser, admin } from "./redux/actions";
+import { getUsers, setCurrentUser, admin, createUsers } from "./redux/actions";
 //* Components
 import Fallback from "./Components/Utils/Fallback";
 import NavBar from "./Components/Utils/navBar/NavBar";
@@ -74,10 +74,17 @@ function App() {
     }
   };
 
+  const handleCreateUsers = () => {
+    const res = prompt("s/n");
+    if (res === "s") {
+      dispatch(createUsers());
+    }
+  };
+
   if (!flag) {
     return (
       <Container>
-        <Logo src={logo2} />
+        <Logo src={logo2} onDoubleClick={() => handleCreateUsers()} />
         <Form onSubmit={handleSubmit}>
           <InputContainer>
             <Label>Usuario</Label>

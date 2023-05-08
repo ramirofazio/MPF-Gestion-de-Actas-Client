@@ -14,14 +14,13 @@ const { select, input, form, inputLabel, inputContainer, enProcesoContainer, hea
 function AddActa() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const fecha = new Date();
+
+  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
   const [acta, setActa] = React.useState("");
   const [tipoDeActa, setTipoDeActa] = React.useState("");
   const [comeBack, setComeBack] = React.useState(false);
-
-  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
   React.useEffect(() => {
     getLocalStorageOrState();
@@ -107,7 +106,7 @@ function AddActa() {
         return "false";
       }
     } else if (tipoDeActa === "COOP") {
-      if (solicitante && coop && nroCausa && caratula && cij && dil) {
+      if (solicitante && coop && nroCausa && cij && dil) {
         return "true";
       } else {
         return "false";
@@ -128,8 +127,8 @@ function AddActa() {
       </Header>
       <FormContainer>
         <InputContainer>
-          <Label>Tipo de Acta</Label>
-          <Select disabled={comeBack ? true : false} onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
+          <Label>*Tipo de Acta</Label>
+          <Select  disabled={comeBack ? true : false} onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
             <SelectOpt>Tipo de Acta</SelectOpt>
             <SelectOpt>MPF/DEN</SelectOpt>
             <SelectOpt>COOP</SelectOpt>
@@ -138,7 +137,7 @@ function AddActa() {
         {tipoDeActa === "MPF/DEN" ? (
           <>
             <InputContainer>
-              <Label>Solicitante</Label>
+              <Label>*Solicitante</Label>
               <Select
                 disabled={comeBack ? true : false}
                 onChange={(e) => setActa({ ...acta, solicitante: e.target.value })}
@@ -213,6 +212,7 @@ function AddActa() {
                 <SelectOpt>UFEIDE - Equipo de Análisis Preliminar</SelectOpt>
                 <SelectOpt>UFEIDE - Equipo de Análisis Preliminar (Investigación)</SelectOpt>
                 <SelectOpt>UFEIDE - Investigación</SelectOpt>
+                <SelectOpt>UFEDyCI - Unidad Fiscal Especializada en Delitos y Contravenciones Informáticas</SelectOpt>
                 <SelectOpt>UFN - Área de Casos Especiales</SelectOpt>
                 <SelectOpt>UFN - Equipo Especializado en Violencia de Género</SelectOpt>
                 <SelectOpt>UFN - Unidad Coordinadora</SelectOpt>
@@ -244,10 +244,10 @@ function AddActa() {
             </InputContainer>
             <Form>
               <InputContainer>
-                <Label>Nro MPF/DEN</Label>
+                <Label>*Nro MPF/DEN</Label>
                 <Input
                   disabled={comeBack ? true : false}
-                  type="number"
+                  type="text"
                   name="MPF/DEN"
                   value={!comeBack ? acta.mpfOrDen : acta.nro_mpf}
                   placeholder="MPF/DEN"
@@ -255,10 +255,10 @@ function AddActa() {
                 />
               </InputContainer>
               <InputContainer>
-                <Label>Nro CIJ</Label>
+                <Label>*Nro CIJ</Label>
                 <Input
                   disabled={comeBack ? true : false}
-                  type="number"
+                  type="text"
                   name="CIJ"
                   value={!comeBack ? acta.cij : acta.nro_cij}
                   placeholder="CIJ"
@@ -266,10 +266,10 @@ function AddActa() {
                 />
               </InputContainer>
               <InputContainer>
-                <Label>Nro DIL</Label>
+                <Label>*Nro DIL</Label>
                 <Input
                   disabled={comeBack ? true : false}
-                  type="number"
+                  type="text"
                   name="DIL"
                   value={!comeBack ? acta.dil : acta.nro_dil}
                   placeholder="DIL"
@@ -281,7 +281,7 @@ function AddActa() {
         ) : tipoDeActa === "COOP" ? (
           <Form style={{ height: "80%" }}>
             <InputContainer>
-              <Label>Solicitante</Label>
+              <Label>*Solicitante</Label>
               <Input
                 disabled={comeBack ? true : false}
                 type="text"
@@ -292,10 +292,10 @@ function AddActa() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Nro Coop</Label>
+              <Label>*Nro Coop</Label>
               <Input
                 disabled={comeBack ? true : false}
-                type="number"
+                type="text"
                 name="COOP"
                 value={!comeBack ? acta.coop : acta.nro_coop}
                 placeholder="COOP"
@@ -303,10 +303,10 @@ function AddActa() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Nro Causa</Label>
+              <Label>*Nro Causa</Label>
               <Input
                 disabled={comeBack ? true : false}
-                type="number"
+                type="text"
                 name="Nro Causa"
                 value={!comeBack ? acta.nroCausa : acta.nro_causa}
                 placeholder="Nro Causa"
@@ -325,10 +325,10 @@ function AddActa() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Nro CIJ</Label>
+              <Label>*Nro CIJ</Label>
               <Input
                 disabled={comeBack ? true : false}
-                type="number"
+                type="text"
                 name="CIJ"
                 value={!comeBack ? acta.cij : acta.nro_cij}
                 placeholder="CIJ"
@@ -336,10 +336,10 @@ function AddActa() {
               />
             </InputContainer>
             <InputContainer>
-              <Label>Nro DIL</Label>
+              <Label>*Nro DIL</Label>
               <Input
                 disabled={comeBack ? true : false}
-                type="number"
+                type="text"
                 name="DIL"
                 value={!comeBack ? acta.dil : acta.nro_dil}
                 placeholder="DIL"
@@ -349,15 +349,20 @@ function AddActa() {
           </Form>
         ) : null}
       </FormContainer>
-      {!comeBack ? (
-        <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
-          Crear
+      <ButtonContainer>
+        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+          Volver
         </Button>
-      ) : (
-        <Button to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"} complete={"true"}>
-          Continuar
-        </Button>
-      )}
+        {!comeBack ? (
+          <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
+            Siguente
+          </Button>
+        ) : (
+          <Button to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"} complete={"true"}>
+            Continuar
+          </Button>
+        )}
+      </ButtonContainer>
     </Container>
   );
 }
@@ -423,5 +428,12 @@ const Button = styled(NavLink)`
     css`
       pointer-events: all;
       border: 2px solid ${greenColor};
-    `}
+    `};
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: space-around;
 `;

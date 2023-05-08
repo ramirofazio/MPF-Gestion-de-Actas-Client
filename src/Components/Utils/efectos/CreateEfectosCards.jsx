@@ -10,11 +10,13 @@ import { Tablet } from "@styled-icons/entypo/Tablet";
 import { Computer } from "@styled-icons/material-outlined/Computer";
 import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
+import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
+import { toast } from "react-toastify";
 //* Initializations
 const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
 const { cardTitle, cardInfo } = GlobalStyles;
 
-function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa }) {
+function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
   const [nroPrecintoBolsa, setNroPrecintoBolsa] = React.useState();
   const [colorPrecintoBolsa, setColorPrecintoBolsa] = React.useState();
 
@@ -27,6 +29,16 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
     });
   }, []);
 
+  const LoadEfecto = () => {
+    toast.warning("¡Para ver reflejados los cambios hay que guardar el elemento!", {
+      position: "top-center",
+      autoClose: 5000,
+    });
+    localStorage.setItem("currentEfecto", JSON.stringify({ ...efecto, edit: true }));
+    setAddEfectosModal(true);
+    renderAddEfectosModal();
+  };
+
   const selectIcon = (tipoDeElemento) => {
     switch (tipoDeElemento) {
       case "celular": {
@@ -35,10 +47,10 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       case "tablet": {
         return <TabletIcon />;
       }
-      case "pendrive": {
+      case "unidad de almacenamiento": {
         return <PendriveIcon />;
       }
-      case "pc": {
+      case "gabinete": {
         return <PcIcon />;
       }
       case "notebook": {
@@ -92,7 +104,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           </Info>
         </>
       )}
-      {(efecto.encendido === "si" || efecto.tipoDeElemento === "pendrive") && (
+      {(efecto.encendido === "si" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
         <>
           {efecto.elementoFallado === "si" ? (
             <>
@@ -109,34 +121,34 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
             </>
           ) : (
             <>
-              {efecto.tipoDeElemento === "pendrive" ||
+              {efecto.tipoDeElemento === "unidad de almacenamiento" ||
                 (efecto.tipoDeElemento === "disco" && (
                   <Info>
                     <CardTitle>Almacenamiento</CardTitle>
                     <br />
-                    {efecto.almacenamiento} GB
+                    {efecto.almacenamiento || "No visible"}
                   </Info>
                 ))}
               {(efecto.desbloqueo === "si" || efecto.extraccion || efecto.tipoExtraccion) && (
                 <>
-                  {efecto.tipoDeElemento !== "pendrive" && (
+                  {efecto.tipoDeElemento !== "unidad de almacenamiento" && (
                     <Info>
                       <CardTitle>Tipo de Seguridad</CardTitle>
                       <br />
                       {efecto.tipoSeguridad}
                     </Info>
                   )}
-                  {efecto.tipoDeElemento === "pendrive" && (
+                  {efecto.tipoDeElemento === "unidad de almacenamiento" && (
                     <Info>
                       <CardTitle>Almacenamiento</CardTitle>
                       <br />
-                      {efecto.almacenamiento} GB
+                      {efecto.almacenamiento || "No visible"}
                     </Info>
                   )}
                   <Info>
-                    <CardTitle>{efecto.tipoDeElemento === "pendrive" ? "Extraccion" : "Tipo de Extraccion"}</CardTitle>
+                    <CardTitle>Tipo de Extraccion</CardTitle>
                     <br />
-                    {efecto.tipoDeElemento === "pendrive" ? efecto.extraccion : efecto.tipoExtraccion || "Ninguna"}
+                    {efecto.tipoExtraccion || "Ninguna"}
                   </Info>
                 </>
               )}
@@ -159,11 +171,18 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         </>
       )}
       {efecto.tipoDeElemento === "disco" && (
-        <Info>
-          <CardTitle>Almacenamiento</CardTitle>
-          <br />
-          {efecto.almacenamiento} GB
-        </Info>
+        <>
+          <Info>
+            <CardTitle>Serial Number</CardTitle>
+            <br />
+            {efecto.serialNumber || "Ninguno"}
+          </Info>
+          <Info>
+            <CardTitle>Almacenamiento</CardTitle>
+            <br />
+            {efecto.almacenamiento || "No Visible"}
+          </Info>
+        </>
       )}
       {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc" || efecto.tipoDeElemento === "dvr") && (
         <>
@@ -179,11 +198,13 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           </Info>
         </>
       )}
+
       <Info style={{ flex: 0.5, marginRight: "10px" }}>
         {efecto.Sims.length !== 0 && <SimIcon />}
         {efecto.Discos.length !== 0 && <HddIcon />}
         {efecto.Sds.length !== 0 && <SdIcon />}
       </Info>
+      {(estadoActa === "en creacion" || estadoActa === "en proceso") && <EditIcon onClick={() => LoadEfecto()} />}
       {estadoActa === "en creacion" && <DeleteIcon onClick={() => handleRemoveEfecto(efecto.id)} />}
     </EfectoContainer>
   );
@@ -270,6 +291,18 @@ const DeleteIcon = styled(Delete)`
   color: ${secondaryColor};
   transition: all 0.5s ease;
   margin-right: 20px;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+`;
+
+const EditIcon = styled(DocumentEdit)`
+  width: 25px;
+  margin-right: 15px;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
 
   &:hover {
     color: black;

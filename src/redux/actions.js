@@ -21,33 +21,13 @@ import {
   SET_CURRENT_USER,
 } from "./variables";
 
-export function removeActa(acta_id) {
+export function EditEfecto(efecto, discos, sims, sds, acta_id) {
   return function (dispatch) {
     axios
-      .delete(Variables.baseEndpoint + `/removeActa?acta_id=${acta_id}`)
+      .put(Variables.baseEndpoint + `/editEfecto`, { efecto, discos, sims, sds, acta_id })
       .then((res) => {
         if (res.status === 200) {
-          toast.success("¡Acta eliminada con exito!");
-          return dispatch({
-            type: GET_ACTAS,
-            payload: res.data,
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("¡Error al eliminar Efecto");
-      });
-  };
-}
-
-export function removeEfecto(efecto_id, acta_id) {
-  return function (dispatch) {
-    axios
-      .delete(Variables.baseEndpoint + `/removeEfecto?efecto_id=${efecto_id}`)
-      .then((res) => {
-        if (res.status === 200) {
-          toast.success("¡Efecto eliminado con exito!");
+          toast.success("¡Elemento editado con exito!");
         }
         return dispatch({
           type: UPDATE_EFECTOS,
@@ -64,7 +44,54 @@ export function removeEfecto(efecto_id, acta_id) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al eliminar Efecto!");
+      });
+  };
+}
+
+export function removeActa(acta_id) {
+  return function (dispatch) {
+    axios
+      .delete(Variables.baseEndpoint + `/removeActa?acta_id=${acta_id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("¡Acta eliminada con exito!");
+          return dispatch({
+            type: GET_ACTAS,
+            payload: res.data,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("¡Error al eliminar Elemento!");
+      });
+  };
+}
+
+export function removeEfecto(efecto_id, acta_id) {
+  return function (dispatch) {
+    axios
+      .delete(Variables.baseEndpoint + `/removeEfecto?efecto_id=${efecto_id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("¡Elemento eliminado con exito!");
+        }
+        return dispatch({
+          type: UPDATE_EFECTOS,
+          payload: res.data,
+        });
+      })
+      .then(() => {
+        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+          return dispatch({
+            type: UPDATE_BOLSAS,
+            payload: res.data,
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("¡Error al eliminar Elemento!");
       });
   };
 }
@@ -74,7 +101,7 @@ export function closeProcessActa(acta_id, navigate) {
     axios.put(Variables.baseEndpoint + `/closeProcessActa?acta_id=${acta_id}`).then((res) => {
       if (res.status === 200) {
         setTimeout(() => {
-          editSavedActa(res.data.id, navigate);
+          editSavedActa(res.data.id, navigate, "/actas/crear/4");
         }, 1000);
       }
     });
@@ -132,7 +159,7 @@ export function createActa(state, flag, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear la acta");
+        toast.error("¡Error al crear  acta!");
       });
   };
 }
@@ -144,7 +171,7 @@ export function createPeritos(peritos, navigate) {
       .then((res) => {
         if (res.status === 200) {
           navigate("/actas/crear/3");
-          toast.success("¡Perito creados con exito!");
+          toast.success("¡Peritos creados con exito!");
         }
         return dispatch({
           type: CREATE_PERITOS,
@@ -153,7 +180,7 @@ export function createPeritos(peritos, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear Perito");
+        toast.error("¡Error al crear Peritos!");
       });
   };
 }
@@ -174,7 +201,7 @@ export function createIntegrantes(integrantes, navigate) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear Integrantes");
+        toast.error("¡Error al crear Integrantes!");
       });
   };
 }
@@ -194,7 +221,7 @@ export function createBolsas(bolsa) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear la bolsa");
+        toast.error("¡Error al crear bolsa!");
       });
   };
 }
@@ -205,7 +232,7 @@ export function createEfecto(efecto, discos, sims, sds, acta_id) {
       .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims, sds })
       .then((res) => {
         if (res.status === 200) {
-          toast.success("¡Efecto creado con exito!");
+          toast.success("¡Elemento creado con exito!");
         }
         return dispatch({
           type: CREATE_EFECTOS,
@@ -222,7 +249,7 @@ export function createEfecto(efecto, discos, sims, sds, acta_id) {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("¡Error al crear Efecto");
+        toast.error("¡Error al crear Elemento!");
       });
   };
 }
@@ -308,7 +335,7 @@ export function removePerito(legajo, acta_id) {
     axios
       .delete(Variables.baseEndpoint + `/removePerito?legajo=${legajo}&acta_id=${acta_id}`)
       .then((res) => {
-        if (res.status === 200) toast.success("Perito eliminado con exito!");
+        if (res.status === 200) toast.success("¡Perito eliminado con exito!");
       })
       .catch((err) => {
         console.log(err);
@@ -316,10 +343,10 @@ export function removePerito(legajo, acta_id) {
   };
 }
 
-export function removeIntegrante(dni, acta_id) {
+export function removeIntegrante(legajoOMatricula, acta_id) {
   return function () {
     axios
-      .delete(Variables.baseEndpoint + `/removeIntegrante?dni=${dni}&acta_id=${acta_id}`)
+      .delete(Variables.baseEndpoint + `/removeIntegrante?legajoOMatricula=${legajoOMatricula}&acta_id=${acta_id}`)
       .then((res) => {
         if (res.status === 200) toast.success("¡Integrante eliminado con exito!");
       })
@@ -393,5 +420,70 @@ export function setCurrentUser(currentUser) {
       type: SET_CURRENT_USER,
       payload: currentUser,
     });
+  };
+}
+
+export function createUsers() {
+  return function () {
+    axios.post(Variables.baseEndpoint + "/addUser", [
+      { id: 1, nombreYApellido: "", legajo: 0, cargo: "", username: "admin", password: "GIDSI12345" },
+      { id: 2, nombreYApellido: "Esteban Diego Armando Bucci", legajo: 6004, cargo: "Oficial", username: "ebucci", password: "Ebucci6004" },
+      {
+        id: 3,
+        nombreYApellido: "Federico Martin Palacios",
+        legajo: 7069,
+        cargo: "Auxiliar",
+        username: "fpalacios",
+        password: "Fpalacios7069",
+      },
+      {
+        id: 4,
+        nombreYApellido: "Pablo Javier Marques",
+        legajo: 6330,
+        cargo: "Escribiente",
+        username: "pmarques",
+        password: "Pmarques6330",
+      },
+      {
+        id: 5,
+        nombreYApellido: "Leandro Antonio Pollastrini",
+        legajo: 6003,
+        cargo: "Escribiente",
+        username: "lpollastrini",
+        password: "Lpollastrini6003",
+      },
+      {
+        id: 6,
+        nombreYApellido: "Sabrina Melisa Marzana Mendoza",
+        legajo: 8773,
+        cargo: "Auxiliar de Servicio",
+        username: "smarzana",
+        password: "Smarzana8773",
+      },
+      {
+        id: 7,
+        nombreYApellido: "Karina Marcela Valdez",
+        legajo: 8765,
+        cargo: "Auxiliar de Servicio",
+        username: "kvaldez",
+        password: "Kvaldez8765",
+      },
+      {
+        id: 8,
+        nombreYApellido: "Florencia Ailin Alvarez",
+        legajo: 8772,
+        cargo: "Auxiliar de Servicio",
+        username: "falvarez",
+        password: "Falvarez8772",
+      },
+      {
+        id: 9,
+        nombreYApellido: "Juan Ignacio Burgos",
+        legajo: 20381,
+        cargo: "NINGUNO",
+        username: "jburgos",
+        password: "Jburgos20381",
+      },
+    ]);
   };
 }

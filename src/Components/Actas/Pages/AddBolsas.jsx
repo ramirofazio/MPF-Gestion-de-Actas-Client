@@ -19,7 +19,7 @@ import Modal from "react-modal";
 //* Components
 import AddEfectos from "./AddEfectos";
 import CreateEfectosCards from "../../Utils/efectos/CreateEfectosCards";
-import CloseModal from "./CloseModal";
+import CloseBagsModal from "./CloseBagsModal";
 import getSavedActa from "../../Utils/template/getSavedActa";
 //* Initializations
 const { redColor, greenColor, principalColor, secondaryColor } = Variables;
@@ -42,7 +42,7 @@ const {
 const modal30Width = {
   content: {
     ...modal40x40.content,
-    width: "30%",
+    width: "35%",
     height: "min-content",
   },
 };
@@ -56,7 +56,6 @@ function AddBolsas() {
   const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s.currentEfectos);
 
   const [loading, setLoading] = React.useState(false);
-  const [alertFlag, setAlertFlag] = React.useState(true);
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
   const [closeBagsModal, setCloseBagsModal] = React.useState(false);
   const [bolsa, setBolsa] = React.useState({
@@ -118,9 +117,11 @@ function AddBolsas() {
   };
 
   const handleCloseBags = () => {
-    if (currentActa.estado !== "para completar" && alertFlag) {
-      toast.warning("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!");
-      setAlertFlag(false);
+    if (currentActa.estado !== "para completar") {
+      toast.warning("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!", {
+        position: "top-center",
+        autoClose: 10000,
+      });
     }
     setCloseBagsModal(!closeBagsModal);
   };
@@ -128,6 +129,15 @@ function AddBolsas() {
   const handleDeleteBolsa = (bolsaId) => {
     //* Borra una bolsa
     dispatch(removeBolsa(bolsaId, currentActa.id));
+  };
+
+  const renderAddEfectosModal = () => {
+    return (
+      <Modal isOpen={addEfectosModal} style={modal30Width} ariaHideApp={false}>
+        <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
+        <AddEfectos alternModal={() => setAddEfectosModal(!addEfectosModal)} />
+      </Modal>
+    );
   };
 
   return (
@@ -139,7 +149,7 @@ function AddBolsas() {
         <Form>
           <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
             <InputContainer>
-              <Label>Precinto de Apertura</Label>
+              <Label>*Precinto de Apertura</Label>
               <Select
                 disabled={currentActa.estado !== "en creacion"}
                 value={bolsa.colorPrecinto}
@@ -152,7 +162,7 @@ function AddBolsas() {
               </Select>
             </InputContainer>
             <InputContainer>
-              <Label>N° Precinto</Label>
+              <Label>*N° Precinto</Label>
               <Input
                 disabled={currentActa.estado !== "en creacion"}
                 type="number"
@@ -164,7 +174,7 @@ function AddBolsas() {
             </InputContainer>
           </div>
           <InputContainer style={{ width: "100%", marginTop: "5%" }}>
-            <Label>Observaciones/Descripción de la Bolsa</Label>
+            <Label>*Observaciones/Descripción de la Bolsa</Label>
             <Input
               disabled={currentActa.estado !== "en creacion"}
               type="text"
@@ -180,8 +190,14 @@ function AddBolsas() {
             currentBolsas.map((bolsa) => {
               return (
                 <BolsaContainer key={bolsa.id}>
-                  <Info style={bolsa.colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
-                    <CardTitle>Nº Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : "verde"}</CardTitle>
+                  <Info
+                    style={
+                      bolsa.colorPrecinto === "rojo" ? { color: redColor } : bolsa.colorPrecinto === "verde" ? { color: greenColor } : null
+                    }
+                  >
+                    <CardTitle>
+                      Nº Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : bolsa.colorPrecinto === "verde" ? "verde" : "blanco"}
+                    </CardTitle>
                     <br />
                     {bolsa.nroPrecinto}
                   </Info>
@@ -209,16 +225,17 @@ function AddBolsas() {
               currentBolsas={currentBolsas}
               estadoActa={currentActa.estado}
               handleRemoveEfecto={handleRemoveEfecto}
+              renderAddEfectosModal={renderAddEfectosModal}
+              setAddEfectosModal={setAddEfectosModal}
               key={efecto.id}
             />
           ))}
       </EfectosContainer>
-      <Modal isOpen={addEfectosModal} style={modal30Width} ariaHideApp={false}>
-        <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
-        <AddEfectos closeModal={() => setAddEfectosModal(!addEfectosModal)} />
-      </Modal>
-
+      {renderAddEfectosModal()}
       <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
+        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+          Volver
+        </Button>
         {currentActa.estado === ("en creacion" || "para completar") && currentBolsas.length === 0 ? (
           <>
             <Button
@@ -226,7 +243,7 @@ function AddBolsas() {
               onClick={() => handleSubmitBolsa()}
               to="#"
             >
-              Añadir Bolsa
+              Agregar Bolsa
             </Button>
           </>
         ) : (
@@ -246,11 +263,11 @@ function AddBolsas() {
                 to="#"
               >
                 {bolsa.colorPrecinto && bolsa.nroPrecinto && bolsa.observaciones && currentActa.estado === "en creacion"
-                  ? "Añadir Bolsa"
-                  : "Añadir Elementos"}
+                  ? "Agregar Bolsa"
+                  : "Agregar Elementos"}
               </Button>
               <Button complete={handleCompleteCloseBags()} onClick={() => handleCloseBags()} to="#">
-                Cerrar Bolsas
+                Agregar Precinto Blanco / Leyenda
               </Button>
             </>
           )
@@ -294,10 +311,9 @@ function AddBolsas() {
           </>
         )}
       </div>
-
       <Modal isOpen={closeBagsModal} style={modal40x40} ariaHideApp={false}>
         <CloseIcon onClick={() => setCloseBagsModal(!closeBagsModal)} />
-        <CloseModal closeModal={() => setCloseBagsModal(!closeBagsModal)} />
+        <CloseBagsModal closeModal={() => setCloseBagsModal(!closeBagsModal)} />
       </Modal>
     </Container>
   );
