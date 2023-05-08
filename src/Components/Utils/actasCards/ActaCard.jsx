@@ -9,6 +9,8 @@ import { FileDownload } from "@styled-icons/remix-line/FileDownload";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
 import { Warning } from "@styled-icons/entypo/Warning";
+import { FileEarmarkLockFill } from "@styled-icons/bootstrap/FileEarmarkLockFill";
+
 //* Utils
 import getSavedActa from "../template/getSavedActa";
 import editSavedActa from "../template/editSavedActa";
@@ -90,6 +92,7 @@ function ActaCard({ acta, type }) {
         <>
           {acta.estado !== "en creacion" && <DownloadIcon onClick={() => getSavedActa(acta.id)} />}
           <EditIcon onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />
+          <FileEarmarkLockFillIcon onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")} />
         </>
       )}
     </ActaContainer>
@@ -123,6 +126,18 @@ const DownloadIcon = styled(FileDownload)`
 `;
 
 const EditIcon = styled(DocumentEdit)`
+  width: 25px;
+  margin-right: 40px;
+  color: ${secondaryColor};
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+`;
+
+const FileEarmarkLockFillIcon = styled(FileEarmarkLockFill)`
   width: 25px;
   margin-right: 40px;
   color: ${secondaryColor};
