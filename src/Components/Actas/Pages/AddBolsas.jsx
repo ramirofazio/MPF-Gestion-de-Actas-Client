@@ -63,7 +63,7 @@ function AddBolsas() {
     acta_id: currentActa.id,
     colorPrecinto: "",
     nroPrecinto: "",
-    observaciones: currentActa.estado === "en creacion" ? "un sobre, papel madera cerrado" : "",
+    observaciones: "",
   });
 
   const handleRemoveEfecto = (efecto_id) => {
@@ -84,7 +84,7 @@ function AddBolsas() {
       acta_id: currentActa.id,
       colorPrecinto: "",
       nroPrecinto: "",
-      observaciones: "Un sobre, papel madera cerrado",
+      observaciones: "",
     });
   };
 
@@ -129,10 +129,6 @@ function AddBolsas() {
     //* Borra una bolsa
     dispatch(removeBolsa(bolsaId, currentActa.id));
   };
-
-  console.log(currentActa.estado);
-  console.log(currentActa);
-
 
   return (
     <Container>
