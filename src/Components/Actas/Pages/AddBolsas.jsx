@@ -176,7 +176,7 @@ function AddBolsas() {
           <InputContainer style={{ width: "100%", marginTop: "5%" }}>
             <Label style={{ marginLeft: "30%" }}>Observaciones/Descripción de la Bolsa</Label>
             <div style={{ display: "flex", width: "100%", alignItems: "center", justifyContent: "center" }}>
-              <p style={{ width: "40%" }}>De su interior se extrae:</p>
+              <Label style={{ width: "40%" }}>De su interior se extrae:</Label>
               <Input
                 style={{ width: "100%" }}
                 disabled={currentActa.estado !== "en creacion"}
