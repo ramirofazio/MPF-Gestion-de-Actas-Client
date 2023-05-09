@@ -149,7 +149,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
           </InputContainer>
         )}
 
-        {disco.herramientaSoftDisco !== "" && disco.discoFallado == "no" && (
+        {disco.herramientaSoftDisco !== "" && disco.discoFallado === "no" && (
           <InputContainer>
             <Label>Adquisición</Label>
             <Select value={disco.adquisicion} onChange={(e) => setDisco({ ...disco, adquisicion: e.target.value })}>
