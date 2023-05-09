@@ -50,9 +50,9 @@ function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, renderA
               {d.almacenamiento}
             </Info>
             <Info>
-              <CardTitle>Extraccion</CardTitle>
+              <CardTitle>Adquisicion</CardTitle>
               <br />
-              {d.tipoExtraccionDisco || "Ninguna"}
+              {d.adquisicion}
             </Info>
             <EditIcon onClick={() => handleEditDisco(d)} />
           </DiscoContainer>

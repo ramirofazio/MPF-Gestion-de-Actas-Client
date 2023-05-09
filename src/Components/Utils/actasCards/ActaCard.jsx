@@ -9,7 +9,7 @@ import { FileDownload } from "@styled-icons/remix-line/FileDownload";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
 import { Warning } from "@styled-icons/entypo/Warning";
-import { FileEarmarkLockFill } from "@styled-icons/bootstrap/FileEarmarkLockFill";
+import { FileEarmarkLock } from "@styled-icons/bootstrap/FileEarmarkLock";
 
 //* Utils
 import getSavedActa from "../template/getSavedActa";
@@ -39,7 +39,6 @@ function ActaCard({ acta, type }) {
 
   return (
     <ActaContainer estado={acta.estado}>
-      {acta.estado === "en creacion" && <WarningIcon />}
       <Info>
         <CardTitle>Fecha</CardTitle>
         <br />
@@ -91,8 +90,9 @@ function ActaCard({ acta, type }) {
       ) : (
         <>
           {acta.estado !== "en creacion" && <DownloadIcon onClick={() => getSavedActa(acta.id)} />}
-          <EditIcon onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />
-          <FileEarmarkLockFillIcon onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")} />
+          {acta.estado === "en creacion" && <EditIcon onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />}
+          {acta.estado === "en proceso" && <FileEarmarkLockIcon onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")} />}
+          {acta.estado === "en creacion" && <WarningIcon />}
         </>
       )}
     </ActaContainer>
@@ -137,7 +137,7 @@ const EditIcon = styled(DocumentEdit)`
   }
 `;
 
-const FileEarmarkLockFillIcon = styled(FileEarmarkLockFill)`
+const FileEarmarkLockIcon = styled(FileEarmarkLock)`
   width: 25px;
   margin-right: 40px;
   color: ${secondaryColor};
@@ -163,7 +163,7 @@ const RemoveIcon = styled(FileRemove)`
 
 const WarningIcon = styled(Warning)`
   width: 25px;
-  margin-left: 10px;
+  margin-right: 40px;
   color: ${yellowColor};
   transition: all 0.3s ease;
 `;

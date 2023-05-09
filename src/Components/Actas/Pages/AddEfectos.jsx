@@ -75,6 +75,7 @@ function AddEfectos({ alternModal }) {
       observacionFalla: "",
       color: "",
       unidadAlmacenamientoDetalle: "",
+      adquisicion: "",
     }
   );
 
@@ -93,7 +94,7 @@ function AddEfectos({ alternModal }) {
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, elementoFallado, color } = efecto;
+    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color } = efecto;
 
     switch (tipoDeElemento) {
       case "celular": {
@@ -537,17 +538,30 @@ function AddEfectos({ alternModal }) {
               </Select>
             </InputContainer>
             {efecto.herramientaSoft !== "" && (
-              <InputContainer>
-                <Label>Extracción</Label>
-                <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
-                  <SelectOpt value="">Tipo de Extracción</SelectOpt>
-                  <SelectOpt value="ninguna">Ninguna</SelectOpt>
-                  <SelectOpt value="fisica">Fisica</SelectOpt>
-                  <SelectOpt value="logica">Logica</SelectOpt>
-                  <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
-                  <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-                </Select>
-              </InputContainer>
+              <>
+                {efecto.tipoDeElemento === "disco" ? (
+                  <InputContainer>
+                    <Label>Adquisición</Label>
+                    <Select value={efecto.adquisicion} onChange={(e) => setEfecto({ ...efecto, adquisicion: e.target.value })}>
+                      <SelectOpt value="">Con Exito / Fallo</SelectOpt>
+                      <SelectOpt value="con exito">Con Exito</SelectOpt>
+                      <SelectOpt value="fallo">Fallo</SelectOpt>
+                    </Select>
+                  </InputContainer>
+                ) : (
+                  <InputContainer>
+                    <Label>Extracción</Label>
+                    <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
+                      <SelectOpt value="">Tipo de Extracción</SelectOpt>
+                      <SelectOpt value="ninguna">Ninguna</SelectOpt>
+                      <SelectOpt value="fisica">Fisica</SelectOpt>
+                      <SelectOpt value="logica">Logica</SelectOpt>
+                      <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
+                      <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
+                    </Select>
+                  </InputContainer>
+                )}
+              </>
             )}
           </>
         )}

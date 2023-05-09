@@ -197,6 +197,8 @@ const GlobalStyles = {
         ? `15px solid ${principalColor}`
         : props.estado === "deprecada"
         ? `15px solid ${redColor}`
+        : props.estado === "en creacion"
+        ? `15px solid ${secondaryColor}`
         : `3px solid ${principalColor}`};
     transition: all 0.3s ease;
 

@@ -22,7 +22,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
       modelo: "",
       almacenamiento: "",
       serialNumber: "",
-      tipoExtraccionDisco: "",
+      adquisicion: "",
       herramientaSoftDisco: "",
       estadoDisco: "",
       discoFallado: "",
@@ -40,7 +40,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
       modelo: "",
       almacenamiento: "",
       serialNumber: "",
-      tipoExtraccionDisco: "",
+      adquisicion: "",
       herramientaSoftDisco: "",
       estadoDisco: "",
       discoFallado: "",
@@ -69,7 +69,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
           </Select>
         </InputContainer>
         <InputContainer>
-          <Label>Marca</Label>
+          <Label>*Marca</Label>
           <Input
             type="text"
             name="marca"
@@ -110,7 +110,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
         </InputContainer>
 
         <InputContainer>
-          <Label>*Herramienta Software</Label>
+          <Label>Herramienta Software</Label>
           <Select value={disco.herramientaSoftDisco} onChange={(e) => setDisco({ ...disco, herramientaSoftDisco: e.target.value })}>
             <SelectOpt value="">Herramienta Software</SelectOpt>
             <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
@@ -138,7 +138,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
 
         {disco.discoFallado === "si" && (
           <InputContainer>
-            <Label>*Observacion Falla</Label>
+            <Label>Observacion Falla</Label>
             <Input
               type="text"
               name="observacionFalla"
@@ -151,14 +151,11 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
 
         {disco.herramientaSoftDisco !== "" && disco.discoFallado == "no" && (
           <InputContainer>
-            <Label>*Tipo de Extracción</Label>
-            <Select value={disco.tipoExtraccionDisco} onChange={(e) => setDisco({ ...disco, tipoExtraccionDisco: e.target.value })}>
-              <SelectOpt value="">Tipo de Extracción</SelectOpt>
-              <SelectOpt value="ninguna">Ninguna</SelectOpt>
-              <SelectOpt value="fisica">Fisica</SelectOpt>
-              <SelectOpt value="logica">Logica</SelectOpt>
-              <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
-              <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
+            <Label>Adquisición</Label>
+            <Select value={disco.adquisicion} onChange={(e) => setDisco({ ...disco, adquisicion: e.target.value })}>
+              <SelectOpt value="">Con Exito / Fallo</SelectOpt>
+              <SelectOpt value="con exito">Con Exito</SelectOpt>
+              <SelectOpt value="fallo">Fallo</SelectOpt>
             </Select>
           </InputContainer>
         )}
@@ -173,7 +170,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
         <Button
           type="submit"
           value={disco.edit ? "Guardar" : "Agregar"}
-          complete={disco.tipoDeDisco && disco.discoFallado && disco.estadoDisco ? "true" : "false"}
+          complete={disco.tipoDeDisco && disco.estadoDisco && disco.marca && disco.almacenamiento ? "true" : "false"}
         />
       </Form>
     </>
