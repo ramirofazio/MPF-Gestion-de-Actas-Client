@@ -480,7 +480,7 @@ export function createUsers() {
         id: 9,
         nombreYApellido: "Juan Ignacio Burgos",
         legajo: 20381,
-        cargo: "NINGUNO",
+        cargo: "",
         username: "jburgos",
         password: "Jburgos20381",
       },
