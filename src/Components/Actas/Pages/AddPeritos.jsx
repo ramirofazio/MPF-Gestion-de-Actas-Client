@@ -172,7 +172,7 @@ function AddPeritos() {
         {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
           <>
             {perito.nombreYApellido && perito.legajo && perito.cargo ? (
-              <Button onClick={() => handleAddPerito()} complete={handleComplete()}>
+              <Button onClick={() => handleAddPerito()} complete={handleComplete()} to="#">
                 <AddIcon />
                 Agregar Perito
               </Button>
