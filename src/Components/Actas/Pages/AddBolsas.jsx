@@ -174,15 +174,19 @@ function AddBolsas() {
             </InputContainer>
           </div>
           <InputContainer style={{ width: "100%", marginTop: "5%" }}>
-            <Label>Observaciones/Descripción de la Bolsa</Label>
-            <Input
-              disabled={currentActa.estado !== "en creacion"}
-              type="text"
-              name="Observaciones/Descripcion de la Bolsa"
-              value={bolsa.observaciones}
-              placeholder="Observaciones/Descripcion de la Bolsa"
-              onChange={(e) => setBolsa({ ...bolsa, observaciones: e.target.value })}
-            />
+            <Label style={{ marginLeft: "30%" }}>Observaciones/Descripción de la Bolsa</Label>
+            <div style={{ display: "flex", width: "100%", alignItems: "center", justifyContent: "center" }}>
+              <p style={{ width: "40%" }}>De su interior se extrae:</p>
+              <Input
+                style={{ width: "100%" }}
+                disabled={currentActa.estado !== "en creacion"}
+                type="text"
+                name="Observaciones/Descripcion de la Bolsa"
+                value={bolsa.observaciones}
+                placeholder="Observaciones/Descripcion de la Bolsa"
+                onChange={(e) => setBolsa({ ...bolsa, observaciones: e.target.value })}
+              />
+            </div>
           </InputContainer>
         </Form>
         <BolsasContainer>
