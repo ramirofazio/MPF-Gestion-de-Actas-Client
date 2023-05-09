@@ -121,7 +121,7 @@ function AddEfectos({ alternModal }) {
         break;
       }
       case "unidad de almacenamiento": {
-        if (bolsa_id && elementoFallado && estado && color) {
+        if (bolsa_id && estado && color) {
           return "true";
         }
         break;
@@ -133,7 +133,7 @@ function AddEfectos({ alternModal }) {
         break;
       }
       case "disco": {
-        if (bolsa_id && tipoDeDisco && estado && color && elementoFallado) {
+        if (bolsa_id && tipoDeDisco && estado && color) {
           return "true";
         }
         break;
@@ -252,8 +252,10 @@ function AddEfectos({ alternModal }) {
             <Label>*Tipo de Disco</Label>
             <Select value={efecto.tipoDeDisco} onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}>
               <SelectOpt value="">Rigido / Solido</SelectOpt>
-              <SelectOpt value="Disco Rígido">Disco Rígido</SelectOpt>
-              <SelectOpt value="Disco Sólido">Disco Sólido</SelectOpt>
+              <SelectOpt value="Disco Rigido">Disco Rigido</SelectOpt>
+              <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
+              <SelectOpt value="Disco Solido en Formato M.2">Disco Solido M.2</SelectOpt>
+              <SelectOpt value="Disco Solido en Formato NVMe">Disco Solido NVMe</SelectOpt>
             </Select>
           </InputContainer>
         )}

@@ -57,7 +57,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         return <NotebookIcon />;
       }
       case "disco": {
-        if (efecto.tipoDeDisco === "Disco rigido") {
+        if (efecto.tipoDeDisco === "Disco Rigido") {
           return <HddIcon />;
         } else {
           return <SsdIcon />;

@@ -61,9 +61,11 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
         <InputContainer>
           <Label>*Tipo de Disco</Label>
           <Select disabled={disco.edit} value={disco.tipoDeDisco} onChange={(e) => setDisco({ ...disco, tipoDeDisco: e.target.value })}>
-            <SelectOpt value="">Tipo De Disco</SelectOpt>
+            <SelectOpt value="">Rigido / Solido</SelectOpt>
             <SelectOpt value="Disco Rigido">Disco Rigido</SelectOpt>
             <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
+            <SelectOpt value="Disco Solido en Formato M.2">Disco Solido M.2</SelectOpt>
+            <SelectOpt value="Disco Solido en Formato NVMe">Disco Solido NVMe</SelectOpt>
           </Select>
         </InputContainer>
         <InputContainer>
