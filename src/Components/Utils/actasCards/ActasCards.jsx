@@ -32,9 +32,11 @@ function ActasCards({ allActas, typeOfCard }) {
           ? allActas && allActas.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)
           : actasToRender && actasToRender.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)}
       </CardsContainer>
-      <Button to="/actas/crear/1" onClick={() => loadLocalStorage()}>
-        Crear Acta
-      </Button>
+      {typeOfCard !== "remove" && (
+        <Button to="/actas/crear/1" onClick={() => loadLocalStorage()}>
+          Crear Acta
+        </Button>
+      )}
     </>
   );
 }
