@@ -13,9 +13,11 @@ import Modal from "react-modal";
 import AddDiscoModal from "./AddDiscoModal";
 import AddSimModal from "./AddSimModal";
 import AddSdModal from "./AddSdModal";
+import AddExtraccionModal from "./AddExtraccionModal";
 import EditDiscoModal from "./EditDiscoModal";
 import EditSimModal from "./EditSimModal";
 import EditSdsModal from "./EditSdModal";
+
 //* Initializations
 const { button, select, input, modal40x40 } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
@@ -49,9 +51,13 @@ function AddEfectos({ alternModal }) {
   const [editSimsModal, setEditSimsModal] = React.useState(false);
   const [sims, setSims] = React.useState([]);
 
-  const [addSdsModal, setAddSdsModal] = React.useState(false);
+  const [addSdsModal, setAddSdModal] = React.useState(false);
   const [editSdsModal, setEditSdsModal] = React.useState(false);
   const [sds, setSds] = React.useState([]);
+
+  const [addExtraccionesModal, setAddExtraccionModal] = React.useState(false);
+  const [editExtraccionesModal, setEditExtraccionesModal] = React.useState(false);
+  const [extracciones, setExtracciones] = React.useState([]);
 
   const [efecto, setEfecto] = React.useState(
     JSON.parse(localStorage.getItem("currentEfecto")) || {
@@ -156,7 +162,11 @@ function AddEfectos({ alternModal }) {
         break;
       }
       case "sd": {
-        setAddSdsModal(true);
+        setAddSdModal(true);
+        break;
+      }
+      case "add extraccion": {
+        setAddExtraccionModal(true);
         break;
       }
       default: {
@@ -199,7 +209,29 @@ function AddEfectos({ alternModal }) {
   const renderAddSdModal = () => {
     return (
       <Modal isOpen={addSdsModal} style={modal40x30} ariaHideApp={false}>
-        <AddSdModal sds={sds} setSds={setSds} setAddSdsModal={setAddSdsModal} toast={toast} />
+        <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdModal} toast={toast} />
+      </Modal>
+    );
+  };
+
+  const handleEditExtraccionButtonClick = (e) => {
+    e.preventDefault();
+    setEditExtraccionesModal(true);
+  };
+
+  const renderAddExtraccionModal = () => {
+    return (
+      <Modal
+        isOpen={addExtraccionesModal}
+        style={{ content: { ...modal40x30.content, height: "80%", justifyContent: "flex-start" } }}
+        ariaHideApp={false}
+      >
+        <AddExtraccionModal
+          extracciones={extracciones}
+          setExtracciones={setExtracciones}
+          setAddExtraccionModal={setAddExtraccionModal}
+          toast={toast}
+        />
       </Modal>
     );
   };
@@ -599,12 +631,17 @@ function AddEfectos({ alternModal }) {
               {efecto.edit ? "Agregar/Editar Discos" : "Agregar Discos"}
             </OptButton>
           )}
+
+          <OptButton onClick={(e) => (efecto.edit ? handleEditExtraccionButtonClick(e) : handleOptButtonClick(e))} value="add extraccion">
+            Agregar Extracciones
+          </OptButton>
         </div>
       </Form>
 
       {renderAddDiscoModal()}
       {renderAddSimModal()}
       {renderAddSdModal()}
+      {renderAddExtraccionModal()}
 
       <Modal
         isOpen={editDiscosModal}
@@ -639,10 +676,18 @@ function AddEfectos({ alternModal }) {
       >
         <EditSdsModal
           setEditSdsModal={setEditSdsModal}
-          setAddSdsModal={setAddSdsModal}
+          setAddSdsModal={setAddSdModal}
           sds={efecto.Sds}
           renderAddSdModal={renderAddSdModal}
         />
+      </Modal>
+
+      <Modal
+        isOpen={editExtraccionesModal}
+        style={{ content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" } }}
+        ariaHideApp={false}
+      >
+        {/* ACA MODAL EDITAR EXTRACCIONES */}
       </Modal>
     </>
   );
@@ -730,7 +775,7 @@ const Button = styled.input`
 const OptButton = styled.button`
   ${button}
   padding: 5px;
-  padding-inline: 15px;
+  padding-inline: 10px;
   text-decoration: none;
   background: white;
   border: 2px solid ${greenColor};
