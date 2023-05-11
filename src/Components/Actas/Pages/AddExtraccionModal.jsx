@@ -1,4 +1,6 @@
 import React from "react";
+//*Components
+import AddTipoExtraccionModal from "./AddTipoExtraccionModal";
 //* Style
 import Modal from "react-modal";
 import styled, { css } from "styled-components";
@@ -6,17 +8,10 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 import { Close } from "@styled-icons/ionicons-outline/Close";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
+import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 //* Initializations
 const { button, select, input, modal40x40 } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
-
-const modal30Width = {
-  content: {
-    ...modal40x40.content,
-    width: "35%",
-    height: "min-content",
-  },
-};
 
 function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionModal, toast }) {
   React.useEffect(() => {
@@ -27,11 +22,11 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
 
   const [addTipoExtraccionModal, setAddTipoExtraccionModal] = React.useState(false);
 
-  const [tiposExtraccion, setTiposExtraccion] = React.useState([]);
+  const [tiposDeExtraccion, setTiposDeExtraccion] = React.useState([]);
   const [extraccion, setExtraccion] = React.useState(
     JSON.parse(localStorage.getItem("currentExtraccion")) || {
       herramientaSoft: "",
-      tipos: tiposExtraccion,
+      tipos: tiposDeExtraccion,
     }
   );
 
@@ -41,7 +36,7 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
     setExtracciones([...extracciones, extraccion]);
     setExtraccion({
       herramientaSoft: "",
-      tipos: tiposExtraccion,
+      tipos: tiposDeExtraccion,
     });
     if (extraccion.edit) {
       toast.success("Extraccion Editada con Exito!");
@@ -50,14 +45,29 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
     }
   };
 
-  const HandleTipoExtraccionSubmit = (e) => {
+  React.useEffect(() => {
+    setExtraccion({ ...extraccion, tipos: tiposDeExtraccion });
+  }, [tiposDeExtraccion]);
+
+  const handleTipoExtraccionSubmit = (e, tipoExtraccion) => {
     e.preventDefault();
-    console.log(e.target.value);
-    setTiposExtraccion([...tiposExtraccion, e.target.value]);
+    if (tipoExtraccion.nombre && tipoExtraccion.estado) {
+      setAddTipoExtraccionModal(false);
+      setTiposDeExtraccion([...tiposDeExtraccion, tipoExtraccion]);
+      toast.success("¡Tipos de extraccion guardadas con exito!");
+    } else {
+      toast.error("¡Faltan datos para completar el tipo de extraccion!");
+    }
   };
 
-  const HandleAddTipoExtraccion = () => {
+  const handleAddTipoExtraccionButtonClick = () => {
     setAddTipoExtraccionModal(!addTipoExtraccionModal);
+  };
+
+  const handleRemoveTipoExtraccion = (fakeId) => {
+    const newExtracciones = tiposDeExtraccion.filter((e) => e.fakeId !== fakeId);
+    setTiposDeExtraccion(newExtracciones);
+    toast.success("¡Tipo de extraccion eliminada con exito!");
   };
 
   return (
@@ -67,7 +77,11 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
         <Title>{extraccion.edit ? "Editar" : "Agregar"} Extracciones</Title>
         <InputContainer>
           <Label>Software</Label>
-          <Select value={extraccion.herramientaSoft} onChange={(e) => setExtraccion({ ...extraccion, herramientaSoft: e.target.value })}>
+          <select
+            className="select"
+            value={extraccion.herramientaSoft}
+            onChange={(e) => setExtraccion({ ...extraccion, herramientaSoft: e.target.value })}
+          >
             <SelectOpt value="">Seleccione Herramienta</SelectOpt>
             <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
             <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
@@ -80,19 +94,53 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
             <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
               TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
             </SelectOpt>
-          </Select>
+          </select>
         </InputContainer>
-        <div class="flex-1 w-full flex flex-col items-center">
-          <h1 class="text-center text-1xl">Extracciones</h1>
-          <PlusSquareDotted color={secondaryColor} size={35} onClick={(e) => HandleAddTipoExtraccion()} />
+        <div className="flex-1 w-full flex flex-col items-center">
+          <h1 className="text-center text-1xl mb-5">Extracciones</h1>
+          {tiposDeExtraccion &&
+            tiposDeExtraccion.map((e) => (
+              <div key={e.fakeId} className="flex items-center justify-around w-full h-14 mb-3 rounded-md bg-base text-black">
+                <div className="flex flex-col items-center">
+                  <span className="underline">Tipo</span>
+                  <span className="text-secondary">{e.nombre}</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="underline">Estado</span>
+                  <span className="text-secondary">{e.estado}</span>
+                </div>
+                {e.estado === "fallo" && (
+                  <div className="flex flex-col items-center">
+                    <span className="underline">Observacion</span>
+                    <span className="text-secondary">{e.observacionFalla}</span>
+                  </div>
+                )}
+                <Delete
+                  onClick={() => handleRemoveTipoExtraccion(e.fakeId)}
+                  size={20}
+                  className="text-black transition duration-500 hover:cursor-pointer hover:text-secondary"
+                />
+              </div>
+            ))}
+          <PlusSquareDotted
+            className="transition duration-500 hover:text-secondary hover:cursor-pointer "
+            color={extraccion.herramientaSoft ? "white" : secondaryColor}
+            size={35}
+            onClick={() =>
+              extraccion.herramientaSoft
+                ? handleAddTipoExtraccionButtonClick()
+                : toast.warning("¡Primero debe seleccionar una heramienta de software!")
+            }
+          />
         </div>
         <Button type="submit" value={extraccion.edit ? "Guardar" : "Agregar"} complete={"true"} />
       </Form>
 
       <Modal isOpen={addTipoExtraccionModal} style={modal40x40} ariaHideApp={false}>
-        <div class="w-full h-full bg-slate-200">
-          <h1>Hola soy un modal</h1>
-        </div>
+        <AddTipoExtraccionModal
+          setAddTipoExtraccionModal={setAddTipoExtraccionModal}
+          handleTipoExtraccionSubmit={handleTipoExtraccionSubmit}
+        />
       </Modal>
     </>
   );
@@ -143,10 +191,6 @@ const Input = styled.input`
 
 const Select = styled.select`
   ${select}
-  font-size: medium;
-  flex: 1;
-  height: 30px;
-  text-align: center;
 `;
 
 const SelectOpt = styled.option``;
