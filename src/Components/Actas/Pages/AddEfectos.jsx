@@ -56,7 +56,6 @@ function AddEfectos({ alternModal }) {
   const [sds, setSds] = React.useState([]);
 
   const [addExtraccionesModal, setAddExtraccionModal] = React.useState(false);
-  const [editExtraccionesModal, setEditExtraccionesModal] = React.useState(false);
   const [extracciones, setExtracciones] = React.useState([]);
 
   const [efecto, setEfecto] = React.useState(
@@ -91,7 +90,7 @@ function AddEfectos({ alternModal }) {
       if (efecto.edit) {
         dispatch(EditEfecto(efecto, discos, sims, sds, currentActa.id));
       } else {
-        dispatch(createEfecto(efecto, discos, sims, sds, currentActa.id));
+        dispatch(createEfecto(efecto, discos, sims, sds, extracciones, currentActa.id));
       }
       alternModal();
     } else {
@@ -212,11 +211,6 @@ function AddEfectos({ alternModal }) {
         <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdModal} toast={toast} />
       </Modal>
     );
-  };
-
-  const handleEditExtraccionButtonClick = (e) => {
-    e.preventDefault();
-    setEditExtraccionesModal(true);
   };
 
   const renderAddExtraccionModal = () => {
@@ -416,36 +410,10 @@ function AddEfectos({ alternModal }) {
             </InputContainer>
           )}
 
-        {efecto.tipoDeElemento === ""
-          ? null
-          : efecto.tipoDeElemento !== "unidad de almacenamiento" &&
-            efecto.tipoDeElemento !== "notebook" &&
-            efecto.tipoDeElemento !== "gabinete" &&
-            efecto.encendido === "si" && (
-              <InputContainer>
-                <Label>Software</Label>
-                <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
-                  <SelectOpt value="">Seleccione Herramienta</SelectOpt>
-                  <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-                  <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-                  <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-                  <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-                  <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-                  <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-                  <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
-                  <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
-                  <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-                    TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-                  </SelectOpt>
-                </Select>
-              </InputContainer>
-            )}
-
         {efecto.tipoDeElemento !== "unidad de almacenamiento" &&
           efecto.tipoDeElemento !== "notebook" &&
           efecto.tipoDeElemento !== "disco" &&
-          efecto.tipoDeElemento !== "gabinete" &&
-          efecto.herramientaSoft !== "" && (
+          efecto.tipoDeElemento !== "gabinete" && (
             <InputContainer>
               <Label>Seguridad</Label>
               <Select value={efecto.tipoSeguridad} onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}>
@@ -521,81 +489,15 @@ function AddEfectos({ alternModal }) {
           </InputContainer>
         )}
 
-        {efecto.tipoDeElemento !== "unidad de almacenamiento" && efecto.tipoSeguridad === "ninguna" ? (
+        {efecto.tipoDeElemento === "disco" && (
           <InputContainer>
-            <Label>Extracción</Label>
-            <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
-              <SelectOpt value="">Tipo de Extracción</SelectOpt>
-              <SelectOpt value="ninguna">Ninguna</SelectOpt>
-              <SelectOpt value="fisica">Fisica</SelectOpt>
-              <SelectOpt value="logica">Logica</SelectOpt>
-              <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
-              <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
+            <Label>Adquisición</Label>
+            <Select value={efecto.adquisicion} onChange={(e) => setEfecto({ ...efecto, adquisicion: e.target.value })}>
+              <SelectOpt value="">Con Exito / Fallo</SelectOpt>
+              <SelectOpt value="con exito">Con Exito</SelectOpt>
+              <SelectOpt value="fallo">Fallo</SelectOpt>
             </Select>
           </InputContainer>
-        ) : (
-          efecto.tipoDeElemento !== "unidad de almacenamiento" &&
-          efecto.desbloqueo === "si" && (
-            <InputContainer>
-              <Label>Extracción</Label>
-              <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
-                <SelectOpt value="">Tipo de Extracción</SelectOpt>
-                <SelectOpt value="ninguna">Ninguna</SelectOpt>
-                <SelectOpt value="fisica">Fisica</SelectOpt>
-                <SelectOpt value="logica">Logica</SelectOpt>
-                <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
-                <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-              </Select>
-            </InputContainer>
-          )
-        )}
-
-        {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && efecto.elementoFallado === "no" && (
-          <>
-            <InputContainer>
-              <Label>Software</Label>
-              <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
-                <SelectOpt value="">Seleccione Herramienta</SelectOpt>
-                <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-                <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-                <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-                <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-                <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-                <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-                <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
-                <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
-                <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-                  TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-                </SelectOpt>
-              </Select>
-            </InputContainer>
-            {efecto.herramientaSoft !== "" && (
-              <>
-                {efecto.tipoDeElemento === "disco" ? (
-                  <InputContainer>
-                    <Label>Adquisición</Label>
-                    <Select value={efecto.adquisicion} onChange={(e) => setEfecto({ ...efecto, adquisicion: e.target.value })}>
-                      <SelectOpt value="">Con Exito / Fallo</SelectOpt>
-                      <SelectOpt value="con exito">Con Exito</SelectOpt>
-                      <SelectOpt value="fallo">Fallo</SelectOpt>
-                    </Select>
-                  </InputContainer>
-                ) : (
-                  <InputContainer>
-                    <Label>Extracción</Label>
-                    <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
-                      <SelectOpt value="">Tipo de Extracción</SelectOpt>
-                      <SelectOpt value="ninguna">Ninguna</SelectOpt>
-                      <SelectOpt value="fisica">Fisica</SelectOpt>
-                      <SelectOpt value="logica">Logica</SelectOpt>
-                      <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
-                      <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
-                    </Select>
-                  </InputContainer>
-                )}
-              </>
-            )}
-          </>
         )}
 
         {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && (
@@ -632,9 +534,11 @@ function AddEfectos({ alternModal }) {
             </OptButton>
           )}
 
-          <OptButton onClick={(e) => (efecto.edit ? handleEditExtraccionButtonClick(e) : handleOptButtonClick(e))} value="add extraccion">
-            Agregar Extracciones
-          </OptButton>
+          {!efecto.edit && (
+            <OptButton onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
+              Agregar Extracciones
+            </OptButton>
+          )}
         </div>
       </Form>
 
@@ -680,14 +584,6 @@ function AddEfectos({ alternModal }) {
           sds={efecto.Sds}
           renderAddSdModal={renderAddSdModal}
         />
-      </Modal>
-
-      <Modal
-        isOpen={editExtraccionesModal}
-        style={{ content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" } }}
-        ariaHideApp={false}
-      >
-        {/* ACA MODAL EDITAR EXTRACCIONES */}
       </Modal>
     </>
   );

@@ -146,9 +146,9 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
                     </Info>
                   )}
                   <Info>
-                    <CardTitle>Tipo de Extraccion</CardTitle>
+                    <CardTitle>Cant. Extracciones</CardTitle>
                     <br />
-                    {efecto.tipoExtraccion || "Ninguna"}
+                    {efecto.Extraccions.length}
                   </Info>
                 </>
               )}

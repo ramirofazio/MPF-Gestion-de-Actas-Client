@@ -8,7 +8,7 @@ import { Close } from "@styled-icons/ionicons-outline/Close";
 const { button, select, input } = GlobalStyles;
 const { redColor, greenColor, secondaryColor, principalColor } = Variables;
 
-function AddSdModal({ sds, setSds, setAddSdsModal, toast }) {
+function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
   React.useEffect(() => {
     return () => {
       localStorage.setItem("currentSd", null);
@@ -26,7 +26,7 @@ function AddSdModal({ sds, setSds, setAddSdsModal, toast }) {
 
   const handleSdSubmit = (e) => {
     e.preventDefault();
-    setAddSdsModal(false);
+    setAddSdModal(false);
     setSds([...sds, sd]);
     setSd({
       marca: "",
