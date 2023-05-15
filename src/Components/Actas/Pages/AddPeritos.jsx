@@ -54,9 +54,9 @@ function AddPeritos() {
 
   const handleComplete = () => {
     //* Logica para habilitar el boton cuando esta todo completado
-    const { nombreYApellido, legajo, cargo } = perito;
+    const { nombreYApellido, legajo } = perito;
 
-    if (nombreYApellido && legajo && cargo) {
+    if (nombreYApellido && legajo) {
       return "true";
     } else {
       return "false";
@@ -171,7 +171,7 @@ function AddPeritos() {
         </Button>
         {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
           <>
-            {perito.nombreYApellido && perito.legajo && perito.cargo ? (
+            {perito.nombreYApellido && perito.legajo ? (
               <Button onClick={() => handleAddPerito()} complete={handleComplete()} to="#">
                 <AddIcon />
                 Agregar Perito

@@ -166,7 +166,7 @@ function AddIntegrantes() {
         {currentActa.estado === "en creacion" && currentIntegrantes.length <= 0 ? (
           <>
             {integrante.nombreYApellido && integrante.legajoOMatricula && integrante.cargo && integrante.locacion ? (
-              <Button onClick={() => handleClick()} complete={handleComplete()}>
+              <Button onClick={() => handleClick()} complete={handleComplete()} to="#">
                 <AddIcon />
                 Agregar Integrante
               </Button>

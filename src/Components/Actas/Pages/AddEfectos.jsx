@@ -410,10 +410,47 @@ function AddEfectos({ alternModal }) {
             </InputContainer>
           )}
 
+        {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
+          <InputContainer>
+            <Label>¿Falla?</Label>
+            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
+              <SelectOpt value="">Si / No</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
+
+        {efecto.encendido === "si" && (
+          <InputContainer>
+            <Label>¿Falla?</Label>
+            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
+              <SelectOpt value="">Si / No</SelectOpt>
+              <SelectOpt value="si">Si</SelectOpt>
+              <SelectOpt value="no">No</SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
+
+        {efecto.elementoFallado === "si" && (
+          <InputContainer>
+            <Label>Observacion</Label>
+            <Input
+              type="text"
+              name="observacionFalla"
+              value={efecto.observacionFalla}
+              placeholder="¿Por que Falla?"
+              onChange={(e) => setEfecto({ ...efecto, observacionFalla: e.target.value })}
+            />
+          </InputContainer>
+        )}
+
         {efecto.tipoDeElemento !== "unidad de almacenamiento" &&
           efecto.tipoDeElemento !== "notebook" &&
           efecto.tipoDeElemento !== "disco" &&
-          efecto.tipoDeElemento !== "gabinete" && (
+          efecto.tipoDeElemento !== "gabinete" &&
+          efecto.encendido === "si" &&
+          efecto.elementoFallado === "no" && (
             <InputContainer>
               <Label>Seguridad</Label>
               <Select value={efecto.tipoSeguridad} onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}>
@@ -454,41 +491,6 @@ function AddEfectos({ alternModal }) {
           </InputContainer>
         )}
 
-        {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
-          <InputContainer>
-            <Label>¿Falla?</Label>
-            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">Si / No</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
-
-        {efecto.encendido === "si" && (
-          <InputContainer>
-            <Label>¿Falla?</Label>
-            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">Si / No</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
-
-        {efecto.elementoFallado === "si" && (
-          <InputContainer>
-            <Label>Observacion</Label>
-            <Input
-              type="text"
-              name="observacionFalla"
-              value={efecto.observacionFalla}
-              placeholder="¿Por que Falla?"
-              onChange={(e) => setEfecto({ ...efecto, observacionFalla: e.target.value })}
-            />
-          </InputContainer>
-        )}
-
         {efecto.tipoDeElemento === "disco" && (
           <InputContainer>
             <Label>Adquisición</Label>
@@ -516,7 +518,6 @@ function AddEfectos({ alternModal }) {
         )}
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
-          <Button type="submit" value={efecto.edit ? "Guardar" : "Agregar"} complete={handleComplete()} />
           {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
             <>
               <OptButton onClick={(e) => (efecto.edit ? handleEditSimButtonClick(e) : handleOptButtonClick(e))} value="sim">
@@ -539,6 +540,7 @@ function AddEfectos({ alternModal }) {
               Agregar Extracciones
             </OptButton>
           )}
+          <Button type="submit" value="Guardar" complete={handleComplete()} />
         </div>
       </Form>
 
