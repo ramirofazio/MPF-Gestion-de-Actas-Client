@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 /** START Global Components  */
+.navButton {
+  @apply mb-10 flex h-16 w-full items-center justify-center rounded-md border-2 border-white bg-base text-center text-xl text-principal transition hover:bg-principal hover:text-white;
+}
 
 .basicForm50x50 {
   @apply flex h-[50%] w-[50%] flex-col items-center justify-center rounded-sm bg-principal shadow-xl;

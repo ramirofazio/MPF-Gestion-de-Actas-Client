@@ -18,16 +18,9 @@ const AdmHome = lazy(() => import("./Components/Admin/Home"));
 const BugsReports = lazy(() => import("./Components/Admin/pages/BugsReports"));
 const Stats = lazy(() => import("./Components/Admin/pages/Stats"));
 const ActaRemove = lazy(() => import("./Components/Admin/pages/ActaRemove"));
-//* Styles
-import styled from "styled-components";
-import Variables from "./Styles/Variables";
-import GlobalStyles from "./Styles/GlobalStyles";
 //* Utils
 import { toast } from "react-toastify";
 import logo2 from "./Assets/logo2.png";
-//* Initializations
-const { principalColor, secondaryColor } = Variables;
-const { select, form, inputLabel, inputContainer } = GlobalStyles;
 
 function App() {
   const dispatch = useDispatch();
