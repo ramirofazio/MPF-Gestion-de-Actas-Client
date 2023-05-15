@@ -83,32 +83,33 @@ function App() {
 
   if (!flag) {
     return (
-      <Container>
-        <Logo src={logo2} onDoubleClick={() => handleCreateUsers()} />
-        <Form onSubmit={handleSubmit}>
-          <InputContainer>
-            <Label>Usuario</Label>
-            <Select onChange={(e) => setUser({ ...user, username: e.target.value })} value={user.username}>
-              <SelectOpt>Usuario</SelectOpt>
+      <div className="flexContainer100x100">
+        <img className="absolute top-0 mt-10" src={logo2} onDoubleClick={() => handleCreateUsers()} />
+        <form className="basicForm50x50" onSubmit={handleSubmit}>
+          <div className="mb-5 flex h-[15%] w-[40%] flex-col items-center justify-center ">
+            <label className="mb-1 self-start text-white">Usuario</label>
+            <select className="select" onChange={(e) => setUser({ ...user, username: e.target.value })} value={user.username}>
+              <option>Usuario</option>
               {users &&
                 users.map((u) => (
-                  <SelectOpt value={u.username} key={u.legajo}>
+                  <option value={u.username} key={u.legajo}>
                     {u.username}
-                  </SelectOpt>
+                  </option>
                 ))}
-            </Select>
-          </InputContainer>
-          <InputContainer>
-            <Label>Contraseña</Label>
-            <Input
+            </select>
+          </div>
+          <div className="flex h-[15%] w-[40%] flex-col items-center justify-center">
+            <label className="mb-1 self-start text-white">Contraseña</label>
+            <input
+              className="h-full w-full rounded-md border-principal text-center focus:border-principal focus:outline-none"
               type="password"
               value={user.password}
               placeholder="Contraseña"
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
-          </InputContainer>
-        </Form>
-      </Container>
+          </div>
+        </form>
+      </div>
     );
   } else {
     return (
@@ -141,67 +142,3 @@ function App() {
 }
 
 export default App;
-
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const InputContainer = styled.div`
-  ${inputContainer}
-`;
-
-const Label = styled.label`
-  ${inputLabel}
-  color: white
-`;
-
-const Select = styled.select`
-  ${select}
-  margin-bottom: 20px;
-`;
-
-const SelectOpt = styled.option`
-  font-size: medium;
-  font-weight: 400;
-  color: ${secondaryColor};
-`;
-
-const Form = styled.form`
-  ${form}
-  background-color: ${principalColor};
-  height: 50%;
-  width: 50%;
-  border-radius: 10px;
-  justify-content: center;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 30px;
-  text-align: center;
-  border-radius: 5px;
-  border: 1px solid ${principalColor};
-  font-size: medium;
-  font-weight: 400;
-  color: ${secondaryColor};
-
-  &:focus {
-    border: 1px solid ${principalColor};
-    outline: none;
-  }
-
-  &::-webkit-inner-spin-button {
-    display: none;
-  }
-  width: 100%;
-`;
-
-const Logo = styled.img`
-  position: absolute;
-  top: 0;
-  margin-top: 4%;
-`;

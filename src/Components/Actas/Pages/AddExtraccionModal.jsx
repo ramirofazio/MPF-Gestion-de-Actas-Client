@@ -96,11 +96,11 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
             </SelectOpt>
           </select>
         </InputContainer>
-        <div className="flex-1 w-full flex flex-col items-center">
-          <h1 className="text-center text-1xl mb-5">Extracciones</h1>
+        <div className="flex w-full flex-1 flex-col items-center">
+          <h1 className="text-1xl mb-5 text-center">Extracciones</h1>
           {tiposDeExtraccion &&
             tiposDeExtraccion.map((e) => (
-              <div key={e.fakeId} className="flex items-center justify-around w-full h-14 mb-3 rounded-md bg-base text-black">
+              <div key={e.fakeId} className="mb-3 flex h-14 w-full items-center justify-around rounded-md bg-base text-black">
                 <div className="flex flex-col items-center">
                   <span className="underline">Tipo</span>
                   <span className="text-secondary">{e.nombre}</span>
@@ -123,7 +123,7 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
               </div>
             ))}
           <PlusSquareDotted
-            className="transition duration-500 hover:text-secondary hover:cursor-pointer "
+            className="transition duration-500 hover:cursor-pointer hover:text-secondary "
             color={extraccion.herramientaSoft ? "white" : secondaryColor}
             size={35}
             onClick={() =>

@@ -13,12 +13,12 @@ function AddTipoExtraccionModal({ setAddTipoExtraccionModal, handleTipoExtraccio
     <>
       <Close
         size={30}
-        className="transition text-white self-end hover:text-gray-500 cursor-pointer"
+        className="cursor-pointer self-end text-white transition hover:text-gray-500"
         onClick={() => setAddTipoExtraccionModal(false)}
       />
       <h4 class="modalTitle">Agregar Tipos de Extraccion</h4>
       <form
-        class="flex flex-col items-center w-full h-full p-5 text-white"
+        class="flex h-full w-full flex-col items-center p-5 text-white"
         onSubmit={(e) => handleTipoExtraccionSubmit(e, tipoDeExtraccion)}
       >
         <div class="inputContainer">

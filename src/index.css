@@ -4,21 +4,33 @@
 @tailwind components;
 @tailwind utilities;
 
+/** START Global Components  */
+
+.basicForm50x50 {
+  @apply flex h-[50%] w-[50%] flex-col items-center justify-center rounded-sm bg-principal shadow-xl;
+}
+
+.flexContainer100x100 {
+  @apply flex h-[100vh] w-[100vw] items-center justify-center outline;
+}
+
 .inputContainer {
-  @apply text-base flex items-center justify-between w-full h-max border-b-secondary pb-5;
+  @apply flex h-max w-full items-center justify-around border-b-secondary pb-5 text-base;
 }
 
 .select {
-  @apply flex-1 w-full h-8 text-center border-2 rounded-md text-secondary focus:outline focus:border-none;
+  @apply h-10 w-full flex-1 rounded-md  text-center text-secondary focus:border-none focus:outline-none;
 }
 
 .submitBtn {
-  @apply p-1 px-6 rounded-2xl bg-white text-base text-black transition duration-300 hover:cursor-pointer hover:bg-principal hover:text-white hover:border-transparent
+  @apply rounded-2xl bg-white p-1 px-6 text-base text-black transition duration-300 hover:cursor-pointer hover:border-transparent hover:bg-principal hover:text-white;
 }
 
 .modalTitle {
-    @apply border-b-white border-b-2 w-full text-center mb-2 pb-2 text-white
+  @apply mb-2 w-full border-b-2 border-b-white pb-2 text-center text-white;
 }
+
+/** END Global Components */
 
 .Toastify__toast {
   border: 2px solid #006473;
