@@ -9,6 +9,18 @@
   @apply mb-10 flex h-16 w-full items-center justify-center rounded-md border-2 border-white bg-base text-center text-xl text-principal transition hover:bg-principal hover:text-white;
 }
 
+.filterInput {
+  @apply h-full w-full rounded-md border border-black focus:outline-principal;
+}
+
+.filterInputContainer {
+  @apply flex w-24 flex-col items-center justify-center;
+}
+
+.basicLabel {
+  @apply self-start text-sm text-secondary;
+}
+
 .basicForm50x50 {
   @apply flex h-[50%] w-[50%] flex-col items-center justify-center rounded-sm bg-principal shadow-xl;
 }
@@ -69,4 +81,10 @@ html::before {
 ::-webkit-scrollbar-thumb {
   background-color: #006473;
   border-radius: 5px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
