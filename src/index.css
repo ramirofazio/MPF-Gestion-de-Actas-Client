@@ -14,7 +14,7 @@
 }
 
 .flexContainer100x100 {
-  @apply flex h-[100vh] w-[100vw] items-center justify-center outline;
+  @apply flex h-[100vh] w-[100vw] items-center justify-center;
 }
 
 .inputContainer {
