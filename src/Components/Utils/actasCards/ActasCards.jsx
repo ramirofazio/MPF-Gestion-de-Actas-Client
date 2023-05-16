@@ -30,11 +30,7 @@ function ActasCards({ allActas, typeOfCard }) {
           : actasToRender && actasToRender.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)}
       </div>
       {typeOfCard !== "remove" && (
-        <Link
-          className="absolute bottom-0 mb-5 rounded-lg border-2 border-principal px-6 py-2 text-secondary  no-underline transition hover:bg-principal hover:text-white"
-          to="/actas/crear/1"
-          onClick={() => loadLocalStorage()}
-        >
+        <Link className="basicBtnNoPadding absolute bottom-0  mb-5 px-6 py-2" to="/actas/crear/1" onClick={() => loadLocalStorage()}>
           Crear Acta
         </Link>
       )}

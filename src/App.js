@@ -54,16 +54,22 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const currentUser = users.find((u) => u.username === user.username);
-    if (currentUser.password === user.password) {
-      if (user.username === "admin") {
-        dispatch(admin());
+    if (user.username && user.password) {
+      if (currentUser.password === user.password) {
+        if (user.username === "admin") {
+          dispatch(admin());
+        }
+        toast.success("¡Usuario autenticado con exito!");
+        dispatch(setCurrentUser(currentUser));
+        setFlag(true);
+      } else {
+        toast.error("¡Contraseña incorrecta!");
+        setUser({ ...user, password: "" });
       }
-      toast.success("¡Usuario autenticado con exito!");
-      dispatch(setCurrentUser(currentUser));
-      setFlag(true);
+    } else if (user.username === "") {
+      toast.warning("¡Primero elige un Usuario!");
     } else {
-      toast.error("¡Contraseña incorrecta!");
-      setUser({ ...user, password: "" });
+      toast.warning("¡Escribe tu contraseña!");
     }
   };
 
@@ -82,7 +88,7 @@ function App() {
           <div className="mb-5 flex h-[15%] w-[40%] flex-col items-center justify-center ">
             <label className="mb-1 self-start text-white">Usuario</label>
             <select className="select" onChange={(e) => setUser({ ...user, username: e.target.value })} value={user.username}>
-              <option>Usuario</option>
+              <option value="">Usuario</option>
               {users &&
                 users.map((u) => (
                   <option value={u.username} key={u.legajo}>
@@ -101,6 +107,11 @@ function App() {
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
           </div>
+          <input
+            className="mt-5 rounded-md border-2 border-white bg-white px-6 py-1 text-principal  transition hover:cursor-pointer hover:bg-principal hover:text-white"
+            type="submit"
+            value="Ingresar"
+          />
         </form>
       </div>
     );

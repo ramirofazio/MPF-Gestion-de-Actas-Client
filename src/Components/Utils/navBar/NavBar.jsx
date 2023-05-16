@@ -19,7 +19,7 @@ function NavBar({ setFlag }) {
     setFlag(false);
     localStorage.clear();
     dispatch(clearStates());
-    toast.success("Sesion cerrada con exito!");
+    toast.success("¡Sesion cerrada con exito!");
     localStorage.setItem("users", users);
   };
 

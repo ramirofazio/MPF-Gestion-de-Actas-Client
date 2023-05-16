@@ -32,7 +32,7 @@ function ActasFilters() {
   };
 
   return (
-    <form className="my-5 flex w-[50%]  justify-around self-start">
+    <form className="my-5 ml-5 flex w-[50%] justify-around self-start">
       <div className="filterInputContainer">
         <label className="basicLabel">Nro MPF</label>
         <input

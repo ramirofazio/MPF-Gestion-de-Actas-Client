@@ -12,6 +12,7 @@ module.exports = {
       current: "currentColor",
       process: "#fcc400",
       error: "#FF0000",
+      touch: "#3B4F5F20",
       black: colors.black,
       white: colors.white,
       gray: colors.gray,

@@ -35,25 +35,13 @@ function Home() {
   }, []);
 
   return (
-    <Container>
-      <Header>
-        <Title>Creación de Actas</Title>
-      </Header>
+    <div className="paddingLeftContainer">
+      <header className="header">
+        <span className="headerTitle">Creación de Actas</span>
+      </header>
       <ActasCards allActas={allActas} typeOfActa={"home"} />
-    </Container>
+    </div>
   );
 }
 
 export default Home;
-
-const Container = styled.div`
-  ${enProcesoContainer}
-`;
-
-const Header = styled.header`
-  ${header}
-`;
-
-const Title = styled.h1`
-  ${headerTitle}
-`;
