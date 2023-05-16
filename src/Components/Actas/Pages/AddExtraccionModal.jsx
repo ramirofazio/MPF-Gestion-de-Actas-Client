@@ -133,7 +133,7 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
             }
           />
         </div>
-        <Button type="submit" value={extraccion.edit ? "Guardar" : "Agregar"} complete={"true"} />
+        <Button type="submit" value="Guardar" complete={"true"} />
       </Form>
 
       <Modal isOpen={addTipoExtraccionModal} style={modal40x40} ariaHideApp={false}>

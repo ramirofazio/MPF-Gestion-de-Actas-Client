@@ -64,7 +64,7 @@ function AddTipoExtraccionModal({ setAddTipoExtraccionModal, handleTipoExtraccio
           </div>
         )}
         <button class="submitBtn" type="submit">
-          Agregar Tipo de Extraccion
+          Guardar
         </button>
       </form>
     </>

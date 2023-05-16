@@ -469,11 +469,11 @@ function AddEfectos({ alternModal }) {
             efecto.tipoSeguridad !== "ninguna" &&
             efecto.tipoSeguridad !== "" && (
               <InputContainer>
-                <Label>¿Se pudo desbloquear?</Label>
+                <Label>¿Forma Desbloqueo?</Label>
                 <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
-                  <SelectOpt value="">Si / No</SelectOpt>
-                  <SelectOpt value="si">Si</SelectOpt>
-                  <SelectOpt value="no">No</SelectOpt>
+                  <SelectOpt value="">¿Como se Desbloqueo?</SelectOpt>
+                  <SelectOpt value="uso de software">Uso de Software</SelectOpt>
+                  <SelectOpt value="prueba aleatoria">Prueba Aleatoria</SelectOpt>
                 </Select>
               </InputContainer>
             )}
