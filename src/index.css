@@ -5,12 +5,20 @@
 @tailwind utilities;
 
 /** START Global Components  */
+.cardInfoContainer {
+  @apply flex-1 text-center text-[15px];
+}
+
+.cardTitle {
+  @apply text-black underline;
+}
+
 .navButton {
   @apply mb-10 flex h-16 w-full items-center justify-center rounded-md border-2 border-white bg-base text-center text-xl text-principal transition hover:bg-principal hover:text-white;
 }
 
 .filterInput {
-  @apply h-full w-full rounded-md border border-black focus:outline-principal;
+  @apply h-full w-full rounded-md border border-black text-center focus:outline-principal;
 }
 
 .filterInputContainer {
