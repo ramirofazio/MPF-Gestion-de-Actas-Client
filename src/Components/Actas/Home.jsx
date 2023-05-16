@@ -6,7 +6,6 @@ import styled from "styled-components";
 import GlobalStyles from "../../Styles/GlobalStyles";
 //* Utils
 import ActasCards from "../Utils/actasCards/ActasCards";
-import ActasFilters from "../Utils/filters/ActasFilters";
 //* Initializations
 const { enProcesoContainer, header, headerTitle } = GlobalStyles;
 
@@ -40,7 +39,6 @@ function Home() {
       <Header>
         <Title>Creación de Actas</Title>
       </Header>
-      <ActasFilters />
       <ActasCards allActas={allActas} typeOfActa={"home"} />
     </Container>
   );

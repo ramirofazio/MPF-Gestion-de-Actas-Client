@@ -2,22 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { removeActa } from "../../../redux/actions";
 //* Styles
-import styled from "styled-components";
-import Variables from "../../../Styles/Variables";
-import GlobalStyles from "../../../Styles/GlobalStyles";
 import { FileDownload } from "@styled-icons/remix-line/FileDownload";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
 import { Warning } from "@styled-icons/entypo/Warning";
 import { FileEarmarkLock } from "@styled-icons/bootstrap/FileEarmarkLock";
-
 //* Utils
 import getSavedActa from "../template/getSavedActa";
 import editSavedActa from "../template/editSavedActa";
 import { useDispatch } from "react-redux";
-//* Initialization
-const { secondaryColor, redColor, yellowColor } = Variables;
-const { actaCardContainer, cardInfo, cardTitle } = GlobalStyles;
 
 function ActaCard({ acta, type }) {
   const navigate = useNavigate();
@@ -33,137 +26,100 @@ function ActaCard({ acta, type }) {
     setTotalEfectos(sum);
   }, []);
 
-  /*
-    ! ({acta, type}) type = "create" muestra cartas de creacion, cuando haya consultas ver que mostrar en la card, va a llegar type = "consulta"
-  */
-
   return (
-    <ActaContainer estado={acta.estado}>
-      <Info>
-        <CardTitle>Fecha</CardTitle>
-        <br />
-        {acta.mes} {acta.dias}
-      </Info>
-      {!acta.nro_coop && (
-        <Info>
-          <CardTitle>MPF</CardTitle>
+    <div
+      className={`mt-2 flex h-16 w-[95%] items-center rounded-md border-2 border-principal ${
+        acta.estado === "en proceso"
+          ? "border-r-[15px] border-r-process"
+          : acta.estado === "completa"
+          ? "border-r-[15px] border-r-principal"
+          : acta.estado === "deprecada"
+          ? "border-r-[15px] border-r-error"
+          : acta.estado === "en creacion"
+          ? "border-r-[15px] border-r-secondary"
+          : "border-r-[15px] border-r-principal"
+      }`}
+    >
+      <div className="flex max-w-[90%] flex-1">
+        <span className="cardInfoContainer">
+          <span className="cardTitle">Fecha</span>
           <br />
-          {acta.nro_mpf}
-        </Info>
-      )}
-      {!acta.nro_mpf && (
-        <Info>
-          <CardTitle>COOP</CardTitle>
+          {acta.mes} {acta.dias}
+        </span>
+        {!acta.nro_coop && (
+          <span className="cardInfoContainer">
+            <span className="cardTitle">MPF</span>
+            <br />
+            {acta.nro_mpf}
+          </span>
+        )}
+        {!acta.nro_mpf && (
+          <span className="cardInfoContainer">
+            <span className="cardTitle">COOP</span>
+            <br />
+            {acta.nro_coop}
+          </span>
+        )}
+        <span className="cardInfoContainer">
+          <span className="cardTitle">CIJ</span>
           <br />
-          {acta.nro_coop}
-        </Info>
-      )}
-      <Info>
-        <CardTitle>CIJ</CardTitle>
-        <br />
-        {acta.nro_cij}
-      </Info>
-      <Info>
-        <CardTitle>DIL</CardTitle>
-        <br />
-        {acta.nro_dil}
-      </Info>
-      <Info>
-        <CardTitle>Suscriptores</CardTitle>
-        <br />
-        {acta.Integrantes.length}
-      </Info>
-      <Info>
-        <CardTitle>Bolsas</CardTitle>
-        <br />
-        {acta.Bolsas.length}
-      </Info>
-      <Info>
-        <CardTitle>Efectos</CardTitle>
-        <br />
-        {totalEfectos}
-      </Info>
-      {type === "remove" ? (
-        <>
-          <RemoveIcon onClick={() => dispatch(removeActa(acta.id))} />
-        </>
-      ) : (
-        <>
-          {acta.estado !== "en creacion" && <DownloadIcon onClick={() => getSavedActa(acta.id)} />}
-          {acta.estado === "en creacion" && <EditIcon onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />}
-          {acta.estado === "en proceso" && <FileEarmarkLockIcon onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")} />}
-          {acta.estado === "en creacion" && <WarningIcon />}
-        </>
-      )}
-    </ActaContainer>
+          {acta.nro_cij}
+        </span>
+        <span className="cardInfoContainer">
+          <span className="cardTitle">DIL</span>
+          <br />
+          {acta.nro_dil}
+        </span>
+        <span className="cardInfoContainer">
+          <span className="cardTitle">Suscriptores</span>
+          <br />
+          {acta.Integrantes.length}
+        </span>
+        <span className="cardInfoContainer">
+          <span className="cardTitle">Bolsas</span>
+          <br />
+          {acta.Bolsas.length}
+        </span>
+        <span className="cardInfoContainer">
+          <span className="cardTitle">Efectos</span>
+          <br />
+          {totalEfectos}
+        </span>
+      </div>
+      <div className="flex h-full w-[10%] items-center justify-around">
+        {type === "remove" ? (
+          <>
+            <FileRemove
+              className="w-6 text-secondary transition hover:cursor-pointer hover:text-black"
+              onClick={() => dispatch(removeActa(acta.id))}
+            />
+          </>
+        ) : (
+          <>
+            {acta.estado !== "en creacion" && (
+              <FileDownload
+                className="w-6 text-secondary transition hover:cursor-pointer hover:text-black"
+                onClick={() => getSavedActa(acta.id)}
+              />
+            )}
+            {acta.estado === "en creacion" && (
+              <DocumentEdit
+                className="w-6 text-secondary transition hover:cursor-pointer hover:text-black"
+                onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")}
+              />
+            )}
+            {acta.estado === "en proceso" && (
+              <FileEarmarkLock
+                className="w-6 text-secondary transition hover:cursor-pointer hover:text-black"
+                onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")}
+              />
+            )}
+            {acta.estado === "en creacion" && <Warning className="w-6 text-process" />}
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 
 export default ActaCard;
-
-const ActaContainer = styled.div`
-  ${actaCardContainer}
-`;
-
-const Info = styled.span`
-  ${cardInfo}
-`;
-
-const CardTitle = styled.strong`
-  ${cardTitle}
-`;
-
-const DownloadIcon = styled(FileDownload)`
-  width: 25px;
-  margin-right: 40px;
-  color: ${secondaryColor};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;
-
-const EditIcon = styled(DocumentEdit)`
-  width: 25px;
-  margin-right: 40px;
-  color: ${secondaryColor};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;
-
-const FileEarmarkLockIcon = styled(FileEarmarkLock)`
-  width: 25px;
-  margin-right: 40px;
-  color: ${secondaryColor};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;
-
-const RemoveIcon = styled(FileRemove)`
-  width: 25px;
-  margin-right: 40px;
-  color: ${secondaryColor};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: ${redColor};
-    cursor: pointer;
-  }
-`;
-
-const WarningIcon = styled(Warning)`
-  width: 25px;
-  margin-right: 40px;
-  color: ${yellowColor};
-  transition: all 0.3s ease;
-`;

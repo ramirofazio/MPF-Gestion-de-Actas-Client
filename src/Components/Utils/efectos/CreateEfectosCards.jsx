@@ -1,8 +1,5 @@
 import React from "react";
 //* Styles
-import styled from "styled-components";
-import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
 import { PcHorizontal, PcDisplay, DeviceHddFill, SimFill, DeviceSsdFill, DeviceHdd } from "styled-icons/bootstrap";
 import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
 import { UDisk } from "@styled-icons/remix-line/UDisk";
@@ -12,9 +9,6 @@ import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { toast } from "react-toastify";
-//* Initializations
-const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
-const { cardTitle, cardInfo } = GlobalStyles;
 
 function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
   const [nroPrecintoBolsa, setNroPrecintoBolsa] = React.useState();
@@ -83,7 +77,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       }`}
     >
       <div className="ml-5 flex">{selectIcon(efecto.tipoDeElemento)}</div>
-      <span className="cardInfoContainer" style={colorPrecintoBolsa === "rojo" ? { color: redColor } : { color: greenColor }}>
+      <span className={`cardInfoContainer ${colorPrecintoBolsa === "rojo" ? "text-error" : "text-success"}`}>
         <span className="cardTitle">Precinto</span>
         <br />
         {nroPrecintoBolsa}

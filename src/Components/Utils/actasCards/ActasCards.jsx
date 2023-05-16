@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-//* Style
-import styled from "styled-components";
-import GlobalStyles from "../../../Styles/GlobalStyles";
 //* Utils
 import ActaCard from "./ActaCard";
-//* Initialization
-const { cardsContainer, button } = GlobalStyles;
+import ActasFilters from "../filters/ActasFilters";
 
 function ActasCards({ allActas, typeOfCard }) {
   const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
@@ -27,32 +23,23 @@ function ActasCards({ allActas, typeOfCard }) {
   };
   return (
     <>
-      <CardsContainer>
+      <div className="flex h-full w-full flex-col items-center overflow-y-scroll border-t-[3px] border-t-principal">
+        <ActasFilters />
         {typeOfCard === "remove"
           ? allActas && allActas.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)
           : actasToRender && actasToRender.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)}
-      </CardsContainer>
+      </div>
       {typeOfCard !== "remove" && (
-        <Button to="/actas/crear/1" onClick={() => loadLocalStorage()}>
+        <Link
+          className="absolute bottom-0 mb-5 rounded-lg border-2 border-principal px-6 py-2 text-secondary  no-underline transition hover:bg-principal hover:text-white"
+          to="/actas/crear/1"
+          onClick={() => loadLocalStorage()}
+        >
           Crear Acta
-        </Button>
+        </Link>
       )}
     </>
   );
 }
 
 export default ActasCards;
-
-const CardsContainer = styled.div`
-  ${cardsContainer}
-  padding-bottom: 5%;
-`;
-
-const Button = styled(Link)`
-  ${button}
-  position: absolute;
-  bottom: 0;
-  margin-bottom: 10px;
-  background-color: white;
-  text-decoration: none;
-`;
