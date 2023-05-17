@@ -28,7 +28,7 @@ function ActaCard({ acta, type }) {
 
   return (
     <div
-      className={`mt-2 flex h-16 w-[95%] items-center rounded-md border-2 border-principal ${
+      className={`mt-2 flex  min-h-[65px] w-[95%] items-center rounded-md border-2 border-principal ${
         acta.estado === "en proceso"
           ? "border-r-[15px] border-r-process"
           : acta.estado === "completa"

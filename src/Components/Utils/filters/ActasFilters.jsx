@@ -32,7 +32,7 @@ function ActasFilters() {
   };
 
   return (
-    <form className="my-5 ml-5 flex w-[50%] justify-around self-start">
+    <form className="my-5 flex w-[50%] justify-start self-start">
       <div className="filterInputContainer">
         <label className="basicLabel">Nro MPF</label>
         <input
@@ -65,7 +65,11 @@ function ActasFilters() {
       </div>
       <div className="filterInputContainer">
         <label className="basicLabel">Estado</label>
-        <select className="filterInput" value={filters.estado} onChange={(e) => setFilters({ ...filters, estado: e.target.value })}>
+        <select
+          className="filterInput hover:cursor-pointer"
+          value={filters.estado}
+          onChange={(e) => setFilters({ ...filters, estado: e.target.value })}
+        >
           <option value="">Todas</option>
           <option value="en proceso">En Proceso</option>
           <option value="completa">Completas</option>

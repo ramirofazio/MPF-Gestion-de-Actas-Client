@@ -1,13 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllActas, clearStates, admin } from "../../redux/actions";
-//* Styles
-import styled from "styled-components";
-import GlobalStyles from "../../Styles/GlobalStyles";
 //* Utils
 import ActasCards from "../Utils/actasCards/ActasCards";
-//* Initializations
-const { enProcesoContainer, header, headerTitle } = GlobalStyles;
 
 function Home() {
   const dispatch = useDispatch();
