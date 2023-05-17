@@ -50,7 +50,7 @@
 }
 
 .filterInput {
-  @apply h-6 w-full rounded-md border border-black text-center focus:outline-principal;
+  @apply h-6 w-full rounded-md border border-black text-center shadow-md focus:outline-principal;
 }
 
 .filterInputContainer {

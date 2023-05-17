@@ -1,13 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllActas, clearStates, admin } from "../../../redux/actions";
-//* Styles
-import styled from "styled-components";
-import GlobalStyles from "../../../Styles/GlobalStyles";
 //* Utils
 import ActasCards from "../../Utils/actasCards/ActasCards";
-//* Initializations
-const { enProcesoContainer, header, headerTitle } = GlobalStyles;
 
 function ActaRemoev() {
   const dispatch = useDispatch();
@@ -35,25 +30,13 @@ function ActaRemoev() {
   }, []);
 
   return (
-    <Container>
-      <Header>
-        <Title>Eliminar un Acta</Title>
-      </Header>
+    <div className="paddingLeftContainer">
+      <header className="header">
+        <span className="headerTitle">Eliminar un Acta</span>
+      </header>
       <ActasCards allActas={allActas} typeOfCard={"remove"} />
-    </Container>
+    </div>
   );
 }
 
 export default ActaRemoev;
-
-const Container = styled.div`
-  ${enProcesoContainer}
-`;
-
-const Header = styled.header`
-  ${header}
-`;
-
-const Title = styled.h1`
-  ${headerTitle}
-`;

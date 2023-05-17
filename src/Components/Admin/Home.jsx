@@ -53,14 +53,14 @@ function Home() {
         <span className="headerTitle">Panel de Administrador</span>
       </header>
       <div className="flex h-[85vh] w-full flex-col items-center justify-center overflow-x-hidden overflow-y-scroll border-t-[3px] border-t-principal">
-        <div className="adminCards group" to="#" onClick={() => convertirJSONaExcel(allActas)}>
+        <NavLink className="adminCards group" to="#" onClick={() => convertirJSONaExcel(allActas)}>
           <span className="text-xl text-secondary group-hover:text-principal">Exportar DB</span>
           <StatsChart className="icons w-8 group-hover:text-principal" />
-        </div>
-        <div className="adminCards group" to="/admin/eliminarActa">
+        </NavLink>
+        <NavLink className="adminCards group" to="/admin/eliminarActa">
           <span className="text-xl text-secondary group-hover:text-principal">Eliminar un Acta</span>
           <FileRemove className="icons w-8 group-hover:text-principal" />
-        </div>
+        </NavLink>
       </div>
     </div>
   );
