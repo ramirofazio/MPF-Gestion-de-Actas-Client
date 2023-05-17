@@ -6,6 +6,10 @@
 
 /** START Global Components  */
 
+.navLinkButtonPages {
+  @apply rounded-lg border-2  text-secondary no-underline transition hover:bg-touch;
+}
+
 .basicBtnNoPadding {
   @apply rounded-lg border-2 border-principal text-secondary no-underline transition hover:bg-touch;
 }
@@ -22,7 +26,7 @@
 }
 
 .paddingLeftContainer {
-  @apply flex h-full w-full flex-col items-center justify-between pl-[20%];
+  @apply flex h-[100vh] w-full flex-col items-center justify-start pl-[20%];
 }
 
 .header {
@@ -42,7 +46,7 @@
 }
 
 .navButton {
-  @apply mb-10 flex h-16 w-full items-center justify-center rounded-md border-2 border-white bg-base text-center text-xl text-principal transition hover:bg-principal hover:text-white;
+  @apply mb-10 flex h-16 w-full items-center justify-center rounded-md border-2 border-white bg-base text-center text-xl text-principal transition hover:bg-touch hover:text-white;
 }
 
 .filterInput {
@@ -71,6 +75,14 @@
 
 .select {
   @apply h-10 w-full flex-1 rounded-md  text-center text-secondary focus:border-none focus:outline-none;
+}
+
+.formBigSelect {
+  @apply min-h-[30px] w-full  flex-1 rounded-md border-2 border-secondary/60 text-center text-secondary  shadow-md hover:cursor-pointer focus:border-principal;
+}
+
+.formBigInput {
+  @apply min-h-[30px] w-full  flex-1 rounded-md border-2 border-secondary/60 text-center text-secondary  shadow-md focus:border-principal;
 }
 
 .submitBtn {
