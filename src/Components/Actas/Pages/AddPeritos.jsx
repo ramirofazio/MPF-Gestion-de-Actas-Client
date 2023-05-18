@@ -37,9 +37,9 @@ function AddPeritos() {
     const { nombreYApellido, legajo } = perito;
 
     if (nombreYApellido && legajo) {
-      return "true";
+      return true;
     } else {
-      return "false";
+      return false;
     }
   };
 
@@ -68,7 +68,7 @@ function AddPeritos() {
         <span className="headerTitle">Creación de Peritos</span>
       </header>
       <div className="flex min-h-[80%] w-full items-center justify-center  border-t-[3px] border-principal">
-        <form className="mx-10 flex flex-1 flex-col items-center justify-center">
+        <form className="mx-10 flex flex-[0.5] flex-col items-center justify-center">
           <div className="inputContainer flex-col">
             <label className="basicLabel">*Elegir Perito</label>
             <select className="formBigSelect" onChange={(e) => peritoSelected(JSON.parse(e.target.value))}>
@@ -113,8 +113,9 @@ function AddPeritos() {
             />
           </div>
         </form>
+        <div className="flex-[0.2]"></div>
 
-        <div className="mx-10 flex h-full flex-[1.2] flex-col items-center justify-center overflow-y-scroll">
+        <div className="mx-10 flex h-full flex-[0.7] flex-col items-center justify-center overflow-y-scroll">
           {peritos &&
             peritos.map((i, index) => {
               return (
@@ -165,7 +166,7 @@ function AddPeritos() {
                 to="#"
               >
                 <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
-                Agregar {perito.nombreYApellido.split(" ")[0]}
+                Agregar a {perito.nombreYApellido.split(" ")[0]}
               </NavLink>
             ) : (
               <NavLink
@@ -190,7 +191,7 @@ function AddPeritos() {
                 to="#"
               >
                 <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
-                Agregar {perito.nombreYApellido.split(" ")[0]}
+                Agregar a {perito.nombreYApellido.split(" ")[0]}
               </NavLink>
             )}
             <NavLink className="basicBtnNoPadding px-10 py-2" to={"/actas/crear/3"}>
