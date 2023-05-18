@@ -366,7 +366,7 @@ function AddActa() {
         {!comeBack ? (
           <NavLink
             className={`navLinkButtonPages pointer-events-none border-2 border-error px-10 py-2 ${
-              handleComplete() && "pointer-events-auto border-success"
+              handleComplete() && "pointer-events-auto animate-bounce border-success"
             }`}
             onClick={() => handleClick()}
             to="#"
