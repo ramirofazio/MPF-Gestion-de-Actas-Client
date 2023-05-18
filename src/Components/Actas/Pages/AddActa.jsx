@@ -362,7 +362,6 @@ function AddActa() {
         <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
           Volver
         </NavLink>
-        {console.log(comeBack)}
         {!comeBack ? (
           <NavLink
             className={`navLinkButtonPages pointer-events-none border-2 border-error px-10 py-2 ${

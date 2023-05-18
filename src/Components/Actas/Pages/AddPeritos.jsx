@@ -2,31 +2,11 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
-import { createPeritos, removePerito, setCurrentUser } from "../../../redux/actions";
+import { createPeritos, removePerito } from "../../../redux/actions";
 //* Style
-import styled, { css } from "styled-components";
-import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 import { toast } from "react-toastify";
-//* Initializations
-const { redColor, greenColor, secondaryColor, principalColor } = Variables;
-const {
-  enProcesoContainer,
-  header,
-  headerTitle,
-  button,
-  formContainer,
-  inputContainer,
-  select,
-  selectOpt,
-  inputLabel,
-  form,
-  input,
-  cardTitle,
-  cardInfo,
-} = GlobalStyles;
 
 function AddPeritos() {
   const navigate = useNavigate();
@@ -83,259 +63,144 @@ function AddPeritos() {
     });
   };
   return (
-    <Container>
-      <Header>
-        <Title>Creación de Peritos</Title>
-      </Header>
-      <SubContainer>
-        <FormContainer>
-          <Form>
-            <InputContainer>
-              <Label>*Elegir Perito</Label>
-              <Select onChange={(e) => peritoSelected(JSON.parse(e.target.value))}>
-                <SelectOpt value="">Elegir Perito</SelectOpt>
-                {users && users.map((u) => u.username !== "admin" && <SelectOpt value={JSON.stringify(u)}>{u.nombreYApellido}</SelectOpt>)}
-              </Select>
-            </InputContainer>
-            <InputContainer>
-              <Label>Nombre y Apellido</Label>
-              <Input
-                disabled={true}
-                type="text"
-                name="nombreYApellido"
-                value={perito.nombreYApellido}
-                placeholder="Nombre y Apellido"
-                onChange={(e) => setPerito({ ...perito, nombreYApellido: e.target.value })}
-              />
-            </InputContainer>
-            <InputContainer>
-              <Label>Legajo</Label>
-              <Input
-                disabled={true}
-                type="number"
-                name="legajo"
-                value={perito.legajo}
-                placeholder="Legajo"
-                onChange={(e) => setPerito({ ...perito, legajo: e.target.value })}
-              />
-            </InputContainer>
-            <InputContainer>
-              <Label>Cargo</Label>
-              <Input
-                disabled={true}
-                type="text"
-                name="cargo"
-                value={perito.cargo}
-                placeholder="Cargo"
-                onChange={(e) => setPerito({ ...perito, cargo: e.target.value })}
-              />
-            </InputContainer>
-          </Form>
-        </FormContainer>
+    <div className="paddingLeftContainer">
+      <header className="header">
+        <span className="headerTitle">Creación de Peritos</span>
+      </header>
+      <div className="flex min-h-[80%] w-full items-center justify-center  border-t-[3px] border-principal">
+        <form className="mx-10 flex flex-1 flex-col items-center justify-center">
+          <div className="inputContainer flex-col">
+            <label className="basicLabel">*Elegir Perito</label>
+            <select className="formBigSelect" onChange={(e) => peritoSelected(JSON.parse(e.target.value))}>
+              <option value="">Elegir Perito</option>
+              {users && users.map((u) => u.username !== "admin" && <option value={JSON.stringify(u)}>{u.nombreYApellido}</option>)}
+            </select>
+          </div>
+          <div className="inputContainer flex-col">
+            <label className="basicLabel">Nombre y Apellido</label>
+            <input
+              className="formBigInput"
+              disabled={true}
+              type="text"
+              name="nombreYApellido"
+              value={perito.nombreYApellido}
+              placeholder="Nombre y Apellido"
+              onChange={(e) => setPerito({ ...perito, nombreYApellido: e.target.value })}
+            />
+          </div>
+          <div className="inputContainer flex-col">
+            <label className="basicLabel">Legajo</label>
+            <input
+              className="formBigInput"
+              disabled={true}
+              type="number"
+              name="legajo"
+              value={perito.legajo}
+              placeholder="Legajo"
+              onChange={(e) => setPerito({ ...perito, legajo: e.target.value })}
+            />
+          </div>
+          <div className="inputContainer flex-col">
+            <label className="basicLabel">Cargo</label>
+            <input
+              className="formBigInput"
+              disabled={true}
+              type="text"
+              name="cargo"
+              value={perito.cargo}
+              placeholder="Cargo"
+              onChange={(e) => setPerito({ ...perito, cargo: e.target.value })}
+            />
+          </div>
+        </form>
 
-        <PeritosContainer>
+        <div className="mx-10 flex h-full flex-[1.2] flex-col items-center justify-center overflow-y-scroll">
           {peritos &&
             peritos.map((i, index) => {
               return (
-                <PeritoContainer key={index}>
-                  <Info>
-                    <CardTitle>Nombre y Apellido</CardTitle>
+                <div
+                  className="group mb-4 flex h-20 w-full items-center justify-around rounded-md border-2 border-principal px-4 shadow-md"
+                  key={index}
+                >
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle text-md">Nombre y Apellido</span>
                     <br />
-                    {i.nombreYApellido}
-                  </Info>
-                  <Info>
-                    <CardTitle>Legajo</CardTitle>
+                    <span className="text-xs">{i.nombreYApellido}</span>
+                  </div>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle text-md">Legajo</span>
                     <br />
-                    {i.legajo}
-                  </Info>
-                  <Info>
-                    <CardTitle>Cargo</CardTitle>
+                    <span className="text-xs">{i.legajo}</span>
+                  </div>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle text-md">Cargo</span>
                     <br />
-                    {i.cargo}
-                  </Info>
-                  <RemoveIcon
+                    <span className="text-xs">{i.cargo}</span>
+                  </div>
+                  <PersonRemove
+                    className="w-[25px] text-error transition hover:cursor-pointer hover:text-secondary group-hover:animate-pulse"
                     onClick={() =>
                       currentActa.estado !== "en creacion"
                         ? toast.error("¡No se puede eliminar un Perito ya creado!")
                         : handleRemove(i.legajo)
                     }
                   />
-                </PeritoContainer>
+                </div>
               );
             })}
-        </PeritosContainer>
-      </SubContainer>
-      <ButtonContainer>
-        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+        </div>
+      </div>
+      <div className="flex w-[50%] items-center justify-around">
+        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
           Volver
-        </Button>
+        </NavLink>
         {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
           <>
             {perito.nombreYApellido && perito.legajo ? (
-              <Button onClick={() => handleAddPerito()} complete={handleComplete()} to="#">
-                <AddIcon />
-                Agregar Perito
-              </Button>
+              <NavLink
+                className={`navLinkButtonPages group pointer-events-none border-2 border-error px-10 py-2 ${
+                  handleComplete() && "pointer-events-auto animate-bounce border-success"
+                }`}
+                onClick={() => handleAddPerito()}
+                to="#"
+              >
+                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                Agregar {perito.nombreYApellido.split(" ")[0]}
+              </NavLink>
             ) : (
-              <Button complete={peritos.length >= "1" ? "true" : "false"} onClick={() => handleSubmitPeritos()} to="#">
+              <NavLink
+                className={`navLinkButtonPages pointer-events-none border-2 border-error px-10 py-2 ${
+                  peritos.length >= 1 && "pointer-events-auto animate-bounce border-success"
+                }`}
+                onClick={() => handleSubmitPeritos()}
+                to="#"
+              >
                 Siguente
-              </Button>
+              </NavLink>
             )}
           </>
         ) : (
-          <Button to={"/actas/crear/3"} complete={peritos.length >= "1" ? "true" : "false"}>
-            Continuar
-          </Button>
+          <>
+            {perito.nombreYApellido && perito.legajo && (
+              <NavLink
+                className={`navLinkButtonPages group pointer-events-none border-2 border-error px-10 py-2 ${
+                  handleComplete() && "pointer-events-auto animate-bounce border-success"
+                }`}
+                onClick={() => handleAddPerito()}
+                to="#"
+              >
+                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                Agregar {perito.nombreYApellido.split(" ")[0]}
+              </NavLink>
+            )}
+            <NavLink className="basicBtnNoPadding px-10 py-2" to={"/actas/crear/3"}>
+              Continuar
+            </NavLink>
+          </>
         )}
-      </ButtonContainer>
-    </Container>
+      </div>
+    </div>
   );
 }
 
 export default AddPeritos;
-
-const Container = styled.div`
-  ${enProcesoContainer}
-  padding-bottom: 10px;
-`;
-
-const Header = styled.header`
-  ${header}
-`;
-
-const Title = styled.h1`
-  ${headerTitle}
-`;
-
-const AddButton = styled.button`
-  ${button}
-  font-size: small;
-  padding: 10px;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
-`;
-
-const Button = styled(NavLink)`
-  ${button}
-  text-decoration: none;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
-`;
-
-const FormContainer = styled.div`
-  ${formContainer};
-  flex: 1;
-  border: none;
-  min-height: 100%;
-`;
-
-const InputContainer = styled.div`
-  ${inputContainer}
-  width: 100%;
-`;
-
-const Select = styled.select`
-  ${select}
-`;
-
-const SelectOpt = styled.option`
-  ${selectOpt}
-`;
-
-const Label = styled.label`
-  ${inputLabel}
-`;
-const Form = styled.form`
-  ${form}
-`;
-
-const Input = styled.input`
-  ${input}
-`;
-
-const AddIcon = styled(PersonAdd)`
-  width: 20px;
-  color: ${secondaryColor};
-  transition: all 0.5s ease;
-  margin-right: 10px;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;
-
-const RemoveIcon = styled(PersonRemove)`
-  width: 20px;
-  color: ${redColor};
-  transition: all 0.5s ease;
-  margin-right: 20px;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;
-
-const SubContainer = styled.div`
-  height: 70%;
-  width: 100%;
-  display: flex;
-  border-top: 2px solid ${principalColor};
-`;
-
-const PeritosContainer = styled.div`
-  flex: 1.2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  overflow-y: scroll;
-  padding-inline: 2%;
-  padding-top: 6%;
-`;
-
-const PeritoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  height: 12%;
-  min-height: 12%;
-  border: 2px solid ${principalColor};
-  border-radius: 10px;
-  margin-block: 5px;
-`;
-
-const Info = styled.span`
-  ${cardInfo}
-  font-size: small;
-`;
-
-const CardTitle = styled.strong`
-  ${cardTitle}
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  width: 50%;
-  align-items: center;
-  justify-content: space-around;
-`;
