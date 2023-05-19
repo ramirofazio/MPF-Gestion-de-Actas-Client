@@ -15,7 +15,8 @@ function AddActa() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const fecha = new Date();
-
+  const horas = fecha.getHours().toString().padStart(2, "0");
+  const minutos = fecha.getMinutes().toString().padStart(2, "0");
   const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
   const [acta, setActa] = React.useState("");
@@ -90,7 +91,7 @@ function AddActa() {
         dias: fecha.getDate(),
         mes: formatMonth(fecha.getMonth()),
         anio: fecha.getFullYear(),
-        hora: `${fecha.getHours()}:${fecha.getMinutes()}`,
+        hora: `${horas}:${minutos}`,
       });
       setTipoDeActa("Tipo de Acta");
     }
