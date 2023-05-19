@@ -74,7 +74,7 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
     <>
       <CloseIcon onClick={() => setAddExtraccionModal(false)} />
       <Form onSubmit={handleExtraccionSubmit}>
-        <Title>{extraccion.edit ? "Editar" : "Agregar"} Extracciones</Title>
+        <Title>Agregar Extracciones</Title>
         <InputContainer>
           <Label>Software</Label>
           <select
@@ -133,7 +133,7 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
             }
           />
         </div>
-        <Button type="submit" value="Guardar" complete={"true"} />
+        <Button type="submit" value="Guardar" complete={extraccion.herramientaSoft && extraccion.tipos.length > 0 ? "true" : "false"} />
       </Form>
 
       <Modal isOpen={addTipoExtraccionModal} style={modal40x40} ariaHideApp={false}>

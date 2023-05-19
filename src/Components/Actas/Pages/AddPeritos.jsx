@@ -71,7 +71,11 @@ function AddPeritos() {
         <form className="mx-10 flex flex-[0.5] flex-col items-center justify-center">
           <div className="inputContainer flex-col">
             <label className="basicLabel">*Elegir Perito</label>
-            <select className="formBigSelect" onChange={(e) => peritoSelected(JSON.parse(e.target.value))}>
+            <select
+              className="formBigSelect"
+              onChange={(e) => peritoSelected(JSON.parse(e.target.value))}
+              disabled={currentActa.estado !== "en creacion"}
+            >
               <option value="">Elegir Perito</option>
               {users && users.map((u) => u.username !== "admin" && <option value={JSON.stringify(u)}>{u.nombreYApellido}</option>)}
             </select>

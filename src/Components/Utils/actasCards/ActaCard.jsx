@@ -7,6 +7,7 @@ import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit
 import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
 import { Warning } from "@styled-icons/entypo/Warning";
 import { FileEarmarkLock } from "@styled-icons/bootstrap/FileEarmarkLock";
+import { EyeOutline } from "styled-icons/evaicons-outline";
 //* Utils
 import getSavedActa from "../template/getSavedActa";
 import editSavedActa from "../template/editSavedActa";
@@ -96,6 +97,9 @@ function ActaCard({ acta, type }) {
             {acta.estado !== "en creacion" && <FileDownload className="icons w-6" onClick={() => getSavedActa(acta.id)} />}
             {acta.estado === "en creacion" && (
               <DocumentEdit className="icons w-6" onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />
+            )}
+            {acta.estado === "completa" && (
+              <EyeOutline className="icons w-6" onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />
             )}
             {acta.estado === "en proceso" && (
               <FileEarmarkLock className="icons w-6" onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")} />

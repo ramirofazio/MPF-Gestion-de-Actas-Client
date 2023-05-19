@@ -109,6 +109,7 @@ function AddIntegrantes() {
               className="formBigSelect"
               value={integrante.locacion}
               onChange={(e) => setIntegrante({ ...integrante, locacion: e.target.value })}
+              disabled={currentActa.estado !== "en creacion"}
             >
               <option value="">Locacion</option>
               <option value="presencial">Presencial</option>

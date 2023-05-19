@@ -68,12 +68,12 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
 
   return (
     <div
-      className={`flex h-20 w-[90%] items-center justify-evenly rounded-md border-2 border-principal ${
+      className={`mb-2 flex min-h-[10vh] w-[90%] items-center justify-evenly rounded-md border-2 border-principal ${
         efecto.estado === "en proceso"
           ? "border-r-[15px] border-r-process"
           : efecto.estado === "completo"
           ? "border-r-[15px] border-r-success"
-          : "border-r-[15px] border-r-error"
+          : "border-r-[15px] border-r-principal"
       }`}
     >
       <div className="ml-5 flex">{selectIcon(efecto.tipoDeElemento)}</div>
@@ -202,7 +202,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       )}
 
       <span className="cardInfoContainer" style={{ flex: 0.5, marginRight: "10px" }}>
-        {efecto.Sims.length === 0 && <SimFill size={25} className="text-secondary" />}
+        {efecto.Sims.length !== 0 && <SimFill size={25} className="text-secondary" />}
         {efecto.Discos.length !== 0 && <DeviceHdd size={25} className="text-secondary" />}
         {efecto.Sds.length !== 0 && <SdCardMini size={25} className="text-secondary" />}
       </span>
