@@ -43,10 +43,10 @@ function AddPeritos() {
     }
   };
 
-  const handleRemove = (legajo) => {
-    dispatch(removePerito(legajo, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
+  const handleRemove = (legajo, id) => {
+    dispatch(removePerito(legajo, id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
-    const newPeritos = peritos.filter((i) => i.legajo !== legajo);
+    const newPeritos = peritos.filter((i) => i.id !== id);
     localStorage.setItem("currentPeritos", JSON.stringify(newPeritos));
     setPeritos(newPeritos);
   };
@@ -143,7 +143,7 @@ function AddPeritos() {
                     onClick={() =>
                       currentActa.estado !== "en creacion"
                         ? toast.error("¡No se puede eliminar un Perito ya creado!")
-                        : handleRemove(i.legajo)
+                        : handleRemove(i.legajo, i.id)
                     }
                   />
                 </div>
@@ -194,9 +194,15 @@ function AddPeritos() {
                 Agregar a {perito.nombreYApellido.split(" ")[0]}
               </NavLink>
             )}
-            <NavLink className="basicBtnNoPadding px-10 py-2" to={"/actas/crear/3"}>
-              Continuar
-            </NavLink>
+            {peritos.length > currentPeritos.length ? (
+              <NavLink className={"basicBtnNoPadding px-10 py-2"} onClick={() => handleSubmitPeritos()} to="#">
+                Siguente
+              </NavLink>
+            ) : (
+              <NavLink className="basicBtnNoPadding px-10 py-2" to={"/actas/crear/3"}>
+                Continuar
+              </NavLink>
+            )}
           </>
         )}
       </div>

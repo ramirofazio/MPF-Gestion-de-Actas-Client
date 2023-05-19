@@ -185,13 +185,12 @@ export function createPeritos(peritos, navigate) {
   };
 }
 
-export function createIntegrantes(integrantes, navigate) {
+export function createIntegrantes(integrantes) {
   return function (dispatch) {
     axios
       .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
       .then((res) => {
         if (res.status === 200) {
-          navigate("/actas/crear/4");
           toast.success("¡Integrantes creados con exito!");
         }
         return dispatch({
@@ -330,10 +329,10 @@ export function updateActa(observaciones, id, navigate) {
   };
 }
 
-export function removePerito(legajo, acta_id) {
+export function removePerito(legajo, id) {
   return function () {
     axios
-      .delete(Variables.baseEndpoint + `/removePerito?legajo=${legajo}&acta_id=${acta_id}`)
+      .delete(Variables.baseEndpoint + `/removePerito?legajo=${legajo}&id=${id}`)
       .then((res) => {
         if (res.status === 200) toast.success("¡Perito eliminado con exito!");
       })
@@ -343,10 +342,10 @@ export function removePerito(legajo, acta_id) {
   };
 }
 
-export function removeIntegrante(legajoOMatricula, acta_id) {
+export function removeIntegrante(legajoOMatricula, id) {
   return function () {
     axios
-      .delete(Variables.baseEndpoint + `/removeIntegrante?legajoOMatricula=${legajoOMatricula}&acta_id=${acta_id}`)
+      .delete(Variables.baseEndpoint + `/removeIntegrante?legajoOMatricula=${legajoOMatricula}&id=${id}`)
       .then((res) => {
         if (res.status === 200) toast.success("¡Integrante eliminado con exito!");
       })
