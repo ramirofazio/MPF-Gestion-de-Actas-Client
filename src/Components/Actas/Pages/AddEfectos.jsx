@@ -513,6 +513,7 @@ function AddEfectos({ alternModal }) {
               <SelectOpt value="">Seleccione el Estado</SelectOpt>
               <SelectOpt value="completo">Completo</SelectOpt>
               <SelectOpt value="en proceso">En Proceso</SelectOpt>
+              <SelectOpt value="peritado">Peritado</SelectOpt>
             </Select>
           </InputContainer>
         )}
