@@ -43,7 +43,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
 
   return (
     <>
-      <CloseIcon onClick={() => setAddSdsModal(false)} />
+      <CloseIcon onClick={() => setAddSdModal(false)} />
       <Form onSubmit={handleSdSubmit}>
         <Title>{sd.edit ? "Editar" : "Agregar"} SD</Title>
         <InputContainer>
@@ -88,7 +88,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
             <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
           </Select>
         </InputContainer>
-        <Button type="submit" value={sd.edit ? "Guardar" : "Agregar"} complete={sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"} />
+        <Button type="submit" value="Guardar" complete={sd.almacenamiento && sd.tipoExtraccionSd ? "true" : "false"} />
       </Form>
     </>
   );

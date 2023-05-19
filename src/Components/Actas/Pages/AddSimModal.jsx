@@ -75,7 +75,7 @@ function AddSimModal({ sims, setSims, setAddSimModal, toast }) {
             <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
           </Select>
         </InputContainer>
-        <Button type="submit" value={sim.edit ? "Guardar" : "Agregar"} complete={sim.tipoExtraccionSim ? "true" : "false"} />
+        <Button type="submit" value="Guardar" complete={sim.tipoExtraccionSim ? "true" : "false"} />
       </Form>
     </>
   );

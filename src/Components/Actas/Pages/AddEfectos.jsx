@@ -535,7 +535,7 @@ function AddEfectos({ alternModal }) {
             </OptButton>
           )}
 
-          {!efecto.edit && (
+          {!efecto.edit && efecto.tipoDeElemento !== "disco" && (
             <OptButton onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
               Agregar Extracciones
             </OptButton>

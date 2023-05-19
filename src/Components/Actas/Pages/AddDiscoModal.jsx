@@ -169,7 +169,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
         </InputContainer>
         <Button
           type="submit"
-          value={disco.edit ? "Guardar" : "Agregar"}
+          value="Guardar"
           complete={disco.tipoDeDisco && disco.estadoDisco && disco.marca && disco.almacenamiento ? "true" : "false"}
         />
       </Form>
