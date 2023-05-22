@@ -351,10 +351,12 @@ function AddEfectos({ alternModal }) {
               <SelectOpt value="gris">Gris</SelectOpt>
               <SelectOpt value="rojo">Rojo</SelectOpt>
               <SelectOpt value="azul">Azul</SelectOpt>
+              <SelectOpt value="celeste">Celeste</SelectOpt>
               <SelectOpt value="verde">Verde</SelectOpt>
               <SelectOpt value="amarillo">Amarillo</SelectOpt>
               <SelectOpt value="naranja">Naranja</SelectOpt>
               <SelectOpt value="morado">Morado</SelectOpt>
+              <SelectOpt value="lila">Lila</SelectOpt>
               <SelectOpt value="rosado">Rosado</SelectOpt>
               <SelectOpt value="marrón">Marrón</SelectOpt>
               <SelectOpt value="turquesa">Turquesa</SelectOpt>
