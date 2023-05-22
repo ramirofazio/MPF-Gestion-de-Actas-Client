@@ -66,6 +66,13 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
     }
   };
 
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
     <div
       className={`mb-2 flex min-h-[10vh] w-[90%] items-center justify-evenly rounded-md border-2 border-principal ${
@@ -77,135 +84,120 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       }`}
     >
       <div className="ml-5 flex">{selectIcon(efecto.tipoDeElemento)}</div>
-      <span className={`cardInfoContainer ${colorPrecintoBolsa === "rojo" ? "text-error" : "text-success"}`}>
+      <div className={`cardInfoContainer ${colorPrecintoBolsa === "rojo" ? "text-error" : "text-success"}`}>
         <span className="cardTitle">Precinto</span>
         <br />
         {nroPrecintoBolsa}
-      </span>
-      <span className="cardInfoContainer">
+      </div>
+      <div className="cardInfoContainer">
         <span className="cardTitle">Marca</span>
         <br />
-        {efecto.marca || "Ninguna"}
-      </span>
-      <span className="cardInfoContainer">
+        {efecto.marca || "No Visible"}
+      </div>
+      <div className="cardInfoContainer">
         <span className="cardTitle">Modelo</span>
         <br />
-        {efecto.modelo || "Ninguno"}
-      </span>
+        {efecto.modelo || "No Visible"}
+      </div>
       {efecto.encendido === "no" && (
         <>
-          <span className="cardInfoContainer">
+          <div className="cardInfoContainer">
             <span className="cardTitle">Encendido</span>
             <br />
             {efecto.encendido}
-          </span>
-          <span className="cardInfoContainer">
+          </div>
+          <div className="cardInfoContainer">
             <span className="cardTitle">Observacion</span>
             <br />
-            {efecto.observacionEncendido}
-          </span>
+            {truncateText(efecto.observacionEncendido || "", 40)}
+          </div>
         </>
       )}
       {(efecto.encendido === "si" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
         <>
           {efecto.elementoFallado === "si" ? (
             <>
-              <span className="cardInfoContainer">
-                <span className="cardTitle">Fallado</span>
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Falla</span>
                 <br />
                 {efecto.elementoFallado}
-              </span>
-              <span className="cardInfoContainer">
+              </div>
+              <div className="cardInfoContainer">
                 <span className="cardTitle">Observacion</span>
                 <br />
-                {efecto.observacionFalla}
-              </span>
+                {truncateText(efecto.observacionFalla || "", 40)}
+              </div>
             </>
           ) : (
             <>
-              {efecto.tipoDeElemento === "unidad de almacenamiento" ||
-                (efecto.tipoDeElemento === "disco" && (
-                  <span className="cardInfoContainer">
+              {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
+                <>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle">S/N</span>
+                    <br />
+                    {efecto.serialNumber || "No Visible"}
+                  </div>
+                  <div className="cardInfoContainer">
                     <span className="cardTitle">Almacenamiento</span>
                     <br />
                     {efecto.almacenamiento || "No visible"}
-                  </span>
-                ))}
-              {(efecto.desbloqueo === "si" || efecto.extraccion || efecto.tipoExtraccion) && (
-                <>
-                  {efecto.tipoDeElemento !== "unidad de almacenamiento" && (
-                    <span className="cardInfoContainer">
-                      <span className="cardTitle">Tipo de Seguridad</span>
-                      <br />
-                      {efecto.tipoSeguridad}
-                    </span>
-                  )}
-                  {efecto.tipoDeElemento === "unidad de almacenamiento" && (
-                    <span className="cardInfoContainer">
-                      <span className="cardTitle">Almacenamiento</span>
-                      <br />
-                      {efecto.almacenamiento || "No visible"}
-                    </span>
-                  )}
-                  <span className="cardInfoContainer">
-                    <span className="cardTitle">Cant. Extracciones</span>
+                  </div>
+                  <div className="cardInfoContainer capitalize">
+                    <span className="cardTitle">Adquisicion</span>
                     <br />
-                    {efecto.Extraccions.length}
-                  </span>
+                    {efecto.adquisicion}
+                  </div>
                 </>
               )}
-              {efecto.desbloqueo === "no" && (
+
+              {(efecto.desbloqueo || efecto.extraccion) && (
                 <>
-                  <span className="cardInfoContainer">
-                    <span className="cardTitle">Tipo de Seguridad</span>
+                  {efecto.tipoDeElemento !== "unidad de almacenamiento" && (
+                    <div className="cardInfoContainer">
+                      <span className="cardTitle">Seguridad</span>
+                      <br />
+                      {efecto.tipoSeguridad}
+                    </div>
+                  )}
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle">Extracciones</span>
                     <br />
-                    {efecto.tipoSeguridad}
-                  </span>
-                  <span className="cardInfoContainer">
-                    <span className="cardTitle">Desbloqueo</span>
-                    <br />
-                    {efecto.desbloqueo}
-                  </span>
+                    {efecto.Extraccions.length}
+                  </div>
+                  {efecto.desbloqueo === "no" && (
+                    <div className="cardInfoContainer">
+                      <span className="cardTitle">Desbloqueo</span>
+                      <br />
+                      {efecto.desbloqueo}
+                    </div>
+                  )}
                 </>
               )}
             </>
           )}
         </>
       )}
-      {efecto.tipoDeElemento === "disco" && (
-        <>
-          <span className="cardInfoContainer">
-            <span className="cardTitle">Serial Number</span>
-            <br />
-            {efecto.serialNumber || "Ninguno"}
-          </span>
-          <span className="cardInfoContainer">
-            <span className="cardTitle">Almacenamiento</span>
-            <br />
-            {efecto.almacenamiento || "No Visible"}
-          </span>
-        </>
-      )}
+
       {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc" || efecto.tipoDeElemento === "dvr") && (
         <>
-          <span className="cardInfoContainer">
-            <span className="cardTitle">Serial Number</span>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">S/N</span>
             <br />
-            {efecto.serialNumber || "Ninguno"}
-          </span>
-          <span className="cardInfoContainer">
+            {efecto.serialNumber || "No Visible"}
+          </div>
+          <div className="cardInfoContainer">
             <span className="cardTitle">Cant. Discos</span>
             <br />
             {efecto.Discos.length}
-          </span>
+          </div>
         </>
       )}
 
-      <span className="cardInfoContainer" style={{ flex: 0.5, marginRight: "10px" }}>
+      <div className="cardInfoContainer" style={{ flex: 0.5, marginRight: "10px" }}>
         {efecto.Sims.length !== 0 && <SimFill size={25} className="text-secondary" />}
         {efecto.Discos.length !== 0 && <DeviceHdd size={25} className="text-secondary" />}
         {efecto.Sds.length !== 0 && <SdCardMini size={25} className="text-secondary" />}
-      </span>
+      </div>
       {(estadoActa === "en creacion" || estadoActa === "en proceso") && (
         <DocumentEdit
           size={25}
