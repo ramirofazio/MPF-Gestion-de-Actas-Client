@@ -81,6 +81,7 @@ function AddEfectos({ alternModal }) {
       color: "",
       unidadAlmacenamientoDetalle: "",
       adquisicion: "",
+      herramientaSoft: "",
     }
   );
 
@@ -493,7 +494,27 @@ function AddEfectos({ alternModal }) {
           </InputContainer>
         )}
 
-        {efecto.tipoDeElemento === "disco" && (
+        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && efecto.elementoFallado === "no" && (
+          <InputContainer>
+            <Label>Software</Label>
+            <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
+              <SelectOpt value="">Seleccione Herramienta</SelectOpt>
+              <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+              <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+              <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+              <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+              <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+              <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+              <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
+              <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
+              <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
+                TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
+              </SelectOpt>
+            </Select>
+          </InputContainer>
+        )}
+
+        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && efecto.herramientaSoft !== "" && (
           <InputContainer>
             <Label>Adquisición</Label>
             <Select value={efecto.adquisicion} onChange={(e) => setEfecto({ ...efecto, adquisicion: e.target.value })}>
@@ -539,7 +560,9 @@ function AddEfectos({ alternModal }) {
           )}
 
           {!efecto.edit &&
+            efecto.tipoDeElemento &&
             efecto.tipoDeElemento !== "disco" &&
+            efecto.tipoDeElemento !== "unidad de almacenamiento" &&
             efecto.tipoDeElemento !== "notebook" &&
             efecto.tipoDeElemento !== "gabinete" && (
               <OptButton onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
