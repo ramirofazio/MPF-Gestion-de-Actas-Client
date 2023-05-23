@@ -559,11 +559,14 @@ function AddEfectos({ alternModal }) {
             </OptButton>
           )}
 
-          {!efecto.edit && efecto.tipoDeElemento && (efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
-            <OptButton onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
-              Agregar Extracciones
-            </OptButton>
-          )}
+          {!efecto.edit &&
+            efecto.elementoFallado !== "si" &&
+            efecto.tipoDeElemento &&
+            (efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
+              <OptButton onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
+                Agregar Extracciones
+              </OptButton>
+            )}
           <Button type="submit" value="Guardar" complete={handleComplete()} />
         </div>
       </Form>

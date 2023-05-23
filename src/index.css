@@ -38,11 +38,11 @@
 }
 
 .cardInfoContainer {
-  @apply flex-1 text-center text-[15px];
+  @apply flex-1 text-center text-[15px] text-gray-500;
 }
 
 .cardTitle {
-  @apply text-black underline;
+  @apply text-secondary underline;
 }
 
 .navButton {
