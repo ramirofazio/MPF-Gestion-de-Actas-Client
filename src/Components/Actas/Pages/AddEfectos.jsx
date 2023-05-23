@@ -66,6 +66,7 @@ function AddEfectos({ alternModal }) {
       marca: "",
       modelo: "",
       imei: "",
+      empresa: "",
       estado: "",
       tipoSeguridad: "",
       desbloqueo: "",
@@ -100,9 +101,15 @@ function AddEfectos({ alternModal }) {
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color } = efecto;
+    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color, empresa, herramientaSoft } = efecto;
 
     switch (tipoDeElemento) {
+      case "sim": {
+        if (bolsa_id && estado && empresa && herramientaSoft) {
+          return "true";
+        }
+        break;
+      }
       case "celular": {
         if (bolsa_id && estado && encendido && color) {
           return "true";
@@ -134,13 +141,13 @@ function AddEfectos({ alternModal }) {
         break;
       }
       case "dvr": {
-        if (bolsa_id && estado && color) {
+        if (bolsa_id && estado) {
           return "true";
         }
         break;
       }
       case "disco": {
-        if (bolsa_id && tipoDeDisco && estado && color) {
+        if (bolsa_id && tipoDeDisco && estado) {
           return "true";
         }
         break;
@@ -273,6 +280,7 @@ function AddEfectos({ alternModal }) {
             <SelectOpt value="unidad de almacenamiento">Unidad de Almacenamiento</SelectOpt>
             <SelectOpt value="dvr">DVR</SelectOpt>
             <SelectOpt value="disco">Disco</SelectOpt>
+            <SelectOpt value="sim">Sim</SelectOpt>
           </Select>
         </InputContainer>
         {efecto.tipoDeElemento === "disco" && (
@@ -308,26 +316,43 @@ function AddEfectos({ alternModal }) {
           </InputContainer>
         )}
 
-        <InputContainer>
-          <Label>Marca</Label>
-          <Input
-            type="text"
-            name="marca"
-            value={efecto.marca}
-            placeholder="Marca"
-            onChange={(e) => setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })}
-          />
-        </InputContainer>
-        <InputContainer>
-          <Label>Modelo</Label>
-          <Input
-            type="text"
-            name="modelo"
-            value={efecto.modelo}
-            placeholder="Modelo"
-            onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
-          />
-        </InputContainer>
+        {efecto.tipoDeElemento === "sim" && (
+          <InputContainer>
+            <Label>*Empresa</Label>
+            <Input
+              type="text"
+              name="empresa"
+              value={efecto.empresa}
+              placeholder="Empresa"
+              onChange={(e) => setEfecto({ ...efecto, empresa: e.target.value.toUpperCase() })}
+            />
+          </InputContainer>
+        )}
+
+        {efecto.tipoDeElemento !== "sim" && (
+          <>
+            <InputContainer>
+              <Label>Marca</Label>
+              <Input
+                type="text"
+                name="marca"
+                value={efecto.marca}
+                placeholder="Marca"
+                onChange={(e) => setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })}
+              />
+            </InputContainer>
+            <InputContainer>
+              <Label>Modelo</Label>
+              <Input
+                type="text"
+                name="modelo"
+                value={efecto.modelo}
+                placeholder="Modelo"
+                onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
+              />
+            </InputContainer>
+          </>
+        )}
 
         {efecto.tipoDeElemento === "celular" && (
           <InputContainer>
@@ -342,7 +367,7 @@ function AddEfectos({ alternModal }) {
           </InputContainer>
         )}
 
-        {(efecto.tipoDeElemento !== "disco" || efecto.tipoDeElemento !== "dvr") && (
+        {efecto.tipoDeElemento !== "sim" && efecto.tipoDeElemento !== "dvr" && efecto.tipoDeElemento !== "disco" && (
           <InputContainer>
             <Label>*Color</Label>
             <Select value={efecto.color} onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}>
@@ -372,7 +397,8 @@ function AddEfectos({ alternModal }) {
           efecto.tipoDeElemento === "tablet" ||
           efecto.tipoDeElemento === "gabinete" ||
           efecto.tipoDeElemento === "dvr" ||
-          efecto.tipoDeElemento === "disco") && (
+          efecto.tipoDeElemento === "disco" ||
+          efecto.tipoDeElemento === "sim") && (
           <InputContainer>
             <Label>Serial Nº</Label>
             <Input
@@ -402,7 +428,8 @@ function AddEfectos({ alternModal }) {
           efecto.tipoDeElemento !== "unidad de almacenamiento" &&
           efecto.tipoDeElemento !== "notebook" &&
           efecto.tipoDeElemento !== "dvr" &&
-          efecto.tipoDeElemento !== "disco" && (
+          efecto.tipoDeElemento !== "disco" &&
+          efecto.tipoDeElemento !== "sim" && (
             <InputContainer>
               <Label>*¿Enciende?</Label>
               <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
@@ -512,6 +539,40 @@ function AddEfectos({ alternModal }) {
               </SelectOpt>
             </Select>
           </InputContainer>
+        )}
+
+        {efecto.tipoDeElemento === "sim" && (
+          <>
+            <InputContainer>
+              <Label>*Software</Label>
+              <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
+                <SelectOpt value="">Seleccione Herramienta</SelectOpt>
+                <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
+                <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
+                <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
+                <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
+                <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
+                <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
+                <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
+                <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
+                <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
+                  TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
+                </SelectOpt>
+              </Select>
+            </InputContainer>
+            <InputContainer>
+              <Label>Extracción</Label>
+              <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
+                <SelectOpt value="">Tipo de Extracción</SelectOpt>
+                <SelectOpt value="ninguna">Ninguna</SelectOpt>
+                <SelectOpt value="no interes">No Interes</SelectOpt>
+                <SelectOpt value="fisica">Fisica</SelectOpt>
+                <SelectOpt value="lógica ">Logica</SelectOpt>
+                <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
+                <SelectOpt value="lógica  avanzada">Logica Avanzada</SelectOpt>
+              </Select>
+            </InputContainer>
+          </>
         )}
 
         {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && efecto.herramientaSoft !== "" && (

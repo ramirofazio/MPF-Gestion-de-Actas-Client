@@ -31,9 +31,9 @@ function AddTipoExtraccionModal({ setAddTipoExtraccionModal, handleTipoExtraccio
             <option value="">Tipo de Extracción</option>
             <option value="ninguna">Ninguna</option>
             <option value="fisica">Fisica</option>
-            <option value="logica">Logica</option>
+            <option value="lógica ">Logica</option>
             <option value="sistema de archivos">Sitema de Archivos</option>
-            <option value="logica avanzada">Logica Avanzada</option>
+            <option value="lógica  avanzada">Logica Avanzada</option>
           </select>
         </div>
         <div class="inputContainer">

@@ -60,6 +60,9 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       case "dvr": {
         return <PcHorizontal size={25} className="text-secondary" />;
       }
+      case "sim": {
+        return <SimFill size={25} className="text-seconadary" />;
+      }
       default: {
         return;
       }
@@ -84,21 +87,44 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       }`}
     >
       <div className="ml-5 flex">{selectIcon(efecto.tipoDeElemento)}</div>
-      <div className={`cardInfoContainer ${colorPrecintoBolsa === "rojo" ? "text-error" : "text-success"}`}>
-        <span className="cardTitle">Precinto</span>
+      <div className={`cardInfoContainer`}>
+        <span className="cardTitle capitalize">Precinto {colorPrecintoBolsa}</span>
         <br />
         {nroPrecintoBolsa}
       </div>
-      <div className="cardInfoContainer">
-        <span className="cardTitle">Marca</span>
-        <br />
-        {efecto.marca || "No Visible"}
-      </div>
-      <div className="cardInfoContainer">
-        <span className="cardTitle">Modelo</span>
-        <br />
-        {efecto.modelo || "No Visible"}
-      </div>
+      {efecto.tipoDeElemento === "sim" && (
+        <>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Empresa</span>
+            <br />
+            {efecto.empresa || "No Visible"}
+          </div>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Software</span>
+            <br />
+            {efecto.herramientaSoft || "No Visible"}
+          </div>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Extraccion</span>
+            <br />
+            {efecto.tipoExtraccion || "En Proceso"}
+          </div>
+        </>
+      )}
+      {efecto.tipoDeElemento !== "sim" && (
+        <>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Marca</span>
+            <br />
+            {efecto.marca || "No Visible"}
+          </div>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Modelo</span>
+            <br />
+            {efecto.modelo || "No Visible"}
+          </div>
+        </>
+      )}
       {efecto.encendido === "no" && (
         <>
           <div className="cardInfoContainer">
@@ -178,18 +204,23 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         </>
       )}
 
-      {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc" || efecto.tipoDeElemento === "dvr") && (
+      {(efecto.tipoDeElemento === "notebook" ||
+        efecto.tipoDeElemento === "pc" ||
+        efecto.tipoDeElemento === "dvr" ||
+        efecto.tipoDeElemento === "sim") && (
         <>
           <div className="cardInfoContainer">
             <span className="cardTitle">S/N</span>
             <br />
             {efecto.serialNumber || "No Visible"}
           </div>
-          <div className="cardInfoContainer">
-            <span className="cardTitle">Cant. Discos</span>
-            <br />
-            {efecto.Discos.length}
-          </div>
+          {efecto.tipoDeElemento !== "sim" && (
+            <div className="cardInfoContainer">
+              <span className="cardTitle">Discos</span>
+              <br />
+              {efecto.Discos.length}
+            </div>
+          )}
         </>
       )}
 

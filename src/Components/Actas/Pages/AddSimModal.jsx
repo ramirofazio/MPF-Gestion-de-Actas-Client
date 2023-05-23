@@ -70,9 +70,9 @@ function AddSimModal({ sims, setSims, setAddSimModal, toast }) {
             <SelectOpt value="ninguna">Ninguna</SelectOpt>
             <SelectOpt value="no interes">No Interes</SelectOpt>
             <SelectOpt value="fisica">Fisica</SelectOpt>
-            <SelectOpt value="logica">Logica</SelectOpt>
+            <SelectOpt value="lógica ">Logica</SelectOpt>
             <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
-            <SelectOpt value="logica avanzada">Logica Avanzada</SelectOpt>
+            <SelectOpt value="lógica  avanzada">Logica Avanzada</SelectOpt>
           </Select>
         </InputContainer>
         <Button type="submit" value="Guardar" complete={sim.tipoExtraccionSim ? "true" : "false"} />
