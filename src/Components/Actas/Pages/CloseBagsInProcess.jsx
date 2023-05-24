@@ -11,7 +11,7 @@ function CloseBagsInProcess({ closeModal, dispatch, bagsInProcess, updateBolsa, 
   const [inProcessState, setInProcessState] = React.useState({
     id: "",
     leyenda:
-      "Finalizadas las tareas técnicas pertinentes, se dejaron los elementos que quedaron en proceso, finalizando su extraccion en el laboratorio de informatica forense",
+      "Finalizadas las tareas técnicas pertinentes, los elementos quedan en resguardo dentro del laboratorio de informatica forense con control de acceso biometrico, puertas cerradas y videos con camara de seguridad las 24 horas, para continuar con las tareas la jornada siguente",
   });
 
   const handleInProcessSubmit = (e) => {
