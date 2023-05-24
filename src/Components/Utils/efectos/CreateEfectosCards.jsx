@@ -1,6 +1,13 @@
 import React from "react";
 //* Styles
-import { PcHorizontal, PcDisplay, DeviceHddFill, SimFill, DeviceSsdFill, DeviceHdd } from "styled-icons/bootstrap";
+import {
+  PcHorizontal,
+  PcDisplay,
+  DeviceHddFill,
+  SimFill,
+  DeviceSsdFill,
+  DeviceHdd,
+} from "styled-icons/bootstrap";
 import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
 import { UDisk } from "@styled-icons/remix-line/UDisk";
 import { Tablet } from "@styled-icons/entypo/Tablet";
@@ -10,7 +17,14 @@ import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { toast } from "react-toastify";
 
-function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
+function CreateEfectosCards({
+  efecto,
+  currentBolsas,
+  handleRemoveEfecto,
+  estadoActa,
+  renderAddEfectosModal,
+  setAddEfectosModal,
+}) {
   const [nroPrecintoBolsa, setNroPrecintoBolsa] = React.useState();
   const [colorPrecintoBolsa, setColorPrecintoBolsa] = React.useState();
 
@@ -78,7 +92,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
 
   return (
     <div
-      className={`mb-2 flex min-h-[10vh] w-[90%] items-center justify-evenly rounded-md border-2 border-principal ${
+      className={`mb-2 flex max-h-[12vh] min-h-[12vh] w-[90%] items-center justify-evenly rounded-md border-2 border-principal shadow-md transition ${
         efecto.estado === "en proceso"
           ? "border-r-[15px] border-r-process"
           : efecto.estado === "completo"
@@ -135,11 +149,12 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           <div className="cardInfoContainer">
             <span className="cardTitle">Observacion</span>
             <br />
-            {truncateText(efecto.observacionEncendido || "", 40)}
+            {truncateText(efecto.observacionEncendido || "", 30)}
           </div>
         </>
       )}
-      {(efecto.encendido === "si" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
+      {(efecto.encendido === "si" ||
+        efecto.tipoDeElemento === "unidad de almacenamiento") && (
         <>
           {efecto.elementoFallado === "si" ? (
             <>
@@ -156,7 +171,8 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
             </>
           ) : (
             <>
-              {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
+              {(efecto.tipoDeElemento === "unidad de almacenamiento" ||
+                efecto.tipoDeElemento === "disco") && (
                 <>
                   <div className="cardInfoContainer">
                     <span className="cardTitle">S/N</span>

@@ -2,17 +2,10 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { createBolsas, removeBolsa, closeProcessActa, removeEfecto } from "../../../redux/actions";
+import { removeBolsa, closeProcessActa, removeEfecto } from "../../../redux/actions";
 //* Style
-import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
 import { toast } from "react-toastify";
-import { Close } from "@styled-icons/ionicons-outline/Close";
-import { TagLock } from "@styled-icons/fluentui-system-filled/TagLock";
-import { LockClosed } from "@styled-icons/fluentui-system-filled/LockClosed";
-import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
-import { BoxSeam } from "@styled-icons/bootstrap/BoxSeam";
 import ClipLoader from "react-spinners/ClipLoader";
 //* Modal
 import Modal from "react-modal";
@@ -21,23 +14,9 @@ import AddEfectos from "./AddEfectos";
 import CreateEfectosCards from "../../Utils/efectos/CreateEfectosCards";
 import CloseBagsModal from "./CloseBagsModal";
 import getSavedActa from "../../Utils/template/getSavedActa";
+import AddBolsasModal from "./AddBolsasModal";
 //* Initializations
-const { redColor, greenColor, principalColor, secondaryColor } = Variables;
-const {
-  select,
-  input,
-  form,
-  inputLabel,
-  inputContainer,
-  enProcesoContainer,
-  header,
-  headerTitle,
-  formContainer,
-  button,
-  cardInfo,
-  cardTitle,
-  modal40x40,
-} = GlobalStyles;
+const { modal40x40 } = GlobalStyles;
 
 const modal30Width = {
   content: {
@@ -51,19 +30,19 @@ function AddBolsas() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
-  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas);
-  const currentEfectos = useSelector((s) => JSON.parse(localStorage.getItem("currentEfectos")) || s.currentEfectos);
+  const currentActa = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa
+  );
+  const currentBolsas = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas
+  );
 
   const [loading, setLoading] = React.useState(false);
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
+  const [addBolsasModal, setAddBolsasModal] = React.useState(false);
   const [closeBagsModal, setCloseBagsModal] = React.useState(false);
-  const [bolsa, setBolsa] = React.useState({
-    acta_id: currentActa.id,
-    colorPrecinto: "",
-    nroPrecinto: "",
-    observaciones: "",
-  });
+
+  const [bolsaIdShowEfectos, setBolsaIdShowEfectos] = React.useState(false);
 
   const handleRemoveEfecto = (efecto_id) => {
     if (currentActa.estado === "en creacion") {
@@ -76,22 +55,13 @@ function AddBolsas() {
     dispatch(closeProcessActa(currentActa.id, navigate)); //* Mando el ID para que el backend haga toda la logica
   };
 
-  const handleSubmitBolsa = () => {
-    //* Crea una bolsa nueva y blanquea los input
-    dispatch(createBolsas(bolsa));
-    setBolsa({
-      acta_id: currentActa.id,
-      colorPrecinto: "",
-      nroPrecinto: "",
-      observaciones: "",
-    });
-  };
-
   const handleCompleteEfectos = () => {
     //* Activa o desactiva el btn de agregar Elementos segun los estados de las bolsas
     let res = "false";
     currentBolsas.map((b) => {
-      b.estado !== "cerrada" && b.estado !== "cerrada en proceso" && currentActa.estado !== "para completar"
+      b.estado !== "cerrada" &&
+      b.estado !== "cerrada en proceso" &&
+      currentActa.estado !== "para completar"
         ? (res = "true")
         : (res = "false");
     });
@@ -104,7 +74,10 @@ function AddBolsas() {
     let res = "false";
     if (currentBolsas.length !== 0) {
       currentBolsas.forEach((b) => {
-        if (b.estado === "abierta con efectos en proceso" || b.estado === "abierta con efectos completos") {
+        if (
+          b.estado === "abierta con efectos en proceso" ||
+          b.estado === "abierta con efectos completos"
+        ) {
           res = "true";
         }
         if (b.estado === "abierta sin efectos") {
@@ -118,10 +91,13 @@ function AddBolsas() {
 
   const handleCloseBags = () => {
     if (currentActa.estado !== "para completar") {
-      toast.warning("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!", {
-        position: "top-center",
-        autoClose: 10000,
-      });
+      toast.warning(
+        "¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!",
+        {
+          position: "top-center",
+          autoClose: 10000,
+        }
+      );
     }
     setCloseBagsModal(!closeBagsModal);
   };
@@ -134,359 +110,324 @@ function AddBolsas() {
   const renderAddEfectosModal = () => {
     return (
       <Modal isOpen={addEfectosModal} style={modal30Width} ariaHideApp={false}>
-        <CloseIcon onClick={() => setAddEfectosModal(!addEfectosModal)} />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          className="icons absolute right-0 top-0 h-8 w-8 text-white"
+          onClick={() => setAddEfectosModal(!addEfectosModal)}
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
         <AddEfectos alternModal={() => setAddEfectosModal(!addEfectosModal)} />
       </Modal>
     );
   };
 
+  const renderAddBolsasModal = () => {
+    return (
+      <Modal isOpen={addBolsasModal} style={modal30Width} ariaHideApp={false}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="icons h-7 w-7"
+          onClick={() => setAddBolsasModal(!addBolsasModal)}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+
+        <AddBolsasModal
+          alternModal={() => setAddBolsasModal(!addBolsasModal)}
+          acta_id={currentActa.id}
+        />
+      </Modal>
+    );
+  };
+
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+
+  const handleClickBolsaContainer = (bolsa_id) => {
+    setBolsaIdShowEfectos(bolsaIdShowEfectos === bolsa_id ? false : bolsa_id);
+  };
+
   return (
-    <Container>
-      <Header>
-        <Title>Creacion de Bolsas y Elementos</Title>
-      </Header>
-      <FormContainer>
-        <Form>
-          <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
-            <InputContainer>
-              <Label>*Precinto de Apertura</Label>
-              <Select
-                disabled={currentActa.estado !== "en creacion"}
-                value={bolsa.colorPrecinto}
-                onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}
+    <div className="paddingLeftContainer">
+      <header className="header">
+        <span className="headerTitle">Creacion de Bolsas y Elementos</span>
+      </header>
+      <div className="flex min-h-[80%] w-full  flex-col items-center justify-start overflow-y-scroll  border-t-[3px] border-principal">
+        {currentBolsas &&
+          currentBolsas.map((bolsa) => {
+            console.log(bolsa);
+            return (
+              <div
+                className={` group my-2 flex w-[90%] flex-col items-center justify-start rounded-md border-2 border-principal shadow-md transition`}
+                key={bolsa.id}
               >
-                <SelectOpt value="">Color del Precinto</SelectOpt>
-                <SelectOpt value="rojo">Rojo</SelectOpt>
-                <SelectOpt value="verde">Verde</SelectOpt>
-                <SelectOpt value="blanco">Blanco</SelectOpt>
-              </Select>
-            </InputContainer>
-            <InputContainer>
-              <Label>*N° Precinto</Label>
-              <Input
-                disabled={currentActa.estado !== "en creacion"}
-                type="number"
-                name="N° Precinto"
-                value={bolsa.nroPrecinto}
-                placeholder="N° Precinto"
-                onChange={(e) => setBolsa({ ...bolsa, nroPrecinto: e.target.value })}
-              />
-            </InputContainer>
-          </div>
-          <InputContainer style={{ width: "100%", marginTop: "5%" }}>
-            <Label style={{ marginLeft: "30%" }}>Observaciones/Descripción de la Bolsa</Label>
-            <div style={{ display: "flex", width: "100%", alignItems: "center", justifyContent: "center" }}>
-              <Label style={{ width: "40%" }}>De su interior se extrae:</Label>
-              <Input
-                style={{ width: "100%" }}
-                disabled={currentActa.estado !== "en creacion"}
-                type="text"
-                name="Observaciones/Descripcion de la Bolsa"
-                value={bolsa.observaciones}
-                placeholder="Observaciones/Descripcion de la Bolsa"
-                onChange={(e) => setBolsa({ ...bolsa, observaciones: e.target.value })}
-              />
-            </div>
-          </InputContainer>
-        </Form>
-        <BolsasContainer>
-          {currentBolsas &&
-            currentBolsas.map((bolsa) => {
-              return (
-                <BolsaContainer key={bolsa.id}>
-                  <Info
+                <div
+                  className={`flex min-h-[10vh] w-full flex-row items-center justify-evenly ${
+                    bolsaIdShowEfectos === bolsa.id && "mb-2 border-b-2 border-principal"
+                  }`}
+                >
+                  {(bolsa.estado === "abierta con efectos completos" ||
+                    bolsa.estado === "abierta con efectos en proceso") && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className=" icons ml-2 h-8 w-8 hover:cursor-default"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                      />
+                    </svg>
+                  )}
+                  {bolsa.Efectos?.length <= 0 && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="icons h-8 w-8"
+                      onClick={() => handleDeleteBolsa(bolsa.id)}
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                      />
+                    </svg>
+                  )}
+                  {bolsa.estado === "cerrada" && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className=" icons ml-2 h-8 w-8 hover:cursor-default"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 6h.008v.008H6V6z"
+                      />
+                    </svg>
+                  )}
+                  {bolsa.estado === "cerrada en proceso" && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className=" icons ml-2 h-8 w-8 hover:cursor-default"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                      />
+                    </svg>
+                  )}
+                  <div
+                    className="cardInfoContainer"
                     style={
-                      bolsa.colorPrecinto === "rojo" ? { color: redColor } : bolsa.colorPrecinto === "verde" ? { color: greenColor } : null
+                      bolsa.colorPrecinto === "rojo"
+                        ? { color: "#FF0000" }
+                        : bolsa.colorPrecinto === "verde"
+                        ? { color: "#68BC00" }
+                        : null
                     }
                   >
-                    <CardTitle>
-                      Nº Precinto {bolsa.colorPrecinto === "rojo" ? "rojo" : bolsa.colorPrecinto === "verde" ? "verde" : "blanco"}
-                    </CardTitle>
+                    <span className={`cardTitle capitalize`}>
+                      Precinto {bolsa.colorPrecinto}
+                    </span>
                     <br />
                     {bolsa.nroPrecinto}
-                  </Info>
-                  <Info>
-                    <CardTitle>Cant. Elementos</CardTitle>
+                  </div>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle">Elementos</span>
                     <br />
                     {bolsa.Efectos.length}
-                  </Info>
-                  {(bolsa.estado === "abierta con efectos completos" || bolsa.estado === "abierta con efectos en proceso") && (
-                    <BoxSeamIcon />
-                  )}
-                  {bolsa.Efectos?.length <= 0 && <DeleteIcon onClick={() => handleDeleteBolsa(bolsa.id)} />}
-                  {bolsa.estado === "cerrada" && <TagLockIcon />}
-                  {bolsa.estado === "cerrada en proceso" && <LockClosedIcon />}
-                </BolsaContainer>
-              );
-            })}
-        </BolsasContainer>
-      </FormContainer>
-      <EfectosContainer>
-        {currentEfectos &&
-          currentEfectos.map((efecto) => (
-            <CreateEfectosCards
-              efecto={efecto}
-              currentBolsas={currentBolsas}
-              estadoActa={currentActa.estado}
-              handleRemoveEfecto={handleRemoveEfecto}
-              renderAddEfectosModal={renderAddEfectosModal}
-              setAddEfectosModal={setAddEfectosModal}
-              key={efecto.id}
-            />
-          ))}
-      </EfectosContainer>
-      {renderAddEfectosModal()}
-      <div style={{ display: "flex", width: "100%", justifyContent: "space-evenly" }}>
-        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+                  </div>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle">Observacion</span>
+                    <br />
+                    {truncateText(
+                      bolsa.observaciones || "Ninguna observacion sobre la Bolsa",
+                      80
+                    )}
+                  </div>
+                  <div className="flex h-full w-20 items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className={`icons h-8 w-8 transition ${
+                        bolsaIdShowEfectos === bolsa.id && "rotate-180"
+                      }`}
+                      onClick={() => handleClickBolsaContainer(bolsa.id)}
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                {bolsaIdShowEfectos === bolsa.id && (
+                  <>
+                    {bolsa.Efectos &&
+                      bolsa.Efectos.map((efecto) => (
+                        <CreateEfectosCards
+                          efecto={efecto}
+                          currentBolsas={currentBolsas}
+                          estadoActa={currentActa.estado}
+                          handleRemoveEfecto={handleRemoveEfecto}
+                          renderAddEfectosModal={renderAddEfectosModal}
+                          setAddEfectosModal={setAddEfectosModal}
+                          key={efecto.id}
+                        />
+                      ))}
+                  </>
+                )}
+              </div>
+            );
+          })}
+        {renderAddEfectosModal()}
+        {renderAddBolsasModal()}
+      </div>
+      <div className="flex h-full w-full items-center justify-around">
+        <NavLink
+          className="basicBtnNoPadding px-10 py-2"
+          onClick={() => navigate(-1)}
+          complete={"true"}
+          to="#"
+        >
           Volver
-        </Button>
-        {currentActa.estado === ("en creacion" || "para completar") && currentBolsas.length === 0 ? (
+        </NavLink>
+        {currentActa.estado === ("en creacion" || "para completar") && (
           <>
-            <Button complete={bolsa.colorPrecinto && bolsa.nroPrecinto && "true"} onClick={() => handleSubmitBolsa()} to="#">
+            <NavLink
+              className="basicBtnNoPadding px-10 py-2"
+              onClick={() => setAddBolsasModal(!addBolsasModal)}
+              to="#"
+            >
               Agregar Bolsa
-            </Button>
+            </NavLink>
+
+            <NavLink
+              className="basicBtnNoPadding px-10 py-2"
+              onClick={() => setAddEfectosModal(!addEfectosModal)}
+              to="#"
+            >
+              Agregar Elementos
+            </NavLink>
+            <NavLink
+              className="basicBtnNoPadding px-10 py-2"
+              complete={handleCompleteCloseBags()}
+              onClick={() => handleCloseBags()}
+              to="#"
+            >
+              Agregar Precinto Blanco / Leyenda
+            </NavLink>
           </>
-        ) : (
-          (currentActa.estado === "en creacion" || currentActa.estado === "para completar") && (
-            <>
-              <Button
-                complete={
-                  bolsa.colorPrecinto && bolsa.nroPrecinto && currentActa.estado === "en creacion" ? "true" : handleCompleteEfectos()
-                }
-                onClick={() =>
-                  bolsa.colorPrecinto && bolsa.nroPrecinto && currentActa.estado === "en creacion"
-                    ? handleSubmitBolsa()
-                    : setAddEfectosModal(!addEfectosModal)
-                }
-                to="#"
-              >
-                {bolsa.colorPrecinto && bolsa.nroPrecinto && currentActa.estado === "en creacion" ? "Agregar Bolsa" : "Agregar Elementos"}
-              </Button>
-              <Button complete={handleCompleteCloseBags()} onClick={() => handleCloseBags()} to="#">
-                Agregar Precinto Blanco / Leyenda
-              </Button>
-            </>
-          )
         )}
         {currentActa.estado === "en proceso" && (
           <>
-            <Button
+            <NavLink
+              className="basicBtnNoPadding px-10 py-2"
               onClick={() =>
-                currentActa.observaciones !== "" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
+                currentActa.observaciones !== ""
+                  ? getSavedActa(currentActa.id, navigate)
+                  : setCloseBagsModal(!closeBagsModal)
               }
               complete={"true"}
               to="#"
             >
               Imprimir Acta en Proceso
-            </Button>
+            </NavLink>
             {!loading && (
-              <Button onClick={() => handleCloseProcessActa()} complete={"true"} to="#">
+              <NavLink
+                className="basicBtnNoPadding px-10 py-2"
+                onClick={() => handleCloseProcessActa()}
+                complete={"true"}
+                to="#"
+              >
                 Cerrar Elementos en Proceso
-              </Button>
+              </NavLink>
             )}
             {loading && (
-              <Button complete={"true"} to="#">
-                Cerrando Elementos{" "}
-                <ClipLoader color={"black"} size={18} cssOverride={{ marginBottom: "-2%", marginLeft: "10px" }} loading={true} />
-              </Button>
+              <NavLink className="basicBtnNoPadding px-10 py-2" complete={"true"} to="#">
+                Cerrando Elementos
+                <ClipLoader
+                  color={"black"}
+                  size={18}
+                  cssOverride={{ marginBottom: "-2%", marginLeft: "10px" }}
+                  loading={true}
+                />
+              </NavLink>
             )}
           </>
         )}
 
         {currentActa.estado === "completa" && (
           <>
-            <Button
+            <NavLink
+              className="basicBtnNoPadding px-10 py-2"
               onClick={() =>
-                currentActa.estado === "completa" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
+                currentActa.estado === "completa"
+                  ? getSavedActa(currentActa.id, navigate)
+                  : setCloseBagsModal(!closeBagsModal)
               }
               complete={"true"}
               to="#"
             >
               Imprimir Acta
-            </Button>
+            </NavLink>
           </>
         )}
       </div>
       <Modal isOpen={closeBagsModal} style={modal40x40} ariaHideApp={false}>
-        <CloseIcon onClick={() => setCloseBagsModal(!closeBagsModal)} />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          className="icons absolute right-0 top-0 h-8 w-8 text-white"
+          onClick={() => setCloseBagsModal(!closeBagsModal)}
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
         <CloseBagsModal closeModal={() => setCloseBagsModal(!closeBagsModal)} />
       </Modal>
-    </Container>
+    </div>
   );
 }
 
 export default AddBolsas;
-
-const Container = styled.div`
-  ${enProcesoContainer}
-  justify-content: flex-start;
-  padding-bottom: 10px;
-`;
-
-const Header = styled.header`
-  ${header}
-  margin-bottom: 2%;
-`;
-
-const Title = styled.h1`
-  ${headerTitle}
-`;
-
-const FormContainer = styled.div`
-  ${formContainer}
-  flex-direction: row;
-  height: 25%;
-  min-height: 0;
-  padding: 0;
-  justify-content: space-between;
-  border-bottom: 2px solid ${principalColor};
-`;
-
-const Form = styled.form`
-  ${form}
-  padding: 2%;
-  flex: 1.2;
-  justify-content: space-evenly;
-  height: 35%;
-`;
-
-const InputContainer = styled.div`
-  ${inputContainer}
-`;
-
-const Label = styled.label`
-  ${inputLabel}
-`;
-
-const Select = styled.select`
-  ${select}
-`;
-
-const SelectOpt = styled.option`
-  font-size: medium;
-  font-weight: 400;
-`;
-
-const Input = styled.input`
-  ${input}
-`;
-
-const BolsasContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 1;
-  height: 100%;
-  padding-inline: 2%;
-  overflow-y: scroll;
-`;
-
-const BolsaContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 80%;
-  height: 25%;
-  min-height: 25%;
-  border: 3px solid ${principalColor};
-  border-radius: 5px;
-  margin-block: 5px;
-`;
-
-const EfectosContainer = styled.div`
-  flex: 1;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow-y: scroll;
-  padding-block: 15px;
-`;
-
-const Button = styled(NavLink)`
-  ${button}
-  text-decoration: none;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
-`;
-
-const CloseIcon = styled(Close)`
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 8%;
-  margin-top: 1%;
-  color: white;
-  transition: all 0.5s ease;
-
-  &:hover {
-    color: ${secondaryColor};
-    cursor: pointer;
-  }
-`;
-
-const TagLockIcon = styled(TagLock)`
-  width: 6%;
-  margin-right: 5%;
-  color: ${secondaryColor};
-`;
-
-const LockClosedIcon = styled(LockClosed)`
-  width: 6%;
-  margin-right: 5%;
-  color: ${secondaryColor};
-`;
-
-const BoxSeamIcon = styled(BoxSeam)`
-  width: 6%;
-  margin-right: 5%;
-  color: ${secondaryColor};
-`;
-
-const DeleteIcon = styled(Delete)`
-  width: 6%;
-  margin-right: 5%;
-  color: ${secondaryColor};
-  transition: all 0.5s ease;
-
-  &:hover {
-    cursor: pointer;
-    color: black;
-  }
-`;
-
-const Submit = styled.input`
-  ${button}
-  padding: 2px;
-  padding-inline: 15px;
-  margin-top: 15px;
-  text-decoration: none;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
-`;
-
-const Info = styled.span`
-  ${cardInfo}
-`;
-
-const CardTitle = styled.strong`
-  ${cardTitle}
-`;
