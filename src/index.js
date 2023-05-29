@@ -4,10 +4,16 @@ import App from "./App";
 //* Styles
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { ToastContainer, Flip } from "react-toastify";
 //* Redux
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
+
+AOS.init({
+  duration: "500",
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

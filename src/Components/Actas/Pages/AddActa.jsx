@@ -9,7 +9,18 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import Variables from "../../../Styles/Variables";
 //* Initializations
 const { redColor, greenColor, secondaryColor } = Variables;
-const { select, input, form, inputLabel, inputContainer, enProcesoContainer, header, headerTitle, formContainer, button } = GlobalStyles;
+const {
+  select,
+  input,
+  form,
+  inputLabel,
+  inputContainer,
+  enProcesoContainer,
+  header,
+  headerTitle,
+  formContainer,
+  button,
+} = GlobalStyles;
 
 function AddActa() {
   const navigate = useNavigate();
@@ -17,7 +28,9 @@ function AddActa() {
   const fecha = new Date();
   const horas = fecha.getHours().toString().padStart(2, "0");
   const minutos = fecha.getMinutes().toString().padStart(2, "0");
-  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
+  const currentUser = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser
+  );
 
   const [acta, setActa] = React.useState("");
   const [tipoDeActa, setTipoDeActa] = React.useState("");
@@ -127,9 +140,14 @@ function AddActa() {
         <span className="headerTitle">Creación de Acta</span>
       </header>
       <form className="flex min-h-[80%] w-full flex-col items-center justify-center overflow-y-scroll border-t-[3px] border-principal px-[30%] pt-5">
-        <div className="inputContainer flex-col">
+        <div data-aos="fade-down" className="inputContainer flex-col">
           <label className="basicLabel">*Tipo de Acta</label>
-          <select className="formBigSelect" disabled={comeBack} onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
+          <select
+            className="formBigSelect"
+            disabled={comeBack}
+            onChange={(e) => setTipoDeActa(e.target.value)}
+            value={tipoDeActa}
+          >
             <option>Tipo de Acta</option>
             <option>MPF/DEN</option>
             <option>COOP</option>
@@ -137,7 +155,7 @@ function AddActa() {
         </div>
         {tipoDeActa === "MPF/DEN" && (
           <>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-right" className="inputContainer flex-col">
               <label className="basicLabel">*Solicitante</label>
               <select
                 className="formBigSelect"
@@ -147,7 +165,9 @@ function AddActa() {
               >
                 <option value="">Solicitante</option>
                 <option>Área de Flagrancia Contravencional</option>
-                <option>Equipo de Análisis de Casos de Comercialización de Estupefacientes</option>
+                <option>
+                  Equipo de Análisis de Casos de Comercialización de Estupefacientes
+                </option>
                 <option>Equipo Especializado en Casos de Violencia Institucional</option>
                 <option>Fiscalía de Cámara PCyF Norte</option>
                 <option>Fiscalía de Cámara PCyF Oeste</option>
@@ -214,7 +234,10 @@ function AddActa() {
                 <option>UFEIDE - Equipo de Análisis Preliminar</option>
                 <option>UFEIDE - Equipo de Análisis Preliminar (Investigación)</option>
                 <option>UFEIDE - Investigación</option>
-                <option>UFEDyCI - Unidad Fiscal Especializada en Delitos y Contravenciones Informáticas</option>
+                <option>
+                  UFEDyCI - Unidad Fiscal Especializada en Delitos y Contravenciones
+                  Informáticas
+                </option>
                 <option>UFN - Área de Casos Especiales</option>
                 <option>UFN - Equipo Especializado en Violencia de Género</option>
                 <option>UFN - Unidad Coordinadora</option>
@@ -244,7 +267,7 @@ function AddActa() {
                 <option>Unidad de Apoyo de VD Sur</option>
               </select>
             </div>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-left" className="inputContainer flex-col">
               <label className="basicLabel">*Nro MPF/DEN</label>
               <input
                 className="formBigInput"
@@ -256,7 +279,7 @@ function AddActa() {
                 onChange={(e) => setActa({ ...acta, mpfOrDen: e.target.value })}
               />
             </div>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-right" className="inputContainer flex-col">
               <label className="basicLabel">*Nro CIJ</label>
               <input
                 className="formBigInput"
@@ -268,7 +291,7 @@ function AddActa() {
                 onChange={(e) => setActa({ ...acta, cij: e.target.value })}
               />
             </div>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-left" className="inputContainer flex-col">
               <label className="basicLabel">*Nro DIL</label>
               <input
                 className="formBigInput"
@@ -284,7 +307,7 @@ function AddActa() {
         )}
         {tipoDeActa === "COOP" && (
           <>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-right" className="inputContainer flex-col">
               <label className="basicLabel">*Solicitante</label>
               <input
                 className="formBigInput"
@@ -296,7 +319,7 @@ function AddActa() {
                 onChange={(e) => setActa({ ...acta, solicitante: e.target.value })}
               />
             </div>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-left" className="inputContainer flex-col">
               <label className="basicLabel">*Nro Coop</label>
               <input
                 className="formBigInput"
@@ -308,7 +331,7 @@ function AddActa() {
                 onChange={(e) => setActa({ ...acta, coop: e.target.value })}
               />
             </div>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-right" className="inputContainer flex-col">
               <label className="basicLabel">*Nro Causa</label>
               <input
                 className="formBigInput"
@@ -320,7 +343,7 @@ function AddActa() {
                 onChange={(e) => setActa({ ...acta, nroCausa: e.target.value })}
               />
             </div>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-left" className="inputContainer flex-col">
               <label className="basicLabel">Caratula</label>
               <input
                 className="formBigInput"
@@ -332,7 +355,7 @@ function AddActa() {
                 onChange={(e) => setActa({ ...acta, caratula: e.target.value })}
               />
             </div>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-right" className="inputContainer flex-col">
               <label className="basicLabel">*Nro CIJ</label>
               <input
                 className="formBigInput"
@@ -344,7 +367,7 @@ function AddActa() {
                 onChange={(e) => setActa({ ...acta, cij: e.target.value })}
               />
             </div>
-            <div className="inputContainer flex-col">
+            <div data-aos="fade-left" className="inputContainer flex-col">
               <label className="basicLabel">*Nro DIL</label>
               <input
                 className="formBigInput"
@@ -360,7 +383,11 @@ function AddActa() {
         )}
       </form>
       <div className="flex w-[50%] items-center justify-around">
-        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
+        <NavLink
+          className="basicBtnNoPadding px-10 py-2"
+          onClick={() => navigate(-1)}
+          to="#"
+        >
           Volver
         </NavLink>
         {!comeBack ? (
@@ -374,7 +401,10 @@ function AddActa() {
             Siguente
           </NavLink>
         ) : (
-          <NavLink className="basicBtnNoPadding px-10 py-2" to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"}>
+          <NavLink
+            className="basicBtnNoPadding px-10 py-2"
+            to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"}
+          >
             Continuar
           </NavLink>
         )}

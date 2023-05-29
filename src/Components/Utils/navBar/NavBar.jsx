@@ -10,9 +10,13 @@ import logo from "../../../Assets/logo.png";
 function NavBar({ setFlag }) {
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
+  const currentActa = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa
+  );
   const adminState = useSelector((s) => s.admin);
-  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
+  const currentUser = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser
+  );
 
   const handleCloseSession = () => {
     const users = localStorage.getItem("users");
@@ -24,7 +28,7 @@ function NavBar({ setFlag }) {
   };
 
   return (
-    <div className="fixed flex h-full w-[20%] items-center justify-center bg-principal">
+    <div className="fixed z-10 flex h-full w-[20%] items-center justify-center  bg-principal">
       <div className="flex h-full w-full flex-col items-center justify-start px-2 pt-10">
         <img className="mb-10 w-[60%]" src={logo} alt="logo" />
         {currentActa.estado && (
