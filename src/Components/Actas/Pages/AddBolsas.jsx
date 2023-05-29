@@ -279,6 +279,13 @@ function AddBolsas() {
                       80
                     )}
                   </div>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle">Estado</span>
+                    <br />
+                    {bolsa.estado === "cerrada"
+                      ? `cerrada con precinto blanco N° ${bolsa.nroPrecintoBlanco}`
+                      : bolsa.estado}
+                  </div>
                   <div className="flex h-full w-20 items-center justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -330,23 +337,28 @@ function AddBolsas() {
         >
           Volver
         </NavLink>
-        {currentActa.estado === ("en creacion" || "para completar") && (
+        {(currentActa.estado === "en creacion" ||
+          currentActa.estado === "para completar") && (
           <>
-            <NavLink
-              className="basicBtnNoPadding px-10 py-2"
-              onClick={() => setAddBolsasModal(!addBolsasModal)}
-              to="#"
-            >
-              Agregar Bolsa
-            </NavLink>
+            {currentActa.estado !== "para completar" && (
+              <>
+                <NavLink
+                  className="basicBtnNoPadding px-10 py-2"
+                  onClick={() => setAddBolsasModal(!addBolsasModal)}
+                  to="#"
+                >
+                  Agregar Bolsa
+                </NavLink>
 
-            <NavLink
-              className="basicBtnNoPadding px-10 py-2"
-              onClick={() => setAddEfectosModal(!addEfectosModal)}
-              to="#"
-            >
-              Agregar Elementos
-            </NavLink>
+                <NavLink
+                  className="basicBtnNoPadding px-10 py-2"
+                  onClick={() => setAddEfectosModal(!addEfectosModal)}
+                  to="#"
+                >
+                  Agregar Elementos
+                </NavLink>
+              </>
+            )}
             <NavLink
               className="basicBtnNoPadding px-10 py-2"
               complete={handleCompleteCloseBags()}
