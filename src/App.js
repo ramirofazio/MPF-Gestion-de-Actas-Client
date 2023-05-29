@@ -25,9 +25,13 @@ import logo2 from "./Assets/logo2.png";
 function App() {
   const dispatch = useDispatch();
 
-  const adminState = useSelector((s) => JSON.parse(localStorage.getItem("admin")) || s.admin);
+  const adminState = useSelector(
+    (s) => JSON.parse(localStorage.getItem("admin")) || s.admin
+  );
   const users = useSelector((s) => JSON.parse(localStorage.getItem("users")) || s.users);
-  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
+  const currentUser = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser
+  );
 
   const [flag, setFlag] = React.useState(false);
   const [user, setUser] = React.useState({
@@ -55,7 +59,7 @@ function App() {
     e.preventDefault();
     const currentUser = users.find((u) => u.username === user.username);
     if (user.username && user.password) {
-      if (currentUser.password === user.password) {
+      if (currentUser.password.toLowerCase() === user.password.toLowerCase()) {
         if (user.username === "admin") {
           dispatch(admin());
         }
@@ -83,11 +87,19 @@ function App() {
   if (!flag) {
     return (
       <div className="flexContainer100x100">
-        <img className="absolute top-0 mt-10" src={logo2} onDoubleClick={() => handleCreateUsers()} />
+        <img
+          className="absolute top-0 mt-10"
+          src={logo2}
+          onDoubleClick={() => handleCreateUsers()}
+        />
         <form className="basicForm50x50" onSubmit={handleSubmit}>
           <div className="mb-5 flex h-[15%] w-[40%] flex-col items-center justify-center ">
             <label className="mb-1 self-start text-white">Usuario</label>
-            <select className="select" onChange={(e) => setUser({ ...user, username: e.target.value })} value={user.username}>
+            <select
+              className="select"
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
+              value={user.username}
+            >
               <option value="">Usuario</option>
               {users &&
                 users.map((u) => (
@@ -126,7 +138,9 @@ function App() {
             {/*Router Actas*/}
             <Route path="/" exact element={<Home />} />
             <Route path="/actas/crear/1" exact element={<AddActa />} />
-            {currentUser.username === "admin" && <Route path="/actas/crear/2" exact element={<AddPeritos />} />}
+            {currentUser.username === "admin" && (
+              <Route path="/actas/crear/2" exact element={<AddPeritos />} />
+            )}
             <Route path="/actas/crear/3" exact element={<AddIntegrantes />} />
             <Route path="/actas/crear/4" exact element={<AddBolsas />} />
             {/*Admin*/}
