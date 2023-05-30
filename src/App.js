@@ -86,7 +86,7 @@ function App() {
 
   if (!flag) {
     return (
-      <div className="flexContainer100x100">
+      <div data-aos="zoom-in" className="flexContainer100x100">
         <img
           className="absolute top-0 mt-10"
           src={logo2}

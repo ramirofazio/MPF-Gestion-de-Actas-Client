@@ -12,8 +12,12 @@ function AddPeritos() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
-  const currentPeritos = useSelector((s) => JSON.parse(localStorage.getItem("currentPeritos")) || s.currentPeritos);
+  const currentActa = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa
+  );
+  const currentPeritos = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentPeritos")) || s.currentPeritos
+  );
   const users = useSelector((s) => JSON.parse(localStorage.getItem("users")) || s.users);
 
   const [peritos, setPeritos] = React.useState(currentPeritos);
@@ -44,9 +48,11 @@ function AddPeritos() {
   };
 
   const handleRemove = (legajo, id) => {
-    dispatch(removePerito(legajo, id)); //* Si estoy editando, tengo que eliminar de la base de datos
+    if (id) {
+      dispatch(removePerito(legajo, id)); //* Si estoy editando, tengo que eliminar de la base de datos
+    }
 
-    const newPeritos = peritos.filter((i) => i.id !== id);
+    const newPeritos = peritos.filter((p) => p.legajo !== legajo);
     localStorage.setItem("currentPeritos", JSON.stringify(newPeritos));
     setPeritos(newPeritos);
   };
@@ -65,11 +71,13 @@ function AddPeritos() {
   return (
     <div className="paddingLeftContainer">
       <header className="header">
-        <span className="headerTitle">Creación de Peritos</span>
+        <span data-aos="zoom-in" className="headerTitle">
+          Creación de Peritos
+        </span>
       </header>
       <div className="flex min-h-[80%] w-full items-center justify-center  border-t-[3px] border-principal">
         <form className="mx-10 flex flex-[0.5] flex-col items-center justify-center">
-          <div className="inputContainer flex-col">
+          <div data-aos="fade-right" className="inputContainer flex-col">
             <label className="basicLabel">*Elegir Perito</label>
             <select
               className="formBigSelect"
@@ -77,10 +85,16 @@ function AddPeritos() {
               disabled={currentActa.estado !== "en creacion"}
             >
               <option value="">Elegir Perito</option>
-              {users && users.map((u) => u.username !== "admin" && <option value={JSON.stringify(u)}>{u.nombreYApellido}</option>)}
+              {users &&
+                users.map(
+                  (u) =>
+                    u.username !== "admin" && (
+                      <option value={JSON.stringify(u)}>{u.nombreYApellido}</option>
+                    )
+                )}
             </select>
           </div>
-          <div className="inputContainer flex-col">
+          <div data-aos="fade-left" className="inputContainer flex-col">
             <label className="basicLabel">Nombre y Apellido</label>
             <input
               className="formBigInput"
@@ -92,7 +106,7 @@ function AddPeritos() {
               onChange={(e) => setPerito({ ...perito, nombreYApellido: e.target.value })}
             />
           </div>
-          <div className="inputContainer flex-col">
+          <div data-aos="fade-right" className="inputContainer flex-col">
             <label className="basicLabel">Legajo</label>
             <input
               className="formBigInput"
@@ -104,7 +118,7 @@ function AddPeritos() {
               onChange={(e) => setPerito({ ...perito, legajo: e.target.value })}
             />
           </div>
-          <div className="inputContainer flex-col">
+          <div data-aos="fade-left" className="inputContainer flex-col">
             <label className="basicLabel">Cargo</label>
             <input
               className="formBigInput"
@@ -124,6 +138,7 @@ function AddPeritos() {
             peritos.map((i, index) => {
               return (
                 <div
+                  data-aos="zoom-in"
                   className="group mb-4 flex h-20 w-full items-center justify-around rounded-md border-2 border-principal px-4 shadow-md"
                   key={index}
                 >
@@ -156,7 +171,11 @@ function AddPeritos() {
         </div>
       </div>
       <div className="flex w-[50%] items-center justify-around">
-        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
+        <NavLink
+          className="basicBtnNoPadding px-10 py-2"
+          onClick={() => navigate(-1)}
+          to="#"
+        >
           Volver
         </NavLink>
         {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
@@ -175,7 +194,8 @@ function AddPeritos() {
             ) : (
               <NavLink
                 className={`navLinkButtonPages pointer-events-none border-2 border-error px-10 py-2 ${
-                  peritos.length >= 1 && "pointer-events-auto animate-bounce border-success"
+                  peritos.length >= 1 &&
+                  "pointer-events-auto animate-bounce border-success"
                 }`}
                 onClick={() => handleSubmitPeritos()}
                 to="#"
@@ -199,7 +219,11 @@ function AddPeritos() {
               </NavLink>
             )}
             {peritos.length > currentPeritos.length ? (
-              <NavLink className={"basicBtnNoPadding px-10 py-2"} onClick={() => handleSubmitPeritos()} to="#">
+              <NavLink
+                className={"basicBtnNoPadding px-10 py-2"}
+                onClick={() => handleSubmitPeritos()}
+                to="#"
+              >
                 Siguente
               </NavLink>
             ) : (

@@ -55,40 +55,6 @@ function AddBolsas() {
     dispatch(closeProcessActa(currentActa.id, navigate)); //* Mando el ID para que el backend haga toda la logica
   };
 
-  const handleCompleteEfectos = () => {
-    //* Activa o desactiva el btn de agregar Elementos segun los estados de las bolsas
-    let res = "false";
-    currentBolsas.map((b) => {
-      b.estado !== "cerrada" &&
-      b.estado !== "cerrada en proceso" &&
-      currentActa.estado !== "para completar"
-        ? (res = "true")
-        : (res = "false");
-    });
-
-    return res;
-  };
-
-  const handleCompleteCloseBags = () => {
-    //* Activa el btn de cerrar bolsas solo cuando estan abiertas con elementos dentro
-    let res = "false";
-    if (currentBolsas.length !== 0) {
-      currentBolsas.forEach((b) => {
-        if (
-          b.estado === "abierta con efectos en proceso" ||
-          b.estado === "abierta con efectos completos"
-        ) {
-          res = "true";
-        }
-        if (b.estado === "abierta sin efectos") {
-          res = "false";
-        }
-      });
-    }
-
-    return res;
-  };
-
   const handleCloseBags = () => {
     if (currentActa.estado !== "para completar") {
       toast.warning(
@@ -114,16 +80,36 @@ function AddBolsas() {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke="currentColor"
           className="icons absolute right-0 top-0 h-8 w-8 text-white"
           onClick={() => setAddEfectosModal(!addEfectosModal)}
         >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
         <AddEfectos alternModal={() => setAddEfectosModal(!addEfectosModal)} />
       </Modal>
     );
+  };
+
+  const askBolsasHasEfectos = () => {
+    //* Activa el btn de cerrar bolsas solo cuando estan abiertas con elementos dentro
+    let res = false;
+    if (currentBolsas.length !== 0) {
+      currentBolsas.forEach((b) => {
+        if (
+          b.estado === "abierta con efectos en proceso" ||
+          b.estado === "abierta con efectos completos"
+        ) {
+          res = true;
+        }
+        if (b.estado === "abierta sin efectos") {
+          res = false;
+        }
+      });
+    }
+
+    return res;
   };
 
   const renderAddBolsasModal = () => {
@@ -135,7 +121,7 @@ function AddBolsas() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="icons h-7 w-7"
+          className="closeModalIcon"
           onClick={() => setAddBolsasModal(!addBolsasModal)}
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -163,15 +149,17 @@ function AddBolsas() {
   return (
     <div className="paddingLeftContainer">
       <header className="header">
-        <span className="headerTitle">Creacion de Bolsas y Elementos</span>
+        <span data-aos="zoom-in" className="headerTitle">
+          Creacion de Bolsas y Elementos
+        </span>
       </header>
       <div className="flex min-h-[80%] w-full  flex-col items-center justify-start overflow-y-scroll  border-t-[3px] border-principal">
         {currentBolsas &&
           currentBolsas.map((bolsa) => {
-            console.log(bolsa);
             return (
               <div
-                className={` group my-2 flex w-[90%] flex-col items-center justify-start rounded-md border-2 border-principal shadow-md transition`}
+                data-aos="fade-down"
+                className={`group my-2 flex w-[90%] flex-col items-center justify-start rounded-md border-2 border-principal shadow-md transition `}
                 key={bolsa.id}
               >
                 <div
@@ -185,13 +173,13 @@ function AddBolsas() {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
-                      className=" icons ml-2 h-8 w-8 hover:cursor-default"
+                      className="icons ml-2 h-8 w-8 hover:cursor-default"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
                       />
                     </svg>
@@ -201,14 +189,14 @@ function AddBolsas() {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
-                      class="icons h-8 w-8"
+                      className="icons ml-2 h-8 w-8"
                       onClick={() => handleDeleteBolsa(bolsa.id)}
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                       />
                     </svg>
@@ -218,18 +206,18 @@ function AddBolsas() {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
                       className=" icons ml-2 h-8 w-8 hover:cursor-default"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
                       />
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M6 6h.008v.008H6V6z"
                       />
                     </svg>
@@ -239,13 +227,13 @@ function AddBolsas() {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
                       className=" icons ml-2 h-8 w-8 hover:cursor-default"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
                       />
                     </svg>
@@ -287,27 +275,32 @@ function AddBolsas() {
                       : bolsa.estado}
                   </div>
                   <div className="flex h-full w-20 items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className={`icons h-8 w-8 transition ${
-                        bolsaIdShowEfectos === bolsa.id && "rotate-180"
-                      }`}
-                      onClick={() => handleClickBolsaContainer(bolsa.id)}
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                      />
-                    </svg>
+                    {bolsa.Efectos.length !== 0 && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className={`icons h-8 w-8 rounded-full transition hover:bg-touch ${
+                          bolsaIdShowEfectos === bolsa.id && "rotate-180"
+                        }`}
+                        onClick={() => handleClickBolsaContainer(bolsa.id)}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                        />
+                      </svg>
+                    )}
                   </div>
                 </div>
                 {bolsaIdShowEfectos === bolsa.id && (
-                  <>
+                  <div
+                    className="flex h-full w-full flex-col items-center justify-start"
+                    data-aos="zoom-in"
+                  >
                     {bolsa.Efectos &&
                       bolsa.Efectos.map((efecto) => (
                         <CreateEfectosCards
@@ -320,7 +313,7 @@ function AddBolsas() {
                           key={efecto.id}
                         />
                       ))}
-                  </>
+                  </div>
                 )}
               </div>
             );
@@ -350,23 +343,26 @@ function AddBolsas() {
                   Agregar Bolsa
                 </NavLink>
 
-                <NavLink
-                  className="basicBtnNoPadding px-10 py-2"
-                  onClick={() => setAddEfectosModal(!addEfectosModal)}
-                  to="#"
-                >
-                  Agregar Elementos
-                </NavLink>
+                {currentBolsas.length > 0 && (
+                  <NavLink
+                    className="basicBtnNoPadding px-10 py-2"
+                    onClick={() => setAddEfectosModal(!addEfectosModal)}
+                    to="#"
+                  >
+                    Agregar Elementos
+                  </NavLink>
+                )}
               </>
             )}
-            <NavLink
-              className="basicBtnNoPadding px-10 py-2"
-              complete={handleCompleteCloseBags()}
-              onClick={() => handleCloseBags()}
-              to="#"
-            >
-              Agregar Precinto Blanco / Leyenda
-            </NavLink>
+            {askBolsasHasEfectos() && (
+              <NavLink
+                className="basicBtnNoPadding px-10 py-2"
+                onClick={() => handleCloseBags()}
+                to="#"
+              >
+                Agregar Precinto Blanco / Leyenda
+              </NavLink>
+            )}
           </>
         )}
         {currentActa.estado === "en proceso" && (
@@ -387,7 +383,6 @@ function AddBolsas() {
               <NavLink
                 className="basicBtnNoPadding px-10 py-2"
                 onClick={() => handleCloseProcessActa()}
-                complete={"true"}
                 to="#"
               >
                 Cerrar Elementos en Proceso
@@ -416,7 +411,6 @@ function AddBolsas() {
                   ? getSavedActa(currentActa.id, navigate)
                   : setCloseBagsModal(!closeBagsModal)
               }
-              complete={"true"}
               to="#"
             >
               Imprimir Acta
@@ -429,12 +423,12 @@ function AddBolsas() {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke="currentColor"
           className="icons absolute right-0 top-0 h-8 w-8 text-white"
           onClick={() => setCloseBagsModal(!closeBagsModal)}
         >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
         <CloseBagsModal closeModal={() => setCloseBagsModal(!closeBagsModal)} />
       </Modal>

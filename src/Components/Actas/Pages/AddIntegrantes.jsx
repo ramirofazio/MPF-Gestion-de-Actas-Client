@@ -12,8 +12,12 @@ function AddIntegrantes() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
-  const currentIntegrantes = useSelector((s) => JSON.parse(localStorage.getItem("currentIntegrantes")) || s.currentIntegrantes);
+  const currentActa = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa
+  );
+  const currentIntegrantes = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentIntegrantes")) || s.currentIntegrantes
+  );
 
   const [integrantes, setIntegrantes] = React.useState(currentIntegrantes || []);
   const [integrante, setIntegrante] = React.useState({
@@ -63,11 +67,13 @@ function AddIntegrantes() {
   return (
     <div className="paddingLeftContainer">
       <header className="header">
-        <span className="headerTitle">Creación de Integrantes</span>
+        <span data-aos="zoom-in" className="headerTitle">
+          Creación de Integrantes
+        </span>
       </header>
       <div className="flex min-h-[80%] w-full items-center justify-center  border-t-[3px] border-principal">
         <form className="mx-10 flex flex-[0.5] flex-col items-center justify-center">
-          <div className="inputContainer flex-col">
+          <div data-aos="fade-right" className="inputContainer flex-col">
             <label className="basicLabel">*Nombre y Apellido</label>
             <input
               className="formBigInput"
@@ -76,10 +82,12 @@ function AddIntegrantes() {
               name="nombreYApellido"
               value={integrante.nombreYApellido}
               placeholder="Nombre y Apellido"
-              onChange={(e) => setIntegrante({ ...integrante, nombreYApellido: e.target.value })}
+              onChange={(e) =>
+                setIntegrante({ ...integrante, nombreYApellido: e.target.value })
+              }
             />
           </div>
-          <div className="inputContainer flex-col">
+          <div data-aos="fade-left" className="inputContainer flex-col">
             <label className="basicLabel">*Legajo, matricula o DNI</label>
             <input
               className="formBigInput"
@@ -88,10 +96,12 @@ function AddIntegrantes() {
               name="legajoOMatricula"
               value={integrante.legajoOMatricula}
               placeholder="Legajo, matricula o DNI"
-              onChange={(e) => setIntegrante({ ...integrante, legajoOMatricula: e.target.value })}
+              onChange={(e) =>
+                setIntegrante({ ...integrante, legajoOMatricula: e.target.value })
+              }
             />
           </div>
-          <div className="inputContainer flex-col">
+          <div data-aos="fade-right" className="inputContainer flex-col">
             <label className="basicLabel">*Cargo</label>
             <input
               className="formBigInput"
@@ -103,7 +113,7 @@ function AddIntegrantes() {
               onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value })}
             />
           </div>
-          <div className="inputContainer flex-col">
+          <div data-aos="fade-left" className="inputContainer flex-col">
             <label className="basicLabel">*Locacion</label>
             <select
               className="formBigSelect"
@@ -124,6 +134,7 @@ function AddIntegrantes() {
             integrantes.map((i, index) => {
               return (
                 <div
+                  data-aos="zoom-in"
                   className="group mb-4 flex h-20 w-full items-center justify-around rounded-md border-2 border-principal px-4 shadow-md"
                   key={index}
                 >
@@ -156,12 +167,19 @@ function AddIntegrantes() {
         </div>
       </div>
       <div className="flex w-[50%] items-center justify-around">
-        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
+        <NavLink
+          className="basicBtnNoPadding px-10 py-2"
+          onClick={() => navigate(-1)}
+          to="#"
+        >
           Volver
         </NavLink>
         {currentActa.estado === "en creacion" && currentIntegrantes.length <= 0 ? (
           <>
-            {integrante.nombreYApellido && integrante.legajoOMatricula && integrante.cargo && integrante.locacion ? (
+            {integrante.nombreYApellido &&
+            integrante.legajoOMatricula &&
+            integrante.cargo &&
+            integrante.locacion ? (
               <NavLink
                 className={`navLinkButtonPages group pointer-events-none border-2 border-error px-10 py-2 ${
                   handleComplete() && "pointer-events-auto animate-bounce border-success"
@@ -173,28 +191,40 @@ function AddIntegrantes() {
                 Agregar a {integrante.nombreYApellido.split(" ")[0]}
               </NavLink>
             ) : (
-              <NavLink className={"basicBtnNoPadding px-10 py-2"} onClick={() => handleSubmitIntegrantes()} to="/actas/crear/4">
+              <NavLink
+                className={"basicBtnNoPadding px-10 py-2"}
+                onClick={() => handleSubmitIntegrantes()}
+                to="/actas/crear/4"
+              >
                 Siguente
               </NavLink>
             )}
           </>
         ) : (
           <>
-            {integrante.nombreYApellido && integrante.legajoOMatricula && integrante.cargo && integrante.locacion && (
-              <NavLink
-                className={`navLinkButtonPages group pointer-events-none border-2 border-error px-10 py-2 ${
-                  handleComplete() && "pointer-events-auto animate-bounce border-success"
-                }`}
-                onClick={() => handleAddIntegrante()}
-                to="#"
-              >
-                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
-                Agregar a {integrante.nombreYApellido.split(" ")[0]}
-              </NavLink>
-            )}
+            {integrante.nombreYApellido &&
+              integrante.legajoOMatricula &&
+              integrante.cargo &&
+              integrante.locacion && (
+                <NavLink
+                  className={`navLinkButtonPages group pointer-events-none border-2 border-error px-10 py-2 ${
+                    handleComplete() &&
+                    "pointer-events-auto animate-bounce border-success"
+                  }`}
+                  onClick={() => handleAddIntegrante()}
+                  to="#"
+                >
+                  <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                  Agregar a {integrante.nombreYApellido.split(" ")[0]}
+                </NavLink>
+              )}
 
             {integrantes.length > currentIntegrantes.length ? (
-              <NavLink className={"basicBtnNoPadding px-10 py-2"} onClick={() => handleSubmitIntegrantes()} to="/actas/crear/4">
+              <NavLink
+                className={"basicBtnNoPadding px-10 py-2"}
+                onClick={() => handleSubmitIntegrantes()}
+                to="/actas/crear/4"
+              >
                 Siguente
               </NavLink>
             ) : (

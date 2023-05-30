@@ -3,31 +3,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { createActa } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-//* Style
-import styled, { css } from "styled-components";
-import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
-//* Initializations
-const { redColor, greenColor, secondaryColor } = Variables;
-const {
-  select,
-  input,
-  form,
-  inputLabel,
-  inputContainer,
-  enProcesoContainer,
-  header,
-  headerTitle,
-  formContainer,
-  button,
-} = GlobalStyles;
 
 function AddActa() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const fecha = new Date();
   const horas = fecha.getHours().toString().padStart(2, "0");
   const minutos = fecha.getMinutes().toString().padStart(2, "0");
+  let mes = new Intl.DateTimeFormat("es-ES", { month: "long" }).format(fecha);
+
   const currentUser = useSelector(
     (s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser
   );
@@ -39,50 +24,6 @@ function AddActa() {
   React.useEffect(() => {
     getLocalStorageOrState();
   }, []);
-
-  const formatMonth = (month) => {
-    switch (month + 1) {
-      case 1: {
-        return "Enero";
-      }
-      case 2: {
-        return "Febrero";
-      }
-      case 3: {
-        return "Marzo";
-      }
-      case 4: {
-        return "Abril";
-      }
-      case 5: {
-        return "Mayo";
-      }
-      case 6: {
-        return "Junio";
-      }
-      case 7: {
-        return "Julio";
-      }
-      case 8: {
-        return "Agosto";
-      }
-      case 9: {
-        return "Septiembre";
-      }
-      case 10: {
-        return "Octubre";
-      }
-      case 11: {
-        return "Noviembre";
-      }
-      case 12: {
-        return "Diciembre";
-      }
-      default: {
-        return month;
-      }
-    }
-  };
 
   const getLocalStorageOrState = () => {
     const currentActa = localStorage.getItem("currentActa");
@@ -102,7 +43,7 @@ function AddActa() {
         nroCausa: "",
         caratula: "",
         dias: fecha.getDate(),
-        mes: formatMonth(fecha.getMonth()),
+        mes: mes.charAt(0).toUpperCase() + mes.slice(1),
         anio: fecha.getFullYear(),
         hora: `${horas}:${minutos}`,
       });
@@ -137,7 +78,9 @@ function AddActa() {
   return (
     <div className="paddingLeftContainer">
       <header className="header">
-        <span className="headerTitle">Creación de Acta</span>
+        <span data-aos="zoom-in" className="headerTitle">
+          Creación de Acta
+        </span>
       </header>
       <form className="flex min-h-[80%] w-full flex-col items-center justify-center overflow-y-scroll border-t-[3px] border-principal px-[30%] pt-5">
         <div data-aos="fade-down" className="inputContainer flex-col">

@@ -30,26 +30,31 @@ function NavBar({ setFlag }) {
   return (
     <div className="fixed z-10 flex h-full w-[20%] items-center justify-center  bg-principal">
       <div className="flex h-full w-full flex-col items-center justify-start px-2 pt-10">
-        <img className="mb-10 w-[60%]" src={logo} alt="logo" />
+        <img data-aos="fade-down" className="mb-10 w-[60%]" src={logo} alt="logo" />
         {currentActa.estado && (
-          <Link className="navButton" to="/">
+          <Link data-aos="fade-right" className="navButton" to="/">
             Volver a Inicio
           </Link>
         )}
         {adminState && (
           <>
             {!currentActa.estado && (
-              <Link className="navButton" to="/">
+              <Link data-aos="fade-right" className="navButton" to="/">
                 Volver a Inicio
               </Link>
             )}
-            <Link className="navButton" to="/admin">
+            <Link data-aos="fade-right" className="navButton" to="/admin">
               Panel de Administrador
             </Link>
           </>
         )}
         {currentUser && (
-          <Link className="navButton" to="/" onClick={() => handleCloseSession()}>
+          <Link
+            data-aos="fade-right"
+            className="navButton"
+            to="/"
+            onClick={() => handleCloseSession()}
+          >
             Cerrar sesion
           </Link>
         )}

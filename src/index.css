@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 /** START Global Components  */
+.closeModalIcon {
+  @apply right-0 h-8 w-8 self-end text-white transition hover:cursor-pointer hover:text-secondary;
+}
 
 .navLinkButtonPages {
   @apply rounded-lg border-2  text-secondary no-underline transition hover:bg-touch;
