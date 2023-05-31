@@ -11,9 +11,7 @@ import { ToastContainer, Flip } from "react-toastify";
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
 
-AOS.init({
-  duration: "500",
-});
+AOS.init();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

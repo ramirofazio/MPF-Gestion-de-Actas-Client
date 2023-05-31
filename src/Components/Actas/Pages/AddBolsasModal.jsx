@@ -27,19 +27,17 @@ const AddBolsasModal = ({ alternModal, acta_id }) => {
 
   return (
     <>
-      <header className="flex h-14 w-full items-center justify-center border-b-[3px] border-b-white text-white">
-        <span>Agregar Bolsa</span>
+      <header className="modalHeader">
+        <span data-aos="fade-down">Agregar Bolsa</span>
       </header>
       <form
+        data-aos="zoom-in"
         className="flex w-full flex-col justify-center p-5 pt-0"
         onSubmit={handleSubmitBolsa}
       >
-        <div className="inputContainer !justify-between py-8  !pb-0">
-          <label data-aos="fade-right" className="basicLabel !text-white">
-            *Precinto de Apertura
-          </label>
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">*Precinto de Apertura</label>
           <select
-            data-aos="fade-left"
             className="formModalSelect"
             value={bolsa.colorPrecinto}
             onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}
@@ -50,12 +48,9 @@ const AddBolsasModal = ({ alternModal, acta_id }) => {
             <option value="blanco">Blanco</option>
           </select>
         </div>
-        <div className="inputContainer  !justify-between py-8  !pb-0">
-          <label data-aos="fade-right" className="basicLabel !text-white">
-            *N° Precinto
-          </label>
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">*N° Precinto</label>
           <input
-            data-aos="fade-left"
             className="formModalInput"
             type="number"
             name="N° Precinto"
@@ -64,12 +59,9 @@ const AddBolsasModal = ({ alternModal, acta_id }) => {
             onChange={(e) => setBolsa({ ...bolsa, nroPrecinto: e.target.value })}
           />
         </div>
-        <div className="inputContainer  !justify-between py-8 !pb-0 ">
-          <label data-aos="fade-right" className="basicLabel !text-white">
-            De su interior se extrae:
-          </label>
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">De su interior se extrae:</label>
           <input
-            data-aos="fade-left"
             className="formModalInput"
             type="text"
             name="Observaciones/Descripcion de la Bolsa"

@@ -3,9 +3,7 @@ import React from "react";
 import { createEfecto, EditEfecto } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 //* Style
-import styled, { css } from "styled-components";
 import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
 import { toast } from "react-toastify";
 //* Modal
 import Modal from "react-modal";
@@ -18,9 +16,7 @@ import EditDiscoModal from "./EditDiscoModal";
 import EditSimModal from "./EditSimModal";
 import EditSdsModal from "./EditSdModal";
 
-//* Initializations
-const { button, select, input, modal40x40 } = GlobalStyles;
-const { redColor, greenColor, secondaryColor, principalColor } = Variables;
+const { modal40x40 } = GlobalStyles;
 
 const modal40x30 = {
   content: {
@@ -40,8 +36,12 @@ function AddEfectos({ alternModal }) {
     };
   });
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
-  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
+  const currentActa = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa
+  );
+  const currentBolsas = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas
+  );
 
   const [addDiscosModal, setAddDiscosModal] = React.useState(false);
   const [editDiscosModal, setEditDiscosModal] = React.useState(false);
@@ -88,7 +88,7 @@ function AddEfectos({ alternModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (efecto.bolsa_id && efecto.tipoDeElemento) {
+    if (handleComplete()) {
       if (efecto.edit) {
         dispatch(EditEfecto(efecto, discos, sims, sds, currentActa.id));
       } else {
@@ -101,59 +101,68 @@ function AddEfectos({ alternModal }) {
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color, empresa, herramientaSoft } = efecto;
+    const {
+      bolsa_id,
+      tipoDeDisco,
+      tipoDeElemento,
+      estado,
+      encendido,
+      color,
+      empresa,
+      herramientaSoft,
+    } = efecto;
 
     switch (tipoDeElemento) {
       case "sim": {
         if (bolsa_id && estado && empresa && herramientaSoft) {
-          return "true";
+          return true;
         }
         break;
       }
       case "celular": {
         if (bolsa_id && estado && encendido && color) {
-          return "true";
+          return true;
         }
         break;
       }
       case "tablet": {
         if (bolsa_id && estado && encendido && color) {
-          return "true";
+          return true;
         }
         break;
       }
       case "notebook": {
         if (bolsa_id && color) {
-          return "true";
+          return true;
         }
         break;
       }
       case "gabinete": {
         if (bolsa_id && color) {
-          return "true";
+          return true;
         }
         break;
       }
       case "unidad de almacenamiento": {
         if (bolsa_id && estado && color) {
-          return "true";
+          return true;
         }
         break;
       }
       case "dvr": {
         if (bolsa_id && estado) {
-          return "true";
+          return true;
         }
         break;
       }
       case "disco": {
         if (bolsa_id && tipoDeDisco && estado) {
-          return "true";
+          return true;
         }
         break;
       }
       default:
-        return "false";
+        return false;
     }
   };
 
@@ -190,7 +199,12 @@ function AddEfectos({ alternModal }) {
   const renderAddDiscoModal = () => {
     return (
       <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
-        <AddDiscoModal discos={discos} setDiscos={setDiscos} setAddDiscoModal={setAddDiscosModal} toast={toast} />
+        <AddDiscoModal
+          discos={discos}
+          setDiscos={setDiscos}
+          setAddDiscoModal={setAddDiscosModal}
+          toast={toast}
+        />
       </Modal>
     );
   };
@@ -203,7 +217,23 @@ function AddEfectos({ alternModal }) {
   const renderAddSimModal = () => {
     return (
       <Modal isOpen={addSimsModal} style={modal40x30} ariaHideApp={false}>
-        <AddSimModal sims={sims} setSims={setSims} setAddSimModal={setAddSimsModal} toast={toast} />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="closeModalIcon"
+          onClick={() => setAddSimsModal(false)}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        <AddSimModal
+          sims={sims}
+          setSims={setSims}
+          toast={toast}
+          setAddSimsModal={setAddSimsModal}
+        />
       </Modal>
     );
   };
@@ -216,7 +246,12 @@ function AddEfectos({ alternModal }) {
   const renderAddSdModal = () => {
     return (
       <Modal isOpen={addSdsModal} style={modal40x30} ariaHideApp={false}>
-        <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdModal} toast={toast} />
+        <AddSdModal
+          sds={sds}
+          setSds={setSds}
+          setAddSdModal={setAddSdModal}
+          toast={toast}
+        />
       </Modal>
     );
   };
@@ -225,7 +260,9 @@ function AddEfectos({ alternModal }) {
     return (
       <Modal
         isOpen={addExtraccionesModal}
-        style={{ content: { ...modal40x30.content, height: "80%", justifyContent: "flex-start" } }}
+        style={{
+          content: { ...modal40x30.content, height: "80%", justifyContent: "flex-start" },
+        }}
         ariaHideApp={false}
       >
         <AddExtraccionModal
@@ -240,66 +277,87 @@ function AddEfectos({ alternModal }) {
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
-        <Title>{efecto.edit ? "Editar Elemento" : "Agregar Elemento"}</Title>
-        <InputContainer>
-          <Label>*Bolsa</Label>
-          <Select
+      <header className="modalHeader">
+        <span data-aos="fade-down">
+          {efecto.edit ? "Editar Elemento" : "Agregar Elemento"}
+        </span>
+      </header>
+      <form
+        data-aos="zoom-in"
+        className="flex w-full flex-col justify-center p-5 pt-0"
+        onSubmit={handleSubmit}
+      >
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">*Bolsa</label>
+          <select
+            className="formModalSelect"
             disabled={efecto.edit ? true : false}
             value={efecto.bolsa_id}
             onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}
           >
-            <SelectOpt value="">Seleccione Precinto</SelectOpt>
+            <option value="">Seleccione Precinto</option>
             {currentBolsas.map((b) => {
               if (b.estado !== "cerrada" && b.estado !== "cerrada en proceso") {
                 return (
-                  <SelectOpt
+                  <option
                     value={b.id}
                     key={b.id}
-                    style={b.colorPrecinto === "rojo" ? { color: redColor } : b.colorPrecinto === "verde" ? { color: greenColor } : null}
+                    className={
+                      b.colorPrecinto === "rojo"
+                        ? `text-error`
+                        : b.colorPrecinto === "Verde"
+                        ? `text-success`
+                        : `text-white`
+                    }
                   >
                     {b.nroPrecinto}
-                  </SelectOpt>
+                  </option>
                 );
               }
             })}
-          </Select>
-        </InputContainer>
-        <InputContainer>
-          <Label>*Elemento</Label>
-          <Select
+          </select>
+        </div>
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">*Elemento</label>
+          <select
+            className="formModalSelect"
             disabled={efecto.edit ? true : false}
             value={efecto.tipoDeElemento}
             onChange={(e) => setEfecto({ ...efecto, tipoDeElemento: e.target.value })}
           >
-            <SelectOpt value="">Tipo de Elemento</SelectOpt>
-            <SelectOpt value="celular">Celular</SelectOpt>
-            <SelectOpt value="tablet">Tablet</SelectOpt>
-            <SelectOpt value="notebook">Notebook</SelectOpt>
-            <SelectOpt value="gabinete">Gabinete</SelectOpt>
-            <SelectOpt value="unidad de almacenamiento">Unidad de Almacenamiento</SelectOpt>
-            <SelectOpt value="dvr">DVR</SelectOpt>
-            <SelectOpt value="disco">Disco</SelectOpt>
-            <SelectOpt value="sim">Sim</SelectOpt>
-          </Select>
-        </InputContainer>
+            <option value="">Tipo de Elemento</option>
+            <option value="celular">Celular</option>
+            <option value="tablet">Tablet</option>
+            <option value="notebook">Notebook</option>
+            <option value="gabinete">Gabinete</option>
+            <option value="unidad de almacenamiento">Unidad de Almacenamiento</option>
+            <option value="dvr">DVR</option>
+            <option value="disco">Disco</option>
+            <option value="sim">Sim</option>
+          </select>
+        </div>
         {efecto.tipoDeElemento === "disco" && (
-          <InputContainer>
-            <Label>*Tipo de Disco</Label>
-            <Select value={efecto.tipoDeDisco} onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}>
-              <SelectOpt value="">Rigido / Solido</SelectOpt>
-              <SelectOpt value="Disco Rigido">Disco Rigido</SelectOpt>
-              <SelectOpt value="Disco Solido">Disco Solido</SelectOpt>
-              <SelectOpt value="Disco Solido en Formato M.2">Disco Solido M.2</SelectOpt>
-              <SelectOpt value="Disco Solido en Formato NVMe">Disco Solido NVMe</SelectOpt>
-            </Select>
-          </InputContainer>
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">*Tipo de Disco</label>
+            <select
+              className="formModalSelect"
+              value={efecto.tipoDeDisco}
+              onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}
+            >
+              <option value="">Rigido / Solido</option>
+              <option value="Disco Rigido">Disco Rigido</option>
+              <option value="Disco Solido">Disco Solido</option>
+              <option value="Disco Solido en Formato M.2">Disco Solido M.2</option>
+              <option value="Disco Solido en Formato NVMe">Disco Solido NVMe</option>
+            </select>
+          </div>
         )}
 
         {efecto.tipoDeElemento === "unidad de almacenamiento" && (
-          <InputContainer>
-            <Label>Detalle de la unidad</Label>
-            <Select
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Detalle de la unidad</label>
+            <select
+              className="formModalSelect"
               value={efecto.unidadAlmacenamientoDetalle}
               onChange={(e) =>
                 setEfecto({
@@ -308,89 +366,105 @@ function AddEfectos({ alternModal }) {
                 })
               }
             >
-              <SelectOpt value="">Seleccione</SelectOpt>
-              <SelectOpt value="Pendrive">Pendrive</SelectOpt>
-              <SelectOpt value="DVD">Disco DVD</SelectOpt>
-              <SelectOpt value="CD">Disco CD</SelectOpt>
-            </Select>
-          </InputContainer>
+              <option value="">Seleccione</option>
+              <option value="Pendrive">Pendrive</option>
+              <option value="DVD">Disco DVD</option>
+              <option value="CD">Disco CD</option>
+            </select>
+          </div>
         )}
 
         {efecto.tipoDeElemento === "sim" && (
-          <InputContainer>
-            <Label>*Empresa</Label>
-            <Input
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">*Empresa</label>
+            <input
+              className="formModalInput"
               type="text"
               name="empresa"
               value={efecto.empresa}
               placeholder="Empresa"
-              onChange={(e) => setEfecto({ ...efecto, empresa: e.target.value.toUpperCase() })}
+              onChange={(e) =>
+                setEfecto({ ...efecto, empresa: e.target.value.toUpperCase() })
+              }
             />
-          </InputContainer>
+          </div>
         )}
 
         {efecto.tipoDeElemento !== "sim" && (
           <>
-            <InputContainer>
-              <Label>Marca</Label>
-              <Input
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">Marca</label>
+              <input
+                className="formModalInput"
                 type="text"
                 name="marca"
                 value={efecto.marca}
                 placeholder="Marca"
-                onChange={(e) => setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })}
+                onChange={(e) =>
+                  setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })
+                }
               />
-            </InputContainer>
-            <InputContainer>
-              <Label>Modelo</Label>
-              <Input
+            </div>
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">Modelo</label>
+              <input
+                className="formModalInput"
                 type="text"
                 name="modelo"
                 value={efecto.modelo}
                 placeholder="Modelo"
-                onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
+                onChange={(e) =>
+                  setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })
+                }
               />
-            </InputContainer>
+            </div>
           </>
         )}
 
         {efecto.tipoDeElemento === "celular" && (
-          <InputContainer>
-            <Label>IMEI</Label>
-            <Input
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">IMEI</label>
+            <input
+              className="formModalInput"
               type="number"
               name="imei"
               value={efecto.imei}
               placeholder="Imei"
               onChange={(e) => setEfecto({ ...efecto, imei: e.target.value })}
             />
-          </InputContainer>
+          </div>
         )}
 
-        {efecto.tipoDeElemento !== "sim" && efecto.tipoDeElemento !== "dvr" && efecto.tipoDeElemento !== "disco" && (
-          <InputContainer>
-            <Label>*Color</Label>
-            <Select value={efecto.color} onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}>
-              <SelectOpt value="">Seleccione un Color</SelectOpt>
-              <SelectOpt value="negro">Negro</SelectOpt>
-              <SelectOpt value="blanco">Blanco</SelectOpt>
-              <SelectOpt value="gris">Gris</SelectOpt>
-              <SelectOpt value="rojo">Rojo</SelectOpt>
-              <SelectOpt value="azul">Azul</SelectOpt>
-              <SelectOpt value="celeste">Celeste</SelectOpt>
-              <SelectOpt value="verde">Verde</SelectOpt>
-              <SelectOpt value="amarillo">Amarillo</SelectOpt>
-              <SelectOpt value="naranja">Naranja</SelectOpt>
-              <SelectOpt value="morado">Morado</SelectOpt>
-              <SelectOpt value="lila">Lila</SelectOpt>
-              <SelectOpt value="rosado">Rosado</SelectOpt>
-              <SelectOpt value="marrón">Marrón</SelectOpt>
-              <SelectOpt value="turquesa">Turquesa</SelectOpt>
-              <SelectOpt value="plateado">Plateado</SelectOpt>
-              <SelectOpt value="dorado">Dorado</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
+        {efecto.tipoDeElemento !== "sim" &&
+          efecto.tipoDeElemento !== "dvr" &&
+          efecto.tipoDeElemento !== "disco" && (
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">*Color</label>
+              <select
+                className="formModalSelect"
+                value={efecto.color}
+                onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}
+              >
+                <option value="">Seleccione un Color</option>
+                <option value="negro">Negro</option>
+                <option value="blanco">Blanco</option>
+                <option value="gris">Gris</option>
+                <option value="rojo">Rojo</option>
+                <option value="azul">Azul</option>
+                <option value="celeste">Celeste</option>
+                <option value="verde">Verde</option>
+                <option value="amarillo">Amarillo</option>
+                <option value="naranja">Naranja</option>
+                <option value="morado">Morado</option>
+                <option value="lila">Lila</option>
+                <option value="rosado">Rosado</option>
+                <option value="marrón">Marrón</option>
+                <option value="turquesa">Turquesa</option>
+                <option value="plateado">Plateado</option>
+                <option value="dorado">Dorado</option>
+              </select>
+            </div>
+          )}
 
         {(efecto.tipoDeElemento === "notebook" ||
           efecto.tipoDeElemento === "unidad de almacenamiento" ||
@@ -399,29 +473,36 @@ function AddEfectos({ alternModal }) {
           efecto.tipoDeElemento === "dvr" ||
           efecto.tipoDeElemento === "disco" ||
           efecto.tipoDeElemento === "sim") && (
-          <InputContainer>
-            <Label>Serial Nº</Label>
-            <Input
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Serial Nº</label>
+            <input
+              className="formModalInput"
               type="text"
               name="serialNumber"
               value={efecto.serialNumber}
               placeholder="123456789"
-              onChange={(e) => setEfecto({ ...efecto, serialNumber: e.target.value.toUpperCase() })}
+              onChange={(e) =>
+                setEfecto({ ...efecto, serialNumber: e.target.value.toUpperCase() })
+              }
             />
-          </InputContainer>
+          </div>
         )}
 
-        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
-          <InputContainer>
-            <Label>Almacenamiento</Label>
-            <Input
+        {(efecto.tipoDeElemento === "disco" ||
+          efecto.tipoDeElemento === "unidad de almacenamiento") && (
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Almacenamiento</label>
+            <input
+              className="formModalInput"
               type="text"
               name="almacenamiento"
               value={efecto.almacenamiento}
               placeholder="500 GB / 1 TB"
-              onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value.toUpperCase() })}
+              onChange={(e) =>
+                setEfecto({ ...efecto, almacenamiento: e.target.value.toUpperCase() })
+              }
             />
-          </InputContainer>
+          </div>
         )}
 
         {efecto.tipoDeElemento !== "gabinete" &&
@@ -430,49 +511,63 @@ function AddEfectos({ alternModal }) {
           efecto.tipoDeElemento !== "dvr" &&
           efecto.tipoDeElemento !== "disco" &&
           efecto.tipoDeElemento !== "sim" && (
-            <InputContainer>
-              <Label>*¿Enciende?</Label>
-              <Select value={efecto.encendido} onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}>
-                <SelectOpt value="">Si / No</SelectOpt>
-                <SelectOpt value="si">Si</SelectOpt>
-                <SelectOpt value="no">No</SelectOpt>
-              </Select>
-            </InputContainer>
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">*¿Enciende?</label>
+              <select
+                className="formModalSelect"
+                value={efecto.encendido}
+                onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}
+              >
+                <option value="">Si / No</option>
+                <option value="si">Si</option>
+                <option value="no">No</option>
+              </select>
+            </div>
           )}
 
-        {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
-          <InputContainer>
-            <Label>¿Falla?</Label>
-            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">Si / No</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
+        {(efecto.tipoDeElemento === "unidad de almacenamiento" ||
+          efecto.tipoDeElemento === "disco") && (
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">¿Falla?</label>
+            <select
+              className="formModalSelect"
+              value={efecto.elementoFallado}
+              onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}
+            >
+              <option value="">Si / No</option>
+              <option value="si">Si</option>
+              <option value="no">No</option>
+            </select>
+          </div>
         )}
 
         {efecto.encendido === "si" && (
-          <InputContainer>
-            <Label>¿Falla?</Label>
-            <Select value={efecto.elementoFallado} onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}>
-              <SelectOpt value="">Si / No</SelectOpt>
-              <SelectOpt value="si">Si</SelectOpt>
-              <SelectOpt value="no">No</SelectOpt>
-            </Select>
-          </InputContainer>
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">¿Falla?</label>
+            <select
+              className="formModalSelect"
+              value={efecto.elementoFallado}
+              onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}
+            >
+              <option value="">Si / No</option>
+              <option value="si">Si</option>
+              <option value="no">No</option>
+            </select>
+          </div>
         )}
 
         {efecto.elementoFallado === "si" && (
-          <InputContainer>
-            <Label>Observacion</Label>
-            <Input
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Observacion</label>
+            <input
+              className="formModalInput"
               type="text"
               name="observacionFalla"
               value={efecto.observacionFalla}
               placeholder="¿Por que Falla?"
               onChange={(e) => setEfecto({ ...efecto, observacionFalla: e.target.value })}
             />
-          </InputContainer>
+          </div>
         )}
 
         {efecto.tipoDeElemento !== "unidad de almacenamiento" &&
@@ -481,156 +576,218 @@ function AddEfectos({ alternModal }) {
           efecto.tipoDeElemento !== "gabinete" &&
           efecto.encendido === "si" &&
           efecto.elementoFallado === "no" && (
-            <InputContainer>
-              <Label>Seguridad</Label>
-              <Select value={efecto.tipoSeguridad} onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}>
-                <SelectOpt value="">Tipo de Seguridad</SelectOpt>
-                <SelectOpt value="ninguna">Ninguna</SelectOpt>
-                <SelectOpt value="patron">Patron</SelectOpt>
-                <SelectOpt value="contraseña">Contraseña</SelectOpt>
-                <SelectOpt value="PIN de inicio">Pin</SelectOpt>
-                <SelectOpt value="huella">Huella</SelectOpt>
-              </Select>
-            </InputContainer>
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">Seguridad</label>
+              <select
+                className="formModalSelect"
+                value={efecto.tipoSeguridad}
+                onChange={(e) => setEfecto({ ...efecto, tipoSeguridad: e.target.value })}
+              >
+                <option value="">Tipo de Seguridad</option>
+                <option value="ninguna">Ninguna</option>
+                <option value="patron">Patron</option>
+                <option value="contraseña">Contraseña</option>
+                <option value="PIN de inicio">Pin</option>
+                <option value="huella">Huella</option>
+              </select>
+            </div>
           )}
         {efecto.tipoDeElemento === ""
           ? null
           : efecto.tipoDeElemento !== "unidad de almacenamiento" &&
             efecto.tipoSeguridad !== "ninguna" &&
             efecto.tipoSeguridad !== "" && (
-              <InputContainer>
-                <Label>¿Forma Desbloqueo?</Label>
-                <Select value={efecto.desbloqueo} onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}>
-                  <SelectOpt value="">¿Como se Desbloqueo?</SelectOpt>
-                  <SelectOpt value="uso de software">Uso de Software</SelectOpt>
-                  <SelectOpt value="prueba aleatoria">Prueba Aleatoria</SelectOpt>
-                </Select>
-              </InputContainer>
+              <div className="modalInputContainer">
+                <label className="basicLabel !text-white">¿Forma Desbloqueo?</label>
+                <select
+                  className="formModalSelect"
+                  value={efecto.desbloqueo}
+                  onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}
+                >
+                  <option value="">¿Como se Desbloqueo?</option>
+                  <option value="uso de software">Uso de Software</option>
+                  <option value="prueba aleatoria">Prueba Aleatoria</option>
+                </select>
+              </div>
             )}
 
         {efecto.encendido === "no" && (
-          <InputContainer>
-            <Label>Observacion</Label>
-            <Input
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Observacion</label>
+            <input
+              className="formModalInput"
               type="text"
               name="observacionEncendido"
               value={efecto.observacionEncendido}
               placeholder="¿Por que no enciende?"
-              onChange={(e) => setEfecto({ ...efecto, observacionEncendido: e.target.value })}
+              onChange={(e) =>
+                setEfecto({ ...efecto, observacionEncendido: e.target.value })
+              }
             />
-          </InputContainer>
+          </div>
         )}
 
-        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && efecto.elementoFallado === "no" && (
-          <InputContainer>
-            <Label>Software</Label>
-            <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
-              <SelectOpt value="">Seleccione Herramienta</SelectOpt>
-              <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-              <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-              <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-              <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-              <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-              <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-              <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
-              <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
-              <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-                TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-              </SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
+        {(efecto.tipoDeElemento === "disco" ||
+          efecto.tipoDeElemento === "unidad de almacenamiento") &&
+          efecto.elementoFallado === "no" && (
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">Software</label>
+              <select
+                className="formModalSelect"
+                value={efecto.herramientaSoft}
+                onChange={(e) =>
+                  setEfecto({ ...efecto, herramientaSoft: e.target.value })
+                }
+              >
+                <option value="">Seleccione Herramienta</option>
+                <option value="Cellebrite, UFED 4PC V7.60">UFED 4PC</option>
+                <option value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</option>
+                <option value="Magnet, AXIOM V6.10.0">AXIOM</option>
+                <option value="Opentext, ENCASE V8.11">ENCASE</option>
+                <option value="Grayshift, GREYKEY">GREYKEY</option>
+                <option value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</option>
+                <option value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</option>
+                <option value="TABLEAU TD3">TABLEAU TD3</option>
+                <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
+                  TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
+                </option>
+              </select>
+            </div>
+          )}
 
         {efecto.tipoDeElemento === "sim" && (
           <>
-            <InputContainer>
-              <Label>*Software</Label>
-              <Select value={efecto.herramientaSoft} onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}>
-                <SelectOpt value="">Seleccione Herramienta</SelectOpt>
-                <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-                <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-                <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-                <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-                <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-                <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-                <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
-                <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
-                <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">*Software</label>
+              <select
+                className="formModalSelect"
+                value={efecto.herramientaSoft}
+                onChange={(e) =>
+                  setEfecto({ ...efecto, herramientaSoft: e.target.value })
+                }
+              >
+                <option value="">Seleccione Herramienta</option>
+                <option value="Cellebrite, UFED 4PC V7.60">UFED 4PC</option>
+                <option value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</option>
+                <option value="Magnet, AXIOM V6.10.0">AXIOM</option>
+                <option value="Opentext, ENCASE V8.11">ENCASE</option>
+                <option value="Grayshift, GREYKEY">GREYKEY</option>
+                <option value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</option>
+                <option value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</option>
+                <option value="TABLEAU TD3">TABLEAU TD3</option>
+                <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
                   TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-                </SelectOpt>
-              </Select>
-            </InputContainer>
-            <InputContainer>
-              <Label>Extracción</Label>
-              <Select value={efecto.tipoExtraccion} onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}>
-                <SelectOpt value="">Tipo de Extracción</SelectOpt>
-                <SelectOpt value="ninguna">Ninguna</SelectOpt>
-                <SelectOpt value="no interes">No Interes</SelectOpt>
-                <SelectOpt value="fisica">Fisica</SelectOpt>
-                <SelectOpt value="lógica ">Logica</SelectOpt>
-                <SelectOpt value="sistema de archivos">Sitema de Archivos</SelectOpt>
-                <SelectOpt value="lógica  avanzada">Logica Avanzada</SelectOpt>
-              </Select>
-            </InputContainer>
+                </option>
+              </select>
+            </div>
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">Extracción</label>
+              <select
+                className="formModalSelect"
+                value={efecto.tipoExtraccion}
+                onChange={(e) => setEfecto({ ...efecto, tipoExtraccion: e.target.value })}
+              >
+                <option value="">Tipo de Extracción</option>
+                <option value="ninguna">Ninguna</option>
+                <option value="no interes">No Interes</option>
+                <option value="fisica">Fisica</option>
+                <option value="lógica ">Logica</option>
+                <option value="sistema de archivos">Sitema de Archivos</option>
+                <option value="lógica  avanzada">Logica Avanzada</option>
+              </select>
+            </div>
           </>
         )}
 
-        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && efecto.herramientaSoft !== "" && (
-          <InputContainer>
-            <Label>Adquisición</Label>
-            <Select value={efecto.adquisicion} onChange={(e) => setEfecto({ ...efecto, adquisicion: e.target.value })}>
-              <SelectOpt value="">Con Exito / Fallo</SelectOpt>
-              <SelectOpt value="con exito">Con Exito</SelectOpt>
-              <SelectOpt value="fallo">Fallo</SelectOpt>
-            </Select>
-          </InputContainer>
-        )}
+        {(efecto.tipoDeElemento === "disco" ||
+          efecto.tipoDeElemento === "unidad de almacenamiento") &&
+          efecto.herramientaSoft !== "" && (
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">Adquisición</label>
+              <select
+                className="formModalSelect"
+                value={efecto.adquisicion}
+                onChange={(e) => setEfecto({ ...efecto, adquisicion: e.target.value })}
+              >
+                <option value="">Con Exito / Fallo</option>
+                <option value="con exito">Con Exito</option>
+                <option value="fallo">Fallo</option>
+              </select>
+            </div>
+          )}
 
         {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && (
-          <InputContainer>
-            <Label>*Estado</Label>
-            <Select
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">*Estado</label>
+            <select
+              className="formModalSelect"
               disabled={efecto.edit && currentActa.estado === "en proceso" ? true : false}
               value={efecto.estado}
               onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}
             >
-              <SelectOpt value="">Seleccione el Estado</SelectOpt>
-              <SelectOpt value="completo">Completo</SelectOpt>
-              <SelectOpt value="en proceso">En Proceso</SelectOpt>
-              <SelectOpt value="peritado">Peritado</SelectOpt>
-            </Select>
-          </InputContainer>
+              <option value="">Seleccione el Estado</option>
+              <option value="completo">Completo</option>
+              <option value="en proceso">En Proceso</option>
+              <option value="peritado">Peritado</option>
+            </select>
+          </div>
         )}
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", width: "100%" }}>
-          {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
+        <div className="mt-2 flex w-full items-center justify-around">
+          {(efecto.tipoDeElemento === "celular" ||
+            efecto.tipoDeElemento === "tablet") && (
             <>
-              <OptButton onClick={(e) => (efecto.edit ? handleEditSimButtonClick(e) : handleOptButtonClick(e))} value="sim">
+              <button
+                className="submitBtn !px-4"
+                onClick={(e) =>
+                  efecto.edit ? handleEditSimButtonClick(e) : handleOptButtonClick(e)
+                }
+                value="sim"
+              >
                 {efecto.edit ? "Agregar/Editar Sim" : "Agregar Sim"}
-              </OptButton>
-              <OptButton onClick={(e) => (efecto.edit ? handleEditSdButtonClick(e) : handleOptButtonClick(e))} value="sd">
+              </button>
+              <button
+                className="submitBtn !px-4"
+                onClick={(e) =>
+                  efecto.edit ? handleEditSdButtonClick(e) : handleOptButtonClick(e)
+                }
+                value="sd"
+              >
                 {efecto.edit ? "Agregar/Editar Sd" : "Agregar Sd"}
-              </OptButton>
+              </button>
             </>
           )}
 
-          {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "gabinete" || efecto.tipoDeElemento === "dvr") && (
-            <OptButton onClick={(e) => (efecto.edit ? handleEditDiscoButtonClick(e) : handleOptButtonClick(e))} value="discos">
+          {(efecto.tipoDeElemento === "notebook" ||
+            efecto.tipoDeElemento === "gabinete" ||
+            efecto.tipoDeElemento === "dvr") && (
+            <button
+              className="submitBtn !px-4"
+              onClick={(e) =>
+                efecto.edit ? handleEditDiscoButtonClick(e) : handleOptButtonClick(e)
+              }
+              value="discos"
+            >
               {efecto.edit ? "Agregar/Editar Discos" : "Agregar Discos"}
-            </OptButton>
+            </button>
           )}
 
           {!efecto.edit &&
             efecto.elementoFallado !== "si" &&
             efecto.tipoDeElemento &&
-            (efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
-              <OptButton onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
+            (efecto.tipoDeElemento === "celular" ||
+              efecto.tipoDeElemento === "tablet") && (
+              <button
+                className="submitBtn !px-4"
+                onClick={(e) => handleOptButtonClick(e)}
+                value="add extraccion"
+              >
                 Agregar Extracciones
-              </OptButton>
+              </button>
             )}
-          <Button type="submit" value="Guardar" complete={handleComplete()} />
+          <input className="submitBtn !px-4" type="submit" value="Guardar" />
         </div>
-      </Form>
+      </form>
 
       {renderAddDiscoModal()}
       {renderAddSimModal()}
@@ -639,7 +796,9 @@ function AddEfectos({ alternModal }) {
 
       <Modal
         isOpen={editDiscosModal}
-        style={{ content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" } }}
+        style={{
+          content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" },
+        }}
         ariaHideApp={false}
       >
         <EditDiscoModal
@@ -652,7 +811,9 @@ function AddEfectos({ alternModal }) {
 
       <Modal
         isOpen={editSimsModal}
-        style={{ content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" } }}
+        style={{
+          content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" },
+        }}
         ariaHideApp={false}
       >
         <EditSimModal
@@ -665,7 +826,9 @@ function AddEfectos({ alternModal }) {
 
       <Modal
         isOpen={editSdsModal}
-        style={{ content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" } }}
+        style={{
+          content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" },
+        }}
         ariaHideApp={false}
       >
         <EditSdsModal
@@ -680,98 +843,3 @@ function AddEfectos({ alternModal }) {
 }
 
 export default AddEfectos;
-
-const Title = styled.h4`
-  border-bottom: 2px solid white;
-  width: 120%;
-  text-align: center;
-  margin-bottom: 2%;
-  padding-bottom: 10px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 5%;
-  color: white;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: max-content;
-  border-bottom: 1px solid ${secondaryColor};
-  padding-bottom: 10px;
-  margin-block: 5px;
-`;
-
-const Label = styled.label`
-  flex: 1;
-`;
-
-const Input = styled.input`
-  ${input}
-  font-size: medium;
-  flex: 1;
-  height: 30px;
-  text-align: center;
-`;
-
-const Select = styled.select`
-  ${select}
-  font-size: medium;
-  flex: 1;
-  height: 30px;
-  text-align: center;
-`;
-
-const SelectOpt = styled.option``;
-
-const Button = styled.input`
-  ${button}
-  padding: 5px;
-  padding-inline: 15px;
-  text-decoration: none;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-  margin-bottom: -2.5%;
-  margin-top: 1%;
-
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-    color: ${principalColor};
-    border: 2px solid transparent;
-  }
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
-`;
-
-const OptButton = styled.button`
-  ${button}
-  padding: 5px;
-  padding-inline: 10px;
-  text-decoration: none;
-  background: white;
-  border: 2px solid ${greenColor};
-  margin-bottom: -2.5%;
-  margin-top: 1%;
-
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-    color: ${principalColor};
-    border: 2px solid transparent;
-  }
-`;
