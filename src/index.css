@@ -6,7 +6,7 @@
 
 /** START Global Components  */
 .closeModalIcon {
-  @apply right-0 h-8 w-8 self-end text-white transition hover:cursor-pointer hover:text-secondary;
+  @apply absolute right-0 top-0 z-20 h-8 w-8 self-end text-white transition hover:cursor-pointer hover:text-secondary;
 }
 
 .navLinkButtonPages {
@@ -16,6 +16,7 @@
 .basicBtnNoPadding {
   @apply rounded-lg border-2 border-principal text-secondary no-underline transition hover:bg-touch;
 }
+
 .adminCards {
   @apply mt-4 flex h-24 w-[55%] items-center justify-between rounded-md border-2 border-principal px-8 transition hover:cursor-pointer hover:bg-touch;
 }
@@ -86,6 +87,14 @@
 
 .formBigInput {
   @apply min-h-[30px] w-full  flex-1 rounded-md border-2 border-secondary/60 text-center text-secondary  shadow-md focus:border-principal;
+}
+
+.formModalSelect {
+  @apply min-h-[30px] w-[50%] rounded-md border-2 border-secondary/60 text-center text-secondary  shadow-md hover:cursor-pointer focus:border-principal;
+}
+
+.formModalInput {
+  @apply min-h-[30px] w-[50%] rounded-md border-2 border-secondary/60 text-center text-secondary  shadow-md focus:border-principal;
 }
 
 .submitBtn {

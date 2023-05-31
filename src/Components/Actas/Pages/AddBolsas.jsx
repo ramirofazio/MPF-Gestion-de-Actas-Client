@@ -22,7 +22,6 @@ const modal30Width = {
   content: {
     ...modal40x40.content,
     width: "35%",
-    height: "min-content",
   },
 };
 
@@ -82,7 +81,7 @@ function AddBolsas() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="icons absolute right-0 top-0 h-8 w-8 text-white"
+          className="closeModalIcon"
           onClick={() => setAddEfectosModal(!addEfectosModal)}
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

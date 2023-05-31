@@ -27,11 +27,20 @@ const AddBolsasModal = ({ alternModal, acta_id }) => {
 
   return (
     <>
-      <form className="flex w-full flex-col" onSubmit={handleSubmitBolsa}>
-        <div className="inputContainer flex-col">
-          <label className="basicLabel">*Precinto de Apertura</label>
+      <header className="flex h-14 w-full items-center justify-center border-b-[3px] border-b-white text-white">
+        <span>Agregar Bolsa</span>
+      </header>
+      <form
+        className="flex w-full flex-col justify-center p-5 pt-0"
+        onSubmit={handleSubmitBolsa}
+      >
+        <div className="inputContainer !justify-between py-8  !pb-0">
+          <label data-aos="fade-right" className="basicLabel !text-white">
+            *Precinto de Apertura
+          </label>
           <select
-            className="formBigSelect"
+            data-aos="fade-left"
+            className="formModalSelect"
             value={bolsa.colorPrecinto}
             onChange={(e) => setBolsa({ ...bolsa, colorPrecinto: e.target.value })}
           >
@@ -41,10 +50,13 @@ const AddBolsasModal = ({ alternModal, acta_id }) => {
             <option value="blanco">Blanco</option>
           </select>
         </div>
-        <div className="inputContainer flex-col">
-          <label className="basicLabel">*N° Precinto</label>
+        <div className="inputContainer  !justify-between py-8  !pb-0">
+          <label data-aos="fade-right" className="basicLabel !text-white">
+            *N° Precinto
+          </label>
           <input
-            className="formBigInput"
+            data-aos="fade-left"
+            className="formModalInput"
             type="number"
             name="N° Precinto"
             value={bolsa.nroPrecinto}
@@ -52,31 +64,24 @@ const AddBolsasModal = ({ alternModal, acta_id }) => {
             onChange={(e) => setBolsa({ ...bolsa, nroPrecinto: e.target.value })}
           />
         </div>
-        <div className="inputContainer flex-col">
-          <label className="basicLabel ml-[30%]">
-            Observaciones/Descripción de la Bolsa
+        <div className="inputContainer  !justify-between py-8 !pb-0 ">
+          <label data-aos="fade-right" className="basicLabel !text-white">
+            De su interior se extrae:
           </label>
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <label className="basicLabel w-[40%]">De su interior se extrae:</label>
-            <input
-              className="formBigInput"
-              type="text"
-              name="Observaciones/Descripcion de la Bolsa"
-              value={bolsa.observaciones}
-              placeholder="Observaciones/Descripcion de la Bolsa"
-              onChange={(e) => setBolsa({ ...bolsa, observaciones: e.target.value })}
-            />
-          </div>
+          <input
+            data-aos="fade-left"
+            className="formModalInput"
+            type="text"
+            name="Observaciones/Descripcion de la Bolsa"
+            value={bolsa.observaciones}
+            placeholder="Observaciones/Descripcion de la Bolsa"
+            onChange={(e) => setBolsa({ ...bolsa, observaciones: e.target.value })}
+          />
         </div>
 
-        <input type="submit" value="Agregar" className="submitBtn" />
+        <div className="inputContainer !pb-0 pt-4">
+          <input type="submit" value="Agregar" className="submitBtn" />
+        </div>
       </form>
     </>
   );
