@@ -51,7 +51,7 @@ function AddEfectos({ alternModal }) {
   const [editSimsModal, setEditSimsModal] = React.useState(false);
   const [sims, setSims] = React.useState([]);
 
-  const [addSdsModal, setAddSdModal] = React.useState(false);
+  const [addSdsModal, setAddSdsModal] = React.useState(false);
   const [editSdsModal, setEditSdsModal] = React.useState(false);
   const [sds, setSds] = React.useState([]);
 
@@ -178,7 +178,7 @@ function AddEfectos({ alternModal }) {
         break;
       }
       case "sd": {
-        setAddSdModal(true);
+        setAddSdsModal(true);
         break;
       }
       case "add extraccion": {
@@ -199,6 +199,17 @@ function AddEfectos({ alternModal }) {
   const renderAddDiscoModal = () => {
     return (
       <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="closeModalIcon"
+          onClick={() => setAddDiscosModal(false)}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
         <AddDiscoModal
           discos={discos}
           setDiscos={setDiscos}
@@ -246,10 +257,21 @@ function AddEfectos({ alternModal }) {
   const renderAddSdModal = () => {
     return (
       <Modal isOpen={addSdsModal} style={modal40x30} ariaHideApp={false}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="closeModalIcon"
+          onClick={() => setAddSdsModal(false)}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
         <AddSdModal
           sds={sds}
           setSds={setSds}
-          setAddSdModal={setAddSdModal}
+          setAddSdModal={setAddSdsModal}
           toast={toast}
         />
       </Modal>
@@ -833,7 +855,7 @@ function AddEfectos({ alternModal }) {
       >
         <EditSdsModal
           setEditSdsModal={setEditSdsModal}
-          setAddSdsModal={setAddSdModal}
+          setAddSdsModal={setAddSdsModal}
           sds={efecto.Sds}
           renderAddSdModal={renderAddSdModal}
         />

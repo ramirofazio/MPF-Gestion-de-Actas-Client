@@ -82,7 +82,7 @@
 }
 
 .modalInputContainer {
-  @apply !z-10 flex h-max w-full items-center justify-between  py-4 text-base;
+  @apply !z-10 flex h-max w-full items-center justify-between  py-2 text-base;
 }
 
 .select {
