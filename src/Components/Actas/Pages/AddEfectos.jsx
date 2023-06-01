@@ -36,12 +36,8 @@ function AddEfectos({ alternModal }) {
     };
   });
 
-  const currentActa = useSelector(
-    (s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa
-  );
-  const currentBolsas = useSelector(
-    (s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas
-  );
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
+  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
 
   const [addDiscosModal, setAddDiscosModal] = React.useState(false);
   const [editDiscosModal, setEditDiscosModal] = React.useState(false);
@@ -101,16 +97,7 @@ function AddEfectos({ alternModal }) {
   };
 
   const handleComplete = () => {
-    const {
-      bolsa_id,
-      tipoDeDisco,
-      tipoDeElemento,
-      estado,
-      encendido,
-      color,
-      empresa,
-      herramientaSoft,
-    } = efecto;
+    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color, empresa, herramientaSoft } = efecto;
 
     switch (tipoDeElemento) {
       case "sim": {
@@ -210,12 +197,7 @@ function AddEfectos({ alternModal }) {
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
-        <AddDiscoModal
-          discos={discos}
-          setDiscos={setDiscos}
-          setAddDiscoModal={setAddDiscosModal}
-          toast={toast}
-        />
+        <AddDiscoModal discos={discos} setDiscos={setDiscos} setAddDiscoModal={setAddDiscosModal} toast={toast} />
       </Modal>
     );
   };
@@ -239,12 +221,7 @@ function AddEfectos({ alternModal }) {
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
-        <AddSimModal
-          sims={sims}
-          setSims={setSims}
-          toast={toast}
-          setAddSimsModal={setAddSimsModal}
-        />
+        <AddSimModal sims={sims} setSims={setSims} toast={toast} setAddSimsModal={setAddSimsModal} />
       </Modal>
     );
   };
@@ -268,12 +245,7 @@ function AddEfectos({ alternModal }) {
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
-        <AddSdModal
-          sds={sds}
-          setSds={setSds}
-          setAddSdModal={setAddSdsModal}
-          toast={toast}
-        />
+        <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdsModal} toast={toast} />
       </Modal>
     );
   };
@@ -311,15 +283,9 @@ function AddEfectos({ alternModal }) {
   return (
     <>
       <header className="modalHeader">
-        <span data-aos="fade-down">
-          {efecto.edit ? "Editar Elemento" : "Agregar Elemento"}
-        </span>
+        <span data-aos="fade-down">{efecto.edit ? "Editar Elemento" : "Agregar Elemento"}</span>
       </header>
-      <form
-        data-aos="zoom-in"
-        className="flex w-full flex-col justify-center p-5 pt-0"
-        onSubmit={handleSubmit}
-      >
+      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSubmit}>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">*Bolsa</label>
           <select
@@ -335,13 +301,7 @@ function AddEfectos({ alternModal }) {
                   <option
                     value={b.id}
                     key={b.id}
-                    className={
-                      b.colorPrecinto === "rojo"
-                        ? `text-error`
-                        : b.colorPrecinto === "Verde"
-                        ? `text-success`
-                        : `text-white`
-                    }
+                    className={b.colorPrecinto === "rojo" ? `text-error` : b.colorPrecinto === "verde" ? `text-success` : `text-secondary`}
                   >
                     {b.nroPrecinto}
                   </option>
@@ -416,9 +376,7 @@ function AddEfectos({ alternModal }) {
               name="empresa"
               value={efecto.empresa}
               placeholder="Empresa"
-              onChange={(e) =>
-                setEfecto({ ...efecto, empresa: e.target.value.toUpperCase() })
-              }
+              onChange={(e) => setEfecto({ ...efecto, empresa: e.target.value.toUpperCase() })}
             />
           </div>
         )}
@@ -433,9 +391,7 @@ function AddEfectos({ alternModal }) {
                 name="marca"
                 value={efecto.marca}
                 placeholder="Marca"
-                onChange={(e) =>
-                  setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })
-                }
+                onChange={(e) => setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })}
               />
             </div>
             <div className="modalInputContainer">
@@ -446,9 +402,7 @@ function AddEfectos({ alternModal }) {
                 name="modelo"
                 value={efecto.modelo}
                 placeholder="Modelo"
-                onChange={(e) =>
-                  setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })
-                }
+                onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
               />
             </div>
           </>
@@ -468,36 +422,30 @@ function AddEfectos({ alternModal }) {
           </div>
         )}
 
-        {efecto.tipoDeElemento !== "sim" &&
-          efecto.tipoDeElemento !== "dvr" &&
-          efecto.tipoDeElemento !== "disco" && (
-            <div className="modalInputContainer">
-              <label className="basicLabel !text-white">*Color</label>
-              <select
-                className="formModalSelect"
-                value={efecto.color}
-                onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}
-              >
-                <option value="">Seleccione un Color</option>
-                <option value="negro">Negro</option>
-                <option value="blanco">Blanco</option>
-                <option value="gris">Gris</option>
-                <option value="rojo">Rojo</option>
-                <option value="azul">Azul</option>
-                <option value="celeste">Celeste</option>
-                <option value="verde">Verde</option>
-                <option value="amarillo">Amarillo</option>
-                <option value="naranja">Naranja</option>
-                <option value="morado">Morado</option>
-                <option value="lila">Lila</option>
-                <option value="rosado">Rosado</option>
-                <option value="marrón">Marrón</option>
-                <option value="turquesa">Turquesa</option>
-                <option value="plateado">Plateado</option>
-                <option value="dorado">Dorado</option>
-              </select>
-            </div>
-          )}
+        {efecto.tipoDeElemento !== "sim" && efecto.tipoDeElemento !== "dvr" && efecto.tipoDeElemento !== "disco" && (
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">*Color</label>
+            <select className="formModalSelect" value={efecto.color} onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}>
+              <option value="">Seleccione un Color</option>
+              <option value="negro">Negro</option>
+              <option value="blanco">Blanco</option>
+              <option value="gris">Gris</option>
+              <option value="rojo">Rojo</option>
+              <option value="azul">Azul</option>
+              <option value="celeste">Celeste</option>
+              <option value="verde">Verde</option>
+              <option value="amarillo">Amarillo</option>
+              <option value="naranja">Naranja</option>
+              <option value="morado">Morado</option>
+              <option value="lila">Lila</option>
+              <option value="rosado">Rosado</option>
+              <option value="marrón">Marrón</option>
+              <option value="turquesa">Turquesa</option>
+              <option value="plateado">Plateado</option>
+              <option value="dorado">Dorado</option>
+            </select>
+          </div>
+        )}
 
         {(efecto.tipoDeElemento === "notebook" ||
           efecto.tipoDeElemento === "unidad de almacenamiento" ||
@@ -514,15 +462,12 @@ function AddEfectos({ alternModal }) {
               name="serialNumber"
               value={efecto.serialNumber}
               placeholder="123456789"
-              onChange={(e) =>
-                setEfecto({ ...efecto, serialNumber: e.target.value.toUpperCase() })
-              }
+              onChange={(e) => setEfecto({ ...efecto, serialNumber: e.target.value.toUpperCase() })}
             />
           </div>
         )}
 
-        {(efecto.tipoDeElemento === "disco" ||
-          efecto.tipoDeElemento === "unidad de almacenamiento") && (
+        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
           <div className="modalInputContainer">
             <label className="basicLabel !text-white">Almacenamiento</label>
             <input
@@ -531,9 +476,7 @@ function AddEfectos({ alternModal }) {
               name="almacenamiento"
               value={efecto.almacenamiento}
               placeholder="500 GB / 1 TB"
-              onChange={(e) =>
-                setEfecto({ ...efecto, almacenamiento: e.target.value.toUpperCase() })
-              }
+              onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value.toUpperCase() })}
             />
           </div>
         )}
@@ -558,8 +501,7 @@ function AddEfectos({ alternModal }) {
             </div>
           )}
 
-        {(efecto.tipoDeElemento === "unidad de almacenamiento" ||
-          efecto.tipoDeElemento === "disco") && (
+        {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
           <div className="modalInputContainer">
             <label className="basicLabel !text-white">¿Falla?</label>
             <select
@@ -653,40 +595,32 @@ function AddEfectos({ alternModal }) {
               name="observacionEncendido"
               value={efecto.observacionEncendido}
               placeholder="¿Por que no enciende?"
-              onChange={(e) =>
-                setEfecto({ ...efecto, observacionEncendido: e.target.value })
-              }
+              onChange={(e) => setEfecto({ ...efecto, observacionEncendido: e.target.value })}
             />
           </div>
         )}
 
-        {(efecto.tipoDeElemento === "disco" ||
-          efecto.tipoDeElemento === "unidad de almacenamiento") &&
-          efecto.elementoFallado === "no" && (
-            <div className="modalInputContainer">
-              <label className="basicLabel !text-white">Software</label>
-              <select
-                className="formModalSelect"
-                value={efecto.herramientaSoft}
-                onChange={(e) =>
-                  setEfecto({ ...efecto, herramientaSoft: e.target.value })
-                }
-              >
-                <option value="">Seleccione Herramienta</option>
-                <option value="Cellebrite, UFED 4PC V7.60">UFED 4PC</option>
-                <option value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</option>
-                <option value="Magnet, AXIOM V6.10.0">AXIOM</option>
-                <option value="Opentext, ENCASE V8.11">ENCASE</option>
-                <option value="Grayshift, GREYKEY">GREYKEY</option>
-                <option value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</option>
-                <option value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</option>
-                <option value="TABLEAU TD3">TABLEAU TD3</option>
-                <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-                  TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-                </option>
-              </select>
-            </div>
-          )}
+        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && efecto.elementoFallado === "no" && (
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Software</label>
+            <select
+              className="formModalSelect"
+              value={efecto.herramientaSoft}
+              onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}
+            >
+              <option value="">Seleccione Herramienta</option>
+              <option value="Cellebrite, UFED 4PC V7.60">UFED 4PC</option>
+              <option value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</option>
+              <option value="Magnet, AXIOM V6.10.0">AXIOM</option>
+              <option value="Opentext, ENCASE V8.11">ENCASE</option>
+              <option value="Grayshift, GREYKEY">GREYKEY</option>
+              <option value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</option>
+              <option value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</option>
+              <option value="TABLEAU TD3">TABLEAU TD3</option>
+              <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">TABLEAU FORENSIC BRIDGE (bloqueador de escritura)</option>
+            </select>
+          </div>
+        )}
 
         {efecto.tipoDeElemento === "sim" && (
           <>
@@ -695,9 +629,7 @@ function AddEfectos({ alternModal }) {
               <select
                 className="formModalSelect"
                 value={efecto.herramientaSoft}
-                onChange={(e) =>
-                  setEfecto({ ...efecto, herramientaSoft: e.target.value })
-                }
+                onChange={(e) => setEfecto({ ...efecto, herramientaSoft: e.target.value })}
               >
                 <option value="">Seleccione Herramienta</option>
                 <option value="Cellebrite, UFED 4PC V7.60">UFED 4PC</option>
@@ -708,9 +640,7 @@ function AddEfectos({ alternModal }) {
                 <option value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</option>
                 <option value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</option>
                 <option value="TABLEAU TD3">TABLEAU TD3</option>
-                <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-                  TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-                </option>
+                <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">TABLEAU FORENSIC BRIDGE (bloqueador de escritura)</option>
               </select>
             </div>
             <div className="modalInputContainer">
@@ -732,22 +662,20 @@ function AddEfectos({ alternModal }) {
           </>
         )}
 
-        {(efecto.tipoDeElemento === "disco" ||
-          efecto.tipoDeElemento === "unidad de almacenamiento") &&
-          efecto.herramientaSoft !== "" && (
-            <div className="modalInputContainer">
-              <label className="basicLabel !text-white">Adquisición</label>
-              <select
-                className="formModalSelect"
-                value={efecto.adquisicion}
-                onChange={(e) => setEfecto({ ...efecto, adquisicion: e.target.value })}
-              >
-                <option value="">Con Exito / Fallo</option>
-                <option value="con exito">Con Exito</option>
-                <option value="fallo">Fallo</option>
-              </select>
-            </div>
-          )}
+        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && efecto.herramientaSoft !== "" && (
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Adquisición</label>
+            <select
+              className="formModalSelect"
+              value={efecto.adquisicion}
+              onChange={(e) => setEfecto({ ...efecto, adquisicion: e.target.value })}
+            >
+              <option value="">Con Exito / Fallo</option>
+              <option value="con exito">Con Exito</option>
+              <option value="fallo">Fallo</option>
+            </select>
+          </div>
+        )}
 
         {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && (
           <div className="modalInputContainer">
@@ -767,23 +695,18 @@ function AddEfectos({ alternModal }) {
         )}
 
         <div className="mt-2 flex w-full items-center justify-around">
-          {(efecto.tipoDeElemento === "celular" ||
-            efecto.tipoDeElemento === "tablet") && (
+          {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
             <>
               <button
                 className="submitBtn !px-4"
-                onClick={(e) =>
-                  efecto.edit ? handleEditSimButtonClick(e) : handleOptButtonClick(e)
-                }
+                onClick={(e) => (efecto.edit ? handleEditSimButtonClick(e) : handleOptButtonClick(e))}
                 value="sim"
               >
                 {efecto.edit ? "Agregar/Editar Sim" : "Agregar Sim"}
               </button>
               <button
                 className="submitBtn !px-4"
-                onClick={(e) =>
-                  efecto.edit ? handleEditSdButtonClick(e) : handleOptButtonClick(e)
-                }
+                onClick={(e) => (efecto.edit ? handleEditSdButtonClick(e) : handleOptButtonClick(e))}
                 value="sd"
               >
                 {efecto.edit ? "Agregar/Editar Sd" : "Agregar Sd"}
@@ -791,14 +714,10 @@ function AddEfectos({ alternModal }) {
             </>
           )}
 
-          {(efecto.tipoDeElemento === "notebook" ||
-            efecto.tipoDeElemento === "gabinete" ||
-            efecto.tipoDeElemento === "dvr") && (
+          {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "gabinete" || efecto.tipoDeElemento === "dvr") && (
             <button
               className="submitBtn !px-4"
-              onClick={(e) =>
-                efecto.edit ? handleEditDiscoButtonClick(e) : handleOptButtonClick(e)
-              }
+              onClick={(e) => (efecto.edit ? handleEditDiscoButtonClick(e) : handleOptButtonClick(e))}
               value="discos"
             >
               {efecto.edit ? "Agregar/Editar Discos" : "Agregar Discos"}
@@ -808,13 +727,8 @@ function AddEfectos({ alternModal }) {
           {!efecto.edit &&
             efecto.elementoFallado !== "si" &&
             efecto.tipoDeElemento &&
-            (efecto.tipoDeElemento === "celular" ||
-              efecto.tipoDeElemento === "tablet") && (
-              <button
-                className="submitBtn !px-4"
-                onClick={(e) => handleOptButtonClick(e)}
-                value="add extraccion"
-              >
+            (efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
+              <button className="submitBtn !px-4" onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
                 Agregar Extracciones
               </button>
             )}
@@ -834,6 +748,17 @@ function AddEfectos({ alternModal }) {
         }}
         ariaHideApp={false}
       >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="closeModalIcon"
+          onClick={() => setEditDiscosModal(false)}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
         <EditDiscoModal
           setEditDiscosModal={setEditDiscosModal}
           setAddDiscosModal={setAddDiscosModal}
@@ -849,6 +774,17 @@ function AddEfectos({ alternModal }) {
         }}
         ariaHideApp={false}
       >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="closeModalIcon"
+          onClick={() => setEditSimsModal(false)}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
         <EditSimModal
           setEditSimsModal={setEditSimsModal}
           setAddSimsModal={setAddSimsModal}
@@ -864,6 +800,17 @@ function AddEfectos({ alternModal }) {
         }}
         ariaHideApp={false}
       >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="closeModalIcon"
+          onClick={() => setEditSdsModal(false)}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
         <EditSdsModal
           setEditSdsModal={setEditSdsModal}
           setAddSdsModal={setAddSdsModal}
