@@ -1,7 +1,6 @@
 import React from "react";
-import { Close } from "@styled-icons/ionicons-outline/Close";
 
-function AddTipoExtraccionModal({ setAddTipoExtraccionModal, handleTipoExtraccionSubmit }) {
+function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
   const [tipoDeExtraccion, setTipoDeExtraccion] = React.useState({
     fakeId: Math.random(),
     nombre: "",
@@ -11,20 +10,18 @@ function AddTipoExtraccionModal({ setAddTipoExtraccionModal, handleTipoExtraccio
 
   return (
     <>
-      <Close
-        size={30}
-        className="cursor-pointer self-end text-white transition hover:text-gray-500"
-        onClick={() => setAddTipoExtraccionModal(false)}
-      />
-      <h4 class="modalTitle">Agregar Tipos de Extraccion</h4>
+      <header className="modalHeader">
+        <span data-aos="fade-down">Extracciones de {nombre}</span>
+      </header>
       <form
-        class="flex h-full w-full flex-col items-center p-5 text-white"
+        data-aos="zoom-in"
+        className="flex h-full w-full flex-col justify-center p-5 pt-0"
         onSubmit={(e) => handleTipoExtraccionSubmit(e, tipoDeExtraccion)}
       >
-        <div class="inputContainer">
-          <label class="flex-1">Extraccion</label>
+        <div class="modalInputContainer">
+          <label class="basicLabel !text-white">*Extraccion</label>
           <select
-            class="select"
+            class="formModalSelect"
             value={tipoDeExtraccion.nombre}
             onChange={(e) => setTipoDeExtraccion({ ...tipoDeExtraccion, nombre: e.target.value })}
           >
@@ -36,10 +33,10 @@ function AddTipoExtraccionModal({ setAddTipoExtraccionModal, handleTipoExtraccio
             <option value="lógica  avanzada">Logica Avanzada</option>
           </select>
         </div>
-        <div class="inputContainer">
-          <label class="flex-1">Estado</label>
+        <div class="modalInputContainer">
+          <label class="basicLabel !text-white">*Estado</label>
           <select
-            class="select"
+            class="formModalSelect"
             value={tipoDeExtraccion.estado}
             onChange={(e) => setTipoDeExtraccion({ ...tipoDeExtraccion, estado: e.target.value })}
           >
@@ -51,10 +48,10 @@ function AddTipoExtraccionModal({ setAddTipoExtraccionModal, handleTipoExtraccio
         </div>
 
         {tipoDeExtraccion.estado === "fallo" && (
-          <div class="inputContainer">
-            <label class="flex-1">Observacion</label>
+          <div class="modalInputContainer">
+            <label class="basicLabel !text-white">Observacion</label>
             <input
-              className="select placeholder:text-black"
+              class="formModalInput"
               type="text"
               name="observacionFalla"
               value={tipoDeExtraccion.observacionFalla}
@@ -63,7 +60,9 @@ function AddTipoExtraccionModal({ setAddTipoExtraccionModal, handleTipoExtraccio
             />
           </div>
         )}
-        <input class="submitBtn" value="Guardar" type="submit" />
+        <div className="inputContainer !pb-0 pt-4">
+          <input class="submitBtn" value="Guardar" type="submit" />
+        </div>
       </form>
     </>
   );

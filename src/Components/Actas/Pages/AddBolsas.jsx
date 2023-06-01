@@ -29,12 +29,8 @@ function AddBolsas() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const currentActa = useSelector(
-    (s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa
-  );
-  const currentBolsas = useSelector(
-    (s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas
-  );
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
+  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas);
 
   const [loading, setLoading] = React.useState(false);
   const [addEfectosModal, setAddEfectosModal] = React.useState(false);
@@ -56,13 +52,10 @@ function AddBolsas() {
 
   const handleCloseBags = () => {
     if (currentActa.estado !== "para completar") {
-      toast.warning(
-        "¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!",
-        {
-          position: "top-center",
-          autoClose: 10000,
-        }
-      );
+      toast.warning("¡Una vez cerrada una bolsa no podra volver a crear mas bolsas ni agregar elementos a ninguna!", {
+        position: "top-center",
+        autoClose: 10000,
+      });
     }
     setCloseBagsModal(!closeBagsModal);
   };
@@ -96,10 +89,7 @@ function AddBolsas() {
     let res = false;
     if (currentBolsas.length !== 0) {
       currentBolsas.forEach((b) => {
-        if (
-          b.estado === "abierta con efectos en proceso" ||
-          b.estado === "abierta con efectos completos"
-        ) {
+        if (b.estado === "abierta con efectos en proceso" || b.estado === "abierta con efectos completos") {
           res = true;
         }
         if (b.estado === "abierta sin efectos") {
@@ -126,10 +116,7 @@ function AddBolsas() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
 
-        <AddBolsasModal
-          alternModal={() => setAddBolsasModal(!addBolsasModal)}
-          acta_id={currentActa.id}
-        />
+        <AddBolsasModal alternModal={() => setAddBolsasModal(!addBolsasModal)} acta_id={currentActa.id} />
       </Modal>
     );
   };
@@ -166,8 +153,7 @@ function AddBolsas() {
                     bolsaIdShowEfectos === bolsa.id && "mb-2 border-b-2 border-principal"
                   }`}
                 >
-                  {(bolsa.estado === "abierta con efectos completos" ||
-                    bolsa.estado === "abierta con efectos en proceso") && (
+                  {(bolsa.estado === "abierta con efectos completos" || bolsa.estado === "abierta con efectos en proceso") && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -214,11 +200,7 @@ function AddBolsas() {
                         strokeLinejoin="round"
                         d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
                       />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 6h.008v.008H6V6z"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6z" />
                     </svg>
                   )}
                   {bolsa.estado === "cerrada en proceso" && (
@@ -240,16 +222,10 @@ function AddBolsas() {
                   <div
                     className="cardInfoContainer"
                     style={
-                      bolsa.colorPrecinto === "rojo"
-                        ? { color: "#FF0000" }
-                        : bolsa.colorPrecinto === "verde"
-                        ? { color: "#68BC00" }
-                        : null
+                      bolsa.colorPrecinto === "rojo" ? { color: "#FF0000" } : bolsa.colorPrecinto === "verde" ? { color: "#68BC00" } : null
                     }
                   >
-                    <span className={`cardTitle capitalize`}>
-                      Precinto {bolsa.colorPrecinto}
-                    </span>
+                    <span className={`cardTitle capitalize`}>Precinto {bolsa.colorPrecinto}</span>
                     <br />
                     {bolsa.nroPrecinto}
                   </div>
@@ -261,17 +237,12 @@ function AddBolsas() {
                   <div className="cardInfoContainer">
                     <span className="cardTitle">Observacion</span>
                     <br />
-                    {truncateText(
-                      bolsa.observaciones || "Ninguna observacion sobre la Bolsa",
-                      80
-                    )}
+                    {truncateText(bolsa.observaciones || "Ninguna observacion sobre la Bolsa", 80)}
                   </div>
                   <div className="cardInfoContainer">
                     <span className="cardTitle">Estado</span>
                     <br />
-                    {bolsa.estado === "cerrada"
-                      ? `cerrada con precinto blanco N° ${bolsa.nroPrecintoBlanco}`
-                      : bolsa.estado}
+                    {bolsa.estado === "cerrada" ? `cerrada con precinto blanco N° ${bolsa.nroPrecintoBlanco}` : bolsa.estado}
                   </div>
                   <div className="flex h-full w-20 items-center justify-center">
                     {bolsa.Efectos.length !== 0 && (
@@ -286,20 +257,13 @@ function AddBolsas() {
                         }`}
                         onClick={() => handleClickBolsaContainer(bolsa.id)}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                        />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                       </svg>
                     )}
                   </div>
                 </div>
                 {bolsaIdShowEfectos === bolsa.id && (
-                  <div
-                    className="flex h-full w-full flex-col items-center justify-start"
-                    data-aos="zoom-in"
-                  >
+                  <div className="flex h-full w-full flex-col items-center justify-start" data-aos="zoom-in">
                     {bolsa.Efectos &&
                       bolsa.Efectos.map((efecto) => (
                         <CreateEfectosCards
@@ -321,44 +285,26 @@ function AddBolsas() {
         {renderAddBolsasModal()}
       </div>
       <div className="flex h-full w-full items-center justify-around">
-        <NavLink
-          className="basicBtnNoPadding px-10 py-2"
-          onClick={() => navigate(-1)}
-          complete={"true"}
-          to="#"
-        >
+        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} complete={"true"} to="#">
           Volver
         </NavLink>
-        {(currentActa.estado === "en creacion" ||
-          currentActa.estado === "para completar") && (
+        {(currentActa.estado === "en creacion" || currentActa.estado === "para completar") && (
           <>
             {currentActa.estado !== "para completar" && (
               <>
-                <NavLink
-                  className="basicBtnNoPadding px-10 py-2"
-                  onClick={() => setAddBolsasModal(!addBolsasModal)}
-                  to="#"
-                >
+                <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => setAddBolsasModal(!addBolsasModal)} to="#">
                   Agregar Bolsa
                 </NavLink>
 
                 {currentBolsas.length > 0 && (
-                  <NavLink
-                    className="basicBtnNoPadding px-10 py-2"
-                    onClick={() => setAddEfectosModal(!addEfectosModal)}
-                    to="#"
-                  >
+                  <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => setAddEfectosModal(!addEfectosModal)} to="#">
                     Agregar Elementos
                   </NavLink>
                 )}
               </>
             )}
             {askBolsasHasEfectos() && (
-              <NavLink
-                className="basicBtnNoPadding px-10 py-2"
-                onClick={() => handleCloseBags()}
-                to="#"
-              >
+              <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => handleCloseBags()} to="#">
                 Agregar Precinto Blanco / Leyenda
               </NavLink>
             )}
@@ -369,9 +315,7 @@ function AddBolsas() {
             <NavLink
               className="basicBtnNoPadding px-10 py-2"
               onClick={() =>
-                currentActa.observaciones !== ""
-                  ? getSavedActa(currentActa.id, navigate)
-                  : setCloseBagsModal(!closeBagsModal)
+                currentActa.observaciones !== "" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
               }
               complete={"true"}
               to="#"
@@ -379,23 +323,14 @@ function AddBolsas() {
               Imprimir Acta en Proceso
             </NavLink>
             {!loading && (
-              <NavLink
-                className="basicBtnNoPadding px-10 py-2"
-                onClick={() => handleCloseProcessActa()}
-                to="#"
-              >
+              <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => handleCloseProcessActa()} to="#">
                 Cerrar Elementos en Proceso
               </NavLink>
             )}
             {loading && (
               <NavLink className="basicBtnNoPadding px-10 py-2" complete={"true"} to="#">
                 Cerrando Elementos
-                <ClipLoader
-                  color={"black"}
-                  size={18}
-                  cssOverride={{ marginBottom: "-2%", marginLeft: "10px" }}
-                  loading={true}
-                />
+                <ClipLoader color={"black"} size={18} cssOverride={{ marginBottom: "-2%", marginLeft: "10px" }} loading={true} />
               </NavLink>
             )}
           </>
@@ -406,9 +341,7 @@ function AddBolsas() {
             <NavLink
               className="basicBtnNoPadding px-10 py-2"
               onClick={() =>
-                currentActa.estado === "completa"
-                  ? getSavedActa(currentActa.id, navigate)
-                  : setCloseBagsModal(!closeBagsModal)
+                currentActa.estado === "completa" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
               }
               to="#"
             >

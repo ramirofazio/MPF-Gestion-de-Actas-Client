@@ -29,8 +29,7 @@ function ActaCard({ acta, type }) {
 
   return (
     <div
-      data-aos="zoom-in"
-      className={`mt-2 flex  min-h-[65px] w-[95%] items-center rounded-md border-2 border-principal shadow-md ${
+data-aos="fade-down"      className={`mt-2 flex  min-h-[65px] w-[95%] items-center rounded-md border-2 border-principal shadow-md ${
         acta.estado === "en proceso"
           ? "border-r-[15px] border-r-process"
           : acta.estado === "completa"

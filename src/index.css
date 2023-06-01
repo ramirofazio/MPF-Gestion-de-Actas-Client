@@ -26,7 +26,7 @@
 }
 
 .icons {
-  @apply text-secondary transition hover:cursor-pointer hover:text-black;
+  @apply text-secondary transition hover:cursor-pointer hover:text-secondary;
 }
 
 .flexContainer {
