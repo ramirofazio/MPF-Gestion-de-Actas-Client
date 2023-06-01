@@ -29,7 +29,8 @@ function ActaCard({ acta, type }) {
 
   return (
     <div
-data-aos="fade-down"      className={`mt-2 flex  min-h-[65px] w-[95%] items-center rounded-md border-2 border-principal shadow-md ${
+      data-aos="zoom-in"
+      className={`mt-2 flex  min-h-[65px] w-[95%] items-center rounded-md border-2 border-principal shadow-md ${
         acta.estado === "en proceso"
           ? "border-r-[15px] border-r-process"
           : acta.estado === "completa"
@@ -90,36 +91,22 @@ data-aos="fade-down"      className={`mt-2 flex  min-h-[65px] w-[95%] items-cent
       <div className="flex h-full w-[10%] items-center justify-around">
         {type === "remove" ? (
           <>
-            <FileRemove
-              className="icons w-6"
-              onClick={() => dispatch(removeActa(acta.id))}
-            />
+            <FileRemove className="icons w-6" onClick={() => dispatch(removeActa(acta.id))} />
           </>
         ) : (
           <>
-            {acta.estado !== "en creacion" && (
-              <FileDownload className="icons w-6" onClick={() => getSavedActa(acta.id)} />
-            )}
+            {acta.estado !== "en creacion" && <FileDownload className="icons w-6" onClick={() => getSavedActa(acta.id)} />}
             {acta.estado === "en creacion" && (
               <>
-                <DocumentEdit
-                  className="icons w-6"
-                  onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")}
-                />
+                <DocumentEdit className="icons w-6" onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />
                 <Warning className="w-6 text-process" />
               </>
             )}
             {acta.estado === "completa" && (
-              <EyeOutline
-                className="icons w-6"
-                onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")}
-              />
+              <EyeOutline className="icons w-6" onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />
             )}
             {(acta.estado === "en proceso" || acta.estado === "para completar") && (
-              <FileEarmarkLock
-                className="icons w-6"
-                onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")}
-              />
+              <FileEarmarkLock className="icons w-6" onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")} />
             )}
           </>
         )}
