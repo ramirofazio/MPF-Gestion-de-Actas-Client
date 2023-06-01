@@ -27,7 +27,7 @@ const modal40x30 = {
   },
 };
 
-function AddEfectos({ alternModal }) {
+function AddEfectos({ alternModal, selectedBag }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -37,7 +37,6 @@ function AddEfectos({ alternModal }) {
   });
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
-  const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s?.currentBolsas);
 
   const [addDiscosModal, setAddDiscosModal] = React.useState(false);
   const [editDiscosModal, setEditDiscosModal] = React.useState(false);
@@ -56,7 +55,7 @@ function AddEfectos({ alternModal }) {
 
   const [efecto, setEfecto] = React.useState(
     JSON.parse(localStorage.getItem("currentEfecto")) || {
-      bolsa_id: "",
+      bolsa_id: Number(selectedBag.id),
       tipoDeElemento: "",
       tipoDeDisco: "",
       marca: "",
@@ -288,26 +287,8 @@ function AddEfectos({ alternModal }) {
       <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSubmit}>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">*Bolsa</label>
-          <select
-            className="formModalSelect"
-            disabled={efecto.edit ? true : false}
-            value={efecto.bolsa_id}
-            onChange={(e) => setEfecto({ ...efecto, bolsa_id: Number(e.target.value) })}
-          >
-            <option value="">Seleccione Precinto</option>
-            {currentBolsas.map((b) => {
-              if (b.estado !== "cerrada" && b.estado !== "cerrada en proceso") {
-                return (
-                  <option
-                    value={b.id}
-                    key={b.id}
-                    className={b.colorPrecinto === "rojo" ? `text-error` : b.colorPrecinto === "verde" ? `text-success` : `text-secondary`}
-                  >
-                    {b.nroPrecinto}
-                  </option>
-                );
-              }
-            })}
+          <select className="formModalSelect" disabled={true} value={efecto.bolsa_id}>
+            <option>{selectedBag.nroPrecinto}</option>
           </select>
         </div>
         <div className="modalInputContainer">

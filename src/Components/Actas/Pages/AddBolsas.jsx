@@ -7,6 +7,8 @@ import { removeBolsa, closeProcessActa, removeEfecto } from "../../../redux/acti
 import GlobalStyles from "../../../Styles/GlobalStyles";
 import { toast } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
+import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
+
 //* Modal
 import Modal from "react-modal";
 //* Components
@@ -37,10 +39,13 @@ function AddBolsas() {
   const [addBolsasModal, setAddBolsasModal] = React.useState(false);
   const [closeBagsModal, setCloseBagsModal] = React.useState(false);
 
+  const [selectedBag, setSelectedBag] = React.useState({ id: "", nroPrecinto: "" });
+
   const [bolsaIdShowEfectos, setBolsaIdShowEfectos] = React.useState(false);
 
   const handleRemoveEfecto = (efecto_id) => {
     if (currentActa.estado === "en creacion") {
+      setBolsaIdShowEfectos(false);
       dispatch(removeEfecto(efecto_id, currentActa.id));
     }
   };
@@ -79,7 +84,7 @@ function AddBolsas() {
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
-        <AddEfectos alternModal={() => setAddEfectosModal(!addEfectosModal)} />
+        <AddEfectos alternModal={() => setAddEfectosModal(!addEfectosModal)} selectedBag={selectedBag} />
       </Modal>
     );
   };
@@ -144,7 +149,6 @@ function AddBolsas() {
           currentBolsas.map((bolsa) => {
             return (
               <div
-                data-aos="fade-down"
                 className={`group my-2 flex w-[90%] flex-col items-center justify-start rounded-md border-2 border-principal shadow-md transition `}
                 key={bolsa.id}
               >
@@ -244,7 +248,16 @@ function AddBolsas() {
                     <br />
                     {bolsa.estado === "cerrada" ? `cerrada con precinto blanco N° ${bolsa.nroPrecintoBlanco}` : bolsa.estado}
                   </div>
-                  <div className="flex h-full w-20 items-center justify-center">
+                  <div className="mr-2 flex h-full w-20 items-center justify-around">
+                    {currentBolsas.length > 0 && currentActa.estado === "en creacion" && (
+                      <PlusSquareDotted
+                        className="icons h-8 w-8 hover:text-secondary/50"
+                        onClick={() => {
+                          setAddEfectosModal(!addEfectosModal);
+                          setSelectedBag({ id: bolsa.id, nroPrecinto: bolsa.nroPrecinto });
+                        }}
+                      />
+                    )}
                     {bolsa.Efectos.length !== 0 && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -291,17 +304,9 @@ function AddBolsas() {
         {(currentActa.estado === "en creacion" || currentActa.estado === "para completar") && (
           <>
             {currentActa.estado !== "para completar" && (
-              <>
-                <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => setAddBolsasModal(!addBolsasModal)} to="#">
-                  Agregar Bolsa
-                </NavLink>
-
-                {currentBolsas.length > 0 && (
-                  <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => setAddEfectosModal(!addEfectosModal)} to="#">
-                    Agregar Elementos
-                  </NavLink>
-                )}
-              </>
+              <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => setAddBolsasModal(!addBolsasModal)} to="#">
+                Agregar Bolsa
+              </NavLink>
             )}
             {askBolsasHasEfectos() && (
               <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => handleCloseBags()} to="#">
