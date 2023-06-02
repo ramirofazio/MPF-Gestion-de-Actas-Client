@@ -39,7 +39,7 @@ function AddBolsas() {
   const [addBolsasModal, setAddBolsasModal] = React.useState(false);
   const [closeBagsModal, setCloseBagsModal] = React.useState(false);
 
-  const [selectedBag, setSelectedBag] = React.useState({ id: "", nroPrecinto: "" });
+  const [selectedBag, setSelectedBag] = React.useState({ id: "", nroPrecinto: "", estado: "" });
 
   const [bolsaIdShowEfectos, setBolsaIdShowEfectos] = React.useState(false);
 
@@ -153,7 +153,7 @@ function AddBolsas() {
                 key={bolsa.id}
               >
                 <div
-                  className={`flex min-h-[10vh] w-full flex-row items-center justify-evenly ${
+                  className={`flex min-h-[14vh] w-full flex-row items-center justify-evenly ${
                     bolsaIdShowEfectos === bolsa.id && "mb-2 border-b-2 border-principal"
                   }`}
                 >
@@ -248,7 +248,7 @@ function AddBolsas() {
                     <br />
                     {bolsa.estado === "cerrada" ? `cerrada con precinto blanco N° ${bolsa.nroPrecintoBlanco}` : bolsa.estado}
                   </div>
-                  <div className="mr-2 flex h-full w-20 items-center justify-around">
+                  <div className="cardInfoContainer flex !flex-[0.8] justify-around">
                     {currentBolsas.length > 0 && currentActa.estado === "en creacion" && (
                       <PlusSquareDotted
                         className="icons h-8 w-8 hover:text-secondary/50"
@@ -257,6 +257,26 @@ function AddBolsas() {
                           setSelectedBag({ id: bolsa.id, nroPrecinto: bolsa.nroPrecinto });
                         }}
                       />
+                    )}
+                    {askBolsasHasEfectos() && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="icons h-8 w-8 hover:text-secondary/50"
+                        onClick={() => {
+                          handleCloseBags();
+                          setSelectedBag({ id: bolsa.id, nroPrecinto: bolsa.nroPrecinto, estado: bolsa.estado });
+                        }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12"
+                        />
+                      </svg>
                     )}
                     {bolsa.Efectos.length !== 0 && (
                       <svg
@@ -308,11 +328,6 @@ function AddBolsas() {
                 Agregar Bolsa
               </NavLink>
             )}
-            {askBolsasHasEfectos() && (
-              <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => handleCloseBags()} to="#">
-                Agregar Precinto Blanco / Leyenda
-              </NavLink>
-            )}
           </>
         )}
         {currentActa.estado === "en proceso" && (
@@ -362,12 +377,12 @@ function AddBolsas() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="icons absolute right-0 top-0 h-8 w-8 text-white"
+          className="closeModalIcon"
           onClick={() => setCloseBagsModal(!closeBagsModal)}
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
-        <CloseBagsModal closeModal={() => setCloseBagsModal(!closeBagsModal)} />
+        <CloseBagsModal closeModal={() => setCloseBagsModal(!closeBagsModal)} selectedBag={selectedBag} />
       </Modal>
     </div>
   );
