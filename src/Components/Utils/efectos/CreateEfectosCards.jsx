@@ -8,6 +8,7 @@ import { Computer } from "@styled-icons/material-outlined/Computer";
 import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
+import { DeviceUnknown } from "@styled-icons/material-outlined/DeviceUnknown";
 import { toast } from "react-toastify";
 
 function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
@@ -35,6 +36,9 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
 
   const selectIcon = (tipoDeElemento) => {
     switch (tipoDeElemento) {
+      case "no peritable": {
+        return <DeviceUnknown size={25} className="text-secondary" />;
+      }
       case "celular": {
         return <Smartphone size={25} className="text-secondary" />;
       }
@@ -78,7 +82,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
 
   return (
     <div
-      className={`mb-2 flex max-h-[12vh] min-h-[12vh] w-[90%] items-center justify-evenly rounded-md border-2 border-principal shadow-md transition ${
+      className={`mb-2 flex max-h-[12vh] min-h-[12vh] w-[90%] items-center rounded-md border-2 border-principal shadow-md transition ${
         efecto.estado === "en proceso"
           ? "border-r-[15px] border-r-process"
           : efecto.estado === "completo"
@@ -111,7 +115,14 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           </div>
         </>
       )}
-      {efecto.tipoDeElemento !== "sim" && (
+      {efecto.tipoDeElemento === "no peritable" && (
+        <div className="cardInfoContainer">
+          <span className="cardTitle">Descripcion</span>
+          <br />
+          {efecto.descripcionElemento}
+        </div>
+      )}
+      {efecto.tipoDeElemento !== "sim" && efecto.tipoDeElemento !== "no peritable" && (
         <>
           <div className="cardInfoContainer">
             <span className="cardTitle">Marca</span>

@@ -63,7 +63,7 @@ function AddEfectos({ alternModal, selectedBag }) {
       descripcionElemento: "",
       imei: "",
       empresa: "",
-      estado: "",
+      estado: "completo",
       tipoSeguridad: "",
       desbloqueo: "",
       herramientaSoft: "",
@@ -92,14 +92,20 @@ function AddEfectos({ alternModal, selectedBag }) {
       }
       alternModal();
     } else {
-      toast.error("¡Faltan datos necesarios para el Elemento!");
+      toast.warning("¡Faltan datos necesarios para el Elemento!");
     }
   };
 
   const handleComplete = () => {
-    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color, empresa, herramientaSoft } = efecto;
+    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color, empresa, herramientaSoft, descripcionElemento } = efecto;
 
     switch (tipoDeElemento) {
+      case "no peritable": {
+        if (bolsa_id && estado && descripcionElemento) {
+          return true;
+        }
+        break;
+      }
       case "sim": {
         if (bolsa_id && estado && empresa && herramientaSoft) {
           return true;
@@ -309,6 +315,7 @@ function AddEfectos({ alternModal, selectedBag }) {
             <option value="dvr">DVR</option>
             <option value="disco">Disco</option>
             <option value="sim">Sim</option>
+            <option value="no peritable">No Peritable</option>
           </select>
         </div>
         {efecto.tipoDeElemento === "disco" && (
@@ -365,28 +372,32 @@ function AddEfectos({ alternModal, selectedBag }) {
 
         {efecto.tipoDeElemento !== "sim" && (
           <>
-            <div className="modalInputContainer">
-              <label className="basicLabel !text-white">Marca</label>
-              <input
-                className="formModalInput"
-                type="text"
-                name="marca"
-                value={efecto.marca}
-                placeholder="Marca"
-                onChange={(e) => setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })}
-              />
-            </div>
-            <div className="modalInputContainer">
-              <label className="basicLabel !text-white">Modelo</label>
-              <input
-                className="formModalInput"
-                type="text"
-                name="modelo"
-                value={efecto.modelo}
-                placeholder="Modelo"
-                onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
-              />
-            </div>
+            {efecto.tipoDeElemento !== "no peritable" && (
+              <>
+                <div className="modalInputContainer">
+                  <label className="basicLabel !text-white">Marca</label>
+                  <input
+                    className="formModalInput"
+                    type="text"
+                    name="marca"
+                    value={efecto.marca}
+                    placeholder="Marca"
+                    onChange={(e) => setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })}
+                  />
+                </div>
+                <div className="modalInputContainer">
+                  <label className="basicLabel !text-white">Modelo</label>
+                  <input
+                    className="formModalInput"
+                    type="text"
+                    name="modelo"
+                    value={efecto.modelo}
+                    placeholder="Modelo"
+                    onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
+                  />
+                </div>
+              </>
+            )}
             <div className="modalInputContainer">
               <label className="basicLabel !text-white">Descripcion</label>
               <input
@@ -394,7 +405,7 @@ function AddEfectos({ alternModal, selectedBag }) {
                 type="text"
                 name="descripcion"
                 value={efecto.descripcionElemento}
-                placeholder="con funda color verde..."
+                placeholder="Descripcion del elemento"
                 onChange={(e) => setEfecto({ ...efecto, descripcionElemento: e.target.value })}
               />
             </div>
@@ -415,30 +426,33 @@ function AddEfectos({ alternModal, selectedBag }) {
           </div>
         )}
 
-        {efecto.tipoDeElemento !== "sim" && efecto.tipoDeElemento !== "dvr" && efecto.tipoDeElemento !== "disco" && (
-          <div className="modalInputContainer">
-            <label className="basicLabel !text-white">*Color</label>
-            <select className="formModalSelect" value={efecto.color} onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}>
-              <option value="">Seleccione un Color</option>
-              <option value="negro">Negro</option>
-              <option value="blanco">Blanco</option>
-              <option value="gris">Gris</option>
-              <option value="rojo">Rojo</option>
-              <option value="azul">Azul</option>
-              <option value="celeste">Celeste</option>
-              <option value="verde">Verde</option>
-              <option value="amarillo">Amarillo</option>
-              <option value="naranja">Naranja</option>
-              <option value="morado">Morado</option>
-              <option value="lila">Lila</option>
-              <option value="rosado">Rosado</option>
-              <option value="marrón">Marrón</option>
-              <option value="turquesa">Turquesa</option>
-              <option value="plateado">Plateado</option>
-              <option value="dorado">Dorado</option>
-            </select>
-          </div>
-        )}
+        {efecto.tipoDeElemento !== "sim" &&
+          efecto.tipoDeElemento !== "dvr" &&
+          efecto.tipoDeElemento !== "disco" &&
+          efecto.tipoDeElemento !== "no peritable" && (
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">*Color</label>
+              <select className="formModalSelect" value={efecto.color} onChange={(e) => setEfecto({ ...efecto, color: e.target.value })}>
+                <option value="">Seleccione un Color</option>
+                <option value="negro">Negro</option>
+                <option value="blanco">Blanco</option>
+                <option value="gris">Gris</option>
+                <option value="rojo">Rojo</option>
+                <option value="azul">Azul</option>
+                <option value="celeste">Celeste</option>
+                <option value="verde">Verde</option>
+                <option value="amarillo">Amarillo</option>
+                <option value="naranja">Naranja</option>
+                <option value="morado">Morado</option>
+                <option value="lila">Lila</option>
+                <option value="rosado">Rosado</option>
+                <option value="marrón">Marrón</option>
+                <option value="turquesa">Turquesa</option>
+                <option value="plateado">Plateado</option>
+                <option value="dorado">Dorado</option>
+              </select>
+            </div>
+          )}
 
         {(efecto.tipoDeElemento === "notebook" ||
           efecto.tipoDeElemento === "unidad de almacenamiento" ||
@@ -474,25 +488,20 @@ function AddEfectos({ alternModal, selectedBag }) {
           </div>
         )}
 
-        {efecto.tipoDeElemento !== "gabinete" &&
-          efecto.tipoDeElemento !== "unidad de almacenamiento" &&
-          efecto.tipoDeElemento !== "notebook" &&
-          efecto.tipoDeElemento !== "dvr" &&
-          efecto.tipoDeElemento !== "disco" &&
-          efecto.tipoDeElemento !== "sim" && (
-            <div className="modalInputContainer">
-              <label className="basicLabel !text-white">*¿Enciende?</label>
-              <select
-                className="formModalSelect"
-                value={efecto.encendido}
-                onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}
-              >
-                <option value="">Si / No</option>
-                <option value="si">Si</option>
-                <option value="no">No</option>
-              </select>
-            </div>
-          )}
+        {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">*¿Enciende?</label>
+            <select
+              className="formModalSelect"
+              value={efecto.encendido}
+              onChange={(e) => setEfecto({ ...efecto, encendido: e.target.value })}
+            >
+              <option value="">Si / No</option>
+              <option value="si">Si</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        )}
 
         {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
           <div className="modalInputContainer">
