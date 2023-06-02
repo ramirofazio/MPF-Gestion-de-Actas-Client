@@ -60,6 +60,7 @@ function AddEfectos({ alternModal, selectedBag }) {
       tipoDeDisco: "",
       marca: "",
       modelo: "",
+      descripcionElemento: "",
       imei: "",
       empresa: "",
       estado: "",
@@ -384,6 +385,17 @@ function AddEfectos({ alternModal, selectedBag }) {
                 value={efecto.modelo}
                 placeholder="Modelo"
                 onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
+              />
+            </div>
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">Descripcion</label>
+              <input
+                className="formModalInput"
+                type="text"
+                name="descripcion"
+                value={efecto.descripcionElemento}
+                placeholder="con funda color verde..."
+                onChange={(e) => setEfecto({ ...efecto, descripcionElemento: e.target.value })}
               />
             </div>
           </>
