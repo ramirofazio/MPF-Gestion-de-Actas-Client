@@ -33,7 +33,7 @@ function ActasCards({ allActas, typeOfCard }) {
           </Link>
         )}
       </div>
-      <div className="flex max-h-[75vh] w-full flex-col items-center justify-start overflow-y-scroll px-5 pb-2">
+      <div data-aos="zoom-in" className="flex max-h-[75vh] w-full flex-col items-center justify-start overflow-y-scroll px-5 pb-2">
         {typeOfCard === "remove"
           ? allActas && allActas.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)
           : actasToRender && actasToRender.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)}
