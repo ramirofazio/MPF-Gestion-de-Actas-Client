@@ -8,6 +8,7 @@ import GlobalStyles from "../../../Styles/GlobalStyles";
 import { toast } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
+import { DocumentTextClock } from "@styled-icons/fluentui-system-regular/DocumentTextClock";
 
 //* Modal
 import Modal from "react-modal";
@@ -258,26 +259,38 @@ function AddBolsas() {
                         }}
                       />
                     )}
-                    {askBolsasHasEfectos() && bolsa.estado !== "cerrada" && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
+                    {askBolsasHasEfectos() && bolsa.estado === "abierta con efectos en proceso" ? (
+                      <DocumentTextClock
                         className="icons h-8 w-8 hover:text-secondary/50"
                         onClick={() => {
                           handleCloseBags();
                           setSelectedBag({ id: bolsa.id, nroPrecinto: bolsa.nroPrecinto, estado: bolsa.estado });
                         }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12"
-                        />
-                      </svg>
+                      />
+                    ) : (
+                      askBolsasHasEfectos() &&
+                      bolsa.estado === "abierta con efectos completos" && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="icons h-8 w-8 hover:text-secondary/50"
+                          onClick={() => {
+                            handleCloseBags();
+                            setSelectedBag({ id: bolsa.id, nroPrecinto: bolsa.nroPrecinto, estado: bolsa.estado });
+                          }}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12"
+                          />
+                        </svg>
+                      )
                     )}
+
                     {bolsa.Efectos.length !== 0 && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

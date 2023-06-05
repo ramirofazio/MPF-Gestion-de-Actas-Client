@@ -700,14 +700,14 @@ function AddEfectos({ alternModal, selectedBag }) {
           {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
             <>
               <button
-                className="submitBtn !px-4"
+                className="submitBtn !px-3"
                 onClick={(e) => (efecto.edit ? handleEditSimButtonClick(e) : handleOptButtonClick(e))}
                 value="sim"
               >
                 {efecto.edit ? "Agregar/Editar Sim" : "Agregar Sim"}
               </button>
               <button
-                className="submitBtn !px-4"
+                className="submitBtn !px-3"
                 onClick={(e) => (efecto.edit ? handleEditSdButtonClick(e) : handleOptButtonClick(e))}
                 value="sd"
               >
@@ -718,7 +718,7 @@ function AddEfectos({ alternModal, selectedBag }) {
 
           {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "gabinete" || efecto.tipoDeElemento === "dvr") && (
             <button
-              className="submitBtn !px-4"
+              className="submitBtn !px-3"
               onClick={(e) => (efecto.edit ? handleEditDiscoButtonClick(e) : handleOptButtonClick(e))}
               value="discos"
             >
@@ -730,11 +730,11 @@ function AddEfectos({ alternModal, selectedBag }) {
             efecto.elementoFallado !== "si" &&
             efecto.tipoDeElemento &&
             (efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
-              <button className="submitBtn !px-4" onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
+              <button className="submitBtn !px-3" onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
                 Agregar Extracciones
               </button>
             )}
-          <input className="submitBtn !px-4" type="submit" value="Guardar" />
+          <input className="submitBtn !px-3" type="submit" value="Guardar" />
         </div>
       </form>
 

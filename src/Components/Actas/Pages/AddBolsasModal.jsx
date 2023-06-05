@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { createBolsas } from "../../../redux/actions";
+import { toast } from "react-toastify";
 
 const AddBolsasModal = ({ alternModal, acta_id }) => {
   const dispatch = useDispatch();
@@ -15,14 +16,18 @@ const AddBolsasModal = ({ alternModal, acta_id }) => {
   const handleSubmitBolsa = (e) => {
     e.preventDefault();
     //* Crea una bolsa nueva y blanquea los input
-    dispatch(createBolsas(bolsa));
-    setBolsa({
-      acta_id: acta_id,
-      colorPrecinto: "",
-      nroPrecinto: "",
-      observaciones: "",
-    });
-    alternModal();
+    if (bolsa.colorPrecinto && bolsa.nroPrecinto) {
+      dispatch(createBolsas(bolsa));
+      setBolsa({
+        acta_id: acta_id,
+        colorPrecinto: "",
+        nroPrecinto: "",
+        observaciones: "",
+      });
+      alternModal();
+    } else {
+      toast.warning("¡Faltan datos para crear la bolsa!");
+    }
   };
 
   return (
@@ -30,11 +35,7 @@ const AddBolsasModal = ({ alternModal, acta_id }) => {
       <header className="modalHeader">
         <span data-aos="fade-down">Agregar Bolsa</span>
       </header>
-      <form
-        data-aos="zoom-in"
-        className="flex w-full flex-col justify-center p-5 pt-0"
-        onSubmit={handleSubmitBolsa}
-      >
+      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSubmitBolsa}>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">*Precinto de Apertura</label>
           <select

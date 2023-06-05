@@ -30,8 +30,8 @@ function Home() {
   }, []);
 
   return (
-    <div  className="paddingLeftContainer">
-      <header data-aos="fade-down" className="header">
+    <div className="paddingLeftContainer ">
+      <header data-aos="fade-down" className="header ">
         <span className="headerTitle">Creación de Actas</span>
       </header>
       <ActasCards allActas={allActas} typeOfActa={"home"} />
