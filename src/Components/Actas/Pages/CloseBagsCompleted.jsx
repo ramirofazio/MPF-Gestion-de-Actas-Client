@@ -18,6 +18,12 @@ function CloseBagsCompleted({ closeModal, dispatch, selectedBag, updateBolsa, ac
     }
   };
 
+  const handleCloseLater = (e) => {
+    e.preventDefault();
+    dispatch(updateBolsa(state, acta_id, "leaveInProccess"));
+    closeModal();
+  };
+
   return (
     <>
       <header className="modalHeader">
@@ -41,8 +47,11 @@ function CloseBagsCompleted({ closeModal, dispatch, selectedBag, updateBolsa, ac
             onChange={(e) => setState({ ...state, nroPrecintoBlanco: e.target.value })}
           />
         </div>
-        <div className="mt-2 flex w-full items-center justify-around">
-          <input className="submitBtn " type="submit" value={`Cerrar Bolsa ${selectedBag.nroPrecinto}`} />
+        <div className="mt-2 flex w-full items-center justify-evenly">
+          <input className="submitBtn" type="submit" value={`Cerrar Bolsa ${selectedBag.nroPrecinto}`} />
+          <button className="submitBtn" onClick={handleCloseLater}>
+            Cerrar Despues
+          </button>
         </div>
       </form>
     </>

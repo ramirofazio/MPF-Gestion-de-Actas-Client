@@ -253,13 +253,21 @@ export function createEfecto(efecto, discos, sims, sds, extracciones, acta_id) {
   };
 }
 
-export function updateBolsa(state, acta_id) {
+export function updateBolsa(state, acta_id, flag) {
+  console.log(flag);
   return function (dispatch) {
+    const endpoint = flag !== undefined ? "/updateBolsa/leaveInProcess" : "/updateBolsa";
+    const requestData = flag !== undefined ? { id: state.id } : state;
+
     axios
-      .put(Variables.baseEndpoint + "/updateBolsa", state)
+      .put(Variables.baseEndpoint + endpoint, requestData)
       .then((res) => {
         if (res.status === 200) {
-          toast.success(`¡Bolsa ${res.data.nroPrecinto} cerrada con exito!`);
+          if (flag) {
+            toast.success(`¡Bolsa ${res.data.nroPrecinto} cerrada temporalmente!`);
+          } else {
+            toast.success(`¡Bolsa ${res.data.nroPrecinto} cerrada con éxito!`);
+          }
         }
       })
       .then(() => {
