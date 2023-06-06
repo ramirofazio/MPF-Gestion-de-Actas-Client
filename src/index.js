@@ -3,9 +3,11 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 //* Styles
 import "./index.css";
-import "react-toastify/dist/ReactToastify.css";
-import AOS from "aos";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 import "aos/dist/aos.css";
+import AOS from "aos";
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Flip } from "react-toastify";
 //* Redux
 import { Provider } from "react-redux";
@@ -18,6 +20,7 @@ root.render(
   <React.StrictMode>
     <Provider store={Store}>
       <App />
+      <Tooltip id="my-tooltip" delayShow={500} place="right" className="!z-50 !bg-principal" />
       <ToastContainer
         position="bottom-left"
         autoClose={1750}

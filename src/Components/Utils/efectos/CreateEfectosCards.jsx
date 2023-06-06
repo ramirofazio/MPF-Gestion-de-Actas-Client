@@ -37,35 +37,35 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
   const selectIcon = (tipoDeElemento) => {
     switch (tipoDeElemento) {
       case "no peritable": {
-        return <DeviceUnknown size={25} className="text-secondary" />;
+        return <DeviceUnknown data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "celular": {
-        return <Smartphone size={25} className="text-secondary" />;
+        return <Smartphone data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "tablet": {
-        return <Tablet size={25} className="text-secondary" />;
+        return <Tablet data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "unidad de almacenamiento": {
-        return <UDisk size={25} className="text-secondary" />;
+        return <UDisk data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "gabinete": {
-        return <PcDisplay size={25} className="text-secondary" />;
+        return <PcDisplay data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "notebook": {
-        return <Computer size={25} className="text-secondary" />;
+        return <Computer data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "disco": {
         if (efecto.tipoDeDisco === "Disco Rigido") {
-          return <DeviceHddFill size={25} className="text-secondary" />;
+          return <DeviceHddFill data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
         } else {
-          return <DeviceSsdFill size={25} className="text-secondary" />;
+          return <DeviceSsdFill data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
         }
       }
       case "dvr": {
-        return <PcHorizontal size={25} className="text-secondary" />;
+        return <PcHorizontal data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "sim": {
-        return <SimFill size={25} className="text-seconadary" />;
+        return <SimFill data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-seconadary" />;
       }
       default: {
         return;
@@ -242,6 +242,8 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       </div>
       {(estadoActa === "en creacion" || estadoActa === "en proceso") && (
         <DocumentEdit
+          data-tooltip-id="my-tooltip"
+          data-tooltip-content="Editar"
           size={25}
           className="mr-4 text-secondary transition hover:cursor-pointer hover:text-black"
           onClick={() => LoadEfecto()}
@@ -249,6 +251,8 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       )}
       {estadoActa === "en creacion" && (
         <Delete
+          data-tooltip-id="my-tooltip"
+          data-tooltip-content="Eliminar"
           size={25}
           className="mr-6 text-secondary transition hover:cursor-pointer hover:text-black"
           onClick={() => handleRemoveEfecto(efecto.id)}

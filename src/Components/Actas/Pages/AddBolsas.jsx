@@ -180,6 +180,8 @@ function AddBolsas() {
                       stroke="currentColor"
                       className="icons ml-2 h-8 w-8"
                       onClick={() => handleDeleteBolsa(bolsa.id)}
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content="Eliminar Bolsa"
                     >
                       <path
                         strokeLinecap="round"
@@ -249,6 +251,8 @@ function AddBolsas() {
                   <div className="cardInfoContainer flex !flex-[0.8] justify-around">
                     {currentBolsas.length > 0 && currentActa.estado === "en creacion" && (
                       <PlusSquareDotted
+                        data-tooltip-id="my-tooltip"
+                        data-tooltip-content="Agregar Elementos a la Bolsa"
                         className="icons h-8 w-8 hover:text-secondary/50"
                         onClick={() => {
                           setAddEfectosModal(!addEfectosModal);
@@ -258,6 +262,8 @@ function AddBolsas() {
                     )}
                     {askBolsasHasEfectos() && bolsa.estado === "abierta con efectos en proceso" ? (
                       <DocumentTextClock
+                        data-tooltip-id="my-tooltip"
+                        data-tooltip-content="Cerrar Bolsa en proceso"
                         className="icons h-8 w-8 hover:text-secondary/50"
                         onClick={() => {
                           handleCloseBags();
@@ -268,6 +274,8 @@ function AddBolsas() {
                       askBolsasHasEfectos() &&
                       bolsa.estado === "abierta con efectos completos" && (
                         <svg
+                          data-tooltip-id="my-tooltip"
+                          data-tooltip-content="Cerrar Bolsa"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"

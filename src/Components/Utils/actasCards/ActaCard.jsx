@@ -90,22 +90,49 @@ function ActaCard({ acta, type }) {
       <div className="flex h-full w-[10%] items-center justify-around">
         {type === "remove" ? (
           <>
-            <FileRemove className="icons w-6 hover:text-error/40" onClick={() => dispatch(removeActa(acta.id))} />
+            <FileRemove
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Eliminar"
+              className="icons w-6 hover:text-error/40"
+              onClick={() => dispatch(removeActa(acta.id))}
+            />
           </>
         ) : (
           <>
-            {acta.estado !== "en creacion" && <FileDownload className="icons w-6" onClick={() => getSavedActa(acta.id)} />}
+            {acta.estado !== "en creacion" && (
+              <FileDownload
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Imprimir Acta"
+                className="icons w-6"
+                onClick={() => getSavedActa(acta.id)}
+              />
+            )}
             {acta.estado === "en creacion" && (
               <>
-                <DocumentEdit className="icons w-6" onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />
-                <Warning className="w-6 text-process" />
+                <DocumentEdit
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Editar"
+                  className="icons w-6"
+                  onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")}
+                />
+                <Warning data-tooltip-id="my-tooltip" data-tooltip-content="Acta incompleta" className="w-6 text-process" />
               </>
             )}
             {acta.estado === "completa" && (
-              <EyeOutline className="icons w-6" onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")} />
+              <EyeOutline
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Ver"
+                className="icons w-6"
+                onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")}
+              />
             )}
             {(acta.estado === "en proceso" || acta.estado === "para completar") && (
-              <FileEarmarkLock className="icons w-6" onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")} />
+              <FileEarmarkLock
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Cerrar bolsas en proceso"
+                className="icons w-6"
+                onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")}
+              />
             )}
           </>
         )}

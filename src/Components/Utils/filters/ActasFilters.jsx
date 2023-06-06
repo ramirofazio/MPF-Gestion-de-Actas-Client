@@ -78,7 +78,13 @@ function ActasFilters() {
         </select>
       </div>
       <div className="flex w-24 items-center">
-        <SettingsBackupRestore className="transition hover:cursor-pointer hover:text-secondary" size={25} onClick={handleReset} />
+        <SettingsBackupRestore
+          data-tooltip-id="my-tooltip"
+          data-tooltip-content="Resetear"
+          className="icons"
+          size={25}
+          onClick={handleReset}
+        />
       </div>
     </form>
   );
