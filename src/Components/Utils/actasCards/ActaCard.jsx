@@ -90,7 +90,7 @@ function ActaCard({ acta, type }) {
       <div className="flex h-full w-[10%] items-center justify-around">
         {type === "remove" ? (
           <>
-            <FileRemove className="icons w-6" onClick={() => dispatch(removeActa(acta.id))} />
+            <FileRemove className="icons w-6 hover:text-error/40" onClick={() => dispatch(removeActa(acta.id))} />
           </>
         ) : (
           <>

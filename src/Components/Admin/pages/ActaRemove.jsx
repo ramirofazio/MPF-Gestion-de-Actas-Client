@@ -31,7 +31,7 @@ function ActaRemoev() {
 
   return (
     <div className="paddingLeftContainer">
-      <header className="header">
+      <header data-aos="fade-down" className="header">
         <span className="headerTitle">Eliminar un Acta</span>
       </header>
       <ActasCards allActas={allActas} typeOfCard={"remove"} />

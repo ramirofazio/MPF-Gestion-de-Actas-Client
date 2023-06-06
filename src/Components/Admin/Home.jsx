@@ -49,15 +49,15 @@ function Home() {
 
   return (
     <div className="paddingLeftContainer">
-      <header className="header">
+      <header data-aos="fade-down" className="header">
         <span className="headerTitle">Panel de Administrador</span>
       </header>
       <div className="flex h-[85vh] w-full flex-col items-center justify-center overflow-x-hidden overflow-y-scroll border-t-[3px] border-t-principal">
-        <NavLink className="adminCards group" to="#" onClick={() => convertirJSONaExcel(allActas)}>
+        <NavLink data-aos="zoom-in" className="adminCards group" to="#" onClick={() => convertirJSONaExcel(allActas)}>
           <span className="text-xl text-secondary group-hover:text-principal">Exportar DB</span>
           <StatsChart className="icons w-8 group-hover:text-principal" />
         </NavLink>
-        <NavLink className="adminCards group" to="/admin/eliminarActa">
+        <NavLink data-aos="zoom-in" className="adminCards group" to="/admin/eliminarActa">
           <span className="text-xl text-secondary group-hover:text-principal">Eliminar un Acta</span>
           <FileRemove className="icons w-8 group-hover:text-principal" />
         </NavLink>
