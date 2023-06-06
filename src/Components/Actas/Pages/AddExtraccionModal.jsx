@@ -3,11 +3,9 @@ import React from "react";
 import AddTipoExtraccionModal from "./AddTipoExtraccionModal";
 //* Style
 import Modal from "react-modal";
-import GlobalStyles from "../../../Styles/GlobalStyles";
+import { modal40x40 } from "../../../helpers/globalVariables";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
-//* Initializations
-const { modal40x40 } = GlobalStyles;
 
 function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionModal, toast }) {
   React.useEffect(() => {

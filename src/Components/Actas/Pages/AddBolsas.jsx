@@ -4,12 +4,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeBolsa, closeProcessActa, removeEfecto } from "../../../redux/actions";
 //* Style
-import GlobalStyles from "../../../Styles/GlobalStyles";
+import { modal40x40 } from "../../../helpers/globalVariables";
 import { toast } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { DocumentTextClock } from "@styled-icons/fluentui-system-regular/DocumentTextClock";
-
 //* Modal
 import Modal from "react-modal";
 //* Components
@@ -18,8 +17,6 @@ import CreateEfectosCards from "../../Utils/efectos/CreateEfectosCards";
 import CloseBagsModal from "./CloseBagsModal";
 import getSavedActa from "../../Utils/template/getSavedActa";
 import AddBolsasModal from "./AddBolsasModal";
-//* Initializations
-const { modal40x40 } = GlobalStyles;
 
 const modal30Width = {
   content: {

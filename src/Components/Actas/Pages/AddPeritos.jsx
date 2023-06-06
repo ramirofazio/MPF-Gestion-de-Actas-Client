@@ -12,12 +12,8 @@ function AddPeritos() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector(
-    (s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa
-  );
-  const currentPeritos = useSelector(
-    (s) => JSON.parse(localStorage.getItem("currentPeritos")) || s.currentPeritos
-  );
+  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
+  const currentPeritos = useSelector((s) => JSON.parse(localStorage.getItem("currentPeritos")) || s.currentPeritos);
   const users = useSelector((s) => JSON.parse(localStorage.getItem("users")) || s.users);
 
   const [peritos, setPeritos] = React.useState(currentPeritos);
@@ -61,12 +57,21 @@ function AddPeritos() {
     dispatch(createPeritos(peritos, navigate));
   };
 
-  const peritoSelected = (p) => {
-    setPerito({
-      nombreYApellido: p.nombreYApellido,
-      cargo: p.cargo,
-      legajo: p.legajo,
-    });
+  const peritoSelected = (value) => {
+    if (value === "") {
+      setPerito({
+        nombreYApellido: "",
+        legajo: "",
+        cargo: "",
+      });
+    } else {
+      let p = JSON.parse(value);
+      setPerito({
+        nombreYApellido: p.nombreYApellido,
+        cargo: p.cargo,
+        legajo: p.legajo,
+      });
+    }
   };
   return (
     <div className="paddingLeftContainer">
@@ -80,18 +85,13 @@ function AddPeritos() {
           <div data-aos="fade-right" className="inputContainer flex-col">
             <label className="basicLabel">*Elegir Perito</label>
             <select
+              value={""}
               className="formBigSelect"
-              onChange={(e) => peritoSelected(JSON.parse(e.target.value))}
+              onChange={(e) => peritoSelected(e.target.value)}
               disabled={currentActa.estado !== "en creacion"}
             >
               <option value="">Elegir Perito</option>
-              {users &&
-                users.map(
-                  (u) =>
-                    u.username !== "admin" && (
-                      <option value={JSON.stringify(u)}>{u.nombreYApellido}</option>
-                    )
-                )}
+              {users && users.map((u) => u.username !== "admin" && <option value={JSON.stringify(u)}>{u.nombreYApellido}</option>)}
             </select>
           </div>
           <div data-aos="fade-left" className="inputContainer flex-col">
@@ -171,11 +171,7 @@ function AddPeritos() {
         </div>
       </div>
       <div className="flex w-[50%] items-center justify-around">
-        <NavLink
-          className="basicBtnNoPadding px-10 py-2"
-          onClick={() => navigate(-1)}
-          to="#"
-        >
+        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
           Volver
         </NavLink>
         {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
@@ -194,8 +190,7 @@ function AddPeritos() {
             ) : (
               <NavLink
                 className={`navLinkButtonPages pointer-events-none border-2 border-error px-10 py-2 ${
-                  peritos.length >= 1 &&
-                  "pointer-events-auto animate-bounce border-success"
+                  peritos.length >= 1 && "pointer-events-auto animate-bounce border-success"
                 }`}
                 onClick={() => handleSubmitPeritos()}
                 to="#"
@@ -219,11 +214,7 @@ function AddPeritos() {
               </NavLink>
             )}
             {peritos.length > currentPeritos.length ? (
-              <NavLink
-                className={"basicBtnNoPadding px-10 py-2"}
-                onClick={() => handleSubmitPeritos()}
-                to="#"
-              >
+              <NavLink className={"basicBtnNoPadding px-10 py-2"} onClick={() => handleSubmitPeritos()} to="#">
                 Siguente
               </NavLink>
             ) : (

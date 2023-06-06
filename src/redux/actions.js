@@ -2,8 +2,8 @@ import axios from "axios";
 //* Utils
 import generateDoc from "../Components/Utils/template/generateDoc";
 import editSavedActa from "../Components/Utils/template/editSavedActa";
-import Variables from "../Styles/Variables";
 import { toast } from "react-toastify";
+import { serverUrl } from "../helpers/globalVariables";
 import {
   GET_ACTAS,
   GET_ACTAS_FILTERED,
@@ -24,7 +24,7 @@ import {
 export function EditEfecto(efecto, discos, sims, sds, acta_id) {
   return function (dispatch) {
     axios
-      .put(Variables.baseEndpoint + `/editEfecto`, { efecto, discos, sims, sds, acta_id })
+      .put(serverUrl + `/editEfecto`, { efecto, discos, sims, sds, acta_id })
       .then((res) => {
         if (res.status === 200) {
           toast.success("¡Elemento editado con exito!");
@@ -35,7 +35,7 @@ export function EditEfecto(efecto, discos, sims, sds, acta_id) {
         });
       })
       .then(() => {
-        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+        axios.get(serverUrl + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
           return dispatch({
             type: UPDATE_BOLSAS,
             payload: res.data,
@@ -51,7 +51,7 @@ export function EditEfecto(efecto, discos, sims, sds, acta_id) {
 export function removeActa(acta_id) {
   return function (dispatch) {
     axios
-      .delete(Variables.baseEndpoint + `/removeActa?acta_id=${acta_id}`)
+      .delete(serverUrl + `/removeActa?acta_id=${acta_id}`)
       .then((res) => {
         if (res.status === 200) {
           toast.success("¡Acta eliminada con exito!");
@@ -71,7 +71,7 @@ export function removeActa(acta_id) {
 export function removeEfecto(efecto_id, acta_id) {
   return function (dispatch) {
     axios
-      .delete(Variables.baseEndpoint + `/removeEfecto?efecto_id=${efecto_id}`)
+      .delete(serverUrl + `/removeEfecto?efecto_id=${efecto_id}`)
       .then((res) => {
         if (res.status === 200) {
           toast.success("¡Elemento eliminado con exito!");
@@ -82,7 +82,7 @@ export function removeEfecto(efecto_id, acta_id) {
         });
       })
       .then(() => {
-        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+        axios.get(serverUrl + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
           return dispatch({
             type: UPDATE_BOLSAS,
             payload: res.data,
@@ -98,7 +98,7 @@ export function removeEfecto(efecto_id, acta_id) {
 
 export function closeProcessActa(acta_id, navigate) {
   return function () {
-    axios.put(Variables.baseEndpoint + `/closeProcessActa?acta_id=${acta_id}`).then((res) => {
+    axios.put(serverUrl + `/closeProcessActa?acta_id=${acta_id}`).then((res) => {
       if (res.status === 200) {
         setTimeout(() => {
           editSavedActa(res.data.id, navigate, "/actas/crear/4");
@@ -111,7 +111,7 @@ export function closeProcessActa(acta_id, navigate) {
 export function getAllActas() {
   return function (dispatch) {
     axios
-      .get(Variables.baseEndpoint + "/getActas")
+      .get(serverUrl + "/getActas")
       .then((res) => {
         return dispatch({
           type: GET_ACTAS,
@@ -139,7 +139,7 @@ export function createActa(state, flag, navigate) {
 
   return function (dispatch) {
     axios
-      .post(Variables.baseEndpoint + "/addActa", { ...state })
+      .post(serverUrl + "/addActa", { ...state })
       .then((res) => {
         if (res.status === 200) {
           if (currentUser.username === "admin") {
@@ -167,7 +167,7 @@ export function createActa(state, flag, navigate) {
 export function createPeritos(peritos, navigate) {
   return function (dispatch) {
     axios
-      .post(Variables.baseEndpoint + "/addPeritos", peritos)
+      .post(serverUrl + "/addPeritos", peritos)
       .then((res) => {
         if (res.status === 200) {
           navigate("/actas/crear/3");
@@ -188,7 +188,7 @@ export function createPeritos(peritos, navigate) {
 export function createIntegrantes(integrantes) {
   return function (dispatch) {
     axios
-      .post(Variables.baseEndpoint + "/addIntegrantes", integrantes)
+      .post(serverUrl + "/addIntegrantes", integrantes)
       .then((res) => {
         if (res.status === 200) {
           toast.success("¡Integrantes creados con exito!");
@@ -208,7 +208,7 @@ export function createIntegrantes(integrantes) {
 export function createBolsas(bolsa) {
   return function (dispatch) {
     axios
-      .post(Variables.baseEndpoint + "/addBolsa", bolsa)
+      .post(serverUrl + "/addBolsa", bolsa)
       .then((res) => {
         if (res.status === 200) {
           toast.success(`¡Bolsa ${res.data.nroPrecinto} creada con exito!`);
@@ -228,7 +228,7 @@ export function createBolsas(bolsa) {
 export function createEfecto(efecto, discos, sims, sds, extracciones, acta_id) {
   return function (dispatch) {
     axios
-      .post(Variables.baseEndpoint + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims, sds, extracciones })
+      .post(serverUrl + `/addEfecto?bolsa_id=${efecto.bolsa_id}`, { efecto, discos, sims, sds, extracciones })
       .then((res) => {
         if (res.status === 200) {
           toast.success("¡Elemento creado con exito!");
@@ -239,7 +239,7 @@ export function createEfecto(efecto, discos, sims, sds, extracciones, acta_id) {
         });
       })
       .then(() => {
-        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+        axios.get(serverUrl + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
           return dispatch({
             type: UPDATE_BOLSAS,
             payload: res.data,
@@ -260,7 +260,7 @@ export function updateBolsa(state, acta_id, flag) {
     const requestData = flag !== undefined ? { id: state.id } : state;
 
     axios
-      .put(Variables.baseEndpoint + endpoint, requestData)
+      .put(serverUrl + endpoint, requestData)
       .then((res) => {
         if (res.status === 200) {
           if (flag) {
@@ -271,7 +271,7 @@ export function updateBolsa(state, acta_id, flag) {
         }
       })
       .then(() => {
-        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+        axios.get(serverUrl + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
           if (res.status === 200) {
             return dispatch({
               type: UPDATE_BOLSAS,
@@ -281,7 +281,7 @@ export function updateBolsa(state, acta_id, flag) {
         });
       })
       .then(() => {
-        axios.get(Variables.baseEndpoint + `/getActas`).then((res) => {
+        axios.get(serverUrl + `/getActas`).then((res) => {
           if (res.status === 200) {
             const acta = res.data.find((a) => a.id === acta_id);
             return dispatch({
@@ -300,14 +300,14 @@ export function updateBolsa(state, acta_id, flag) {
 export function removeBolsa(id, acta_id) {
   return function (dispatch) {
     axios
-      .delete(Variables.baseEndpoint + `/removeBolsa?bolsa_id=${id}`)
+      .delete(serverUrl + `/removeBolsa?bolsa_id=${id}`)
       .then((res) => {
         if (res.status === 200) {
           toast.success("¡Bolsa eliminada con exito!");
         }
       })
       .then(() => {
-        axios.get(Variables.baseEndpoint + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
+        axios.get(serverUrl + `/getUpdatedBolsas?acta_id=${acta_id}`).then((res) => {
           return dispatch({
             type: UPDATE_BOLSAS,
             payload: res.data,
@@ -324,7 +324,7 @@ export function removeBolsa(id, acta_id) {
 export function updateActa(observaciones, id, navigate) {
   return async function () {
     axios
-      .put(Variables.baseEndpoint + "/updateActa", { observaciones, id })
+      .put(serverUrl + "/updateActa", { observaciones, id })
       .then((res) => {
         navigate("/");
         toast.success(`¡Acta_${res.data.nro_mpf || res.data.nro_coop} cerrada con exito!`);
@@ -340,7 +340,7 @@ export function updateActa(observaciones, id, navigate) {
 export function removePerito(legajo, id) {
   return function () {
     axios
-      .delete(Variables.baseEndpoint + `/removePerito?legajo=${legajo}&id=${id}`)
+      .delete(serverUrl + `/removePerito?legajo=${legajo}&id=${id}`)
       .then((res) => {
         if (res.status === 200) toast.success("¡Perito eliminado con exito!");
       })
@@ -353,7 +353,7 @@ export function removePerito(legajo, id) {
 export function removeIntegrante(legajoOMatricula, id) {
   return function () {
     axios
-      .delete(Variables.baseEndpoint + `/removeIntegrante?legajoOMatricula=${legajoOMatricula}&id=${id}`)
+      .delete(serverUrl + `/removeIntegrante?legajoOMatricula=${legajoOMatricula}&id=${id}`)
       .then((res) => {
         if (res.status === 200) toast.success("¡Integrante eliminado con exito!");
       })
@@ -366,7 +366,7 @@ export function removeIntegrante(legajoOMatricula, id) {
 export function createBugReport(bugReport) {
   return function () {
     axios
-      .post(Variables.baseEndpoint + "/createBugReport", { bugReport })
+      .post(serverUrl + "/createBugReport", { bugReport })
       .then((res) => {
         if (res.status === 200) toast.success("¡Bug reportado con exito! Gracias por tu ayuda!");
       })
@@ -379,7 +379,7 @@ export function createBugReport(bugReport) {
 export function getBugsReports() {
   return function (dispatch) {
     axios
-      .get(Variables.baseEndpoint + "/getBugsReports")
+      .get(serverUrl + "/getBugsReports")
       .then((res) => {
         return dispatch({
           type: GET_BUGS_REPORTS,
@@ -410,7 +410,7 @@ export function admin() {
 
 export function getUsers() {
   return function (dispatch) {
-    axios.get(Variables.baseEndpoint + "/getUsers").then((res) => {
+    axios.get(serverUrl + "/getUsers").then((res) => {
       if (res.status === 200) {
         return dispatch({
           type: GET_USERS,
@@ -432,7 +432,7 @@ export function setCurrentUser(currentUser) {
 
 export function createUsers() {
   return function () {
-    axios.post(Variables.baseEndpoint + "/addUser", [
+    axios.post(serverUrl + "/addUser", [
       { id: 1, nombreYApellido: "", legajo: 0, cargo: "", username: "admin", password: "GIDSI12345" },
       { id: 2, nombreYApellido: "Esteban Diego Armando Bucci", legajo: 6004, cargo: "Oficial", username: "ebucci", password: "Ebucci6004" },
       {

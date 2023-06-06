@@ -3,7 +3,7 @@ import React from "react";
 import { createEfecto, EditEfecto } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 //* Style
-import GlobalStyles from "../../../Styles/GlobalStyles";
+import { modal40x40 } from "../../../helpers/globalVariables";
 import { toast } from "react-toastify";
 //* Modal
 import Modal from "react-modal";
@@ -15,8 +15,6 @@ import AddExtraccionModal from "./AddExtraccionModal";
 import EditDiscoModal from "./EditDiscoModal";
 import EditSimModal from "./EditSimModal";
 import EditSdsModal from "./EditSdModal";
-
-const { modal40x40 } = GlobalStyles;
 
 const modal40x30 = {
   content: {
