@@ -11,7 +11,9 @@ function ActasCards({ allActas, typeOfCard }) {
   let actasToRender = allActas.filter((a) => a.estado !== "deprecada");
 
   if (currentUser.username !== "admin") {
-    actasToRender = allActas.filter((a) => a.Peritos[0].nombreYApellido === currentUser.nombreYApellido);
+    actasToRender = allActas.filter((a) => {
+      return a.Peritos.some((perito) => perito.nombreYApellido === currentUser.nombreYApellido);
+    });
   }
 
   const loadLocalStorage = () => {
