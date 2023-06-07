@@ -80,7 +80,7 @@ function ActasFilters() {
       <div className="flex w-24 items-center">
         <SettingsBackupRestore
           data-tooltip-id="my-tooltip"
-          data-tooltip-content="Resetear"
+          data-tooltip-content="Limpiar filtros"
           className="icons"
           size={25}
           onClick={handleReset}

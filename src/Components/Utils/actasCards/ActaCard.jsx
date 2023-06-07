@@ -129,7 +129,7 @@ function ActaCard({ acta, type }) {
             {(acta.estado === "en proceso" || acta.estado === "para completar") && (
               <FileEarmarkLock
                 data-tooltip-id="my-tooltip"
-                data-tooltip-content="Cerrar bolsas en proceso"
+                data-tooltip-content="Ir a cerrar elementos en proceso"
                 className="icons w-6"
                 onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/4")}
               />
