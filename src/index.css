@@ -106,7 +106,7 @@
 }
 
 .submitBtn {
-  @apply rounded-md bg-white p-2 px-6 text-sm text-black transition duration-300 hover:cursor-pointer hover:border-transparent hover:bg-principal hover:text-white;
+  @apply rounded-md border-2 border-white bg-white p-2 px-6 text-sm text-black transition duration-300 hover:cursor-pointer  hover:bg-principal hover:text-white;
 }
 
 .modalTitle {

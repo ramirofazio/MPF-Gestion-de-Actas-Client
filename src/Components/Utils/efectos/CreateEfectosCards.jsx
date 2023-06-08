@@ -14,12 +14,14 @@ import { toast } from "react-toastify";
 function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
   const [nroPrecintoBolsa, setNroPrecintoBolsa] = React.useState();
   const [colorPrecintoBolsa, setColorPrecintoBolsa] = React.useState();
+  const [estadoBolsa, setestadoBolsa] = React.useState();
 
   React.useEffect(() => {
     currentBolsas.map((b) => {
       if (b.id === efecto.bolsa_id) {
         setNroPrecintoBolsa(b.nroPrecinto);
         setColorPrecintoBolsa(b.colorPrecinto);
+        setestadoBolsa(b.estado);
       }
     });
   }, []);
@@ -240,7 +242,7 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         {efecto.Discos.length !== 0 && <DeviceHdd size={25} className="text-secondary" />}
         {efecto.Sds.length !== 0 && <SdCardMini size={25} className="text-secondary" />}
       </div>
-      {(estadoActa === "en creacion" || estadoActa === "en proceso") && (
+      {(estadoActa === "en creacion" || estadoActa === "en proceso") && estadoBolsa !== "abierta en proceso con elementos completos" && (
         <DocumentEdit
           data-tooltip-id="my-tooltip"
           data-tooltip-content="Editar"

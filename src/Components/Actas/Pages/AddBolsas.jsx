@@ -181,7 +181,7 @@ function AddBolsas() {
                       className="icons ml-2 h-8 w-8"
                       onClick={() => handleDeleteBolsa(bolsa.id)}
                       data-tooltip-id="my-tooltip"
-                      data-tooltip-content="Eliminar Bolsa"
+                      data-tooltip-content="Elimina la Bolsa"
                     >
                       <path
                         strokeLinecap="round"
@@ -275,7 +275,7 @@ function AddBolsas() {
                       bolsa.estado === "abierta con efectos completos" && (
                         <svg
                           data-tooltip-id="my-tooltip"
-                          data-tooltip-content="Cerrar Bolsa"
+                          data-tooltip-content="Abre ventana para agregar el precinto blanco ahora o despues"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -336,7 +336,7 @@ function AddBolsas() {
         {renderAddBolsasModal()}
       </div>
       <div className="flex h-full w-full items-center justify-around">
-        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} complete={"true"} to="#">
+        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
           Volver
         </NavLink>
         {(currentActa.estado === "en creacion" || currentActa.estado === "para completar") && (
@@ -351,23 +351,30 @@ function AddBolsas() {
         {currentActa.estado === "en proceso" && (
           <>
             <NavLink
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Imprime el acta en el estado actual con leyendas de que queda en proceso"
               className="basicBtnNoPadding px-10 py-2"
               onClick={() =>
                 currentActa.observaciones !== "" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
               }
-              complete={"true"}
               to="#"
             >
               Imprimir Acta en Proceso
             </NavLink>
             {!loading && (
-              <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => handleCloseProcessActa()} to="#">
-                Cerrar Elementos en Proceso
+              <NavLink
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content="Cambia los estados a completo para agregar los precintos blancos a las bolsas"
+                className="basicBtnNoPadding px-10 py-2"
+                onClick={() => handleCloseProcessActa()}
+                to="#"
+              >
+                Completar Acta
               </NavLink>
             )}
             {loading && (
-              <NavLink className="basicBtnNoPadding px-10 py-2" complete={"true"} to="#">
-                Cerrando Elementos
+              <NavLink className="basicBtnNoPadding px-10 py-2" to="#">
+                Completando elementos y bolsas
                 <ClipLoader color={"black"} size={18} cssOverride={{ marginBottom: "-2%", marginLeft: "10px" }} loading={true} />
               </NavLink>
             )}
@@ -377,6 +384,8 @@ function AddBolsas() {
         {currentActa.estado === "completa" && (
           <>
             <NavLink
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Imprime el acta terminada"
               className="basicBtnNoPadding px-10 py-2"
               onClick={() =>
                 currentActa.estado === "completa" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)

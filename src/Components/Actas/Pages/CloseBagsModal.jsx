@@ -19,6 +19,7 @@ function CloseModal({ closeModal, selectedBag }) {
         selectedBag={selectedBag}
         updateBolsa={updateBolsa}
         acta_id={currentActa.id}
+        actaEstado={currentActa.estado}
       />
     );
   } else if (selectedBag.estado === "abierta con efectos en proceso") {

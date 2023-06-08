@@ -20,7 +20,7 @@ root.render(
   <React.StrictMode>
     <Provider store={Store}>
       <App />
-      <Tooltip id="my-tooltip" delayShow={500} place="right" className="!z-50 !bg-principal" />
+      <Tooltip id="my-tooltip" delayShow={500} place="top" className="!z-50 !bg-principal" />
       <ToastContainer
         position="bottom-left"
         autoClose={1750}
