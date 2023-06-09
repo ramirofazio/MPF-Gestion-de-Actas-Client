@@ -652,7 +652,6 @@ function AddEfectos({ alternModal, selectedBag }) {
               >
                 <option value="">Tipo de Extracción</option>
                 <option value="ninguna">Ninguna</option>
-                <option value="no interes">No Interes</option>
                 <option value="fisica">Fisica</option>
                 <option value="lógica ">Logica</option>
                 <option value="sistema de archivos">Sitema de Archivos</option>
