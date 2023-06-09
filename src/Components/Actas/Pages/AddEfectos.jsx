@@ -15,6 +15,7 @@ import AddExtraccionModal from "./AddExtraccionModal";
 import EditDiscoModal from "./EditDiscoModal";
 import EditSimModal from "./EditSimModal";
 import EditSdsModal from "./EditSdModal";
+import EditExtraccionModal from "./EditExtraccionModal";
 
 const modal40x30 = {
   content: {
@@ -49,6 +50,7 @@ function AddEfectos({ alternModal, selectedBag }) {
   const [sds, setSds] = React.useState([]);
 
   const [addExtraccionesModal, setAddExtraccionModal] = React.useState(false);
+  const [editExtraccionesModal, setEditExtraccionesModal] = React.useState(false);
   const [extracciones, setExtracciones] = React.useState([]);
 
   const [efecto, setEfecto] = React.useState(
@@ -252,6 +254,11 @@ function AddEfectos({ alternModal, selectedBag }) {
         <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdsModal} toast={toast} />
       </Modal>
     );
+  };
+
+  const handleEditExtraccionButtonClick = (e) => {
+    e.preventDefault();
+    setEditExtraccionesModal(true);
   };
 
   const renderAddExtraccionModal = () => {
@@ -701,14 +708,14 @@ function AddEfectos({ alternModal, selectedBag }) {
                 onClick={(e) => (efecto.edit ? handleEditSimButtonClick(e) : handleOptButtonClick(e))}
                 value="sim"
               >
-                {efecto.edit ? "Agregar/Editar Sim" : "Agregar Sim"}
+                {efecto.edit ? "Editar Sim" : "Agregar Sim"}
               </button>
               <button
                 className="submitBtn !px-3"
                 onClick={(e) => (efecto.edit ? handleEditSdButtonClick(e) : handleOptButtonClick(e))}
                 value="sd"
               >
-                {efecto.edit ? "Agregar/Editar Sd" : "Agregar Sd"}
+                {efecto.edit ? "Editar Sd" : "Agregar Sd"}
               </button>
             </>
           )}
@@ -719,16 +726,19 @@ function AddEfectos({ alternModal, selectedBag }) {
               onClick={(e) => (efecto.edit ? handleEditDiscoButtonClick(e) : handleOptButtonClick(e))}
               value="discos"
             >
-              {efecto.edit ? "Agregar/Editar Discos" : "Agregar Discos"}
+              {efecto.edit ? "Editar Discos" : "Agregar Discos"}
             </button>
           )}
 
-          {!efecto.edit &&
-            efecto.elementoFallado !== "si" &&
+          {efecto.elementoFallado !== "si" &&
             efecto.tipoDeElemento &&
             (efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
-              <button className="submitBtn !px-3" onClick={(e) => handleOptButtonClick(e)} value="add extraccion">
-                Agregar Extracciones
+              <button
+                className="submitBtn !px-3"
+                onClick={(e) => (efecto.edit ? handleEditExtraccionButtonClick(e) : handleOptButtonClick(e))}
+                value="add extraccion"
+              >
+                {efecto.edit ? "Editar Extracciones" : "Agregar Discos"}
               </button>
             )}
           <input className="submitBtn !px-3" type="submit" value="Guardar" />
@@ -815,6 +825,32 @@ function AddEfectos({ alternModal, selectedBag }) {
           setAddSdsModal={setAddSdsModal}
           sds={efecto.Sds}
           renderAddSdModal={renderAddSdModal}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={editExtraccionesModal}
+        style={{
+          content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" },
+        }}
+        ariaHideApp={false}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="closeModalIcon"
+          onClick={() => setEditExtraccionesModal(false)}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        <EditExtraccionModal
+          setEditExtraccionesModal={setEditExtraccionesModal}
+          setAddExtraccionModal={setAddExtraccionModal}
+          extracciones={efecto.Extraccions}
+          renderAddExtraccionModal={renderAddExtraccionModal}
         />
       </Modal>
     </>

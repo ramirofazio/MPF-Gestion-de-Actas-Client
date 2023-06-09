@@ -8,21 +8,31 @@ import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 
 function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionModal, toast }) {
-  React.useEffect(() => {
-    return () => {
-      localStorage.setItem("currentExtraccion", null);
-    };
-  });
-
+  //   React.useEffect(() => {
+  //     return () => {
+  //       localStorage.setItem("currentExtraccion", null);
+  //     };
+  //   });
+  const localExtraccion = JSON.parse(localStorage.getItem("currentExtraccion"));
+  console.log(localExtraccion);
   const [addTipoExtraccionModal, setAddTipoExtraccionModal] = React.useState(false);
 
-  const [tiposDeExtraccion, setTiposDeExtraccion] = React.useState([]);
-  const [extraccion, setExtraccion] = React.useState(
-    JSON.parse(localStorage.getItem("currentExtraccion")) || {
-      herramientaSoft: "",
-      tipos: tiposDeExtraccion,
+  //!  ALGO ASI VA!
+  const [tiposDeExtraccion, setTiposDeExtraccion] = React.useState(localExtraccion.TipoExtraccions || []);
+  const [extraccion, setExtraccion] = React.useState(() => {
+    if (localExtraccion) {
+      return {
+        ...localExtraccion,
+        //! Algo aca no se guarda bien y no quedan tipos con el array de extracciones
+        tipos: tiposDeExtraccion,
+      };
+    } else {
+      return {
+        herramientaSoft: "",
+        tipos: tiposDeExtraccion,
+      };
     }
-  );
+  });
 
   const handleExtraccionSubmit = (e) => {
     e.preventDefault();
@@ -98,8 +108,8 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
         </div>
         <div className="flex w-full flex-1 flex-col items-center">
           <span className="basicLabel !text-md mb-8 !self-center !text-white">Extracciones</span>
-          {tiposDeExtraccion &&
-            tiposDeExtraccion.map((e) => (
+          {extraccion.tipos &&
+            extraccion.tipos.map((e) => (
               <div key={e.fakeId} className="mb-3 flex h-16 w-full items-center justify-around rounded-md bg-base p-2 text-black">
                 <div className="cardInfoContainer">
                   <span className="cardTitle">Tipo</span>
