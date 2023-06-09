@@ -99,7 +99,7 @@ function AddEfectos({ alternModal, selectedBag }) {
 
     switch (tipoDeElemento) {
       case "no peritable": {
-        if (bolsa_id && estado && descripcionElemento) {
+        if (bolsa_id && descripcionElemento) {
           return true;
         }
         break;
@@ -677,7 +677,7 @@ function AddEfectos({ alternModal, selectedBag }) {
           </div>
         )}
 
-        {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && (
+        {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && efecto.tipoDeElemento !== "no peritable" && (
           <div className="modalInputContainer">
             <label className="basicLabel !text-white">*Estado</label>
             <select
