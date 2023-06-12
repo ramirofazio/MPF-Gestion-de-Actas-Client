@@ -18,10 +18,10 @@ function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
         className="flex h-full w-full flex-col justify-center p-5 pt-0"
         onSubmit={(e) => handleTipoExtraccionSubmit(e, tipoDeExtraccion)}
       >
-        <div class="modalInputContainer">
-          <label class="basicLabel !text-white">*Extraccion</label>
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">*Extraccion</label>
           <select
-            class="formModalSelect"
+            className="formModalSelect"
             value={tipoDeExtraccion.nombre}
             onChange={(e) => setTipoDeExtraccion({ ...tipoDeExtraccion, nombre: e.target.value })}
           >
@@ -33,10 +33,10 @@ function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
             <option value="lógica  avanzada">Logica Avanzada</option>
           </select>
         </div>
-        <div class="modalInputContainer">
-          <label class="basicLabel !text-white">*Estado</label>
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">*Estado</label>
           <select
-            class="formModalSelect"
+            className="formModalSelect"
             value={tipoDeExtraccion.estado}
             onChange={(e) => setTipoDeExtraccion({ ...tipoDeExtraccion, estado: e.target.value })}
           >
@@ -48,10 +48,10 @@ function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
         </div>
 
         {tipoDeExtraccion.estado === "fallo" && (
-          <div class="modalInputContainer">
-            <label class="basicLabel !text-white">Observacion</label>
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Observacion</label>
             <input
-              class="formModalInput"
+              className="formModalInput"
               type="text"
               name="observacionFalla"
               value={tipoDeExtraccion.observacionFalla}
@@ -61,7 +61,7 @@ function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
           </div>
         )}
         <div className="inputContainer !pb-0 pt-4">
-          <input class="submitBtn" value="Guardar" type="submit" />
+          <input className="submitBtn" value="Guardar" type="submit" />
         </div>
       </form>
     </>

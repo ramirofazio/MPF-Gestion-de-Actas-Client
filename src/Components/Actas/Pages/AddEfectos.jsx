@@ -33,7 +33,7 @@ function AddEfectos({ alternModal, selectedBag }) {
     return () => {
       localStorage.setItem("currentEfecto", null);
     };
-  });
+  }, []);
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
 
@@ -86,7 +86,7 @@ function AddEfectos({ alternModal, selectedBag }) {
     e.preventDefault();
     if (handleComplete()) {
       if (efecto.edit) {
-        dispatch(EditEfecto(efecto, discos, sims, sds, currentActa.id));
+        dispatch(EditEfecto(efecto, discos, sims, sds, extracciones, currentActa.id));
       } else {
         dispatch(createEfecto(efecto, discos, sims, sds, extracciones, currentActa.id));
       }
@@ -738,7 +738,7 @@ function AddEfectos({ alternModal, selectedBag }) {
                 onClick={(e) => (efecto.edit ? handleEditExtraccionButtonClick(e) : handleOptButtonClick(e))}
                 value="add extraccion"
               >
-                {efecto.edit ? "Editar Extracciones" : "Agregar Discos"}
+                {efecto.edit ? "Editar Extracciones" : "Agregar Extracciones"}
               </button>
             )}
           <input className="submitBtn !px-3" type="submit" value="Guardar" />

@@ -21,10 +21,20 @@ import {
   SET_CURRENT_USER,
 } from "./variables";
 
-export function EditEfecto(efecto, discos, sims, sds, acta_id) {
+export function removeTipoExtraccion(id) {
+  return function () {
+    axios.delete(serverUrl + `/removeTipoExtraccion/?id=${id}`).catch((err) => {
+      console.log(err);
+      toast.error("¡Error al eliminar tipo de extraccion!");
+    });
+  };
+}
+
+export function EditEfecto(efecto, discos, sims, sds, extracciones, acta_id) {
+  console.log(extracciones);
   return function (dispatch) {
     axios
-      .put(serverUrl + `/editEfecto`, { efecto, discos, sims, sds, acta_id })
+      .put(serverUrl + `/editEfecto`, { efecto, discos, sims, sds, extracciones, acta_id })
       .then((res) => {
         if (res.status === 200) {
           toast.success("¡Elemento editado con exito!");

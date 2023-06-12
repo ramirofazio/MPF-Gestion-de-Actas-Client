@@ -13,9 +13,7 @@ function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccionModal, 
   };
 
   const handleEditExtraccion = (e) => {
-    console.log(e);
     setEditExtraccionesModal(false);
-    //! Ver si aca no estoy haiendo algo mal cuando defino el localStorage
     localStorage.setItem("currentExtraccion", JSON.stringify({ ...e, edit: true }));
     setAddExtraccionModal(true);
     renderAddExtraccionModal();
@@ -28,7 +26,7 @@ function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccionModal, 
       </header>
       <div data-aos="zoom-in" className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {extracciones.map((e) => (
-          <div className={`flex h-14 w-full items-center rounded-md border-2 border-white bg-white`}>
+          <div className={`mb-4 flex h-14 w-full items-center rounded-md border-2 border-white bg-white`}>
             <div className="cardInfoContainer">
               <span className="cardTitle">Herramienta</span>
               <br />
