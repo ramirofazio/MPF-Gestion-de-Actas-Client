@@ -569,7 +569,8 @@ function AddEfectos({ alternModal, selectedBag }) {
                 <option value="ninguna">Ninguna</option>
                 <option value="patron">Patron</option>
                 <option value="contraseña">Contraseña</option>
-                <option value="PIN de inicio">Pin</option>
+                <option value="PIN (Numérico)">Pin (Numérico)</option>
+                <option value="PIN (Alfanumérico)">Pin (Alfanumérico)</option>
                 <option value="huella">Huella</option>
               </select>
             </div>
