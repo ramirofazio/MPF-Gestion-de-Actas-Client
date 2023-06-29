@@ -43,7 +43,6 @@ function AddBolsas() {
 
   const handleRemoveEfecto = (efecto_id) => {
     if (currentActa.estado === "en creacion") {
-      setBolsaIdShowEfectos(false);
       dispatch(removeEfecto(efecto_id, currentActa.id));
     }
   };

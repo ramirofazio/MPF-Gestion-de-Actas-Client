@@ -22,16 +22,16 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
   const [extraccion, setExtraccion] = React.useState(() => {
     // Establecer los tipos de extracción y la extracción actual a partir del valor en localStorage
     if (localExtraccion) {
-      setTiposDeExtraccion(localExtraccion.TipoExtraccions);
+      setTiposDeExtraccion(localExtraccion.tipoExtraccions);
       return {
         ...localExtraccion,
-        TipoExtraccions: tiposDeExtraccion,
+        tipoExtraccions: tiposDeExtraccion,
       };
     } else {
       // Establecer la extracción actual con valores iniciales si no hay valor en localStorage
       return {
         herramientaSoft: "",
-        TipoExtraccions: tiposDeExtraccion,
+        tipoExtraccions: tiposDeExtraccion,
       };
     }
   });
@@ -45,19 +45,19 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
 
   // Efecto secundario para actualizar la extracción actual cuando cambian los tipos de extracción
   React.useEffect(() => {
-    setExtraccion({ ...extraccion, TipoExtraccions: tiposDeExtraccion });
+    setExtraccion({ ...extraccion, tipoExtraccions: tiposDeExtraccion });
   }, [tiposDeExtraccion]);
 
   // Manejador de envío de la extracción
   const handleExtraccionSubmit = (e) => {
     e.preventDefault();
     // Verificar que se haya seleccionado una herramienta y se hayan agregado tipos de extracción
-    if (extraccion.herramientaSoft && extraccion.TipoExtraccions.length > 0) {
+    if (extraccion.herramientaSoft && extraccion.tipoExtraccions.length > 0) {
       setAddExtraccionModal(false);
       setExtracciones([...extracciones, extraccion]);
       setExtraccion({
         herramientaSoft: "",
-        TipoExtraccions: tiposDeExtraccion,
+        tipoExtraccions: tiposDeExtraccion,
       });
       if (extraccion.edit) {
         toast.success("¡Extracción editada con éxito!");
@@ -136,8 +136,8 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
         {/* Lista de tipos de extracción */}
         <div className="flex w-full flex-1 flex-col items-center">
           <span className="basicLabel !text-md mb-8 !self-center !text-white">Extracciones</span>
-          {extraccion.TipoExtraccions &&
-            extraccion.TipoExtraccions.map((tEx) => (
+          {extraccion.tipoExtraccions &&
+            extraccion.tipoExtraccions.map((tEx) => (
               <div
                 key={tEx.fakeId || tEx.id}
                 className="mb-3 flex h-16 w-full items-center justify-around rounded-md bg-base p-2 text-black"
