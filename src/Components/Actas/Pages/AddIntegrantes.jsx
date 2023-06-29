@@ -92,7 +92,7 @@ function AddIntegrantes() {
             <input
               className="formBigInput"
               disabled={currentActa.estado !== "en creacion"}
-              type="number"
+              type="text"
               name="legajoOMatricula"
               value={integrante.legajoOMatricula}
               placeholder="Legajo, matricula o DNI"
