@@ -15,19 +15,10 @@ const AddPeritos = lazy(() => import("./Components/Actas/Pages/AddPeritos"));
 const AddBolsas = lazy(() => import("./Components/Actas/Pages/AddBolsas"));
 //* Admin
 const AdmHome = lazy(() => import("./Components/Admin/Home"));
-const BugsReports = lazy(() => import("./Components/Admin/pages/BugsReports"));
-const Stats = lazy(() => import("./Components/Admin/pages/Stats"));
 const ActaRemove = lazy(() => import("./Components/Admin/pages/ActaRemove"));
-//* Styles
-import styled from "styled-components";
-import Variables from "./Styles/Variables";
-import GlobalStyles from "./Styles/GlobalStyles";
 //* Utils
 import { toast } from "react-toastify";
 import logo2 from "./Assets/logo2.png";
-//* Initializations
-const { principalColor, secondaryColor } = Variables;
-const { select, form, inputLabel, inputContainer } = GlobalStyles;
 
 function App() {
   const dispatch = useDispatch();
@@ -61,16 +52,22 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const currentUser = users.find((u) => u.username === user.username);
-    if (currentUser.password === user.password) {
-      if (user.username === "admin") {
-        dispatch(admin());
+    if (user.username && user.password) {
+      if (currentUser.password.toLowerCase() === user.password.toLowerCase()) {
+        if (user.username === "admin") {
+          dispatch(admin());
+        }
+        toast.success("¡Usuario autenticado con exito!");
+        dispatch(setCurrentUser(currentUser));
+        setFlag(true);
+      } else {
+        toast.error("¡Contraseña incorrecta!");
+        setUser({ ...user, password: "" });
       }
-      toast.success("¡Usuario autenticado con exito!");
-      dispatch(setCurrentUser(currentUser));
-      setFlag(true);
+    } else if (user.username === "") {
+      toast.warning("¡Primero elige un Usuario!");
     } else {
-      toast.error("¡Contraseña incorrecta!");
-      setUser({ ...user, password: "" });
+      toast.warning("¡Escribe tu contraseña!");
     }
   };
 
@@ -83,32 +80,38 @@ function App() {
 
   if (!flag) {
     return (
-      <Container>
-        <Logo src={logo2} onDoubleClick={() => handleCreateUsers()} />
-        <Form onSubmit={handleSubmit}>
-          <InputContainer>
-            <Label>Usuario</Label>
-            <Select onChange={(e) => setUser({ ...user, username: e.target.value })} value={user.username}>
-              <SelectOpt>Usuario</SelectOpt>
+      <div data-aos="zoom-in" className="flexContainer100x100">
+        <img className="absolute top-0 mt-10" src={logo2} onDoubleClick={() => handleCreateUsers()} />
+        <form className="basicForm50x50" onSubmit={handleSubmit}>
+          <div className="mb-5 flex h-[15%] w-[40%] flex-col items-center justify-center ">
+            <label className="mb-1 self-start text-white">Usuario</label>
+            <select className="select" onChange={(e) => setUser({ ...user, username: e.target.value })} value={user.username}>
+              <option value="">Usuario</option>
               {users &&
                 users.map((u) => (
-                  <SelectOpt value={u.username} key={u.legajo}>
+                  <option value={u.username} key={u.legajo}>
                     {u.username}
-                  </SelectOpt>
+                  </option>
                 ))}
-            </Select>
-          </InputContainer>
-          <InputContainer>
-            <Label>Contraseña</Label>
-            <Input
+            </select>
+          </div>
+          <div className="flex h-[15%] w-[40%] flex-col items-center justify-center">
+            <label className="mb-1 self-start text-white">Contraseña</label>
+            <input
+              className="h-full w-full rounded-md border-principal text-center focus:border-principal focus:outline-none"
               type="password"
               value={user.password}
               placeholder="Contraseña"
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
-          </InputContainer>
-        </Form>
-      </Container>
+          </div>
+          <input
+            className="mt-5 rounded-md border-2 border-white bg-white px-6 py-1 text-principal  transition hover:cursor-pointer hover:bg-principal hover:text-white"
+            type="submit"
+            value="Ingresar"
+          />
+        </form>
+      </div>
     );
   } else {
     return (
@@ -128,8 +131,6 @@ function App() {
             {adminState === true && (
               <>
                 <Route path="/admin" element={<AdmHome />} />
-                <Route path="/admin/bugs" element={<BugsReports />} />
-                <Route path="/admin/estadisticas" element={<Stats />} />
                 <Route path="/admin/eliminarActa" element={<ActaRemove />} />
               </>
             )}
@@ -141,67 +142,3 @@ function App() {
 }
 
 export default App;
-
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const InputContainer = styled.div`
-  ${inputContainer}
-`;
-
-const Label = styled.label`
-  ${inputLabel}
-  color: white
-`;
-
-const Select = styled.select`
-  ${select}
-  margin-bottom: 20px;
-`;
-
-const SelectOpt = styled.option`
-  font-size: medium;
-  font-weight: 400;
-  color: ${secondaryColor};
-`;
-
-const Form = styled.form`
-  ${form}
-  background-color: ${principalColor};
-  height: 50%;
-  width: 50%;
-  border-radius: 10px;
-  justify-content: center;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 30px;
-  text-align: center;
-  border-radius: 5px;
-  border: 1px solid ${principalColor};
-  font-size: medium;
-  font-weight: 400;
-  color: ${secondaryColor};
-
-  &:focus {
-    border: 1px solid ${principalColor};
-    outline: none;
-  }
-
-  &::-webkit-inner-spin-button {
-    display: none;
-  }
-  width: 100%;
-`;
-
-const Logo = styled.img`
-  position: absolute;
-  top: 0;
-  margin-top: 4%;
-`;

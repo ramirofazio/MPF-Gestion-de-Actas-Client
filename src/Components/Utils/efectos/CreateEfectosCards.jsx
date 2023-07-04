@@ -1,9 +1,6 @@
 import React from "react";
 //* Styles
-import styled from "styled-components";
-import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
-import { PcHorizontal, PcDisplay, DeviceHddFill, SimFill, DeviceSsdFill } from "styled-icons/bootstrap";
+import { PcHorizontal, PcDisplay, DeviceHddFill, SimFill, DeviceSsdFill, DeviceHdd } from "styled-icons/bootstrap";
 import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
 import { UDisk } from "@styled-icons/remix-line/UDisk";
 import { Tablet } from "@styled-icons/entypo/Tablet";
@@ -11,20 +8,20 @@ import { Computer } from "@styled-icons/material-outlined/Computer";
 import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
+import { DeviceUnknown } from "@styled-icons/material-outlined/DeviceUnknown";
 import { toast } from "react-toastify";
-//* Initializations
-const { redColor, greenColor, yellowColor, principalColor, secondaryColor } = Variables;
-const { cardTitle, cardInfo } = GlobalStyles;
 
 function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
   const [nroPrecintoBolsa, setNroPrecintoBolsa] = React.useState();
   const [colorPrecintoBolsa, setColorPrecintoBolsa] = React.useState();
+  const [estadoBolsa, setestadoBolsa] = React.useState();
 
   React.useEffect(() => {
     currentBolsas.map((b) => {
       if (b.id === efecto.bolsa_id) {
         setNroPrecintoBolsa(b.nroPrecinto);
         setColorPrecintoBolsa(b.colorPrecinto);
+        setestadoBolsa(b.estado);
       }
     });
   }, []);
@@ -41,30 +38,36 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
 
   const selectIcon = (tipoDeElemento) => {
     switch (tipoDeElemento) {
+      case "no peritable": {
+        return <DeviceUnknown data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+      }
       case "celular": {
-        return <SmartphoneIcon />;
+        return <Smartphone data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "tablet": {
-        return <TabletIcon />;
+        return <Tablet data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "unidad de almacenamiento": {
-        return <PendriveIcon />;
+        return <UDisk data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "gabinete": {
-        return <PcIcon />;
+        return <PcDisplay data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "notebook": {
-        return <NotebookIcon />;
+        return <Computer data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "disco": {
         if (efecto.tipoDeDisco === "Disco Rigido") {
-          return <HddIcon />;
+          return <DeviceHddFill data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
         } else {
-          return <SsdIcon />;
+          return <DeviceSsdFill data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
         }
       }
       case "dvr": {
-        return <DvrIcon />;
+        return <PcHorizontal data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+      }
+      case "sim": {
+        return <SimFill data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-seconadary" />;
       }
       default: {
         return;
@@ -72,240 +75,193 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
     }
   };
 
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
-    <EfectoContainer estado={efecto.estado}>
-      <Info style={{ flex: 0, marginLeft: "10px" }}>{selectIcon(efecto.tipoDeElemento)}</Info>
-      <Info style={colorPrecintoBolsa === "rojo" ? { color: redColor } : { color: greenColor }}>
-        <CardTitle>Precinto</CardTitle>
+    <div
+      className={`mb-2 flex max-h-[12vh] min-h-[12vh] w-[90%] items-center rounded-md border-2 border-principal shadow-md transition ${
+        efecto.estado === "en proceso"
+          ? "border-r-[15px] border-r-process"
+          : efecto.estado === "completo"
+          ? "border-r-[15px] border-r-success"
+          : "border-r-[15px] border-r-principal"
+      }`}
+    >
+      <div className="ml-5 flex">{selectIcon(efecto.tipoDeElemento)}</div>
+      <div className={`cardInfoContainer`}>
+        <span className="cardTitle capitalize">Precinto {colorPrecintoBolsa}</span>
         <br />
         {nroPrecintoBolsa}
-      </Info>
-      <Info>
-        <CardTitle>Marca</CardTitle>
-        <br />
-        {efecto.marca || "Ninguna"}
-      </Info>
-      <Info>
-        <CardTitle>Modelo</CardTitle>
-        <br />
-        {efecto.modelo || "Ninguno"}
-      </Info>
+      </div>
+      {efecto.tipoDeElemento === "sim" && (
+        <>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Empresa</span>
+            <br />
+            {efecto.empresa || "No Visible"}
+          </div>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Software</span>
+            <br />
+            {efecto.herramientaSoft || "No Visible"}
+          </div>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Extraccion</span>
+            <br />
+            {efecto.tipoExtraccion || "En Proceso"}
+          </div>
+        </>
+      )}
+      {efecto.tipoDeElemento === "no peritable" && (
+        <div className="cardInfoContainer">
+          <span className="cardTitle">Descripcion</span>
+          <br />
+          {efecto.descripcionElemento}
+        </div>
+      )}
+      {efecto.tipoDeElemento !== "sim" && efecto.tipoDeElemento !== "no peritable" && (
+        <>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Marca</span>
+            <br />
+            {efecto.marca || "No Visible"}
+          </div>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Modelo</span>
+            <br />
+            {efecto.modelo || "No Visible"}
+          </div>
+        </>
+      )}
       {efecto.encendido === "no" && (
         <>
-          <Info>
-            <CardTitle>Encendido</CardTitle>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Encendido</span>
             <br />
             {efecto.encendido}
-          </Info>
-          <Info>
-            <CardTitle>Observacion</CardTitle>
+          </div>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">Observacion</span>
             <br />
-            {efecto.observacionEncendido}
-          </Info>
+            {truncateText(efecto.observacionEncendido || "", 30)}
+          </div>
         </>
       )}
       {(efecto.encendido === "si" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
         <>
           {efecto.elementoFallado === "si" ? (
             <>
-              <Info>
-                <CardTitle>Fallado</CardTitle>
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Falla</span>
                 <br />
                 {efecto.elementoFallado}
-              </Info>
-              <Info>
-                <CardTitle>Observacion</CardTitle>
+              </div>
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Observacion</span>
                 <br />
-                {efecto.observacionFalla}
-              </Info>
+                {truncateText(efecto.observacionFalla || "", 40)}
+              </div>
             </>
           ) : (
             <>
-              {efecto.tipoDeElemento === "unidad de almacenamiento" ||
-                (efecto.tipoDeElemento === "disco" && (
-                  <Info>
-                    <CardTitle>Almacenamiento</CardTitle>
+              {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
+                <>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle">S/N</span>
+                    <br />
+                    {efecto.serialNumber || "No Visible"}
+                  </div>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle">Almacenamiento</span>
                     <br />
                     {efecto.almacenamiento || "No visible"}
-                  </Info>
-                ))}
-              {(efecto.desbloqueo === "si" || efecto.extraccion || efecto.tipoExtraccion) && (
-                <>
-                  {efecto.tipoDeElemento !== "unidad de almacenamiento" && (
-                    <Info>
-                      <CardTitle>Tipo de Seguridad</CardTitle>
-                      <br />
-                      {efecto.tipoSeguridad}
-                    </Info>
-                  )}
-                  {efecto.tipoDeElemento === "unidad de almacenamiento" && (
-                    <Info>
-                      <CardTitle>Almacenamiento</CardTitle>
-                      <br />
-                      {efecto.almacenamiento || "No visible"}
-                    </Info>
-                  )}
-                  <Info>
-                    <CardTitle>Cant. Extracciones</CardTitle>
+                  </div>
+                  <div className="cardInfoContainer capitalize">
+                    <span className="cardTitle">Adquisicion</span>
                     <br />
-                    {efecto.Extraccions.length}
-                  </Info>
+                    {efecto.adquisicion}
+                  </div>
                 </>
               )}
-              {efecto.desbloqueo === "no" && (
+
+              {(efecto.desbloqueo || efecto.extraccion) && (
                 <>
-                  <Info>
-                    <CardTitle>Tipo de Seguridad</CardTitle>
+                  {efecto.tipoDeElemento !== "unidad de almacenamiento" && (
+                    <div className="cardInfoContainer">
+                      <span className="cardTitle">Seguridad</span>
+                      <br />
+                      {efecto.tipoSeguridad}
+                    </div>
+                  )}
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle">Extracciones</span>
                     <br />
-                    {efecto.tipoSeguridad}
-                  </Info>
-                  <Info>
-                    <CardTitle>Desbloqueo</CardTitle>
-                    <br />
-                    {efecto.desbloqueo}
-                  </Info>
+                    {efecto.Extraccions.length}
+                  </div>
+                  {efecto.desbloqueo === "no" && (
+                    <div className="cardInfoContainer">
+                      <span className="cardTitle">Desbloqueo</span>
+                      <br />
+                      {efecto.desbloqueo}
+                    </div>
+                  )}
                 </>
               )}
             </>
           )}
         </>
       )}
-      {efecto.tipoDeElemento === "disco" && (
+
+      {(efecto.tipoDeElemento === "notebook" ||
+        efecto.tipoDeElemento === "pc" ||
+        efecto.tipoDeElemento === "dvr" ||
+        efecto.tipoDeElemento === "sim") && (
         <>
-          <Info>
-            <CardTitle>Serial Number</CardTitle>
+          <div className="cardInfoContainer">
+            <span className="cardTitle">S/N</span>
             <br />
-            {efecto.serialNumber || "Ninguno"}
-          </Info>
-          <Info>
-            <CardTitle>Almacenamiento</CardTitle>
-            <br />
-            {efecto.almacenamiento || "No Visible"}
-          </Info>
-        </>
-      )}
-      {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "pc" || efecto.tipoDeElemento === "dvr") && (
-        <>
-          <Info>
-            <CardTitle>Serial Number</CardTitle>
-            <br />
-            {efecto.serialNumber || "Ninguno"}
-          </Info>
-          <Info>
-            <CardTitle>Cant. Discos</CardTitle>
-            <br />
-            {efecto.Discos.length}
-          </Info>
+            {efecto.serialNumber || "No Visible"}
+          </div>
+          {efecto.tipoDeElemento !== "sim" && (
+            <div className="cardInfoContainer">
+              <span className="cardTitle">Discos</span>
+              <br />
+              {efecto.Discos.length}
+            </div>
+          )}
         </>
       )}
 
-      <Info style={{ flex: 0.5, marginRight: "10px" }}>
-        {efecto.Sims.length !== 0 && <SimIcon />}
-        {efecto.Discos.length !== 0 && <HddIcon />}
-        {efecto.Sds.length !== 0 && <SdIcon />}
-      </Info>
-      {(estadoActa === "en creacion" || estadoActa === "en proceso") && <EditIcon onClick={() => LoadEfecto()} />}
-      {estadoActa === "en creacion" && <DeleteIcon onClick={() => handleRemoveEfecto(efecto.id)} />}
-    </EfectoContainer>
+      <div className="cardInfoContainer" style={{ flex: 0.5, marginRight: "10px" }}>
+        {efecto.Sims.length !== 0 && <SimFill size={25} className="text-secondary" />}
+        {efecto.Discos.length !== 0 && <DeviceHdd size={25} className="text-secondary" />}
+        {efecto.Sds.length !== 0 && <SdCardMini size={25} className="text-secondary" />}
+      </div>
+      {(estadoActa === "en creacion" || estadoActa === "en proceso") && estadoBolsa !== "abierta en proceso con elementos completos" && (
+        <DocumentEdit
+          data-tooltip-id="my-tooltip"
+          data-tooltip-content="Editar"
+          size={25}
+          className="mr-4 text-secondary transition hover:cursor-pointer hover:text-black"
+          onClick={() => LoadEfecto()}
+        />
+      )}
+      {estadoActa === "en creacion" && (
+        <Delete
+          data-tooltip-id="my-tooltip"
+          data-tooltip-content="Eliminar"
+          size={25}
+          className="mr-6 text-secondary transition hover:cursor-pointer hover:text-black"
+          onClick={() => handleRemoveEfecto(efecto.id)}
+        />
+      )}
+    </div>
   );
 }
 
 export default CreateEfectosCards;
-
-const EfectoContainer = styled.div`
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 90%;
-  min-height: 70px;
-  margin-top: 5px;
-  border: 2px solid ${principalColor};
-  border-radius: 5px;
-  transition: all 0.3s ease;
-
-  border-right: ${(props) =>
-    props.estado === "en proceso"
-      ? `15px solid ${yellowColor}`
-      : props.estado === "completo"
-      ? `15px solid ${greenColor}`
-      : `15px solid ${redColor}`};
-`;
-
-const Info = styled.span`
-  ${cardInfo}
-`;
-
-const CardTitle = styled.strong`
-  ${cardTitle}
-`;
-
-const SmartphoneIcon = styled(Smartphone)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-
-const NotebookIcon = styled(Computer)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-const PcIcon = styled(PcDisplay)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-const TabletIcon = styled(Tablet)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-const PendriveIcon = styled(UDisk)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-
-const SdIcon = styled(SdCardMini)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-const HddIcon = styled(DeviceHddFill)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-
-const SimIcon = styled(SimFill)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-
-const DvrIcon = styled(PcHorizontal)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-
-const SsdIcon = styled(DeviceSsdFill)`
-  width: 25px;
-  color: ${secondaryColor};
-`;
-
-const DeleteIcon = styled(Delete)`
-  width: 25px;
-  color: ${secondaryColor};
-  transition: all 0.5s ease;
-  margin-right: 20px;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;
-
-const EditIcon = styled(DocumentEdit)`
-  width: 25px;
-  margin-right: 15px;
-  color: ${secondaryColor};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;

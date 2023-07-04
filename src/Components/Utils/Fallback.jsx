@@ -1,24 +1,13 @@
 import React from "react";
-import styled from "styled-components";
-import GlobalStyles from "../../Styles/GlobalStyles";
-import ClipLoader from "react-spinners/ClipLoader";
+import RingLoader from "react-spinners/RingLoader";
 
 function Fallback() {
   return (
-    <Container>
-      <Title>Cargando</Title>
-      <ClipLoader color={"black"} size={60} loading={true} />
-    </Container>
+    <div className="flexContainer100x100 flex-col">
+      <h2 className="text-principal">Cargando</h2>
+      <RingLoader color={"#006473"} size={60} loading={true} />
+    </div>
   );
 }
 
 export default Fallback;
-
-const Container = styled.div`
-  ${GlobalStyles.container}
-  flex-direction: column;
-`;
-
-const Title = styled.h2`
-  color: black;
-`;

@@ -1,152 +1,51 @@
 import React from "react";
 //* Style
-import styled, { css } from "styled-components";
-import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
-//* Initializations
-const { button, input, select } = GlobalStyles;
-const { redColor, greenColor, secondaryColor, principalColor } = Variables;
+import { toast } from "react-toastify";
 
-function CloseBagsInProcess({ closeModal, dispatch, bagsInProcess, updateBolsa, acta_id }) {
-  const [inProcessState, setInProcessState] = React.useState({
-    id: "",
+function CloseBagsInProcess({ closeModal, dispatch, selectedBag, updateBolsa, acta_id }) {
+  const [state, setstate] = React.useState({
+    id: Number(selectedBag.id),
     leyenda:
-      "Finalizadas las tareas técnicas pertinentes, se dejaron los elementos que quedaron en proceso, finalizando su extraccion en el laboratorio de informatica forense",
+      "Finalizadas las tareas técnicas pertinentes, los elementos quedan en resguardo dentro del laboratorio de informatica forense con control de acceso biometrico, puertas cerradas y videos con camara de seguridad las 24 horas, para continuar con las tareas la jornada siguente.",
   });
 
   const handleInProcessSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(updateBolsa(inProcessState, acta_id));
-    closeModal();
+    if (state.leyenda) {
+      dispatch(updateBolsa(state, acta_id));
+      closeModal();
+    } else {
+      toast.warning("¡Falta agregar la leyenda para la bolsa en proceso!");
+    }
   };
   return (
-    <Form onSubmit={(e) => handleInProcessSubmit(e)}>
-      <Title>Cerrar Bolsa en Proceso</Title>
-      <InputContainer>
-        <Label>*Bolsa</Label>
-        <Select value={inProcessState.id} onChange={(e) => setInProcessState({ ...inProcessState, id: Number(e.target.value) })}>
-          <SelectOpt value="">Seleccione Precinto</SelectOpt>
-          {bagsInProcess.length > 0 &&
-            bagsInProcess.map(({ nroPrecinto, id, colorPrecinto }) => (
-              <SelectOpt value={id} key={id} style={colorPrecinto === "rojo" ? { color: redColor } : { color: greenColor }}>
-                {nroPrecinto}
-              </SelectOpt>
-            ))}
-        </Select>
-      </InputContainer>
-      <InputContainer style={{ height: "100px" }}>
-        <Label>*Leyenda</Label>
-        <TextArea
-          leyenda={true}
-          name="leyenda"
-          value={inProcessState.leyenda}
-          placeholder="Leyenda"
-          onChange={(e) => setInProcessState({ ...inProcessState, leyenda: e.target.value })}
-        />
-      </InputContainer>
-      <Button type="submit" value="Guardar" complete={inProcessState.id !== "" && inProcessState.leyenda !== "" ? "true" : "false"} />
-    </Form>
+    <>
+      <header className="modalHeader">
+        <span data-aos="fade-down">Dejar Bolsa en Proceso</span>
+      </header>
+      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleInProcessSubmit}>
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">*Bolsa</label>
+          <select className="formModalSelect" value={state.id} disabled={true}>
+            <option>{selectedBag.nroPrecinto}</option>
+          </select>
+        </div>
+        <div className="modalInputContainer !h-32">
+          <label className="basicLabel !text-white">*Leyenda</label>
+          <textarea
+            className="formModalInput !h-full !text-center"
+            name="leyenda"
+            value={state.leyenda}
+            placeholder="Leyenda"
+            onChange={(e) => setstate({ ...state, leyenda: e.target.value })}
+          />
+        </div>
+        <div className="mt-2 flex w-full items-center justify-around">
+          <input className="submitBtn " type="submit" value={`Guardar Bolsa ${selectedBag.nroPrecinto}`} />
+        </div>
+      </form>
+    </>
   );
 }
 
 export default CloseBagsInProcess;
-
-const Title = styled.h4`
-  border-bottom: 2px solid white;
-  width: 120%;
-  text-align: center;
-  margin-bottom: 2%;
-  padding-bottom: 10px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 5%;
-  color: white;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 50px;
-  border-bottom: 1px solid ${secondaryColor};
-  padding-bottom: 10px;
-  margin-block: 5px;
-
-  ${(props) =>
-    props.closeActa &&
-    css`
-      flex-direction: column;
-      margin-top: 2%;
-    `}
-`;
-
-const Label = styled.label`
-  flex: 1;
-`;
-
-const Input = styled.input`
-  ${input}
-  font-size: medium;
-  flex: 1;
-  height: 100%;
-  text-align: center;
-`;
-
-const Select = styled.select`
-  ${select}
-  font-size: medium;
-  flex: 1;
-  height: 100%;
-  text-align: center;
-`;
-
-const SelectOpt = styled.option``;
-
-const Button = styled.input`
-  ${button}
-  padding: 5px;
-  padding-inline: 15px;
-  text-decoration: none;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-  margin-bottom: -2.5%;
-  margin-top: 1%;
-
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-    color: ${principalColor};
-    border: 2px solid transparent;
-  }
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
-`;
-
-const TextArea = styled.textarea`
-  ${input}
-  font-size: medium;
-  flex: 1;
-  min-height: 100%;
-  max-height: 100%;
-
-  text-align: center;
-
-  &:focus {
-    all: none;
-  }
-`;

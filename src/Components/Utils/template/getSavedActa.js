@@ -1,10 +1,10 @@
 import axios from "axios";
-import Variables from "../../../Styles/Variables";
+import { serverUrl } from "../../../helpers/globalVariables";
 import generateDoc from "./generateDoc";
 
 const getSavedActa = async (actaId, navigate) => {
   try {
-    const res = await axios.get(Variables.baseEndpoint + `/getActas/${actaId}`);
+    const res = await axios.get(serverUrl + `/getActas/${actaId}`);
     if (res) {
       localStorage.setItem("finalActa", JSON.stringify(res.data));
       if (res.data.nro_mpf) {

@@ -1,14 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllActas, clearStates, admin } from "../../redux/actions";
-//* Styles
-import styled from "styled-components";
-import GlobalStyles from "../../Styles/GlobalStyles";
 //* Utils
 import ActasCards from "../Utils/actasCards/ActasCards";
-import ActasFilters from "../Utils/filters/ActasFilters";
-//* Initializations
-const { enProcesoContainer, header, headerTitle } = GlobalStyles;
 
 function Home() {
   const dispatch = useDispatch();
@@ -36,26 +30,13 @@ function Home() {
   }, []);
 
   return (
-    <Container>
-      <Header>
-        <Title>Creación de Actas</Title>
-      </Header>
-      <ActasFilters />
+    <div className="paddingLeftContainer ">
+      <header data-aos="fade-down" className="header ">
+        <span className="headerTitle">Creación de Actas</span>
+      </header>
       <ActasCards allActas={allActas} typeOfActa={"home"} />
-    </Container>
+    </div>
   );
 }
 
 export default Home;
-
-const Container = styled.div`
-  ${enProcesoContainer}
-`;
-
-const Header = styled.header`
-  ${header}
-`;
-
-const Title = styled.h1`
-  ${headerTitle}
-`;

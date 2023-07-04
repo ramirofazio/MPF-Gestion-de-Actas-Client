@@ -1,237 +1,208 @@
+// Importación de módulos y componentes necesarios
 import React from "react";
-//*Components
 import AddTipoExtraccionModal from "./AddTipoExtraccionModal";
-//* Style
 import Modal from "react-modal";
-import styled, { css } from "styled-components";
-import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
-import { Close } from "@styled-icons/ionicons-outline/Close";
+import { modal40x40 } from "../../../helpers/globalVariables";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
-//* Initializations
-const { button, select, input, modal40x40 } = GlobalStyles;
-const { redColor, greenColor, secondaryColor, principalColor } = Variables;
+import { removeTipoExtraccion } from "../../../redux/actions";
+import { useDispatch } from "react-redux";
 
+// Definición del componente funcional AddExtraccionModal
 function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionModal, toast }) {
+  const dispatch = useDispatch();
+  // Obtener el valor de "currentExtraccion" del localStorage
+  const localExtraccion = JSON.parse(localStorage.getItem("currentExtraccion"));
+
+  // Estado local para el modal de agregar tipo de extracción
+  const [addTipoExtraccionModal, setAddTipoExtraccionModal] = React.useState(false);
+
+  // Estado local para los tipos de extracción y la extracción actual
+  const [tiposDeExtraccion, setTiposDeExtraccion] = React.useState([]);
+  const [extraccion, setExtraccion] = React.useState(() => {
+    // Establecer los tipos de extracción y la extracción actual a partir del valor en localStorage
+    if (localExtraccion) {
+      setTiposDeExtraccion(localExtraccion.tipoExtraccions);
+      return {
+        ...localExtraccion,
+        tipoExtraccions: tiposDeExtraccion,
+      };
+    } else {
+      // Establecer la extracción actual con valores iniciales si no hay valor en localStorage
+      return {
+        herramientaSoft: "",
+        tipoExtraccions: tiposDeExtraccion,
+      };
+    }
+  });
+
+  // Efecto secundario para limpiar el valor en localStorage
   React.useEffect(() => {
     return () => {
       localStorage.setItem("currentExtraccion", null);
     };
-  });
+  }, []);
 
-  const [addTipoExtraccionModal, setAddTipoExtraccionModal] = React.useState(false);
+  // Efecto secundario para actualizar la extracción actual cuando cambian los tipos de extracción
+  React.useEffect(() => {
+    setExtraccion({ ...extraccion, tipoExtraccions: tiposDeExtraccion });
+  }, [tiposDeExtraccion]);
 
-  const [tiposDeExtraccion, setTiposDeExtraccion] = React.useState([]);
-  const [extraccion, setExtraccion] = React.useState(
-    JSON.parse(localStorage.getItem("currentExtraccion")) || {
-      herramientaSoft: "",
-      tipos: tiposDeExtraccion,
-    }
-  );
-
+  // Manejador de envío de la extracción
   const handleExtraccionSubmit = (e) => {
     e.preventDefault();
-    setAddExtraccionModal(false);
-    setExtracciones([...extracciones, extraccion]);
-    setExtraccion({
-      herramientaSoft: "",
-      tipos: tiposDeExtraccion,
-    });
-    if (extraccion.edit) {
-      toast.success("Extraccion Editada con Exito!");
+    // Verificar que se haya seleccionado una herramienta y se hayan agregado tipos de extracción
+    if (extraccion.herramientaSoft && extraccion.tipoExtraccions.length > 0) {
+      setAddExtraccionModal(false);
+      setExtracciones([...extracciones, extraccion]);
+      setExtraccion({
+        herramientaSoft: "",
+        tipoExtraccions: tiposDeExtraccion,
+      });
+      if (extraccion.edit) {
+        toast.success("¡Extracción editada con éxito!");
+      } else {
+        toast.success("¡Extracción guardada con éxito!");
+      }
     } else {
-      toast.success("Extraccion Guardada con Exito!");
+      toast.error("¡Faltan datos necesarios para la extracción!");
     }
   };
 
-  React.useEffect(() => {
-    setExtraccion({ ...extraccion, tipos: tiposDeExtraccion });
-  }, [tiposDeExtraccion]);
-
+  // Manejador de envío de un tipo de extracción
   const handleTipoExtraccionSubmit = (e, tipoExtraccion) => {
     e.preventDefault();
+    // Verificar que se haya proporcionado el nombre y el estado del tipo de extracción
     if (tipoExtraccion.nombre && tipoExtraccion.estado) {
       setAddTipoExtraccionModal(false);
       setTiposDeExtraccion([...tiposDeExtraccion, tipoExtraccion]);
-      toast.success("¡Tipos de extraccion guardadas con exito!");
+      toast.success("¡Tipos de extracción guardadas con éxito!");
     } else {
-      toast.error("¡Faltan datos para completar el tipo de extraccion!");
+      toast.error("¡Faltan datos necesarios para el tipo de extracción!");
     }
   };
 
+  // Manejador para mostrar u ocultar el modal de agregar tipo de extracción
   const handleAddTipoExtraccionButtonClick = () => {
     setAddTipoExtraccionModal(!addTipoExtraccionModal);
   };
 
-  const handleRemoveTipoExtraccion = (fakeId) => {
-    const newExtracciones = tiposDeExtraccion.filter((e) => e.fakeId !== fakeId);
-    setTiposDeExtraccion(newExtracciones);
-    toast.success("¡Tipo de extraccion eliminada con exito!");
+  // Manejador para eliminar un tipo de extracción
+  const handleRemoveTipoExtraccion = (tEx) => {
+    if (tEx.fakeId) {
+      //* Local no DB
+      const newExtracciones = tiposDeExtraccion.filter((e) => e.fakeId !== tEx.fakeId);
+      setTiposDeExtraccion(newExtracciones);
+    } else {
+      //* DB
+      const newExtracciones = tiposDeExtraccion.filter((e) => e.id !== tEx.id);
+      setTiposDeExtraccion(newExtracciones);
+      dispatch(removeTipoExtraccion(tEx.id));
+    }
+    toast.success("¡Tipo de extracción eliminada con éxito!");
   };
 
   return (
     <>
-      <CloseIcon onClick={() => setAddExtraccionModal(false)} />
-      <Form onSubmit={handleExtraccionSubmit}>
-        <Title>{extraccion.edit ? "Editar" : "Agregar"} Extracciones</Title>
-        <InputContainer>
-          <Label>Software</Label>
+      {/* Encabezado del modal */}
+      <header className="modalHeader">
+        <span data-aos="fade-down">Agregar Extracciones</span>
+      </header>
+      {/* Formulario de extracción */}
+      <form data-aos="zoom-in" className="flex h-full w-full flex-col justify-center p-5 pt-0" onSubmit={handleExtraccionSubmit}>
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">Software</label>
+          {/* Selección de herramienta de software */}
           <select
-            className="select"
+            className="formModalSelect"
             value={extraccion.herramientaSoft}
-            onChange={(e) => setExtraccion({ ...extraccion, herramientaSoft: e.target.value })}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setExtraccion({ ...extraccion, herramientaSoft: e.target.value });
+            }}
           >
-            <SelectOpt value="">Seleccione Herramienta</SelectOpt>
-            <SelectOpt value="Cellebrite, UFED 4PC V7.60">UFED 4PC</SelectOpt>
-            <SelectOpt value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</SelectOpt>
-            <SelectOpt value="Magnet, AXIOM V6.10.0">AXIOM</SelectOpt>
-            <SelectOpt value="Opentext, ENCASE V8.11">ENCASE</SelectOpt>
-            <SelectOpt value="Grayshift, GREYKEY">GREYKEY</SelectOpt>
-            <SelectOpt value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</SelectOpt>
-            <SelectOpt value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</SelectOpt>
-            <SelectOpt value="TABLEAU TD3">TABLEAU TD3</SelectOpt>
-            <SelectOpt value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-              TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-            </SelectOpt>
+            <option value="">Seleccione Herramienta</option>
+            <option value="Cellebrite, UFED 4PC V7.60">UFED 4PC</option>
+            <option value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</option>
+            <option value="Magnet, AXIOM V6.10.0">AXIOM</option>
+            <option value="Opentext, ENCASE V8.11">ENCASE</option>
+            <option value="Grayshift, GREYKEY">GREYKEY</option>
+            <option value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</option>
+            <option value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</option>
+            <option value="TABLEAU TD3">TABLEAU TD3</option>
+            <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">TABLEAU FORENSIC BRIDGE (bloqueador de escritura)</option>
           </select>
-        </InputContainer>
-        <div className="flex-1 w-full flex flex-col items-center">
-          <h1 className="text-center text-1xl mb-5">Extracciones</h1>
-          {tiposDeExtraccion &&
-            tiposDeExtraccion.map((e) => (
-              <div key={e.fakeId} className="flex items-center justify-around w-full h-14 mb-3 rounded-md bg-base text-black">
-                <div className="flex flex-col items-center">
-                  <span className="underline">Tipo</span>
-                  <span className="text-secondary">{e.nombre}</span>
+        </div>
+        {/* Lista de tipos de extracción */}
+        <div className="flex w-full flex-1 flex-col items-center">
+          <span className="basicLabel !text-md mb-8 !self-center !text-white">Extracciones</span>
+          {extraccion.tipoExtraccions &&
+            extraccion.tipoExtraccions.map((tEx) => (
+              <div
+                key={tEx.fakeId || tEx.id}
+                className="mb-3 flex h-16 w-full items-center justify-around rounded-md bg-base p-2 text-black"
+              >
+                {/* Información del tipo de extracción */}
+                <div className="cardInfoContainer">
+                  <span className="cardTitle">Tipo</span>
+                  <br />
+                  {tEx.nombre}
                 </div>
-                <div className="flex flex-col items-center">
-                  <span className="underline">Estado</span>
-                  <span className="text-secondary">{e.estado}</span>
+                <div className="cardInfoContainer">
+                  <span className="cardTitle">Estado</span>
+                  <br />
+                  {tEx.estado}
                 </div>
-                {e.estado === "fallo" && (
-                  <div className="flex flex-col items-center">
-                    <span className="underline">Observacion</span>
-                    <span className="text-secondary">{e.observacionFalla}</span>
+                {/* Mostrar observación si el estado es "fallo" */}
+                {tEx.estado === "fallo" && (
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle">Observacion</span>
+                    <br />
+                    {tEx.observacionFalla}
                   </div>
                 )}
-                <Delete
-                  onClick={() => handleRemoveTipoExtraccion(e.fakeId)}
-                  size={20}
-                  className="text-black transition duration-500 hover:cursor-pointer hover:text-secondary"
-                />
+                {/* Botón para eliminar el tipo de extracción */}
+                <Delete onClick={() => handleRemoveTipoExtraccion(tEx)} size={20} className="icons" />
               </div>
             ))}
-          <PlusSquareDotted
-            className="transition duration-500 hover:text-secondary hover:cursor-pointer "
-            color={extraccion.herramientaSoft ? "white" : secondaryColor}
-            size={35}
-            onClick={() =>
-              extraccion.herramientaSoft
-                ? handleAddTipoExtraccionButtonClick()
-                : toast.warning("¡Primero debe seleccionar una heramienta de software!")
-            }
-          />
+          {/* Botón para agregar un nuevo tipo de extracción */}
+          {extraccion.herramientaSoft && (
+            <PlusSquareDotted
+              data-aos="zoom-in"
+              className="icons !text-white hover:!text-secondary"
+              size={35}
+              onClick={() =>
+                extraccion.herramientaSoft
+                  ? handleAddTipoExtraccionButtonClick()
+                  : toast.warning("¡Primero debe seleccionar una heramienta de software!")
+              }
+            />
+          )}
         </div>
-        <Button type="submit" value={extraccion.edit ? "Guardar" : "Agregar"} complete={"true"} />
-      </Form>
-
+        <div className="inputContainer !pb-0 pt-4">
+          {/* Botón de guardar */}
+          <input class="submitBtn" value="Guardar" type="submit" />
+        </div>
+      </form>
+      {/* Modal para agregar tipo de extracción */}
       <Modal isOpen={addTipoExtraccionModal} style={modal40x40} ariaHideApp={false}>
-        <AddTipoExtraccionModal
-          setAddTipoExtraccionModal={setAddTipoExtraccionModal}
-          handleTipoExtraccionSubmit={handleTipoExtraccionSubmit}
-        />
+        {/* Icono para cerrar el modal */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="closeModalIcon"
+          onClick={() => setAddTipoExtraccionModal(!addTipoExtraccionModal)}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        {/* Componente para agregar tipo de extracción */}
+        <AddTipoExtraccionModal nombre={extraccion.herramientaSoft} handleTipoExtraccionSubmit={handleTipoExtraccionSubmit} />
       </Modal>
     </>
   );
 }
 
 export default AddExtraccionModal;
-
-const Title = styled.h4`
-  border-bottom: 2px solid white;
-  width: 120%;
-  text-align: center;
-  margin-bottom: 2%;
-  padding-bottom: 10px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 5%;
-  color: white;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: max-content;
-  border-bottom: 1px solid ${secondaryColor};
-  padding-bottom: 10px;
-  margin-block: 5px;
-`;
-
-const Label = styled.label`
-  flex: 1;
-`;
-
-const Input = styled.input`
-  ${input}
-  font-size: medium;
-  flex: 1;
-  height: 30px;
-  text-align: center;
-`;
-
-const Select = styled.select`
-  ${select}
-`;
-
-const SelectOpt = styled.option``;
-
-const Button = styled.input`
-  ${button}
-  padding: 5px;
-  padding-inline: 15px;
-  text-decoration: none;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-  margin-bottom: -2.5%;
-  margin-top: 1%;
-
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-    color: ${principalColor};
-    border: 2px solid transparent;
-  }
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
-`;
-
-const CloseIcon = styled(Close)`
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 8%;
-  margin-top: 1%;
-  color: white;
-  transition: all 0.5s ease;
-
-  &:hover {
-    color: ${secondaryColor};
-    cursor: pointer;
-  }
-`;

@@ -4,35 +4,20 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createIntegrantes, removeIntegrante } from "../../../redux/actions";
 //* Style
-import styled, { css } from "styled-components";
-import GlobalStyles from "../../../Styles/GlobalStyles";
-import Variables from "../../../Styles/Variables";
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
-//* Initializations
-const { redColor, greenColor, secondaryColor, principalColor } = Variables;
-const {
-  select,
-  selectOpt,
-  enProcesoContainer,
-  header,
-  headerTitle,
-  button,
-  formContainer,
-  inputContainer,
-  inputLabel,
-  form,
-  input,
-  cardTitle,
-  cardInfo,
-} = GlobalStyles;
+import { toast } from "react-toastify";
 
 function AddIntegrantes() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
-  const currentIntegrantes = useSelector((s) => JSON.parse(localStorage.getItem("currentIntegrantes")) || s.currentIntegrantes);
+  const currentActa = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa
+  );
+  const currentIntegrantes = useSelector(
+    (s) => JSON.parse(localStorage.getItem("currentIntegrantes")) || s.currentIntegrantes
+  );
 
   const [integrantes, setIntegrantes] = React.useState(currentIntegrantes || []);
   const [integrante, setIntegrante] = React.useState({
@@ -42,7 +27,7 @@ function AddIntegrantes() {
     locacion: "",
   });
 
-  const handleClick = () => {
+  const handleAddIntegrante = () => {
     setIntegrantes([...integrantes, { ...integrante, acta_id: currentActa.id }]);
     setIntegrante({
       nombreYApellido: "",
@@ -57,279 +42,201 @@ function AddIntegrantes() {
     const { nombreYApellido, legajoOMatricula, cargo, locacion } = integrante;
 
     if (nombreYApellido && legajoOMatricula && cargo && locacion) {
-      return "true";
+      return true;
     } else {
-      return "false";
+      return false;
     }
   };
 
-  const handleRemove = (legajoOMatricula) => {
-    dispatch(removeIntegrante(legajoOMatricula, currentActa.id)); //* Si estoy editando, tengo que eliminar de la base de datos
+  const handleRemove = (legajoOMatricula, id) => {
+    dispatch(removeIntegrante(legajoOMatricula, id)); //* Si estoy editando, tengo que eliminar de la base de datos
 
-    const newIntegrantes = integrantes.filter((i) => i.legajoOMatricula !== legajoOMatricula);
+    const newIntegrantes = integrantes.filter((i) => i.id !== id);
     localStorage.setItem("currentIntegrantes", JSON.stringify(newIntegrantes));
     setIntegrantes(newIntegrantes);
   };
 
-  const handleNext = () => {
-    dispatch(createIntegrantes(integrantes, navigate));
+  const handleSubmitIntegrantes = () => {
+    if (integrantes.length > 0) {
+      dispatch(createIntegrantes(integrantes));
+    } else {
+      toast.warning("¡Acta sin Integrantes!");
+    }
   };
 
   return (
-    <Container>
-      <Header>
-        <Title>Creación de Integrantes</Title>
-      </Header>
-      <SubContainer>
-        <FormContainer>
-          <Form>
-            <InputContainer>
-              <Label>Nombre y Apellido</Label>
-              <Input
-                disabled={currentActa.estado !== "en creacion"}
-                type="text"
-                name="nombreYApellido"
-                value={integrante.nombreYApellido}
-                placeholder="Nombre y Apellido"
-                onChange={(e) => setIntegrante({ ...integrante, nombreYApellido: e.target.value })}
-              />
-            </InputContainer>
-            <InputContainer>
-              <Label>Legajo, matricula o DNI</Label>
-              <Input
-                disabled={currentActa.estado !== "en creacion"}
-                type="number"
-                name="legajoOMatricula"
-                value={integrante.legajoOMatricula}
-                placeholder="Legajo, matricula o DNI"
-                onChange={(e) => setIntegrante({ ...integrante, legajoOMatricula: e.target.value })}
-              />
-            </InputContainer>
-            <InputContainer>
-              <Label>Cargo</Label>
-              <Input
-                disabled={currentActa.estado !== "en creacion"}
-                type="text"
-                name="cargo"
-                value={integrante.cargo}
-                placeholder="Cargo"
-                onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value })}
-              />
-            </InputContainer>
-            <InputContainer>
-              <Label>Locacion</Label>
-              <Select value={integrante.locacion} onChange={(e) => setIntegrante({ ...integrante, locacion: e.target.value })}>
-                <SelectOpt value="">Locacion</SelectOpt>
-                <SelectOpt value="presencial">Presencial</SelectOpt>
-                <SelectOpt value="videollamada">Videollamada</SelectOpt>
-              </Select>
-            </InputContainer>
-          </Form>
-        </FormContainer>
+    <div className="paddingLeftContainer">
+      <header className="header">
+        <span data-aos="zoom-in" className="headerTitle">
+          Creación de Integrantes
+        </span>
+      </header>
+      <div className="flex min-h-[80%] w-full items-center justify-center  border-t-[3px] border-principal">
+        <form className="mx-10 flex flex-[0.5] flex-col items-center justify-center">
+          <div data-aos="fade-right" className="inputContainer flex-col">
+            <label className="basicLabel">*Nombre y Apellido</label>
+            <input
+              className="formBigInput"
+              disabled={currentActa.estado !== "en creacion"}
+              type="text"
+              name="nombreYApellido"
+              value={integrante.nombreYApellido}
+              placeholder="Nombre y Apellido"
+              onChange={(e) =>
+                setIntegrante({ ...integrante, nombreYApellido: e.target.value })
+              }
+            />
+          </div>
+          <div data-aos="fade-left" className="inputContainer flex-col">
+            <label className="basicLabel">*Legajo, matricula o DNI</label>
+            <input
+              className="formBigInput"
+              disabled={currentActa.estado !== "en creacion"}
+              type="text"
+              name="legajoOMatricula"
+              value={integrante.legajoOMatricula}
+              placeholder="Legajo, matricula o DNI"
+              onChange={(e) =>
+                setIntegrante({ ...integrante, legajoOMatricula: e.target.value })
+              }
+            />
+          </div>
+          <div data-aos="fade-right" className="inputContainer flex-col">
+            <label className="basicLabel">*Cargo</label>
+            <input
+              className="formBigInput"
+              disabled={currentActa.estado !== "en creacion"}
+              type="text"
+              name="cargo"
+              value={integrante.cargo}
+              placeholder="Cargo"
+              onChange={(e) => setIntegrante({ ...integrante, cargo: e.target.value })}
+            />
+          </div>
+          <div data-aos="fade-left" className="inputContainer flex-col">
+            <label className="basicLabel">*Locacion</label>
+            <select
+              className="formBigSelect"
+              value={integrante.locacion}
+              onChange={(e) => setIntegrante({ ...integrante, locacion: e.target.value })}
+              disabled={currentActa.estado !== "en creacion"}
+            >
+              <option value="">Locacion</option>
+              <option value="presencial">Presencial</option>
+              <option value="videollamada">Videollamada</option>
+            </select>
+          </div>
+        </form>
+        <div className="flex-[0.2]"></div>
 
-        <IntegrantesContainer>
+        <div className="mx-10 flex h-full flex-[0.7] flex-col items-center justify-center overflow-y-scroll">
           {integrantes &&
             integrantes.map((i, index) => {
               return (
-                <IntegranteContainer key={index}>
-                  <Info>
-                    <CardTitle>Nombre y Apellido</CardTitle>
+                <div
+                  data-aos="zoom-in"
+                  className="group mb-4 flex h-20 w-full items-center justify-around rounded-md border-2 border-principal px-4 shadow-md"
+                  key={index}
+                >
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle text-md">Nombre y Apellido</span>
                     <br />
-                    {i.nombreYApellido}
-                  </Info>
-
-                  <Info>
-                    <CardTitle>Legajo o Matricula</CardTitle>
+                    <span className="text-xs">{i.nombreYApellido}</span>
+                  </div>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle text-md">Cargo</span>
                     <br />
-                    {i.legajoOMatricula}
-                  </Info>
-                  <Info>
-                    <CardTitle>Cargo</CardTitle>
+                    <span className="text-xs">{i.cargo}</span>
+                  </div>
+                  <div className="cardInfoContainer">
+                    <span className="cardTitle text-md">Locacion</span>
                     <br />
-                    {i.cargo}
-                  </Info>
-                  <Info>
-                    <CardTitle>Locacion</CardTitle>
-                    <br />
-                    {i.locacion}
-                  </Info>
-                  <RemoveIcon onClick={() => handleRemove(i.legajoOMatricula)} />
-                </IntegranteContainer>
+                    <span className="text-xs">{i.locacion}</span>
+                  </div>
+                  <PersonRemove
+                    className="w-[25px] text-error transition hover:cursor-pointer hover:text-secondary group-hover:animate-pulse"
+                    onClick={() =>
+                      currentActa.estado !== "en creacion"
+                        ? toast.error("¡No se puede eliminar un Integrante ya creado!")
+                        : handleRemove(i.legajoOMatricula, i?.id)
+                    }
+                  />
+                </div>
               );
             })}
-        </IntegrantesContainer>
-      </SubContainer>
-      <ButtonContainer>
-        <Button onClick={() => navigate(-1)} complete={"true"} to="#">
+        </div>
+      </div>
+      <div className="flex w-[50%] items-center justify-around">
+        <NavLink
+          className="basicBtnNoPadding px-10 py-2"
+          onClick={() => navigate(-1)}
+          to="#"
+        >
           Volver
-        </Button>
+        </NavLink>
         {currentActa.estado === "en creacion" && currentIntegrantes.length <= 0 ? (
           <>
-            {integrante.nombreYApellido && integrante.legajoOMatricula && integrante.cargo && integrante.locacion ? (
-              <Button onClick={() => handleClick()} complete={handleComplete()}>
-                <AddIcon />
-                Agregar Integrante
-              </Button>
+            {integrante.nombreYApellido &&
+            integrante.legajoOMatricula &&
+            integrante.cargo &&
+            integrante.locacion ? (
+              <NavLink
+                className={`navLinkButtonPages group pointer-events-none border-2 border-error px-10 py-2 ${
+                  handleComplete() && "pointer-events-auto animate-bounce border-success"
+                }`}
+                onClick={() => handleAddIntegrante()}
+                to="#"
+              >
+                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                Agregar a {integrante.nombreYApellido.split(" ")[0]}
+              </NavLink>
             ) : (
-              <Button complete={"true"} onClick={() => handleNext()} to="#">
+              <NavLink
+                className={"basicBtnNoPadding px-10 py-2"}
+                onClick={() => handleSubmitIntegrantes()}
+                to="/actas/crear/4"
+              >
                 Siguente
-              </Button>
+              </NavLink>
             )}
           </>
         ) : (
-          <Button to={"/actas/crear/4"} complete={"true"}>
-            Continuar
-          </Button>
+          <>
+            {integrante.nombreYApellido &&
+              integrante.legajoOMatricula &&
+              integrante.cargo &&
+              integrante.locacion && (
+                <NavLink
+                  className={`navLinkButtonPages group pointer-events-none border-2 border-error px-10 py-2 ${
+                    handleComplete() &&
+                    "pointer-events-auto animate-bounce border-success"
+                  }`}
+                  onClick={() => handleAddIntegrante()}
+                  to="#"
+                >
+                  <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                  Agregar a {integrante.nombreYApellido.split(" ")[0]}
+                </NavLink>
+              )}
+
+            {integrantes.length > currentIntegrantes.length ? (
+              <NavLink
+                className={"basicBtnNoPadding px-10 py-2"}
+                onClick={() => handleSubmitIntegrantes()}
+                to="/actas/crear/4"
+              >
+                Siguente
+              </NavLink>
+            ) : (
+              <NavLink className="basicBtnNoPadding px-10 py-2" to={"/actas/crear/4"}>
+                Continuar
+              </NavLink>
+            )}
+          </>
         )}
-      </ButtonContainer>
-    </Container>
+      </div>
+    </div>
   );
 }
 
 export default AddIntegrantes;
-
-const Container = styled.div`
-  ${enProcesoContainer}
-  padding-bottom: 10px;
-`;
-
-const Header = styled.header`
-  ${header}
-`;
-
-const Title = styled.h1`
-  ${headerTitle}
-`;
-
-const AddButton = styled.button`
-  ${button}
-  font-size: small;
-  padding: 10px;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
-`;
-
-const Button = styled(NavLink)`
-  ${button}
-  text-decoration: none;
-  background: white;
-  border: 2px solid ${redColor};
-  pointer-events: none;
-
-  ${(props) =>
-    props.complete === "true" &&
-    css`
-      pointer-events: all;
-      border: 2px solid ${greenColor};
-    `}
-`;
-
-const FormContainer = styled.div`
-  ${formContainer};
-  flex: 1;
-  border: none;
-  min-height: 100%;
-`;
-
-const InputContainer = styled.div`
-  ${inputContainer}
-  width: 100%;
-`;
-
-const Label = styled.label`
-  ${inputLabel}
-`;
-const Form = styled.form`
-  ${form}
-`;
-
-const Input = styled.input`
-  ${input}
-`;
-
-const Select = styled.select`
-  ${select}
-`;
-
-const SelectOpt = styled.option`
-  ${selectOpt}
-`;
-
-const AddIcon = styled(PersonAdd)`
-  width: 20px;
-  color: ${secondaryColor};
-  transition: all 0.5s ease;
-  margin-right: 10px;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;
-
-const RemoveIcon = styled(PersonRemove)`
-  width: 20px;
-  color: ${redColor};
-  transition: all 0.5s ease;
-  margin-right: 20px;
-
-  &:hover {
-    color: black;
-    cursor: pointer;
-  }
-`;
-
-const SubContainer = styled.div`
-  height: 70%;
-  width: 100%;
-  display: flex;
-  border-top: 2px solid ${principalColor};
-`;
-
-const IntegrantesContainer = styled.div`
-  flex: 1.2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  overflow-y: scroll;
-  padding-inline: 2%;
-  padding-top: 6%;
-`;
-
-const IntegranteContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  height: 12%;
-  min-height: 12%;
-  border: 2px solid ${principalColor};
-  border-radius: 10px;
-  margin-block: 5px;
-`;
-
-const Info = styled.span`
-  ${cardInfo}
-  font-size: small;
-`;
-
-const CardTitle = styled.strong`
-  ${cardTitle}
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  width: 50%;
-  align-items: center;
-  justify-content: space-around;
-`;
