@@ -313,7 +313,7 @@ function AddBolsas() {
                   </div>
                 </div>
                 {bolsaIdShowEfectos === bolsa.id && (
-                  <div className="flex h-full w-full flex-col items-center justify-start" data-aos="zoom-in">
+                  <div className="flex h-full w-full flex-col items-center justify-start">
                     {bolsa.Efectos &&
                       bolsa.Efectos.map((efecto) => (
                         <CreateEfectosCards

@@ -1,4 +1,4 @@
-export const serverUrl = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "http://backend:3001";
+export const serverUrl = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "http://10.190.12.72:3001";
 export const modal40x40 = {
   content: {
     top: "50%",
