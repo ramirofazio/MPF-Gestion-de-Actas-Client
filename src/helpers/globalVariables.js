@@ -1,7 +1,4 @@
-export const serverUrl = "http://backend:3001";
-//!
-//! OJO ACA EL URL. HAY QUE VER COMO PEGARLE AL LOCALHOST EN DESARROLLO Y AL IP DEL SERVER EN PROD
-//!
+export const serverUrl = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "http://backend:3001";
 export const modal40x40 = {
   content: {
     top: "50%",
