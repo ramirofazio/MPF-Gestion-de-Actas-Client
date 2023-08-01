@@ -27,8 +27,8 @@ function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, renderA
       </header>
       <div data-aos="zoom-in" className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {discos.map((d) => (
-          <div className={`flex h-14 w-full items-center justify-center rounded-md border-2 border-white bg-white`}>
-            {d.tipoDeDisco === "Disco Rigido" ? (
+          <div className={`my-2 flex h-14  w-full items-center justify-center rounded-md border-2 border-white bg-white`}>
+            {d.tipoDeDisco === "Disco Rígido" ? (
               <DeviceHddFill className="ml-4 w-6 text-secondary" />
             ) : (
               <DeviceSsdFill className="ml-4 w-6 text-secondary" />
@@ -53,7 +53,7 @@ function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, renderA
               <br />
               {d.adquisicion}
             </div>
-            <DocumentEdit className="icons mr-4" onClick={() => handleEditDisco(d)} />
+            <DocumentEdit className="icons mr-4 w-6" onClick={() => handleEditDisco(d)} />
           </div>
         ))}
         {discos.length === 0 && (

@@ -27,8 +27,8 @@ function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
           >
             <option value="">Tipo de Extracción</option>
             <option value="ninguna">Ninguna</option>
-            <option value="fisica">Fisica</option>
-            <option value="lógica ">Logica</option>
+            <option value="física">Física</option>
+            <option value="lógica">Lógica</option>
             <option value="sistema de archivos">Sitema de Archivos</option>
             <option value="lógica  avanzada">Logica Avanzada</option>
           </select>

@@ -331,8 +331,8 @@ function AddEfectos({ alternModal, selectedBag }) {
               value={efecto.tipoDeDisco}
               onChange={(e) => setEfecto({ ...efecto, tipoDeDisco: e.target.value })}
             >
-              <option value="">Rigido / Solido</option>
-              <option value="Disco Rigido">Disco Rigido</option>
+              <option value="">Rígido / Solido</option>
+              <option value="Disco Rígido">Disco Rígido</option>
               <option value="Disco Solido">Disco Solido</option>
               <option value="Disco Solido en Formato M.2">Disco Solido M.2</option>
               <option value="Disco Solido en Formato NVMe">Disco Solido NVMe</option>
@@ -626,6 +626,7 @@ function AddEfectos({ alternModal, selectedBag }) {
               <option value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</option>
               <option value="TABLEAU TD3">TABLEAU TD3</option>
               <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">TABLEAU FORENSIC BRIDGE (bloqueador de escritura)</option>
+              <option value="FTK-Imager">FTK-Imager</option>
             </select>
           </div>
         )}
@@ -660,8 +661,8 @@ function AddEfectos({ alternModal, selectedBag }) {
               >
                 <option value="">Tipo de Extracción</option>
                 <option value="ninguna">Ninguna</option>
-                <option value="fisica">Fisica</option>
-                <option value="lógica ">Logica</option>
+                <option value="física">Física</option>
+                <option value="lógica">Lógica</option>
                 <option value="sistema de archivos">Sitema de Archivos</option>
                 <option value="lógica  avanzada">Logica Avanzada</option>
               </select>

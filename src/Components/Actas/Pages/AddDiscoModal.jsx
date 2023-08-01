@@ -24,13 +24,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
 
   const handleDiscoSubmit = (e) => {
     e.preventDefault();
-    if (
-      disco.tipoDeDisco &&
-      disco.marca &&
-      disco.almacenamiento &&
-      disco.discoFallado &&
-      disco.estadoDisco
-    ) {
+    if (disco.tipoDeDisco && disco.marca && disco.almacenamiento && disco.discoFallado && disco.estadoDisco) {
       setAddDiscoModal(false);
       setDiscos([...discos, disco]);
       setDisco({
@@ -60,11 +54,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
       <header className="modalHeader">
         <span data-aos="fade-down">{disco.edit ? "Editar" : "Agregar"} Disco</span>
       </header>
-      <form
-        data-aos="zoom-in"
-        className="flex w-full flex-col justify-center p-5 pt-0"
-        onSubmit={handleDiscoSubmit}
-      >
+      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleDiscoSubmit}>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">*Tipo de Disco</label>
           <select
@@ -110,9 +100,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
             name="serialNumber"
             value={disco.serialNumber}
             placeholder="Serial Nº"
-            onChange={(e) =>
-              setDisco({ ...disco, serialNumber: e.target.value.toUpperCase() })
-            }
+            onChange={(e) => setDisco({ ...disco, serialNumber: e.target.value.toUpperCase() })}
           />
         </div>
         <div className="modalInputContainer">
@@ -123,9 +111,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
             name="almacenamiento"
             value={disco.almacenamiento}
             placeholder="500 GB / 1 TB"
-            onChange={(e) =>
-              setDisco({ ...disco, almacenamiento: e.target.value.toUpperCase() })
-            }
+            onChange={(e) => setDisco({ ...disco, almacenamiento: e.target.value.toUpperCase() })}
           />
         </div>
 
@@ -145,9 +131,7 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
             <option value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</option>
             <option value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</option>
             <option value="TABLEAU TD3">TABLEAU TD3</option>
-            <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">
-              TABLEAU FORENSIC BRIDGE (bloqueador de escritura)
-            </option>
+            <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">TABLEAU FORENSIC BRIDGE (bloqueador de escritura)</option>
           </select>
         </div>
 
@@ -173,25 +157,8 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
               name="observacionFalla"
               value={disco.observacionFallaDisco}
               placeholder="¿Por que Falla?"
-              onChange={(e) =>
-                setDisco({ ...disco, observacionFallaDisco: e.target.value })
-              }
+              onChange={(e) => setDisco({ ...disco, observacionFallaDisco: e.target.value })}
             />
-          </div>
-        )}
-
-        {disco.herramientaSoftDisco !== "" && disco.discoFallado === "no" && (
-          <div className="modalInputContainer">
-            <label className="basicLabel !text-white">Adquisición</label>
-            <select
-              className="formModalSelect"
-              value={disco.adquisicion}
-              onChange={(e) => setDisco({ ...disco, adquisicion: e.target.value })}
-            >
-              <option value="">Con Exito / Fallo</option>
-              <option value="con exito">Con Exito</option>
-              <option value="fallo">Fallo</option>
-            </select>
           </div>
         )}
         <div className="modalInputContainer">
@@ -206,6 +173,21 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
             <option value="en proceso">En Proceso</option>
           </select>
         </div>
+
+        {disco.herramientaSoftDisco !== "" && disco.discoFallado === "no" && disco.estadoDisco === "completo" && (
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Adquisición</label>
+            <select
+              className="formModalSelect"
+              value={disco.adquisicion}
+              onChange={(e) => setDisco({ ...disco, adquisicion: e.target.value })}
+            >
+              <option value="">Con Exito / Fallo</option>
+              <option value="con exito">Con Exito</option>
+              <option value="fallo">Fallo</option>
+            </select>
+          </div>
+        )}
         <div className="mt-2 flex w-full items-center justify-around">
           <input className="submitBtn" type="submit" value="Guardar" />
         </div>

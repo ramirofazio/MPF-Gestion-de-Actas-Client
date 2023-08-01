@@ -6,7 +6,7 @@ function CloseBagsInProcess({ closeModal, dispatch, selectedBag, updateBolsa, ac
   const [state, setstate] = React.useState({
     id: Number(selectedBag.id),
     leyenda:
-      "Finalizadas las tareas técnicas pertinentes, los elementos quedan en resguardo dentro del laboratorio de informatica forense con control de acceso biometrico, puertas cerradas y videos con camara de seguridad las 24 horas, para continuar con las tareas la jornada siguente.",
+      "Finalizadas las tareas técnicas pertinentes, los elementos quedan en resguardo dentro del laboratorio de informática forense con control de acceso biométrico, puertas cerradas y videos con cámara de seguridad las 24 horas, para continuar con las tareas la jornada siguiente.",
   });
 
   const handleInProcessSubmit = (e) => {

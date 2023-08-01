@@ -39,11 +39,7 @@ function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
       <header className="modalHeader">
         <span data-aos="fade-down">{sim.edit ? "Editar Sim" : "Agregar SIM"}</span>
       </header>
-      <form
-        data-aos="zoom-in"
-        className="flex w-full flex-col justify-center p-5 pt-0"
-        onSubmit={handleSimSubmit}
-      >
+      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSimSubmit}>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">Empresa Sim</label>
           <input
@@ -74,8 +70,9 @@ function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
             onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}
           >
             <option value="">Tipo de Extracción</option>
+            <option value="en proceso">En Proceso</option>
             <option value="ninguna">Ninguna</option>
-            <option value="fisica">Fisica</option>
+            <option value="física">Física</option>
             <option value="lógica ">Logica</option>
             <option value="sistema de archivos">Sitema de Archivos</option>
             <option value="lógica  avanzada">Logica Avanzada</option>
