@@ -1,4 +1,19 @@
-export const serverUrl = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "http://10.190.12.161:3001";
+const getUrl = () => {
+  const staging = process.env.REACT_APP_ENV || false;
+  const nodeEnv = process.env.NODE_ENV;
+
+  if (staging) {
+    return "http://10.190.12.161:3001";
+  } else if (nodeEnv === "production") {
+    return "http://10.190.15.142:3001";
+  } else {
+    return "http://localhost:3001";
+  }
+};
+
+export const serverUrl = getUrl();
+
+console.log(getUrl());
 
 export const modal40x40 = {
   content: {
