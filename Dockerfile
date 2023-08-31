@@ -19,5 +19,8 @@ COPY --from=builder /app/build /usr/share/nginx/html
 # Configurar Nginx para que sirva los archivos estáticos
 EXPOSE 80
 
+# Copiar la configuración personalizada de Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Comando para iniciar el servidor web de Nginx
 CMD ["nginx", "-g", "daemon off;"]
