@@ -48,8 +48,11 @@ function AddBolsas() {
   };
 
   const handleCloseProcessActa = () => {
-    setLoading(true);
-    dispatch(closeProcessActa(currentActa.id, navigate)); //* Mando el ID para que el backend haga toda la logica
+    const res = confirm("¿Estas seguro que quieres completar el acta?");
+    if (res) {
+      setLoading(true);
+      dispatch(closeProcessActa(currentActa.id, navigate)); //* Mando el ID para que el backend haga toda la logica
+    }
   };
 
   const handleCloseBags = () => {

@@ -25,6 +25,7 @@ function NavBar({ setFlag }) {
   return (
     <div className="fixed flex h-full w-[20%] items-center justify-center  bg-principal">
       <div className="flex h-full w-full flex-col items-center justify-start px-2 pt-10">
+        {process.env.REACT_APP_ENV && <p className="text-white underline">STAGING</p>}
         <img data-aos="fade-right" className="mb-10 w-[60%]" src={logo} alt="logo" />
         <Link data-aos="fade-right" className="navButton" to="/">
           Volver a Inicio
