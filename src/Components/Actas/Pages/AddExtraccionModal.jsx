@@ -25,12 +25,14 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
       setTiposDeExtraccion(localExtraccion.TipoExtraccions);
       return {
         ...localExtraccion,
+        herramientaSoftVersion: "V0.00",
         tipoExtraccions: tiposDeExtraccion,
       };
     } else {
       // Establecer la extracción actual con valores iniciales si no hay valor en localStorage
       return {
         herramientaSoft: "",
+        herramientaSoftVersion: "V0.00",
         tipoExtraccions: tiposDeExtraccion,
       };
     }
@@ -54,9 +56,13 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
     // Verificar que se haya seleccionado una herramienta y se hayan agregado tipos de extracción
     if (extraccion.herramientaSoft && extraccion.TipoExtraccions.length > 0) {
       setAddExtraccionModal(false);
-      setExtracciones([...extracciones, extraccion]);
+      setExtracciones([
+        ...extracciones,
+        { ...extraccion, herramientaSoft: extraccion.herramientaSoft + " " + extraccion.herramientaSoftVersion },
+      ]);
       setExtraccion({
         herramientaSoft: "",
+        herramientaSoftVersion: "V0.00",
         tipoExtraccions: tiposDeExtraccion,
       });
       if (extraccion.edit) {
@@ -117,21 +123,31 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
             className="formModalSelect"
             value={extraccion.herramientaSoft}
             onChange={(e) => {
-              console.log(e.target.value);
               setExtraccion({ ...extraccion, herramientaSoft: e.target.value });
             }}
           >
             <option value="">Seleccione Herramienta</option>
-            <option value="Cellebrite, UFED 4PC V7.60">UFED 4PC</option>
-            <option value="Cellebrite, UFED PREMIUM V7.60.702">UFED PREMIUM</option>
-            <option value="Magnet, AXIOM V6.10.0">AXIOM</option>
-            <option value="Opentext, ENCASE V8.11">ENCASE</option>
+            <option value="Cellebrite, UFED 4PC">UFED 4PC</option>
+            <option value="Cellebrite, UFED PREMIUM">UFED PREMIUM</option>
+            <option value="Magnet, AXIOM">AXIOM</option>
+            <option value="Opentext, ENCASE">ENCASE</option>
             <option value="Grayshift, GREYKEY">GREYKEY</option>
-            <option value="Magnet, DVR EXAMINER V3.50">DVR EXAMINER</option>
-            <option value="TABLEAU TX1 V 22.3.0.3">TABLEAU TX1 V 22.3.0.3</option>
+            <option value="Magnet, DVR EXAMINER">DVR EXAMINER</option>
+            <option value="TABLEAU TX1">TABLEAU TX1</option>
             <option value="TABLEAU TD3">TABLEAU TD3</option>
             <option value="TABLEAU FORENSIC BRIDGE (bloqueador de escritura)">TABLEAU FORENSIC BRIDGE (bloqueador de escritura)</option>
           </select>
+        </div>
+        <div className="modalInputContainer">
+          <label className="basicLabel !text-white">Versión</label>
+          <input
+            type="text"
+            className="formModalInput"
+            value={extraccion.herramientaSoftVersion}
+            onChange={(e) => {
+              setExtraccion({ ...extraccion, herramientaSoftVersion: e.target.value });
+            }}
+          />
         </div>
         {/* Lista de tipos de extracción */}
         <div className="flex w-full flex-1 flex-col items-center">
@@ -195,7 +211,10 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
         {/* Componente para agregar tipo de extracción */}
-        <AddTipoExtraccionModal nombre={extraccion.herramientaSoft} handleTipoExtraccionSubmit={handleTipoExtraccionSubmit} />
+        <AddTipoExtraccionModal
+          nombre={extraccion.herramientaSoft + " " + extraccion.herramientaSoftVersion}
+          handleTipoExtraccionSubmit={handleTipoExtraccionSubmit}
+        />
       </Modal>
     </>
   );
