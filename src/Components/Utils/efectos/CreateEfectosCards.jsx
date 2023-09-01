@@ -238,9 +238,24 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
       )}
 
       <div className="cardInfoContainer" style={{ flex: 0.5, marginRight: "10px" }}>
-        {efecto.Sims.length !== 0 && <SimFill size={25} className="text-secondary" />}
-        {efecto.Discos.length !== 0 && <DeviceHdd size={25} className="text-secondary" />}
-        {efecto.Sds.length !== 0 && <SdCardMini size={25} className="text-secondary" />}
+        {efecto.Sims.length !== 0 && (
+          <SimFill
+            size={25}
+            className={`${efecto.Sims.some((s) => s.tipoExtraccionSim === "en proceso") ? "text-process" : "text-secondary"}`}
+          />
+        )}
+        {efecto.Discos.length !== 0 && (
+          <DeviceHdd
+            size={25}
+            className={`${efecto.Discos.some((s) => s.tipoExtraccionDisco === "en proceso") ? "text-process" : "text-secondary"}`}
+          />
+        )}
+        {efecto.Sds.length !== 0 && (
+          <SdCardMini
+            size={25}
+            className={`${efecto.Sds.some((s) => s.tipoExtraccionSd === "en proceso") ? "text-process" : "text-secondary"}`}
+          />
+        )}
       </div>
       {(estadoActa === "en creacion" || estadoActa === "en proceso") && estadoBolsa !== "abierta en proceso con elementos completos" && (
         <DocumentEdit
