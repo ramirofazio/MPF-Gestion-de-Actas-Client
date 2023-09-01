@@ -13,8 +13,6 @@ function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccionModal, 
 
   const [thisExtracciones, setThisExtracciones] = React.useState([...extracciones]);
 
-  console.log(extracciones);
-
   const handleAddAnotherExtraccion = (e) => {
     e.preventDefault();
     setEditExtraccionesModal(false);
@@ -42,8 +40,8 @@ function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccionModal, 
         <span data-aos="fade-down">Agregar o Editar Extracciones</span>
       </header>
       <div data-aos="zoom-in" className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
-        {thisExtracciones.map((e) => (
-          <div className={`mb-4 flex h-14 w-full items-center rounded-md border-2 border-white bg-white`}>
+        {thisExtracciones.map((e, index) => (
+          <div className={`mb-4 flex h-14 w-full items-center rounded-md border-2 border-white bg-white`} key={index}>
             <div className="cardInfoContainer">
               <span className="cardTitle">Herramienta</span>
               <br />

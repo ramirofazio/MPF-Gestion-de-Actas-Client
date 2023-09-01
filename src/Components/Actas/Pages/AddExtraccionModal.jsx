@@ -22,7 +22,7 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
   const [extraccion, setExtraccion] = React.useState(() => {
     // Establecer los tipos de extracción y la extracción actual a partir del valor en localStorage
     if (localExtraccion) {
-      setTiposDeExtraccion(localExtraccion.tipoExtraccions);
+      setTiposDeExtraccion(localExtraccion.TipoExtraccions);
       return {
         ...localExtraccion,
         tipoExtraccions: tiposDeExtraccion,
@@ -45,14 +45,14 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
 
   // Efecto secundario para actualizar la extracción actual cuando cambian los tipos de extracción
   React.useEffect(() => {
-    setExtraccion({ ...extraccion, tipoExtraccions: tiposDeExtraccion });
+    setExtraccion({ ...extraccion, TipoExtraccions: tiposDeExtraccion });
   }, [tiposDeExtraccion]);
 
   // Manejador de envío de la extracción
   const handleExtraccionSubmit = (e) => {
     e.preventDefault();
     // Verificar que se haya seleccionado una herramienta y se hayan agregado tipos de extracción
-    if (extraccion.herramientaSoft && extraccion.tipoExtraccions.length > 0) {
+    if (extraccion.herramientaSoft && extraccion.TipoExtraccions.length > 0) {
       setAddExtraccionModal(false);
       setExtracciones([...extracciones, extraccion]);
       setExtraccion({
@@ -136,35 +136,31 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
         {/* Lista de tipos de extracción */}
         <div className="flex w-full flex-1 flex-col items-center">
           <span className="basicLabel !text-md mb-8 !self-center !text-white">Extracciones</span>
-          {extraccion.tipoExtraccions &&
-            extraccion.tipoExtraccions.map((tEx) => (
-              <div
-                key={tEx.fakeId || tEx.id}
-                className="mb-3 flex h-16 w-full items-center justify-around rounded-md bg-base p-2 text-black"
-              >
-                {/* Información del tipo de extracción */}
-                <div className="cardInfoContainer">
-                  <span className="cardTitle">Tipo</span>
-                  <br />
-                  {tEx.nombre}
-                </div>
-                <div className="cardInfoContainer">
-                  <span className="cardTitle">Estado</span>
-                  <br />
-                  {tEx.estado}
-                </div>
-                {/* Mostrar observación si el estado es "fallo" */}
-                {tEx.estado === "fallo" && (
-                  <div className="cardInfoContainer">
-                    <span className="cardTitle">Observacion</span>
-                    <br />
-                    {tEx.observacionFalla}
-                  </div>
-                )}
-                {/* Botón para eliminar el tipo de extracción */}
-                <Delete onClick={() => handleRemoveTipoExtraccion(tEx)} size={20} className="icons" />
+          {tiposDeExtraccion.map((tEx) => (
+            <div key={tEx.fakeId || tEx.id} className="mb-3 flex h-16 w-full items-center justify-around rounded-md bg-base p-2 text-black">
+              {/* Información del tipo de extracción */}
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Tipo</span>
+                <br />
+                {tEx.nombre}
               </div>
-            ))}
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Estado</span>
+                <br />
+                {tEx.estado}
+              </div>
+              {/* Mostrar observación si el estado es "fallo" */}
+              {tEx.estado === "fallo" && (
+                <div className="cardInfoContainer">
+                  <span className="cardTitle">Observacion</span>
+                  <br />
+                  {tEx.observacionFalla}
+                </div>
+              )}
+              {/* Botón para eliminar el tipo de extracción */}
+              <Delete onClick={() => handleRemoveTipoExtraccion(tEx)} size={20} className="icons" />
+            </div>
+          ))}
           {/* Botón para agregar un nuevo tipo de extracción */}
           {extraccion.herramientaSoft && (
             <PlusSquareDotted
@@ -181,7 +177,7 @@ function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionMod
         </div>
         <div className="inputContainer !pb-0 pt-4">
           {/* Botón de guardar */}
-          <input class="submitBtn" value="Guardar" type="submit" />
+          <input className="submitBtn" value="Guardar" type="submit" />
         </div>
       </form>
       {/* Modal para agregar tipo de extracción */}
