@@ -81,6 +81,21 @@ function AddIntegrantes() {
               onChange={(e) => setIntegrante({ ...integrante, nombreYApellido: e.target.value })}
             />
           </div>
+
+          <div data-aos="fade-left" className="inputContainer flex-col">
+            <label className="basicLabel">*Legajo, matricula o DNI</label>
+            <select
+              className="formBigSelect"
+              disabled={currentActa.estado !== "en creacion"}
+              onChange={(e) => setIntegrante({ ...integrante, legajoOMatricula: e.target.value })}
+            >
+              <option>Seleccione una Opción</option>
+              <option value="Legajo NRO° ">Legajo</option>
+              <option value="Matricula NRO° ">Matricula</option>
+              <option value="DNI NRO° ">DNI</option>
+            </select>
+          </div>
+
           <div data-aos="fade-left" className="inputContainer flex-col">
             <label className="basicLabel">*Legajo, matricula o DNI</label>
             <input
