@@ -70,7 +70,7 @@ function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
             onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}
           >
             <option value="">Tipo de Extracción</option>
-            <option value="en proceso">En Proceso</option>
+            <option value="en proceso">Pendiente</option>
             <option value="ninguna">Ninguna</option>
             <option value="física">Física</option>
             <option value="lógica ">Logica</option>
