@@ -42,11 +42,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
       <header className="modalHeader">
         <span data-aos="fade-down">{sd.edit ? "Editar Sd" : "Agregar Sd"}</span>
       </header>
-      <form
-        data-aos="zoom-in"
-        className="flex w-full flex-col justify-center p-5 pt-0"
-        onSubmit={handleSdSubmit}
-      >
+      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSdSubmit}>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">Marca</label>
           <input
@@ -77,9 +73,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
             name="almacenamiento"
             value={sd.almacenamiento}
             placeholder="500 GB / 1 TB"
-            onChange={(e) =>
-              setSd({ ...sd, almacenamiento: e.target.value.toUpperCase() })
-            }
+            onChange={(e) => setSd({ ...sd, almacenamiento: e.target.value.toUpperCase() })}
           />
         </div>
         <div className="modalInputContainer">
@@ -91,6 +85,7 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
           >
             <option value="">Tipo de Extracción</option>
             <option value="ninguna">Ninguna</option>
+            <option value="en proceso">En Proceso</option>
             <option value="fisica">Fisica</option>
             <option value="lógica ">Logica</option>
             <option value="sistema de archivos">Sitema de Archivos</option>
