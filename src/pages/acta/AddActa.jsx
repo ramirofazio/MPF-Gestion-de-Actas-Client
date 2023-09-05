@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
-import { createActa } from "../../../redux/actions";
+import { createActa } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function AddActa() {

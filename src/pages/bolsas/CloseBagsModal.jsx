@@ -4,7 +4,7 @@ import CloseBagsCompleted from "./CloseBagsCompleted";
 import CloseBagsInProcess from "./CloseBagsInProcess";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { updateBolsa } from "../../../redux/actions";
+import { updateBolsa } from "../../redux/actions";
 
 function CloseModal({ closeModal, selectedBag }) {
   const dispatch = useDispatch();

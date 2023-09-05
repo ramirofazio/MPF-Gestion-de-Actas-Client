@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllActas, clearStates, admin } from "../../redux/actions";
+import { getAllActas, clearStates, admin } from "../redux/actions";
 //* Utils
-import ActasCards from "../Utils/actasCards/ActasCards";
+import ActasCards from "../Components/Utils/actasCards/ActasCards";
 
 function Home() {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
-import { createPeritos, removePerito } from "../../../redux/actions";
+import { createPeritos, removePerito } from "../../redux/actions";
 //* Style
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeExtraccion } from "../../../redux/actions";
+import { removeExtraccion } from "../../redux/actions";
 //* Style
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";

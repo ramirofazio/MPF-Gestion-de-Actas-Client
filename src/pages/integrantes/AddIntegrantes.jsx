@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useSelector, useDispatch } from "react-redux";
-import { createIntegrantes, removeIntegrante } from "../../../redux/actions";
+import { createIntegrantes, removeIntegrante } from "../../redux/actions";
 //* Style
 import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";

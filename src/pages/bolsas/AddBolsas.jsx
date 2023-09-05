@@ -2,9 +2,9 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { removeBolsa, closeProcessActa, removeEfecto } from "../../../redux/actions";
+import { removeBolsa, closeProcessActa, removeEfecto } from "../../redux/actions";
 //* Style
-import { modal40x40 } from "../../../helpers/globalVariables";
+import { modal40x40 } from "../../helpers/globalVariables";
 import { toast } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
@@ -13,9 +13,9 @@ import { DocumentTextClock } from "@styled-icons/fluentui-system-regular/Documen
 import Modal from "react-modal";
 //* Components
 import AddEfectos from "./AddEfectos";
-import CreateEfectosCards from "../../Utils/efectos/CreateEfectosCards";
+import CreateEfectosCards from "../../Components/Utils/efectos/CreateEfectosCards";
 import CloseBagsModal from "./CloseBagsModal";
-import getSavedActa from "../../Utils/template/getSavedActa";
+import getSavedActa from "../../Components/Utils/template/getSavedActa";
 import AddBolsasModal from "./AddBolsasModal";
 
 const modal30Width = {

@@ -2,10 +2,10 @@
 import React from "react";
 import AddTipoExtraccionModal from "./AddTipoExtraccionModal";
 import Modal from "react-modal";
-import { modal40x40 } from "../../../helpers/globalVariables";
+import { modal40x40 } from "../../helpers/globalVariables";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
-import { removeTipoExtraccion } from "../../../redux/actions";
+import { removeTipoExtraccion } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 
 // Definición del componente funcional AddExtraccionModal

@@ -1,14 +1,14 @@
 import React from "react";
 //* Redux
-import { createEfecto, EditEfecto } from "../../../redux/actions";
+import { createEfecto, EditEfecto } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 //* Style
-import { modal40x40 } from "../../../helpers/globalVariables";
+import { modal40x40 } from "../../helpers/globalVariables";
 import { toast } from "react-toastify";
 //* Modal
 import Modal from "react-modal";
 //* Components
-import AddDiscoModal from "./AddDiscoModal";
+import AddDiscoModal from "../discos/AddDiscoModal";
 import AddSimModal from "./AddSimModal";
 import AddSdModal from "./AddSdModal";
 import AddExtraccionModal from "./AddExtraccionModal";
