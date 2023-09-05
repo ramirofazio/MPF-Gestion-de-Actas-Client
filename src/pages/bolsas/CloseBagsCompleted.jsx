@@ -2,7 +2,7 @@ import React from "react";
 //* Style
 import { toast } from "react-toastify";
 
-function CloseBagsCompleted({ closeModal, dispatch, selectedBag, updateBolsa, acta_id, actaEstado }) {
+export function CloseBagsCompleted({ closeModal, dispatch, selectedBag, updateBolsa, acta_id, actaEstado }) {
   const [state, setState] = React.useState({
     id: Number(selectedBag.id),
     nroPrecintoBlanco: "",
@@ -79,5 +79,3 @@ function CloseBagsCompleted({ closeModal, dispatch, selectedBag, updateBolsa, ac
     </>
   );
 }
-
-export default CloseBagsCompleted;

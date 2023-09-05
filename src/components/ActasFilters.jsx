@@ -1,11 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getActasFiltered } from "../../../redux/actions";
-//* Styles
+import { getActasFiltered } from "redux/actions";
 import { SettingsBackupRestore } from "@styled-icons/material-rounded/SettingsBackupRestore";
 import { toast } from "react-toastify";
 
-function ActasFilters() {
+export function ActasFilters() {
   const dispatch = useDispatch();
 
   const [filters, setFilters] = React.useState({
@@ -89,5 +88,3 @@ function ActasFilters() {
     </form>
   );
 }
-
-export default ActasFilters;

@@ -1,12 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function NotFound() {
+export function NotFound() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
     navigate("/");
   }, []);
 }
-
-export default NotFound;

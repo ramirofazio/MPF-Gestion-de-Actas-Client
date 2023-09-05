@@ -8,7 +8,7 @@ import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 import { toast } from "react-toastify";
 
-function AddPeritos() {
+export function AddPeritos() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -228,5 +228,3 @@ function AddPeritos() {
     </div>
   );
 }
-
-export default AddPeritos;

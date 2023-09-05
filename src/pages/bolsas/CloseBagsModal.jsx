@@ -1,12 +1,9 @@
 import React from "react";
-//* Components
-import CloseBagsCompleted from "./CloseBagsCompleted";
-import CloseBagsInProcess from "./CloseBagsInProcess";
-//* Redux
+import { CloseBagsCompleted, CloseBagsInProcess } from "pages/index";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBolsa } from "../../redux/actions";
+import { updateBolsa } from "redux/actions";
 
-function CloseModal({ closeModal, selectedBag }) {
+export function CloseBagsModal({ closeModal, selectedBag }) {
   const dispatch = useDispatch();
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
@@ -34,5 +31,3 @@ function CloseModal({ closeModal, selectedBag }) {
     );
   }
 }
-
-export default CloseModal;

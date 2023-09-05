@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-//* Utils
-import ActaCard from "./ActaCard";
-import ActasFilters from "../filters/ActasFilters";
+import { ActasFilters, ActaCard } from "components/index";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 
-function ActasCards({ allActas, typeOfCard }) {
+export function ActasCards({ allActas, typeOfCard }) {
   const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
   let actasToRender = allActas.filter((a) => a.estado !== "deprecada");
 
@@ -43,5 +41,3 @@ function ActasCards({ allActas, typeOfCard }) {
     </>
   );
 }
-
-export default ActasCards;

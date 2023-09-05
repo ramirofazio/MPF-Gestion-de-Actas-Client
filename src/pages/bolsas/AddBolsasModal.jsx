@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { createBolsas } from "../../redux/actions";
 import { toast } from "react-toastify";
 
-const AddBolsasModal = ({ alternModal, acta_id }) => {
+export function AddBolsasModal({ alternModal, acta_id }) {
   const dispatch = useDispatch();
 
   const [bolsa, setBolsa] = React.useState({
@@ -78,6 +78,4 @@ const AddBolsasModal = ({ alternModal, acta_id }) => {
       </form>
     </>
   );
-};
-
-export default AddBolsasModal;
+}

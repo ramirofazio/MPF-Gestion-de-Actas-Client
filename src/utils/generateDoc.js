@@ -5,10 +5,9 @@ import { saveAs } from "file-saver";
 import expressions from "angular-expressions";
 import { assign } from "lodash";
 import { toast } from "react-toastify";
+import template from "assets/template.docx";
 
-import template from "../../../Assets/template.docx";
-
-function generateDoc() {
+export function generateDoc() {
   const currentActa = JSON.parse(localStorage.getItem("finalActa")); //* Nos traemos el acta del local storage
   const actaFlag = localStorage.getItem("actaFlag"); //* Nos traemos la flag del local storage
 
@@ -123,5 +122,3 @@ function generateDoc() {
     saveAs(out, `Acta_${currentActa.nro_mpf || currentActa.nro_coop}.docx`);
   });
 }
-
-export default generateDoc;

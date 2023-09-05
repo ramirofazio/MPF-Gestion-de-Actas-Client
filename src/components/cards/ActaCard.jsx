@@ -1,19 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { removeActa } from "../../../redux/actions";
-//* Styles
+import { removeActa } from "redux/actions";
 import { FileDownload } from "@styled-icons/remix-line/FileDownload";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
 import { Warning } from "@styled-icons/entypo/Warning";
 import { FileEarmarkLock } from "@styled-icons/bootstrap/FileEarmarkLock";
 import { EyeOutline } from "styled-icons/evaicons-outline";
-//* Utils
-import getSavedActa from "../template/getSavedActa";
-import editSavedActa from "../template/editSavedActa";
+import { getSavedActa, editSavedActa } from "utils/index";
 import { useDispatch } from "react-redux";
 
-function ActaCard({ acta, type }) {
+export function ActaCard({ acta, type }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -140,5 +137,3 @@ function ActaCard({ acta, type }) {
     </div>
   );
 }
-
-export default ActaCard;

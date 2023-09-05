@@ -1,9 +1,6 @@
 import axios from "axios";
-//* Utils
-import generateDoc from "../Components/Utils/template/generateDoc";
-import editSavedActa from "../Components/Utils/template/editSavedActa";
+import { serverUrl, generateDoc, editSavedActa } from "utils/index";
 import { toast } from "react-toastify";
-import { serverUrl } from "../helpers/globalVariables";
 import {
   GET_ACTAS,
   GET_ACTAS_FILTERED,

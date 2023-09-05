@@ -4,21 +4,13 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers, setCurrentUser, admin, createUsers } from "./redux/actions";
 //* Components
-import Fallback from "./Components/Utils/Fallback";
-import NavBar from "./Components/Utils/navBar/NavBar";
-import NotFound from "./Components/Utils/NotFound";
+import { Fallback, NavBar, NotFound } from "components/index";
 //* AddActas
-const Home = lazy(() => import("./Components/Actas/Home"));
-const AddActa = lazy(() => import("./Components/Actas/Pages/AddActa"));
-const AddIntegrantes = lazy(() => import("./Components/Actas/Pages/AddIntegrantes"));
-const AddPeritos = lazy(() => import("./Components/Actas/Pages/AddPeritos"));
-const AddBolsas = lazy(() => import("./Components/Actas/Pages/AddBolsas"));
-//* Admin
-const AdmHome = lazy(() => import("./Components/Admin/Home"));
-const ActaRemove = lazy(() => import("./Components/Admin/pages/ActaRemove"));
+const {} = lazy(() => import("pages/index"));
+
 //* Utils
 import { toast } from "react-toastify";
-import logo2 from "./Assets/logo2.png";
+import logo2 from "assets/logo2.png";
 
 function App() {
   const dispatch = useDispatch();

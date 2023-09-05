@@ -12,9 +12,6 @@ const getUrl = () => {
 };
 
 export const serverUrl = getUrl();
-
-console.log(getUrl());
-
 export const modal40x40 = {
   content: {
     top: "50%",
@@ -33,3 +30,7 @@ export const modal40x40 = {
     height: "max-content",
   },
 };
+
+export { editSavedActa } from "./editSavedActa";
+export { generateDoc } from "./generateDoc";
+export { getSavedActa } from "./getSavedActa";

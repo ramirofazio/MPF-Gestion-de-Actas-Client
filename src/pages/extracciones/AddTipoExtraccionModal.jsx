@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
+export function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
   const [tipoDeExtraccion, setTipoDeExtraccion] = React.useState({
     fakeId: Math.random(),
     nombre: "",
@@ -67,5 +67,3 @@ function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
     </>
   );
 }
-
-export default AddTipoExtraccionModal;

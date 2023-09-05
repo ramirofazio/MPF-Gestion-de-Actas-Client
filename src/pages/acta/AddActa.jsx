@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { createActa } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
-function AddActa() {
+export function AddActa() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -13,9 +13,7 @@ function AddActa() {
   const minutos = fecha.getMinutes().toString().padStart(2, "0");
   let mes = new Intl.DateTimeFormat("es-ES", { month: "long" }).format(fecha);
 
-  const currentUser = useSelector(
-    (s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser
-  );
+  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
   const [acta, setActa] = React.useState("");
   const [tipoDeActa, setTipoDeActa] = React.useState("");
@@ -85,12 +83,7 @@ function AddActa() {
       <form className="flex min-h-[80%] w-full flex-col items-center justify-center overflow-y-scroll border-t-[3px] border-principal px-[30%] pt-5">
         <div data-aos="fade-down" className="inputContainer flex-col">
           <label className="basicLabel">*Tipo de Acta</label>
-          <select
-            className="formBigSelect"
-            disabled={comeBack}
-            onChange={(e) => setTipoDeActa(e.target.value)}
-            value={tipoDeActa}
-          >
+          <select className="formBigSelect" disabled={comeBack} onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
             <option>Tipo de Acta</option>
             <option>MPF/DEN</option>
             <option>COOP</option>
@@ -108,9 +101,7 @@ function AddActa() {
               >
                 <option value="">Solicitante</option>
                 <option>Área de Flagrancia Contravencional</option>
-                <option>
-                  Equipo de Análisis de Casos de Comercialización de Estupefacientes
-                </option>
+                <option>Equipo de Análisis de Casos de Comercialización de Estupefacientes</option>
                 <option>Equipo Especializado en Casos de Violencia Institucional</option>
                 <option>Fiscalía de Cámara PCyF Norte</option>
                 <option>Fiscalía de Cámara PCyF Oeste</option>
@@ -177,10 +168,7 @@ function AddActa() {
                 <option>UFEIDE - Equipo de Análisis Preliminar</option>
                 <option>UFEIDE - Equipo de Análisis Preliminar (Investigación)</option>
                 <option>UFEIDE - Investigación</option>
-                <option>
-                  UFEDyCI - Unidad Fiscal Especializada en Delitos y Contravenciones
-                  Informáticas
-                </option>
+                <option>UFEDyCI - Unidad Fiscal Especializada en Delitos y Contravenciones Informáticas</option>
                 <option>UFN - Área de Casos Especiales</option>
                 <option>UFN - Equipo Especializado en Violencia de Género</option>
                 <option>UFN - Unidad Coordinadora</option>
@@ -326,11 +314,7 @@ function AddActa() {
         )}
       </form>
       <div className="flex w-[50%] items-center justify-around">
-        <NavLink
-          className="basicBtnNoPadding px-10 py-2"
-          onClick={() => navigate(-1)}
-          to="#"
-        >
+        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
           Volver
         </NavLink>
         {!comeBack ? (
@@ -344,10 +328,7 @@ function AddActa() {
             Siguente
           </NavLink>
         ) : (
-          <NavLink
-            className="basicBtnNoPadding px-10 py-2"
-            to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"}
-          >
+          <NavLink className="basicBtnNoPadding px-10 py-2" to={currentUser.username === "admin" ? "/actas/crear/2" : "/actas/crear/3"}>
             Continuar
           </NavLink>
         )}
@@ -355,5 +336,3 @@ function AddActa() {
     </div>
   );
 }
-
-export default AddActa;

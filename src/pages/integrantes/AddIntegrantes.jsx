@@ -8,7 +8,7 @@ import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
 import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
 import { toast } from "react-toastify";
 
-function AddIntegrantes() {
+export function AddIntegrantes() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -226,5 +226,3 @@ function AddIntegrantes() {
     </div>
   );
 }
-
-export default AddIntegrantes;

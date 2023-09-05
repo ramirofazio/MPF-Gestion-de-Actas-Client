@@ -2,7 +2,7 @@ import React from "react";
 //* Style
 import { toast } from "react-toastify";
 
-function CloseBagsInProcess({ closeModal, dispatch, selectedBag, updateBolsa, acta_id }) {
+export function CloseBagsInProcess({ closeModal, dispatch, selectedBag, updateBolsa, acta_id }) {
   const [state, setstate] = React.useState({
     id: Number(selectedBag.id),
     leyenda:
@@ -47,5 +47,3 @@ function CloseBagsInProcess({ closeModal, dispatch, selectedBag, updateBolsa, ac
     </>
   );
 }
-
-export default CloseBagsInProcess;

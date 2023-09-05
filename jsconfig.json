@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@pages/*": ["pages/*"],
-      "@components/*": ["components/*"],
-      "@src/*": ["./src*"]
+      "pages/*": ["pages/*"],
+      "components/*": ["components/*"],
+      "redux/*": ["redux/*"],
+      "assets/*": ["assets/*"],
+      "utils/*": ["utils/*"]
     }
-  },
-  "include": ["src"]
+  }
 }

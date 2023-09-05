@@ -5,7 +5,7 @@ import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit
 import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 
-function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, renderAddDiscoModal }) {
+export function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, renderAddDiscoModal }) {
   const handleAddAnotherDisk = (e) => {
     e.preventDefault();
     setEditDiscosModal(false);
@@ -74,5 +74,3 @@ function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, renderA
     </>
   );
 }
-
-export default EditDiscoModal;

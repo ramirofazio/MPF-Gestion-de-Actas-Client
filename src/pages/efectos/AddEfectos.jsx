@@ -1,21 +1,19 @@
 import React from "react";
-//* Redux
-import { createEfecto, EditEfecto } from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-//* Style
-import { modal40x40 } from "../../helpers/globalVariables";
-import { toast } from "react-toastify";
-//* Modal
 import Modal from "react-modal";
-//* Components
-import AddDiscoModal from "../discos/AddDiscoModal";
-import AddSimModal from "./AddSimModal";
-import AddSdModal from "./AddSdModal";
-import AddExtraccionModal from "./AddExtraccionModal";
-import EditDiscoModal from "./EditDiscoModal";
-import EditSimModal from "./EditSimModal";
-import EditSdsModal from "./EditSdModal";
-import EditExtraccionModal from "./EditExtraccionModal";
+import { createEfecto, EditEfecto } from "redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { modal40x40 } from "utils/index";
+import { toast } from "react-toastify";
+import {
+  AddDiscoModal,
+  AddSimModal,
+  AddSdModal,
+  AddExtraccionModal,
+  EditDiscoModal,
+  EditSimModal,
+  EditSdsModal,
+  EditExtraccionModal,
+} from "pages/index";
 
 const modal40x30 = {
   content: {
@@ -26,7 +24,7 @@ const modal40x30 = {
   },
 };
 
-function AddEfectos({ alternModal, selectedBag }) {
+export function AddEfectos({ alternModal, selectedBag }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -858,5 +856,3 @@ function AddEfectos({ alternModal, selectedBag }) {
     </>
   );
 }
-
-export default AddEfectos;

@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
+export function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
   React.useEffect(() => {
     return () => {
       localStorage.setItem("currentDisco", null);
@@ -195,5 +195,3 @@ function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
     </>
   );
 }
-
-export default AddDiscoModal;

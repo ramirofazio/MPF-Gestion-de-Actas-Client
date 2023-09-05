@@ -5,7 +5,7 @@ import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
 
-function EditSdsModal({ setEditSdsModal, setAddSdsModal, sds, renderAddSdModal }) {
+export function EditSdsModal({ setEditSdsModal, setAddSdsModal, sds, renderAddSdModal }) {
   const handleAddAnotherSd = (e) => {
     e.preventDefault();
     setEditSdsModal(false);
@@ -66,5 +66,3 @@ function EditSdsModal({ setEditSdsModal, setAddSdsModal, sds, renderAddSdModal }
     </>
   );
 }
-
-export default EditSdsModal;

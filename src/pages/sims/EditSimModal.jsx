@@ -5,7 +5,7 @@ import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit
 import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 
-function EditSimModal({ setEditSimsModal, setAddSimsModal, sims, renderAddSimModal }) {
+export function EditSimModal({ setEditSimsModal, setAddSimsModal, sims, renderAddSimModal }) {
   const handleAddAnotherSim = (e) => {
     e.preventDefault();
     setEditSimsModal(false);
@@ -66,5 +66,3 @@ function EditSimModal({ setEditSimsModal, setAddSimsModal, sims, renderAddSimMod
     </>
   );
 }
-
-export default EditSimModal;

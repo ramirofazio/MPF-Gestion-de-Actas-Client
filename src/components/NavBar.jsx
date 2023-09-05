@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 //* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { clearStates } from "../../../redux/actions";
+import { clearStates } from "redux/actions";
 //* Styles
 import { toast } from "react-toastify";
-import logo from "../../../Assets/logo.png";
+import logo from "assets/logo.png";
 
-function NavBar({ setFlag }) {
+export function NavBar({ setFlag }) {
   const dispatch = useDispatch();
 
   const adminState = useSelector((s) => s.admin);
@@ -44,5 +44,3 @@ function NavBar({ setFlag }) {
     </div>
   );
 }
-
-export default NavBar;

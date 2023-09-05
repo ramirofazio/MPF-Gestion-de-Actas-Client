@@ -8,7 +8,7 @@ import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
 import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
 import { toast } from "react-toastify";
 
-function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccionModal, extracciones, renderAddExtraccionModal }) {
+export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccionModal, extracciones, renderAddExtraccionModal }) {
   const dispatch = useDispatch();
 
   const [thisExtracciones, setThisExtracciones] = React.useState([...extracciones]);
@@ -74,5 +74,3 @@ function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccionModal, 
     </>
   );
 }
-
-export default EditExtraccionModal;

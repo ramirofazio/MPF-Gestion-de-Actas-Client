@@ -1,22 +1,15 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-//* Redux
 import { useDispatch, useSelector } from "react-redux";
-import { removeBolsa, closeProcessActa, removeEfecto } from "../../redux/actions";
-//* Style
-import { modal40x40 } from "../../helpers/globalVariables";
+import { removeBolsa, closeProcessActa, removeEfecto } from "redux/actions";
 import { toast } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { DocumentTextClock } from "@styled-icons/fluentui-system-regular/DocumentTextClock";
-//* Modal
 import Modal from "react-modal";
-//* Components
-import AddEfectos from "./AddEfectos";
-import CreateEfectosCards from "../../Components/Utils/efectos/CreateEfectosCards";
-import CloseBagsModal from "./CloseBagsModal";
-import getSavedActa from "../../Components/Utils/template/getSavedActa";
-import AddBolsasModal from "./AddBolsasModal";
+import { modal40x40, getSavedActa } from "utils/index";
+import { AddEfectos, CloseBagsModal, AddBolsasModal } from "pages/index";
+import { EfectosCard } from "components/cards";
 
 const modal30Width = {
   content: {
@@ -25,7 +18,7 @@ const modal30Width = {
   },
 };
 
-function AddBolsas() {
+export function AddBolsas() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -319,7 +312,7 @@ function AddBolsas() {
                   <div className="flex h-full w-full flex-col items-center justify-start">
                     {bolsa.Efectos &&
                       bolsa.Efectos.map((efecto) => (
-                        <CreateEfectosCards
+                        <EfectosCard
                           efecto={efecto}
                           currentBolsas={currentBolsas}
                           estadoActa={currentActa.estado}
@@ -416,5 +409,3 @@ function AddBolsas() {
     </div>
   );
 }
-
-export default AddBolsas;

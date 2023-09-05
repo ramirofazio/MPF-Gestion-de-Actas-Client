@@ -1,13 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllActas, clearStates, admin } from "../../redux/actions";
-//* Utils
-import ActasCards from "../../Components/Utils/actasCards/ActasCards";
+import { getAllActas, clearStates, admin } from "redux/actions";
+import { ActasCards } from "components/index";
 
-function ActaRemoev() {
+export function ActaRemove() {
   const dispatch = useDispatch();
 
-  const allActas = useSelector((s) => s.allActas); //* Me traigo todas las actas
+  const allActas = useSelector((s) => s.allActas);
   const adminState = useSelector((s) => s.admin);
 
   React.useEffect(() => {
@@ -38,5 +37,3 @@ function ActaRemoev() {
     </div>
   );
 }
-
-export default ActaRemoev;

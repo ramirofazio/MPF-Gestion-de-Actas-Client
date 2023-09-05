@@ -1,7 +1,7 @@
 import axios from "axios";
-import { serverUrl } from "../../../helpers/globalVariables";
+import { serverUrl } from "./index";
 
-const editSavedActa = async (actaId, navigate, route) => {
+export async function editSavedActa(actaId, navigate, route) {
   localStorage.setItem("currentEfectos", null);
   localStorage.setItem("currentBolsas", null);
 
@@ -36,6 +36,4 @@ const editSavedActa = async (actaId, navigate, route) => {
   } catch (err) {
     console.log(err);
   }
-};
-
-export default editSavedActa;
+}

@@ -1,8 +1,7 @@
 import axios from "axios";
-import { serverUrl } from "../../../helpers/globalVariables";
-import generateDoc from "./generateDoc";
+import { serverUrl, generateDoc } from "./index";
 
-const getSavedActa = async (actaId, navigate) => {
+export async function getSavedActa(actaId, navigate) {
   try {
     const res = await axios.get(serverUrl + `/getActas/${actaId}`);
     if (res) {
@@ -20,6 +19,4 @@ const getSavedActa = async (actaId, navigate) => {
   } catch (err) {
     console.log(err);
   }
-};
-
-export default getSavedActa;
+}

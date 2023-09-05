@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
+export function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
   React.useEffect(() => {
     return () => {
       localStorage.setItem("currentSd", null);
@@ -99,5 +99,3 @@ function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
     </>
   );
 }
-
-export default AddSdModal;

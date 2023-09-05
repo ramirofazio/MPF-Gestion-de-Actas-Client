@@ -38,7 +38,7 @@ const convertirJSONaExcel = (allActas) => {
   XLSX.writeFile(workbook, "Gestion_de_actas_DB.xlsx");
 };
 
-function Home() {
+export function Home() {
   const dispatch = useDispatch();
 
   const allActas = useSelector((s) => s.allActas);
@@ -65,5 +65,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

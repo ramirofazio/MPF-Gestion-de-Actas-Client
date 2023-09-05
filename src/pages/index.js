@@ -1,0 +1,11 @@
+export { Home } from "./Home";
+export { AddActa } from "./acta/AddActa";
+export { Home as AdminHome, ActaRemove } from "./admin/index";
+export { AddBolsas, AddBolsasModal, CloseBagsCompleted, CloseBagsInProcess, CloseBagsModal } from "./bolsas/index";
+export { AddDiscoModal, EditDiscoModal } from "./discos/index";
+export { AddEfectos } from "./efectos/AddEfectos";
+export { AddExtraccionModal, AddTipoExtraccionModal, EditExtraccionModal } from "./extracciones/index";
+export { AddIntegrantes } from "./integrantes/AddIntegrantes";
+export { AddPeritos } from "./peritos/AddPeritos";
+export { AddSdModal, EditSdsModal } from "./sds/index";
+export { AddSimModal, EditSimModal } from "./sims/index";

@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
+export function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
   React.useEffect(() => {
     return () => {
       localStorage.setItem("currentSim", null);
@@ -85,5 +85,3 @@ function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
     </>
   );
 }
-
-export default AddSimModal;

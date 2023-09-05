@@ -11,7 +11,7 @@ import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit
 import { DeviceUnknown } from "@styled-icons/material-outlined/DeviceUnknown";
 import { toast } from "react-toastify";
 
-function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
+export function EfectosCard({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
   const [nroPrecintoBolsa, setNroPrecintoBolsa] = React.useState();
   const [colorPrecintoBolsa, setColorPrecintoBolsa] = React.useState();
   const [estadoBolsa, setestadoBolsa] = React.useState();
@@ -278,5 +278,3 @@ function CreateEfectosCards({ efecto, currentBolsas, handleRemoveEfecto, estadoA
     </div>
   );
 }
-
-export default CreateEfectosCards;
