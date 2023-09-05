@@ -1,16 +1,11 @@
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-//* Redux
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, setCurrentUser, admin, createUsers } from "./redux/actions";
-//* Components
-import { Fallback, NavBar, NotFound } from "components/index";
-//* AddActas
-const {} = lazy(() => import("pages/index"));
-
-//* Utils
 import { toast } from "react-toastify";
 import logo2 from "assets/logo2.png";
+import { getUsers, setCurrentUser, admin, createUsers } from "./redux/actions";
+import { Fallback, NavBar, NotFound } from "components/index";
+import { Home, AddActa, AddPeritos, AddIntegrantes, AddBolsas, ActaRemove, AdminHome } from "pages/index";
 
 function App() {
   const dispatch = useDispatch();
@@ -122,7 +117,7 @@ function App() {
             {/*Admin*/}
             {adminState === true && (
               <>
-                <Route path="/admin" element={<AdmHome />} />
+                <Route path="/admin" element={<AdminHome />} />
                 <Route path="/admin/eliminarActa" element={<ActaRemove />} />
               </>
             )}
