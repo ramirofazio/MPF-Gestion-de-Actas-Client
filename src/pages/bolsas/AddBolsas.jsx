@@ -125,9 +125,8 @@ export function AddBolsas() {
                   title={"estado"}
                   value={bolsa.estado === "cerrada" ? `cerrada con precinto blanco N° ${bolsa.nroPrecintoBlanco}` : bolsa.estado}
                 />
-
                 <div className="cardInfoContainer flex !flex-[0.8] justify-around">
-                  {currentBolsas.length > 0 && currentActa.estado === "en creacion" && (
+                  {bolsa.estado !== "cerrada" && (
                     <Icons.plusDotted
                       data-tooltip-id="my-tooltip"
                       data-tooltip-content="Agregar Elementos a la Bolsa"
@@ -194,15 +193,9 @@ export function AddBolsas() {
         <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
           Volver
         </NavLink>
-        {(currentActa.estado === "en creacion" || currentActa.estado === "para completar") && (
-          <>
-            {currentActa.estado !== "para completar" && (
-              <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => setAddBolsasModal(!addBolsasModal)} to="#">
-                Agregar Bolsa
-              </NavLink>
-            )}
-          </>
-        )}
+        <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => setAddBolsasModal(!addBolsasModal)} to="#">
+          Agregar Bolsa
+        </NavLink>
         {currentActa.estado === "en proceso" && (
           <>
             <NavLink
