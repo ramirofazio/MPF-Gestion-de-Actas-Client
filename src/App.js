@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import logo2 from "./assets/logo2.png";
+import logo2 from "assets/logo2.png";
 import { getUsers, setCurrentUser, admin, createUsers } from "./redux/actions";
 import { Fallback, NavBar, NotFound } from "components/index";
 import { Home, AddActa, AddPeritos, AddIntegrantes, AddBolsas, ActaRemove, AdminHome } from "pages/index";

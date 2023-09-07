@@ -5,7 +5,7 @@
       "pages/*": ["pages/*"],
       "components/*": ["components/*"],
       "redux/*": ["redux/*"],
-      "assets/*": ["assets/*"],
+      "assets/*": ["Assets/*"],
       "utils/*": ["utils/*"]
     }
   }
