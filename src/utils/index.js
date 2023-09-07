@@ -31,6 +31,13 @@ export const modal40x40 = {
   },
 };
 
+export const truncateText = (text, maxLength) => {
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + "...";
+  }
+  return text;
+};
+
 export { editSavedActa } from "./editSavedActa";
 export { generateDoc } from "./generateDoc";
 export { getSavedActa } from "./getSavedActa";
