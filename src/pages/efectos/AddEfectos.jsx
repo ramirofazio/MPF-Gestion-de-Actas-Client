@@ -353,6 +353,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
             >
               <option value="">Seleccione</option>
               <option value="Pendrive">Pendrive</option>
+              <option value="Tarjeta SD">Tarjeta SD</option>
               <option value="DVD">Disco DVD</option>
               <option value="CD">Disco CD</option>
             </select>
