@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { removeExtraccion } from "../../redux/actions";
-//* Style
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
@@ -12,6 +11,8 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
   const dispatch = useDispatch();
 
   const [thisExtracciones, setThisExtracciones] = React.useState([...extracciones]);
+
+  console.log(thisExtracciones);
 
   const handleAddAnotherExtraccion = (e) => {
     e.preventDefault();
