@@ -1,5 +1,5 @@
 const getUrl = () => {
-  const staging = process.env.REACT_APP_ENV || false;
+  const staging = process.env.REACT_APP_ENV;
   const nodeEnv = process.env.NODE_ENV;
 
   if (staging) {
