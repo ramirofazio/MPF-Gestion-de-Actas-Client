@@ -1,15 +1,13 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-//* Styles
+import React from "react";
 import "./index.css";
+import App from "./App";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Flip } from "react-toastify";
-//* Redux
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
 

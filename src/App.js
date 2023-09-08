@@ -1,24 +1,11 @@
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-//* Redux
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, setCurrentUser, admin, createUsers } from "./redux/actions";
-//* Components
-import Fallback from "./Components/Utils/Fallback";
-import NavBar from "./Components/Utils/navBar/NavBar";
-import NotFound from "./Components/Utils/NotFound";
-//* AddActas
-const Home = lazy(() => import("./Components/Actas/Home"));
-const AddActa = lazy(() => import("./Components/Actas/Pages/AddActa"));
-const AddIntegrantes = lazy(() => import("./Components/Actas/Pages/AddIntegrantes"));
-const AddPeritos = lazy(() => import("./Components/Actas/Pages/AddPeritos"));
-const AddBolsas = lazy(() => import("./Components/Actas/Pages/AddBolsas"));
-//* Admin
-const AdmHome = lazy(() => import("./Components/Admin/Home"));
-const ActaRemove = lazy(() => import("./Components/Admin/pages/ActaRemove"));
-//* Utils
 import { toast } from "react-toastify";
-import logo2 from "./Assets/logo2.png";
+import logo2 from "assets/logo2.png";
+import { getUsers, setCurrentUser, admin, createUsers } from "./redux/actions";
+import { Fallback, NavBar, NotFound } from "components/index";
+import { Home, AddActa, AddPeritos, AddIntegrantes, AddBolsas, ActaRemove, AdminHome } from "pages/index";
 
 function App() {
   const dispatch = useDispatch();
@@ -130,7 +117,7 @@ function App() {
             {/*Admin*/}
             {adminState === true && (
               <>
-                <Route path="/admin" element={<AdmHome />} />
+                <Route path="/admin" element={<AdminHome />} />
                 <Route path="/admin/eliminarActa" element={<ActaRemove />} />
               </>
             )}
