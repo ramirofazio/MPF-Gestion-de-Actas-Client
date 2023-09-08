@@ -8,7 +8,7 @@ import Modal from "react-modal";
 import { modal40x40, getSavedActa, truncateText } from "utils/index";
 import { AddEfectos, CloseBagsModal, AddBolsasModal } from "pages/index";
 import { EfectosCard, CardElement } from "components/cards";
-import { Icons } from "Assets/index";
+import { Icons } from "assets/index";
 
 const modal30Width = {
   content: {
