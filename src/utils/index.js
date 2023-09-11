@@ -41,3 +41,4 @@ export const truncateText = (text, maxLength) => {
 export { editSavedActa } from "./editSavedActa";
 export { generateDoc } from "./generateDoc";
 export { getSavedActa } from "./getSavedActa";
+export { validateEfecto } from "./validateEfecto";

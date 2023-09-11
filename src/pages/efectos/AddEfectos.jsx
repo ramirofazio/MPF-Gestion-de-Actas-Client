@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { createEfecto, EditEfecto } from "redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { modal40x40 } from "utils/index";
+import { modal40x40, validateEfecto } from "utils/index";
 import {
   AddDiscoModal,
   AddSimModal,
@@ -97,7 +97,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (handleComplete()) {
+    if (validateEfecto(efecto)) {
       if (efecto.edit) {
         dispatch(EditEfecto(efecto, discos, sims, sds, extracciones, currentActa.id));
       } else {
@@ -109,99 +109,6 @@ export function AddEfectos({ alternModal, selectedBag }) {
     }
   };
 
-  const handleComplete = () => {
-    const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color, empresa, herramientaSoft, descripcionElemento } = efecto;
-
-    switch (tipoDeElemento) {
-      case "no peritable": {
-        if (bolsa_id && descripcionElemento) {
-          return true;
-        }
-        break;
-      }
-      case "sim": {
-        if (bolsa_id && estado && empresa && herramientaSoft) {
-          return true;
-        }
-        break;
-      }
-      case "celular": {
-        if (bolsa_id && estado && encendido && color) {
-          return true;
-        }
-        break;
-      }
-      case "tablet": {
-        if (bolsa_id && estado && encendido && color) {
-          return true;
-        }
-        break;
-      }
-      case "notebook": {
-        if (bolsa_id && color) {
-          return true;
-        }
-        break;
-      }
-      case "gabinete": {
-        if (bolsa_id && color) {
-          return true;
-        }
-        break;
-      }
-      case "unidad de almacenamiento": {
-        if (bolsa_id && estado && color) {
-          return true;
-        }
-        break;
-      }
-      case "dvr": {
-        if (bolsa_id && estado) {
-          return true;
-        }
-        break;
-      }
-      case "disco": {
-        if (bolsa_id && tipoDeDisco && estado) {
-          return true;
-        }
-        break;
-      }
-      default:
-        return false;
-    }
-  };
-
-  const handleOptButtonClick = (e) => {
-    e.preventDefault();
-    switch (e.target.value) {
-      case "sim": {
-        setAddSimsModal(true);
-        break;
-      }
-      case "discos": {
-        setAddDiscosModal(true);
-        break;
-      }
-      case "sd": {
-        setAddSdsModal(true);
-        break;
-      }
-      case "add extraccion": {
-        setAddExtraccionModal(true);
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-  };
-
-  const handleEditDiscoButtonClick = (e) => {
-    e.preventDefault();
-    setEditDiscosModal(true);
-  };
-
   const renderAddDiscoModal = () => {
     return (
       <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
@@ -209,11 +116,6 @@ export function AddEfectos({ alternModal, selectedBag }) {
         <AddDiscoModal discos={discos} setDiscos={setDiscos} setAddDiscoModal={setAddDiscosModal} toast={toast} />
       </Modal>
     );
-  };
-
-  const handleEditSimButtonClick = (e) => {
-    e.preventDefault();
-    setEditSimsModal(true);
   };
 
   const renderAddSimModal = () => {
@@ -225,11 +127,6 @@ export function AddEfectos({ alternModal, selectedBag }) {
     );
   };
 
-  const handleEditSdButtonClick = (e) => {
-    e.preventDefault();
-    setEditSdsModal(true);
-  };
-
   const renderAddSdModal = () => {
     return (
       <Modal isOpen={addSdsModal} style={modal40x30} ariaHideApp={false}>
@@ -237,11 +134,6 @@ export function AddEfectos({ alternModal, selectedBag }) {
         <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdsModal} toast={toast} />
       </Modal>
     );
-  };
-
-  const handleEditExtraccionButtonClick = (e) => {
-    e.preventDefault();
-    setEditExtraccionesModal(true);
   };
 
   const renderAddExtraccionModal = () => {
@@ -486,17 +378,13 @@ export function AddEfectos({ alternModal, selectedBag }) {
             <>
               <button
                 className="submitBtn !px-3"
-                onClick={(e) => (efecto.edit ? handleEditSimButtonClick(e) : handleOptButtonClick(e))}
+                onClick={() => (efecto.edit ? setEditSimsModal(true) : setAddSimsModal(true))}
                 value="sim"
               >
-                {efecto.edit ? "Editar Sim" : "Agregar Sim"}
+                {efecto.edit ? "Editar" : "Agregar"} SIM
               </button>
-              <button
-                className="submitBtn !px-3"
-                onClick={(e) => (efecto.edit ? handleEditSdButtonClick(e) : handleOptButtonClick(e))}
-                value="sd"
-              >
-                {efecto.edit ? "Editar Sd" : "Agregar Sd"}
+              <button className="submitBtn !px-3" onClick={() => (efecto.edit ? setEditSdsModal(true) : setAddSdsModal(true))} value="sd">
+                {efecto.edit ? "Editar" : "Agregar"} SD
               </button>
             </>
           )}
@@ -504,10 +392,10 @@ export function AddEfectos({ alternModal, selectedBag }) {
           {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "gabinete" || efecto.tipoDeElemento === "dvr") && (
             <button
               className="submitBtn !px-3"
-              onClick={(e) => (efecto.edit ? handleEditDiscoButtonClick(e) : handleOptButtonClick(e))}
+              onClick={() => (efecto.edit ? setEditDiscosModal(true) : setAddDiscosModal(true))}
               value="discos"
             >
-              {efecto.edit ? "Editar Discos" : "Agregar Discos"}
+              {efecto.edit ? "Editar" : "Agregar"} Discos
             </button>
           )}
 
@@ -516,10 +404,10 @@ export function AddEfectos({ alternModal, selectedBag }) {
             (efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
               <button
                 className="submitBtn !px-3"
-                onClick={(e) => (efecto.edit ? handleEditExtraccionButtonClick(e) : handleOptButtonClick(e))}
+                onClick={() => (efecto.edit ? setEditExtraccionesModal(true) : setAddExtraccionModal(true))}
                 value="add extraccion"
               >
-                {efecto.edit ? "Editar Extracciones" : "Agregar Extracciones"}
+                {efecto.edit ? "Editar" : "Agregar"} Extracciones
               </button>
             )}
           <input className="submitBtn !px-3" type="submit" value="Guardar" />
