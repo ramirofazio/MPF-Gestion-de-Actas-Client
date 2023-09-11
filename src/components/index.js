@@ -3,4 +3,17 @@ export { Fallback } from "./Fallback";
 export { NotFound } from "./NotFound";
 export { ActasFilters } from "./ActasFilters";
 export { ActaCard, ActasCards, EfectosCard, CardElement } from "./cards";
-export { HerramientasSoft, Input, Select } from "./fields/index";
+export {
+  Input,
+  Select,
+  HerramientasSoft,
+  TipoElemento,
+  TipoDisco,
+  DetalleUnidad,
+  Colors,
+  YesOrNo,
+  TipoSeguridad,
+  TipoExtracciones,
+  SuccessOrFail,
+  States,
+} from "./fields/index";
