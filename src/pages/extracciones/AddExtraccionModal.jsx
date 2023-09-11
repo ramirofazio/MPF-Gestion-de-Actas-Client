@@ -19,7 +19,6 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
   useEffect(() => {
     const localExtraccion = JSON.parse(localStorage.getItem("currentExtraccion"));
     if (localExtraccion) {
-      console.log(localExtraccion);
       setTiposDeExtraccion(localExtraccion.TipoExtraccions);
       setExtraccion({
         herramientaSoft: localExtraccion.herramientaSoft,
@@ -158,7 +157,6 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
           />
         }
       />
-      
     </>
   );
 }

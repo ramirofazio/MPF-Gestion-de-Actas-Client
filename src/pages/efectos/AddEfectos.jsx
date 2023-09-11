@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { createEfecto, EditEfecto } from "redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -32,7 +32,7 @@ import {
 export function AddEfectos({ alternModal, selectedBag }) {
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       localStorage.setItem("currentEfecto", null);
     };
@@ -40,23 +40,23 @@ export function AddEfectos({ alternModal, selectedBag }) {
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s?.currentActa);
 
-  const [addDiscosModal, setAddDiscosModal] = React.useState(false);
-  const [editDiscosModal, setEditDiscosModal] = React.useState(false);
-  const [discos, setDiscos] = React.useState([]);
+  const [addDiscosModal, setAddDiscosModal] = useState(false);
+  const [editDiscosModal, setEditDiscosModal] = useState(false);
+  const [discos, setDiscos] = useState([]);
 
-  const [addSimsModal, setAddSimsModal] = React.useState(false);
-  const [editSimsModal, setEditSimsModal] = React.useState(false);
-  const [sims, setSims] = React.useState([]);
+  const [addSimsModal, setAddSimsModal] = useState(false);
+  const [editSimsModal, setEditSimsModal] = useState(false);
+  const [sims, setSims] = useState([]);
 
-  const [addSdsModal, setAddSdsModal] = React.useState(false);
-  const [editSdsModal, setEditSdsModal] = React.useState(false);
-  const [sds, setSds] = React.useState([]);
+  const [addSdsModal, setAddSdsModal] = useState(false);
+  const [editSdsModal, setEditSdsModal] = useState(false);
+  const [sds, setSds] = useState([]);
 
-  const [addExtraccionesModal, setAddExtraccionModal] = React.useState(false);
-  const [editExtraccionesModal, setEditExtraccionesModal] = React.useState(false);
-  const [extracciones, setExtracciones] = React.useState([]);
+  const [addExtraccionesModal, setAddExtraccionesModal] = useState(false);
+  const [editExtraccionesModal, setEditExtraccionesModal] = useState(false);
+  const [extracciones, setExtracciones] = useState([]);
 
-  const [efecto, setEfecto] = React.useState(
+  const [efecto, setEfecto] = useState(
     JSON.parse(localStorage.getItem("currentEfecto")) || {
       bolsa_id: Number(selectedBag.id),
       tipoDeElemento: "",
@@ -133,12 +133,12 @@ export function AddEfectos({ alternModal, selectedBag }) {
     return (
       <BaseModal
         isOpen={addExtraccionesModal}
-        close={setAddExtraccionModal}
+        close={setAddExtraccionesModal}
         content={
           <AddExtraccionModal
             extracciones={extracciones}
             setExtracciones={setExtracciones}
-            setAddExtraccionModal={setAddExtraccionModal}
+            setAddExtraccionModal={setAddExtraccionesModal}
             toast={toast}
           />
         }
@@ -367,13 +367,19 @@ export function AddEfectos({ alternModal, selectedBag }) {
           {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
             <>
               <button
+                type="button"
                 className="submitBtn !px-3"
                 onClick={() => (efecto.edit ? setEditSimsModal(true) : setAddSimsModal(true))}
                 value="sim"
               >
                 {efecto.edit ? "Editar" : "Agregar"} SIM
               </button>
-              <button className="submitBtn !px-3" onClick={() => (efecto.edit ? setEditSdsModal(true) : setAddSdsModal(true))} value="sd">
+              <button
+                type="button"
+                className="submitBtn !px-3"
+                onClick={() => (efecto.edit ? setEditSdsModal(true) : setAddSdsModal(true))}
+                value="sd"
+              >
                 {efecto.edit ? "Editar" : "Agregar"} SD
               </button>
             </>
@@ -381,6 +387,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
 
           {(efecto.tipoDeElemento === "notebook" || efecto.tipoDeElemento === "gabinete" || efecto.tipoDeElemento === "dvr") && (
             <button
+              type="button"
               className="submitBtn !px-3"
               onClick={() => (efecto.edit ? setEditDiscosModal(true) : setAddDiscosModal(true))}
               value="discos"
@@ -393,8 +400,9 @@ export function AddEfectos({ alternModal, selectedBag }) {
             efecto.tipoDeElemento &&
             (efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
               <button
+                type="button"
                 className="submitBtn !px-3"
-                onClick={() => (efecto.edit ? setEditExtraccionesModal(true) : setAddExtraccionModal(true))}
+                onClick={() => (efecto.edit ? setEditExtraccionesModal(true) : setAddExtraccionesModal(true))}
                 value="add extraccion"
               >
                 {efecto.edit ? "Editar" : "Agregar"} Extracciones
@@ -451,7 +459,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
         content={
           <EditExtraccionModal
             setEditExtraccionesModal={setEditExtraccionesModal}
-            setAddExtraccionModal={setAddExtraccionModal}
+            setAddExtraccionModal={setAddExtraccionesModal}
             extracciones={efecto.Extraccions}
             renderAddExtraccionModal={renderAddExtraccionModal}
           />
