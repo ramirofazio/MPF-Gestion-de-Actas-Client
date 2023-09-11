@@ -2,10 +2,8 @@ import { useState, useEffect } from "react";
 import { removeTipoExtraccion } from "redux/actions";
 import { useDispatch } from "react-redux";
 import { AddTipoExtraccionModal } from "./index";
-import Modal from "react-modal";
-import { modal40x40 } from "utils/index";
 import { Icons as I } from "assets/index";
-import { HerramientasSoft, CardElement, Input, Select } from "components/index";
+import { HerramientasSoft, CardElement, Input, Select, BaseModal } from "components/index";
 
 export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionModal, toast }) {
   const dispatch = useDispatch();
@@ -150,13 +148,17 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
           <input className="submitBtn" value="Guardar" type="submit" />
         </div>
       </form>
-      <Modal isOpen={addTipoExtraccionModal} style={modal40x40} ariaHideApp={false}>
-        <I.close className="closeModalIcon" onClick={() => setAddTipoExtraccionModal(!addTipoExtraccionModal)} />
-        <AddTipoExtraccionModal
-          nombre={extraccion.herramientaSoft + " " + extraccion.herramientaSoftVersion}
-          handleTipoExtraccionSubmit={handleTipoExtraccionSubmit}
-        />
-      </Modal>
+      <BaseModal
+        isOpen={addTipoExtraccionModal}
+        close={setAddTipoExtraccionModal}
+        content={
+          <AddTipoExtraccionModal
+            nombre={extraccion.herramientaSoft + " " + extraccion.herramientaSoftVersion}
+            handleTipoExtraccionSubmit={handleTipoExtraccionSubmit}
+          />
+        }
+      />
+      
     </>
   );
 }

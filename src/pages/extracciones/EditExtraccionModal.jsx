@@ -12,8 +12,6 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
 
   const [thisExtracciones, setThisExtracciones] = React.useState([...extracciones]);
 
-  console.log(thisExtracciones);
-
   const handleAddAnotherExtraccion = (e) => {
     e.preventDefault();
     setEditExtraccionesModal(false);

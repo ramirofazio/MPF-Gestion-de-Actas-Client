@@ -4,18 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeBolsa, closeProcessActa, removeEfecto } from "redux/actions";
 import { toast } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
-import Modal from "react-modal";
-import { modal40x40, getSavedActa, truncateText } from "utils/index";
+import { getSavedActa, truncateText } from "utils/index";
 import { AddEfectos, CloseBagsModal, AddBolsasModal } from "pages/index";
 import { EfectosCard, CardElement } from "components/cards";
 import { Icons } from "assets/index";
-
-const modal30Width = {
-  content: {
-    ...modal40x40.content,
-    width: "35%",
-  },
-};
+import { BaseModal } from "components/modals";
 
 export function AddBolsas() {
   const dispatch = useDispatch();
@@ -77,10 +70,11 @@ export function AddBolsas() {
   };
 
   const renderAddEfectosModal = () => (
-    <Modal isOpen={addEfectosModal} style={modal30Width} ariaHideApp={false}>
-      <Icons.close onClick={() => setAddEfectosModal(!addEfectosModal)} className="closeModalIcon" />
-      <AddEfectos alternModal={() => setAddEfectosModal(!addEfectosModal)} selectedBag={selectedBag} />
-    </Modal>
+    <BaseModal
+      isOpen={addEfectosModal}
+      close={setAddEfectosModal}
+      content={<AddEfectos alternModal={() => setAddEfectosModal(!addEfectosModal)} selectedBag={selectedBag} />}
+    />
   );
 
   return (
@@ -228,7 +222,6 @@ export function AddBolsas() {
             )}
           </>
         )}
-
         {currentActa.estado === "completa" && (
           <>
             <NavLink
@@ -246,14 +239,16 @@ export function AddBolsas() {
         )}
       </div>
       {renderAddEfectosModal()}
-      <Modal isOpen={addBolsasModal} style={modal30Width} ariaHideApp={false}>
-        <Icons.close className="closeModalIcon" onClick={() => setAddBolsasModal(!addBolsasModal)} />
-        <AddBolsasModal alternModal={() => setAddBolsasModal(!addBolsasModal)} acta_id={currentActa.id} />
-      </Modal>
-      <Modal isOpen={closeBagsModal} style={modal40x40} ariaHideApp={false}>
-        <Icons.close className="closeModalIcon" onClick={() => setCloseBagsModal(!closeBagsModal)} />
-        <CloseBagsModal closeModal={() => setCloseBagsModal(!closeBagsModal)} selectedBag={selectedBag} />
-      </Modal>
+      <BaseModal
+        isOpen={addBolsasModal}
+        close={setAddBolsasModal}
+        content={<AddBolsasModal alternModal={() => setAddBolsasModal(!addBolsasModal)} acta_id={currentActa.id} />}
+      />
+      <BaseModal
+        isOpen={closeBagsModal}
+        close={setCloseBagsModal}
+        content={<CloseBagsModal closeModal={() => setCloseBagsModal(!closeBagsModal)} selectedBag={selectedBag} />}
+      />
     </div>
   );
 }

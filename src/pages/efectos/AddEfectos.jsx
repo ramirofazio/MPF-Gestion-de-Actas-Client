@@ -1,9 +1,8 @@
 import React from "react";
-import Modal from "react-modal";
 import { createEfecto, EditEfecto } from "redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { modal40x40, validateEfecto } from "utils/index";
+import { validateEfecto } from "utils/index";
 import {
   AddDiscoModal,
   AddSimModal,
@@ -27,17 +26,8 @@ import {
   TipoExtracciones,
   SuccessOrFail,
   States,
+  BaseModal,
 } from "components/index";
-import { Icons as I } from "assets/index";
-
-const modal40x30 = {
-  content: {
-    ...modal40x40.content,
-    width: "30%",
-    height: "max-content",
-    minHeight: "30%",
-  },
-};
 
 export function AddEfectos({ alternModal, selectedBag }) {
   const dispatch = useDispatch();
@@ -111,48 +101,48 @@ export function AddEfectos({ alternModal, selectedBag }) {
 
   const renderAddDiscoModal = () => {
     return (
-      <Modal isOpen={addDiscosModal} style={modal40x30} ariaHideApp={false}>
-        <I.close className="closeModalIcon" onClick={() => setAddDiscosModal(false)} />
-        <AddDiscoModal discos={discos} setDiscos={setDiscos} setAddDiscoModal={setAddDiscosModal} toast={toast} />
-      </Modal>
+      <BaseModal
+        isOpen={addDiscosModal}
+        close={setAddDiscosModal}
+        content={<AddDiscoModal discos={discos} setDiscos={setDiscos} setAddDiscoModal={setAddDiscosModal} toast={toast} />}
+      />
     );
   };
 
   const renderAddSimModal = () => {
     return (
-      <Modal isOpen={addSimsModal} style={modal40x30} ariaHideApp={false}>
-        <I.close className="closeModalIcon" onClick={() => setAddSimsModal(false)} />
-        <AddSimModal sims={sims} setSims={setSims} toast={toast} setAddSimsModal={setAddSimsModal} />
-      </Modal>
+      <BaseModal
+        isOpen={addSimsModal}
+        close={setAddSimsModal}
+        content={<AddSimModal sims={sims} setSims={setSims} toast={toast} setAddSimsModal={setAddSimsModal} />}
+      />
     );
   };
 
   const renderAddSdModal = () => {
     return (
-      <Modal isOpen={addSdsModal} style={modal40x30} ariaHideApp={false}>
-        <I.close className="closeModalIcon" onClick={() => setAddSdsModal(false)} />
-        <AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdsModal} toast={toast} />
-      </Modal>
+      <BaseModal
+        isOpen={addSdsModal}
+        close={setAddSdsModal}
+        content={<AddSdModal sds={sds} setSds={setSds} setAddSdModal={setAddSdsModal} toast={toast} />}
+      />
     );
   };
 
   const renderAddExtraccionModal = () => {
     return (
-      <Modal
+      <BaseModal
         isOpen={addExtraccionesModal}
-        style={{
-          content: { ...modal40x30.content, height: "80%", justifyContent: "flex-start" },
-        }}
-        ariaHideApp={false}
-      >
-        <I.close className="closeModalIcon" onClick={() => setAddExtraccionModal(false)} />
-        <AddExtraccionModal
-          extracciones={extracciones}
-          setExtracciones={setExtracciones}
-          setAddExtraccionModal={setAddExtraccionModal}
-          toast={toast}
-        />
-      </Modal>
+        close={setAddExtraccionModal}
+        content={
+          <AddExtraccionModal
+            extracciones={extracciones}
+            setExtracciones={setExtracciones}
+            setAddExtraccionModal={setAddExtraccionModal}
+            toast={toast}
+          />
+        }
+      />
     );
   };
 
@@ -419,69 +409,54 @@ export function AddEfectos({ alternModal, selectedBag }) {
       {renderAddSdModal()}
       {renderAddExtraccionModal()}
 
-      <Modal
+      <BaseModal
         isOpen={editDiscosModal}
-        style={{
-          content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" },
-        }}
-        ariaHideApp={false}
-      >
-        <I.close className="closeModalIcon" onClick={() => setEditDiscosModal(false)} />
-        <EditDiscoModal
-          setEditDiscosModal={setEditDiscosModal}
-          setAddDiscosModal={setAddDiscosModal}
-          discos={efecto.Discos}
-          renderAddDiscoModal={renderAddDiscoModal}
-        />
-      </Modal>
-
-      <Modal
+        close={setEditDiscosModal}
+        content={
+          <EditDiscoModal
+            setEditDiscosModal={setEditDiscosModal}
+            setAddDiscosModal={setAddDiscosModal}
+            discos={efecto.Discos}
+            renderAddDiscoModal={renderAddDiscoModal}
+          />
+        }
+      />
+      <BaseModal
         isOpen={editSimsModal}
-        style={{
-          content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" },
-        }}
-        ariaHideApp={false}
-      >
-        <I.close className="closeModalIcon" onClick={() => setEditSimsModal(false)} />
-        <EditSimModal
-          setEditSimsModal={setEditSimsModal}
-          setAddSimsModal={setAddSimsModal}
-          sims={efecto.Sims}
-          renderAddSimModal={renderAddSimModal}
-        />
-      </Modal>
-
-      <Modal
+        close={setEditSimsModal}
+        content={
+          <EditSimModal
+            setEditSimsModal={setEditSimsModal}
+            setAddSimsModal={setAddSimsModal}
+            sims={efecto.Sims}
+            renderAddSimModal={renderAddSimModal}
+          />
+        }
+      />
+      <BaseModal
         isOpen={editSdsModal}
-        style={{
-          content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" },
-        }}
-        ariaHideApp={false}
-      >
-        <I.close className="closeModalIcon" onClick={() => setEditSdsModal(false)} />
-        <EditSdsModal
-          setEditSdsModal={setEditSdsModal}
-          setAddSdsModal={setAddSdsModal}
-          sds={efecto.Sds}
-          renderAddSdModal={renderAddSdModal}
-        />
-      </Modal>
-
-      <Modal
+        close={setEditSdsModal}
+        content={
+          <EditSdsModal
+            setEditSdsModal={setEditSdsModal}
+            setAddSdsModal={setAddSdsModal}
+            sds={efecto.Sds}
+            renderAddSdModal={renderAddSdModal}
+          />
+        }
+      />
+      <BaseModal
         isOpen={editExtraccionesModal}
-        style={{
-          content: { ...modal40x30.content, width: "50%", justifyContent: "flex-start" },
-        }}
-        ariaHideApp={false}
-      >
-        <I.close className="closeModalIcon" onClick={() => setEditExtraccionesModal(false)} />
-        <EditExtraccionModal
-          setEditExtraccionesModal={setEditExtraccionesModal}
-          setAddExtraccionModal={setAddExtraccionModal}
-          extracciones={efecto.Extraccions}
-          renderAddExtraccionModal={renderAddExtraccionModal}
-        />
-      </Modal>
+        close={setEditExtraccionesModal}
+        content={
+          <EditExtraccionModal
+            setEditExtraccionesModal={setEditExtraccionesModal}
+            setAddExtraccionModal={setAddExtraccionModal}
+            extracciones={efecto.Extraccions}
+            renderAddExtraccionModal={renderAddExtraccionModal}
+          />
+        }
+      />
     </>
   );
 }

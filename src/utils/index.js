@@ -12,7 +12,7 @@ const getUrl = () => {
 };
 
 export const serverUrl = getUrl();
-export const modal40x40 = {
+export const modalStyles = {
   content: {
     top: "50%",
     left: "50%",
@@ -24,10 +24,7 @@ export const modal40x40 = {
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    padding: 0,
     overflowX: "hidden",
-    width: "40%",
-    height: "max-content",
   },
 };
 

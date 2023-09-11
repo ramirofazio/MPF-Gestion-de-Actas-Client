@@ -17,3 +17,4 @@ export {
   SuccessOrFail,
   States,
 } from "./fields/index";
+export { BaseModal } from "./modals";
