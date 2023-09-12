@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { removeEfecto } from "redux/actions";
+import { useDispatch } from "react-redux";
+import { removeEfecto, removeBolsa } from "redux/actions";
 import { truncateText } from "utils/index";
 import { EfectosCard, CardElement, BaseModal } from "components/index";
 import { AddEfectos } from "pages/index";
 import { Icons as I } from "assets/index";
 
 export function BolsaCard({ bolsa, currentBolsas, currentActa, setSelectedBag, selectedBag, setCloseBagsModal, closeBagsModal }) {
+  const dispatch = useDispatch();
+
   const [bolsaIdShowEfectos, setBolsaIdShowEfectos] = useState(false);
   const [addEfectosModal, setAddEfectosModal] = useState(false);
 

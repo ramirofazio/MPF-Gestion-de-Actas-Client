@@ -14,6 +14,8 @@ const modalStyles = {
     justifyContent: "center",
     flexDirection: "column",
     overflowX: "hidden",
+    padding: "0",
+    minWidth: "40%",
   },
 };
 
