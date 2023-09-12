@@ -11,7 +11,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
   const [tiposDeExtraccion, setTiposDeExtraccion] = useState([]);
   const [extraccion, setExtraccion] = useState({
     herramientaSoft: "",
-    herramientaSoftVersion: "V0.00",
+    herramientaSoftVersion: "",
     tipoExtraccions: tiposDeExtraccion,
   });
 
@@ -27,7 +27,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
     } else {
       setExtraccion({
         herramientaSoft: "",
-        herramientaSoftVersion: "V0.00",
+        herramientaSoftVersion: "",
         tipoExtraccions: tiposDeExtraccion,
       });
     }
@@ -120,6 +120,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
           label="versión"
           value={extraccion.herramientaSoftVersion}
           name="herramientaSoftVersion"
+          placeholder="V0.00"
           onChange={(e) => handleOnChangeExtraccion(e)}
         />
         <div className="flex w-full flex-1 flex-col items-center">
@@ -132,17 +133,16 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
               <I.trashCan onClick={() => handleRemoveTipoExtraccion(tEx)} className="icons mr-2 w-4 text-white" />
             </div>
           ))}
-          {extraccion.herramientaSoft && (
-            <I.plusDotted
-              data-aos="zoom-in"
-              className="icons w-10 !text-white hover:!text-secondary"
-              onClick={() =>
-                extraccion.herramientaSoft
-                  ? handleAddTipoExtraccionButtonClick()
-                  : toast.warning("¡Primero debe seleccionar una heramienta de software!")
-              }
-            />
-          )}
+          <I.plusDotted
+            className={`icons w-10 !text-white ${
+              extraccion.herramientaSoft && extraccion.herramientaSoftVersion ? "hover:!text-secondary" : "!text-secondary"
+            }`}
+            onClick={() =>
+              extraccion.herramientaSoft && extraccion.herramientaSoftVersion
+                ? handleAddTipoExtraccionButtonClick()
+                : toast.warning("¡Primero debe seleccionar una heramienta de software y Versión!")
+            }
+          />
         </div>
         <div className="inputContainer !pb-0 pt-4">
           <input className="submitBtn" value="Guardar" type="submit" />
