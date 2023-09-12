@@ -7,7 +7,6 @@ import { HerramientasSoft, CardElement, Input, Select, BaseModal } from "compone
 
 export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtraccionModal, toast }) {
   const dispatch = useDispatch();
-
   const [addTipoExtraccionModal, setAddTipoExtraccionModal] = useState(false);
   const [tiposDeExtraccion, setTiposDeExtraccion] = useState([]);
   const [extraccion, setExtraccion] = useState({
@@ -26,15 +25,17 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
         tipoExtraccions: tiposDeExtraccion,
       });
     } else {
-      return {
+      setExtraccion({
         herramientaSoft: "",
         herramientaSoftVersion: "V0.00",
         tipoExtraccions: tiposDeExtraccion,
-      };
+      });
     }
 
     return () => {
-      () => localStorage.setItem("currentExtraccion", null);
+      () => {
+        if (localExtraccion) localStorage.setItem("currentExtraccion", null);
+      };
     };
   }, []);
 
