@@ -99,7 +99,7 @@ export function BolsaCard({ bolsa, currentBolsas, currentActa, setSelectedBag, s
               data-tooltip-content="Cerrar Bolsa en proceso"
               className="icons h-8 w-8 hover:text-secondary/50"
               onClick={() => {
-                handleCloseBags();
+                setCloseBagsModal(!closeBagsModal);
                 setSelectedBag({ id: bolsa.id, nroPrecinto: bolsa.nroPrecinto, estado: bolsa.estado });
               }}
             />
