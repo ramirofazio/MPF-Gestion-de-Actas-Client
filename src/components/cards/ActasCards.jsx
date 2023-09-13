@@ -1,42 +1,41 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ActasFilters, ActaCard } from "components/index";
-import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
+import { getOfStorage } from "utils";
+import { Icons as I } from "assets";
 
 export function ActasCards({ allActas, typeOfCard }) {
-  const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
-  let actasToRender = allActas.filter((a) => a.estado !== "deprecada");
+  const { username, nombreYApellido } = useSelector((s) => getOfStorage("currentUser") || s.currentUser);
+  const [actasToRender, setActasToRender] = useState([]);
 
-  if (currentUser.username !== "admin") {
-    actasToRender = allActas.filter((a) => {
-      return a.Peritos.some((perito) => perito.nombreYApellido === currentUser.nombreYApellido);
-    });
-  }
+  useEffect(() => {
+    let actas = [];
+    if (username !== "admin") {
+      actas = allActas.filter(({ Peritos }) => {
+        return Peritos.some((p) => p.nombreYApellido === nombreYApellido);
+      });
+    } else {
+      actas = allActas.filter((a) => a.estado !== "deprecada");
+    }
+    setActasToRender(actas);
+  }, [allActas]);
 
-  const loadLocalStorage = () => {
-    localStorage.setItem("actaFlag", "");
-    localStorage.setItem("currentActa", JSON.stringify([]));
-    localStorage.setItem("currentIntegrantes", JSON.stringify([]));
-    localStorage.setItem("currentPeritos", JSON.stringify([]));
-    localStorage.setItem("currentBolsas", JSON.stringify([]));
-    localStorage.setItem("currentEfectos", JSON.stringify([]));
-  };
   return (
     <>
       <div data-aos="fade-down" className="flex w-full items-center justify-between border-b-[3px] border-t-[3px] border-principal px-14">
         <ActasFilters />
         {typeOfCard !== "remove" && (
-          <Link className="basicBtnNoPadding group flex px-4 py-2" to="/actas/crear/1" onClick={() => loadLocalStorage()}>
+          <Link className="basicBtnNoPadding group flex px-4 py-2" to="/actas/crear/1">
             Crear Acta
-            <PlusSquareDotted className="icons ml-4 w-[25px] group-hover:text-black" />
+            <I.plusDotted className="icons ml-4 w-[25px] group-hover:text-black" />
           </Link>
         )}
       </div>
       <div data-aos="zoom-in" className="flex max-h-[75vh] w-full flex-col items-center justify-start overflow-y-scroll px-5 pb-2">
         {typeOfCard === "remove"
-          ? allActas && allActas.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)
-          : actasToRender && actasToRender.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)}
+          ? allActas.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)
+          : actasToRender.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)}
       </div>
     </>
   );
