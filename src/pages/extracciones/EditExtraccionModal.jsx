@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { removeExtraccion } from "../../redux/actions";
-//* Style
 import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
 import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
 import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
@@ -36,8 +35,8 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
 
   return (
     <>
-      <header className="modalHeader">
-        <span data-aos="fade-down">Agregar o Editar Extracciones</span>
+      <header className="modalHeader" data-aos="fade-down">
+        Agregar o Editar Extracciones
       </header>
       <div data-aos="zoom-in" className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {thisExtracciones.map((e, index) => (

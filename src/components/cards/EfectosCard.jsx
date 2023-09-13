@@ -257,7 +257,7 @@ export function EfectosCard({ efecto, currentBolsas, handleRemoveEfecto, estadoA
           />
         )}
       </div>
-      {(estadoActa === "en creacion" || estadoActa === "en proceso") && estadoBolsa !== "abierta en proceso con elementos completos" && (
+      {estadoBolsa !== "cerrada" && (
         <DocumentEdit
           data-tooltip-id="my-tooltip"
           data-tooltip-content="Editar"

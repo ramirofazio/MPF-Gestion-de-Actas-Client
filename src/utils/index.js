@@ -1,5 +1,5 @@
 const getUrl = () => {
-  const staging = process.env.REACT_APP_ENV || false;
+  const staging = process.env.REACT_APP_ENV;
   const nodeEnv = process.env.NODE_ENV;
 
   if (staging) {
@@ -12,7 +12,7 @@ const getUrl = () => {
 };
 
 export const serverUrl = getUrl();
-export const modal40x40 = {
+export const modalStyles = {
   content: {
     top: "50%",
     left: "50%",
@@ -24,10 +24,7 @@ export const modal40x40 = {
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    padding: 0,
     overflowX: "hidden",
-    width: "40%",
-    height: "max-content",
   },
 };
 
@@ -41,3 +38,4 @@ export const truncateText = (text, maxLength) => {
 export { editSavedActa } from "./editSavedActa";
 export { generateDoc } from "./generateDoc";
 export { getSavedActa } from "./getSavedActa";
+export { validateEfecto } from "./validateEfecto";
