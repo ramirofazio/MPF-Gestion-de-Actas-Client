@@ -1,39 +1,34 @@
-import React from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllActas, clearStates, admin } from "redux/actions";
-import { ActasCards } from "components/index";
+import { ActasCards, Header } from "components/index";
+import { saveInStorage, getOfStorage } from "utils";
 
 export function Home() {
   const dispatch = useDispatch();
 
   const allActas = useSelector((s) => s.allActas);
-  const adminState = useSelector((s) => JSON.parse(localStorage.getItem("admin")) || s.admin);
+  const adminState = useSelector((s) => getOfStorage("admin") || s.admin);
 
-  React.useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    const users = JSON.parse(localStorage.getItem("users"));
+  useEffect(() => {
+    const currentUser = getOfStorage("currentUser");
+    const users = getOfStorage("users");
     if (currentUser) {
+      localStorage.clear();
+      dispatch(clearStates());
+      dispatch(getAllActas());
       if (adminState) {
-        localStorage.clear();
-        dispatch(clearStates());
-        dispatch(getAllActas());
         dispatch(admin());
-      } else {
-        localStorage.clear();
-        dispatch(clearStates());
-        dispatch(getAllActas());
       }
-      localStorage.setItem("currentUser", JSON.stringify(currentUser));
-      localStorage.setItem("users", JSON.stringify(users));
+      saveInStorage("currentUser", currentUser);
+      saveInStorage("users", users);
     }
   }, []);
 
   return (
-    <div className="paddingLeftContainer ">
-      <header data-aos="fade-down" className="header ">
-        <span className="headerTitle">Creación de Actas</span>
-      </header>
+    <main className="paddingLeftContainer">
+      <Header title={"Creación de Actas"} />
       <ActasCards allActas={allActas} typeOfActa={"home"} />
-    </div>
+    </main>
   );
 }
