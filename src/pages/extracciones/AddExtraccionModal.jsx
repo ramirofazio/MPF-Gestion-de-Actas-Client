@@ -10,42 +10,32 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
   const [addTipoExtraccionModal, setAddTipoExtraccionModal] = useState(false);
   const [tiposDeExtraccion, setTiposDeExtraccion] = useState([]);
   const [extraccion, setExtraccion] = useState({
+    edit: false,
     herramientaSoft: "",
     herramientaSoftVersion: "",
-    tipoExtraccions: tiposDeExtraccion,
+    TipoExtraccions: tiposDeExtraccion,
   });
 
   useEffect(() => {
     const localExtraccion = JSON.parse(localStorage.getItem("currentExtraccion"));
     if (localExtraccion) {
+      const VIndex = localExtraccion.herramientaSoft.lastIndexOf("V");
+      setExtraccion({
+        ...localExtraccion,
+        herramientaSoft: localExtraccion.herramientaSoft.slice(0, VIndex).trim(),
+        herramientaSoftVersion: localExtraccion.herramientaSoft.slice(VIndex),
+      });
       setTiposDeExtraccion(localExtraccion.TipoExtraccions);
-      setExtraccion({
-        herramientaSoft: localExtraccion.herramientaSoft,
-        herramientaSoftVersion: localExtraccion.herramientaSoft.slice(localExtraccion.herramientaSoft.lastIndexOf("V")),
-        tipoExtraccions: tiposDeExtraccion,
-      });
-    } else {
-      setExtraccion({
-        herramientaSoft: "",
-        herramientaSoftVersion: "",
-        tipoExtraccions: tiposDeExtraccion,
-      });
     }
 
     return () => {
-      () => {
-        if (localExtraccion) localStorage.setItem("currentExtraccion", null);
-      };
+      localStorage.setItem("currentExtraccion", null);
     };
   }, []);
 
-  useEffect(() => {
-    setExtraccion({ ...extraccion, TipoExtraccions: tiposDeExtraccion });
-  }, [tiposDeExtraccion]);
-
   const handleExtraccionSubmit = (e) => {
     e.preventDefault();
-    if (extraccion.herramientaSoft && extraccion.TipoExtraccions.length > 0) {
+    if (extraccion.herramientaSoft && extraccion.TipoExtraccions?.length > 0) {
       setAddExtraccionModal(false);
       setExtracciones([
         ...extracciones,
@@ -54,7 +44,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
       setExtraccion({
         herramientaSoft: "",
         herramientaSoftVersion: "V0.00",
-        tipoExtraccions: tiposDeExtraccion,
+        TipoExtraccions: tiposDeExtraccion,
       });
       if (extraccion.edit) {
         toast.success("¡Extracción editada con éxito!");
@@ -71,6 +61,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
     if (tipoExtraccion.nombre && tipoExtraccion.estado) {
       setAddTipoExtraccionModal(false);
       setTiposDeExtraccion([...tiposDeExtraccion, tipoExtraccion]);
+      setExtraccion({ ...extraccion, TipoExtraccions: [...tiposDeExtraccion, tipoExtraccion] });
       toast.success("¡Tipos de extracción guardadas con éxito!");
     } else {
       toast.error("¡Faltan datos necesarios para el tipo de extracción!");
@@ -100,6 +91,8 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
       [name]: value,
     });
   };
+
+  console.log(extraccion);
 
   return (
     <>
