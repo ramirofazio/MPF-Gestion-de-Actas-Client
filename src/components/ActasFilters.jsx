@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { getActasFiltered } from "redux/actions";
-import { SettingsBackupRestore } from "@styled-icons/material-rounded/SettingsBackupRestore";
+import { Icons as I } from "assets";
 import { toast } from "react-toastify";
 
 export function ActasFilters() {
@@ -77,13 +77,7 @@ export function ActasFilters() {
         </select>
       </div>
       <div className="flex w-24 items-center">
-        <SettingsBackupRestore
-          data-tooltip-id="my-tooltip"
-          data-tooltip-content="Limpiar filtros"
-          className="icons"
-          size={25}
-          onClick={handleReset}
-        />
+        <I.restore data-tooltip-id="my-tooltip" data-tooltip-content="Limpiar filtros" className="icons" size={25} onClick={handleReset} />
       </div>
     </form>
   );

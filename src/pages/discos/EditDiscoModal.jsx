@@ -1,9 +1,5 @@
 import React from "react";
-//* Style
-import { DeviceHddFill, DeviceSsdFill } from "styled-icons/bootstrap";
-import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
-import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
-import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
+import { Icons as I } from "assets";
 
 export function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, renderAddDiscoModal }) {
   const handleAddAnotherDisk = (e) => {
@@ -29,9 +25,9 @@ export function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, 
         {discos.map((d) => (
           <div className={`my-2 flex h-14  w-full items-center justify-center rounded-md border-2 border-white bg-white`}>
             {d.tipoDeDisco === "Disco Rígido" ? (
-              <DeviceHddFill className="ml-4 w-6 text-secondary" />
+              <I.hdd className="ml-4 w-6 text-secondary" />
             ) : (
-              <DeviceSsdFill className="ml-4 w-6 text-secondary" />
+              <I.ssd className="ml-4 w-6 text-secondary" />
             )}
             <div className="cardInfoContainer">
               <span className="cardTitle">Marca</span>
@@ -53,18 +49,18 @@ export function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, 
               <br />
               {d.adquisicion}
             </div>
-            <DocumentEdit className="icons mr-4 w-6" onClick={() => handleEditDisco(d)} />
+            <I.documentEdit className="icons mr-4 w-6" onClick={() => handleEditDisco(d)} />
           </div>
         ))}
         {discos.length === 0 && (
           <div className="flex h-full w-[50%] flex-col items-center justify-center">
             <span className="text-white">¡No hay Discos, agrega uno!</span>
-            <AppsAddIn className="mt-2 w-10 text-white" />
+            <I.appsAddIn className="mt-2 w-10 text-white" />
           </div>
         )}
       </div>
       <div className="my-2 self-center">
-        <PlusSquareDotted
+        <I.plusDotted
           data-aos="zoom-in"
           className="icons !text-white hover:!text-secondary"
           size={35}

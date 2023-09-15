@@ -4,8 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createPeritos, removePerito } from "../../redux/actions";
 //* Style
-import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
-import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
+import { Icons as I } from "assets";
 import { toast } from "react-toastify";
 
 export function AddPeritos() {
@@ -157,7 +156,7 @@ export function AddPeritos() {
                     <br />
                     <span className="text-xs">{i.cargo}</span>
                   </div>
-                  <PersonRemove
+                  <I.personDelete
                     className="w-[25px] text-error transition hover:cursor-pointer hover:text-secondary group-hover:animate-pulse"
                     onClick={() =>
                       currentActa.estado !== "en creacion"
@@ -184,7 +183,7 @@ export function AddPeritos() {
                 onClick={() => handleAddPerito()}
                 to="#"
               >
-                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                <I.personAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
                 Agregar a {perito.nombreYApellido.split(" ")[0]}
               </NavLink>
             ) : (
@@ -209,7 +208,7 @@ export function AddPeritos() {
                 onClick={() => handleAddPerito()}
                 to="#"
               >
-                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                <I.personAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
                 Agregar a {perito.nombreYApellido.split(" ")[0]}
               </NavLink>
             )}

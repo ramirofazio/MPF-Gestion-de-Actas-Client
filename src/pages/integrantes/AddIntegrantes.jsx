@@ -1,11 +1,8 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-//* Redux
 import { useSelector, useDispatch } from "react-redux";
 import { createIntegrantes, removeIntegrante } from "../../redux/actions";
-//* Style
-import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
-import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
+import { Icons as I } from "assets";
 import { toast } from "react-toastify";
 
 export function AddIntegrantes() {
@@ -160,7 +157,7 @@ export function AddIntegrantes() {
                     <br />
                     <span className="text-xs">{i.locacion}</span>
                   </div>
-                  <PersonRemove
+                  <I.personDelete
                     className="w-[25px] text-error transition hover:cursor-pointer hover:text-secondary group-hover:animate-pulse"
                     onClick={() =>
                       currentActa.estado !== "en creacion"
@@ -187,7 +184,7 @@ export function AddIntegrantes() {
                 onClick={() => handleAddIntegrante()}
                 to="#"
               >
-                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                <I.personAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
                 Agregar a {integrante.nombreYApellido.split(" ")[0]}
               </NavLink>
             ) : (
@@ -206,7 +203,7 @@ export function AddIntegrantes() {
                 onClick={() => handleAddIntegrante()}
                 to="#"
               >
-                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                <I.personAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
                 Agregar a {integrante.nombreYApellido.split(" ")[0]}
               </NavLink>
             )}
