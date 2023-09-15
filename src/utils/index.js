@@ -39,3 +39,4 @@ export { editSavedActa } from "./editSavedActa";
 export { generateDoc } from "./generateDoc";
 export { getSavedActa } from "./getSavedActa";
 export { validateEfecto } from "./validateEfecto";
+export { deleteOfStorage, getOfStorage, saveInStorage } from "./localStorage";
