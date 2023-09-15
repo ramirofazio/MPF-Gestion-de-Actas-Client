@@ -1,5 +1,5 @@
 import { PlusSquareDotted, Trash, Tag, Lock } from "@styled-icons/bootstrap/";
-import { DocumentTextClock, DocumentText, DocumentCheckmark } from "@styled-icons/fluentui-system-regular/";
+import { DocumentTextClock, DocumentText, DocumentCheckmark, DocumentEdit, AppsAddIn } from "@styled-icons/fluentui-system-regular/";
 import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline";
 import { ArrowIosDownward } from "@styled-icons/evaicons-solid";
 
@@ -13,4 +13,6 @@ export const Icons = {
   lock: Lock,
   documentCheckMarck: DocumentCheckmark,
   arrowDown: ArrowIosDownward,
+  documentEdit: DocumentEdit,
+  appsAddIn: AppsAddIn,
 };
