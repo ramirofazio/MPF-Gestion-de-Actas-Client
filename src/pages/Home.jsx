@@ -8,7 +8,6 @@ export function Home() {
   const dispatch = useDispatch();
 
   const allActas = useSelector((s) => s.allActas);
-  const adminState = useSelector((s) => getOfStorage("admin") || s.admin);
 
   useEffect(() => {
     const currentUser = getOfStorage("currentUser");
@@ -17,7 +16,7 @@ export function Home() {
       localStorage.clear();
       dispatch(clearStates());
       dispatch(getAllActas());
-      if (adminState) {
+      if (currentUser.username === "admin") {
         dispatch(admin());
       }
       saveInStorage("currentUser", currentUser);

@@ -1,9 +1,7 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-//* Redux
 import { useSelector, useDispatch } from "react-redux";
 import { createPeritos, removePerito } from "../../redux/actions";
-//* Style
 import { Icons as I } from "assets";
 import { toast } from "react-toastify";
 
@@ -173,7 +171,7 @@ export function AddPeritos() {
         <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
           Volver
         </NavLink>
-        {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
+        {currentActa.estado === "en creacion" && currentPeritos?.length <= 0 ? (
           <>
             {perito.nombreYApellido && perito.legajo ? (
               <NavLink
@@ -212,7 +210,7 @@ export function AddPeritos() {
                 Agregar a {perito.nombreYApellido.split(" ")[0]}
               </NavLink>
             )}
-            {peritos.length > currentPeritos.length ? (
+            {peritos?.length > currentPeritos?.length ? (
               <NavLink className={"basicBtnNoPadding px-10 py-2"} onClick={() => handleSubmitPeritos()} to="#">
                 Siguente
               </NavLink>
