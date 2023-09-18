@@ -1,60 +1,38 @@
-import {
-  PcHorizontal,
-  PcDisplay,
-  DeviceHdd,
-  PlusSquareDotted,
-  Trash,
-  Tag,
-  Lock,
-  SimFill,
-  DeviceHddFill,
-  DeviceSsdFill,
-} from "@styled-icons/bootstrap/";
-import {
-  DocumentTextClock,
-  DocumentText,
-  DocumentCheckmark,
-  DocumentEdit,
-  AppsAddIn,
-  PersonAdd,
-  PersonDelete,
-} from "@styled-icons/fluentui-system-regular/";
-import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline";
-import { ArrowIosDownward, FileRemove } from "@styled-icons/evaicons-solid";
-import { SettingsBackupRestore } from "@styled-icons/material-rounded";
-import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
-import { UDisk } from "@styled-icons/remix-line/UDisk";
-import { Tablet } from "@styled-icons/entypo/Tablet";
-import { Computer } from "@styled-icons/material-outlined/Computer";
-import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
-import { DeviceUnknown } from "@styled-icons/material-outlined/DeviceUnknown";
+import * as bootstrap from "@styled-icons/bootstrap";
+import * as fluentui from "@styled-icons/fluentui-system-regular";
+import * as material from "@styled-icons/material-rounded";
+import * as remix from "@styled-icons/remix-line/";
 
 export const Icons = {
-  uDisk: UDisk,
-  tablet: Tablet,
-  computer: Computer,
-  pcHorizontal: PcHorizontal,
-  pcDisplay: PcDisplay,
-  deviceHdd: DeviceHdd,
-  deviceUnknown: DeviceUnknown,
-  smartphone: Smartphone,
-  close: CloseOutline,
-  plusDotted: PlusSquareDotted,
-  documentTextClock: DocumentTextClock,
-  documentText: DocumentText,
-  trashCan: Trash,
-  tag: Tag,
-  lock: Lock,
-  documentCheckMarck: DocumentCheckmark,
-  arrowDown: ArrowIosDownward,
-  documentEdit: DocumentEdit,
-  appsAddIn: AppsAddIn,
-  personAdd: PersonAdd,
-  personDelete: PersonDelete,
-  sdCard: SdCardMini,
-  simCard: SimFill,
-  hdd: DeviceHddFill,
-  ssd: DeviceSsdFill,
-  fileRemove: FileRemove,
-  restore: SettingsBackupRestore,
+  uDisk: remix.UDisk,
+  tablet: bootstrap.Tablet,
+  computer: material.Computer,
+  pcHorizontal: bootstrap.PcHorizontal,
+  pcDisplay: bootstrap.PcDisplay,
+  deviceHdd: bootstrap.DeviceHdd,
+  deviceUnknown: material.DeviceUnknown,
+  smartphone: material.Smartphone,
+  close: material.Close,
+  plusDotted: bootstrap.PlusSquareDotted,
+  documentTextClock: fluentui.DocumentTextClock,
+  documentText: fluentui.DocumentText,
+  trashCan: bootstrap.Trash,
+  tag: bootstrap.Tag,
+  lock: bootstrap.Lock,
+  documentCheckMarck: fluentui.DocumentCheckmark,
+  arrowDown: bootstrap.ArrowDownCircleFill,
+  documentEdit: fluentui.DocumentEdit,
+  appsAddIn: fluentui.AppsAddIn,
+  personAdd: fluentui.PersonAdd,
+  personDelete: fluentui.PersonDelete,
+  sdCard: bootstrap.SdCardFill,
+  simCard: bootstrap.SimFill,
+  hdd: bootstrap.DeviceHddFill,
+  ssd: bootstrap.DeviceSsdFill,
+  fileRemove: bootstrap.FileEarmarkMinus,
+  restore: material.SettingsBackupRestore,
+  fileDownload: remix.FileDownload,
+  warning: fluentui.Warning,
+  eye: bootstrap.EyeFill,
+  fileLock: bootstrap.FileEarmarkLock,
 };

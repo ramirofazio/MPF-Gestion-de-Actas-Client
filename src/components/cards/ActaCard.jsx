@@ -1,12 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { removeActa } from "redux/actions";
-import { FileDownload } from "@styled-icons/remix-line/FileDownload";
-import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
-import { FileRemove } from "@styled-icons/evaicons-solid/FileRemove";
-import { Warning } from "@styled-icons/entypo/Warning";
-import { FileEarmarkLock } from "@styled-icons/bootstrap/FileEarmarkLock";
-import { EyeOutline } from "styled-icons/evaicons-outline";
+import { Icons as I } from "assets";
 import { getSavedActa, editSavedActa } from "utils/index";
 import { useDispatch } from "react-redux";
 
@@ -87,7 +82,7 @@ export function ActaCard({ acta, type }) {
       <div className="flex h-full w-[10%] items-center justify-around">
         {type === "remove" ? (
           <>
-            <FileRemove
+            <I.fileRemove
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Eliminar"
               className="icons w-6 hover:text-error/40"
@@ -97,7 +92,7 @@ export function ActaCard({ acta, type }) {
         ) : (
           <>
             {acta.estado !== "en creacion" && (
-              <FileDownload
+              <I.fileDownload
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Imprimir Acta"
                 className="icons w-6"
@@ -106,17 +101,17 @@ export function ActaCard({ acta, type }) {
             )}
             {acta.estado === "en creacion" && (
               <>
-                <DocumentEdit
+                <I.documentEdit
                   data-tooltip-id="my-tooltip"
                   data-tooltip-content="Editar"
                   className="icons w-6"
                   onClick={() => editSavedActa(acta.id, navigate, "/actas/crear/1")}
                 />
-                <Warning data-tooltip-id="my-tooltip" data-tooltip-content="Acta incompleta" className="w-6 text-process" />
+                <I.warning data-tooltip-id="my-tooltip" data-tooltip-content="Acta incompleta" className="w-6 text-process" />
               </>
             )}
             {acta.estado === "completa" && (
-              <EyeOutline
+              <I.eyes
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Ver"
                 className="icons w-6"
@@ -124,7 +119,7 @@ export function ActaCard({ acta, type }) {
               />
             )}
             {(acta.estado === "en proceso" || acta.estado === "para completar") && (
-              <FileEarmarkLock
+              <I.fileLock
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Ir a cerrar elementos en proceso"
                 className="icons w-6"
