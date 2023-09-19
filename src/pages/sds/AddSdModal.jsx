@@ -1,14 +1,14 @@
+import { useEffect, useState } from "react";
 import { Input, Select, TipoExtracciones } from "components/fields";
-import React from "react";
 
 export function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       localStorage.setItem("currentSd", null);
     };
   }, []);
 
-  const [sd, setSd] = React.useState(
+  const [sd, setSd] = useState(
     JSON.parse(localStorage.getItem("currentSd")) || {
       marca: "",
       serialNumber: "",
