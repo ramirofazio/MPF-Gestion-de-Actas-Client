@@ -96,7 +96,6 @@ export function TipoSeguridad() {
       <option value="">Tipo de Seguridad</option>
       <option value="ninguna">Ninguna</option>
       <option value="patron">Patron</option>
-      <option value="contraseña">Contraseña</option>
       <option value="PIN (Numérico)">Pin (Numérico)</option>
       <option value="PIN (Alfanumérico)">Pin (Alfanumérico)</option>
       <option value="huella">Huella</option>
@@ -111,7 +110,7 @@ export function TipoExtracciones() {
       <option value="ninguna">Ninguna</option>
       <option value="física">Física</option>
       <option value="lógica">Lógica</option>
-      <option value="sistema de archivos">Sitema de Archivos</option>
+      <option value="sistema de archivos">Sistema de Archivos</option>
       <option value="lógica  avanzada">Logica Avanzada</option>
     </>
   );
