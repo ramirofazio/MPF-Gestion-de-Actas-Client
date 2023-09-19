@@ -74,7 +74,7 @@ export function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
             <option value="ninguna">Ninguna</option>
             <option value="física">Física</option>
             <option value="lógica ">Logica</option>
-            <option value="sistema de archivos">Sitema de Archivos</option>
+            <option value="sistema de archivos">Sistema de Archivos</option>
             <option value="lógica  avanzada">Logica Avanzada</option>
           </select>
         </div>

@@ -88,7 +88,7 @@ export function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
             <option value="en proceso">En Proceso</option>
             <option value="fisica">Fisica</option>
             <option value="lógica ">Logica</option>
-            <option value="sistema de archivos">Sitema de Archivos</option>
+            <option value="sistema de archivos">Sistema de Archivos</option>
             <option value="lógica  avanzada">Logica Avanzada</option>
           </select>
         </div>
