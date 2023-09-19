@@ -1,5 +1,4 @@
 import React from "react";
-//* Style
 import { Icons as I } from "assets";
 
 export function EditSimModal({ setEditSimsModal, setAddSimsModal, sims, renderAddSimModal }) {
@@ -53,7 +52,7 @@ export function EditSimModal({ setEditSimsModal, setAddSimsModal, sims, renderAd
         )}
       </div>
       <div className="my-2 self-center">
-        <I.plusSquareDotted
+        <I.plusDotted
           data-aos="zoom-in"
           className="icons !text-white hover:!text-secondary"
           size={35}

@@ -20,7 +20,7 @@ export const Icons = {
   tag: bootstrap.Tag,
   lock: bootstrap.Lock,
   documentCheckMarck: fluentui.DocumentCheckmark,
-  arrowDown: bootstrap.ArrowDownCircleFill,
+  arrowDown: bootstrap.ArrowDownShort,
   documentEdit: fluentui.DocumentEdit,
   appsAddIn: fluentui.AppsAddIn,
   personAdd: fluentui.PersonAdd,
