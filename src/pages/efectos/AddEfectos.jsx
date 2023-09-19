@@ -358,7 +358,6 @@ export function AddEfectos({ alternModal, selectedBag }) {
         {efecto.tipoDeElemento !== "notebook" && efecto.tipoDeElemento !== "gabinete" && efecto.tipoDeElemento !== "no peritable" && (
           <Select
             label={"*Estado"}
-            disabled={efecto.edit && currentActa.estado === "en proceso" ? true : false}
             value={efecto.estado}
             onChange={(e) => setEfecto({ ...efecto, estado: e.target.value })}
             options={<States />}
