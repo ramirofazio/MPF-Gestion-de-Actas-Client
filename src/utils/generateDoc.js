@@ -15,8 +15,11 @@ export function generateDoc() {
   const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula } = currentActa; //* Desestructuramos el acta
 
   const Efectos = []; //* Array con todos los efectos con sus nroPrecintoBolsa
-
+  let bagsInProcess = false;
   Bolsas.map((bolsa) => {
+    if (bolsa.estado === "cerrada en proceso") {
+      bagsInProcess = true;
+    }
     //* Mapeo de las bolsas
     return bolsa.Efectos.map((efecto) => {
       //* Mapeo de los efectos
@@ -80,6 +83,9 @@ export function generateDoc() {
       linebreaks: true,
       parser: angularParser,
     });
+
+    console.log(bagsInProcess);
+
     doc.setData({
       encabezadoFlag: actaFlag,
       dias: dias,
@@ -97,6 +103,7 @@ export function generateDoc() {
       efectos: Efectos,
       observaciones: observaciones,
       processToComplete: processToComplete,
+      bagsInProcess: bagsInProcess,
     });
     try {
       doc.render();
