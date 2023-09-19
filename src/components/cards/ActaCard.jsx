@@ -111,7 +111,7 @@ export function ActaCard({ acta, type }) {
               </>
             )}
             {acta.estado === "completa" && (
-              <I.eyes
+              <I.eye
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Ver"
                 className="icons w-6"
