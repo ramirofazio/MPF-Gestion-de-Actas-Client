@@ -72,10 +72,8 @@ export function AddPeritos() {
   };
   return (
     <div className="paddingLeftContainer">
-      <header className="header">
-        <span data-aos="zoom-in" className="headerTitle">
-          Creación de Peritos
-        </span>
+      <header className="header headerTitle" data-aos="zoom-in">
+        Creación de Peritos
       </header>
       <div className="flex min-h-[80%] w-full items-center justify-center  border-t-[3px] border-principal">
         <form className="mx-10 flex flex-[0.5] flex-col items-center justify-center">
@@ -136,7 +134,7 @@ export function AddPeritos() {
               return (
                 <div
                   data-aos="zoom-in"
-                  className="group mb-4 flex h-20 w-full items-center justify-around rounded-md border-2 border-principal px-4 shadow-md"
+                  className="group mb-4 flex h-20 w-full items-center justify-around rounded-md border-2 border-principal bg-white px-4 shadow-md"
                   key={index}
                 >
                   <div className="cardInfoContainer">

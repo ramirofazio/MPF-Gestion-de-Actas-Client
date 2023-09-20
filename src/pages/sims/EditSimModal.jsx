@@ -18,10 +18,8 @@ export function EditSimModal({ setEditSimsModal, setAddSimsModal, sims, renderAd
 
   return (
     <>
-      <header className="modalHeader">
-        <span data-aos="fade-down">Agregar o Editar Sims</span>
-      </header>
-      <div data-aos="zoom-in" className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
+      <header className="modalHeader">Agregar o Editar Sims</header>
+      <div className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {sims.map((s) => (
           <div className={`flex h-14 w-full items-center justify-center rounded-md border-2 border-white bg-white`}>
             <I.simCard className="ml-4 w-6 text-secondary" />
@@ -52,12 +50,7 @@ export function EditSimModal({ setEditSimsModal, setAddSimsModal, sims, renderAd
         )}
       </div>
       <div className="my-2 self-center">
-        <I.plusDotted
-          data-aos="zoom-in"
-          className="icons !text-white hover:!text-secondary"
-          size={35}
-          onClick={(e) => handleAddAnotherSim(e)}
-        />
+        <I.plusDotted className="icons !text-white hover:!text-secondary" size={35} onClick={(e) => handleAddAnotherSim(e)} />
       </div>
     </>
   );

@@ -51,9 +51,7 @@ export function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
 
   return (
     <>
-      <header className="modalHeader">
-        <span data-aos="fade-down">{disco.edit ? "Editar" : "Agregar"} Disco</span>
-      </header>
+      <header className="modalHeader">{disco.edit ? "Editar" : "Agregar"} Disco</header>
       <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleDiscoSubmit}>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">*Tipo de Disco</label>

@@ -32,10 +32,8 @@ export function AddBolsasModal({ alternModal, acta_id }) {
 
   return (
     <>
-      <header className="modalHeader">
-        <span data-aos="fade-down">Agregar Bolsa</span>
-      </header>
-      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSubmitBolsa}>
+      <header className="modalHeader">Agregar Bolsa</header>
+      <form className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSubmitBolsa}>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">*Precinto de Apertura</label>
           <select

@@ -148,10 +148,8 @@ export function AddEfectos({ alternModal, selectedBag }) {
 
   return (
     <>
-      <header className="modalHeader" data-aos="fade-down">
-        {efecto.edit ? "Editar Elemento" : "Agregar Elemento"}
-      </header>
-      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSubmit}>
+      <header className="modalHeader">{efecto.edit ? "Editar Elemento" : "Agregar Elemento"}</header>
+      <form className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSubmit}>
         <Select label={"*Bolsa"} disabled={true} value={efecto.bolsa_id} options={<option>{selectedBag.nroPrecinto}</option>} />
         <Select
           label={"*Elemento"}

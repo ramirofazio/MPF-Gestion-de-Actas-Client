@@ -31,10 +31,10 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
 
   return (
     <>
-      <header className="modalHeader" data-aos="fade-down">
+      <header className="modalHeader">
         Agregar o Editar Extracciones
       </header>
-      <div data-aos="zoom-in" className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
+      <div  className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {thisExtracciones.map((e, index) => (
           <div className={`mb-4 flex h-14 w-full items-center rounded-md border-2 border-white bg-white`} key={index}>
             <div className="cardInfoContainer">

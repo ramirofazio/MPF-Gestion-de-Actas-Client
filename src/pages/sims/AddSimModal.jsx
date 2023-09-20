@@ -37,10 +37,8 @@ export function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
   };
   return (
     <>
-      <header className="modalHeader" data-aos="fade-down">
-        {sim.edit ? "Editar Sim" : "Agregar SIM"}
-      </header>
-      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSimSubmit}>
+      <header className="modalHeader">{sim.edit ? "Editar Sim" : "Agregar SIM"}</header>
+      <form className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSimSubmit}>
         <Input
           label={"Empresa Sim"}
           value={sim.empresaSim}

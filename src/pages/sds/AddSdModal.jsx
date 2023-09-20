@@ -40,10 +40,8 @@ export function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
 
   return (
     <>
-      <header className="modalHeader" data-aos="fade-down">
-        {sd.edit ? "Editar Sd" : "Agregar Sd"}
-      </header>
-      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSdSubmit}>
+      <header className="modalHeader">{sd.edit ? "Editar Sd" : "Agregar Sd"}</header>
+      <form className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSdSubmit}>
         <Input
           label={"Marca"}
           value={sd.marca}

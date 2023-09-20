@@ -18,10 +18,8 @@ export function EditSdsModal({ setEditSdsModal, setAddSdsModal, sds, renderAddSd
 
   return (
     <>
-      <header className="modalHeader">
-        <span data-aos="fade-down">Agregar o Editar Sds</span>
-      </header>
-      <div data-aos="zoom-in" className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
+      <header className="modalHeader">Agregar o Editar Sds</header>
+      <div className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {sds.map((s) => (
           <div className={`flex h-14 w-full items-center justify-center rounded-md border-2 border-white bg-white`}>
             <I.sdCard className="ml-4 w-6 text-secondary" />

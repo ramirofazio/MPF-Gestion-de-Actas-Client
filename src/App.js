@@ -67,7 +67,7 @@ function App() {
 
   if (!flag) {
     return (
-      <div data-aos="zoom-in" className="flexContainer100x100">
+      <div data-aos="zoom-in" className="flexContainer100x100 hexagonsBg">
         <img className="absolute top-0 mt-10" src={logo2} onDoubleClick={() => handleCreateUsers()} />
         <form className="basicForm50x50" onSubmit={handleSubmit}>
           <div className="mb-5 flex h-[15%] w-[40%] flex-col items-center justify-center ">

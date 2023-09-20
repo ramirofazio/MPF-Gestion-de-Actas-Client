@@ -18,9 +18,7 @@ export function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, 
 
   return (
     <>
-      <header className="modalHeader">
-        <span data-aos="fade-down">Agregar o Editar Discos</span>
-      </header>
+      <header className="modalHeader">Agregar o Editar Discos</header>
       <div data-aos="zoom-in" className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {discos.map((d) => (
           <div className={`my-2 flex h-14  w-full items-center justify-center rounded-md border-2 border-white bg-white`}>

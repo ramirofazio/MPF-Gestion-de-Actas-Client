@@ -48,7 +48,7 @@ export function BolsaCard({ bolsa, currentBolsas, currentActa, setSelectedBag, s
 
   return (
     <div
-      className={`group my-2 flex w-[90%] flex-col items-center justify-start rounded-md border-2 border-principal shadow-md transition `}
+      className={`group my-2 flex w-[90%] flex-col items-center justify-start rounded-md border-2 border-principal bg-white shadow-md transition `}
       key={bolsa.id}
     >
       <div

@@ -11,11 +11,10 @@ export function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
 
   return (
     <>
-      <header className="modalHeader" data-aos="fade-down">Ah o
+      <header className="modalHeader" >Ah o
         Extracciones de {nombre}
       </header>
       <form
-        data-aos="zoom-in"
         className="flex h-full w-full flex-col justify-center p-5 pt-0"
         onSubmit={(e) => handleTipoExtraccionSubmit(e, tipoDeExtraccion)}
       >

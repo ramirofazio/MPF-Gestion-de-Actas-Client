@@ -20,9 +20,7 @@ export function CloseBagsInProcess({ closeModal, dispatch, selectedBag, updateBo
   };
   return (
     <>
-      <header className="modalHeader">
-        <span data-aos="fade-down">Dejar Bolsa en Proceso</span>
-      </header>
+      <header className="modalHeader">Dejar Bolsa en Proceso</header>
       <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleInProcessSubmit}>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">*Bolsa</label>
