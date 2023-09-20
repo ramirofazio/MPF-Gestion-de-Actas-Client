@@ -1,11 +1,8 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-//* Redux
 import { useSelector, useDispatch } from "react-redux";
 import { createPeritos, removePerito } from "../../redux/actions";
-//* Style
-import { PersonAdd } from "@styled-icons/evaicons-solid/PersonAdd";
-import { PersonRemove } from "@styled-icons/evaicons-solid/PersonRemove";
+import { Icons as I } from "assets";
 import { toast } from "react-toastify";
 
 export function AddPeritos() {
@@ -75,10 +72,8 @@ export function AddPeritos() {
   };
   return (
     <div className="paddingLeftContainer">
-      <header className="header">
-        <span data-aos="zoom-in" className="headerTitle">
-          Creación de Peritos
-        </span>
+      <header className="header headerTitle" data-aos="zoom-in">
+        Creación de Peritos
       </header>
       <div className="flex min-h-[80%] w-full items-center justify-center  border-t-[3px] border-principal">
         <form className="mx-10 flex flex-[0.5] flex-col items-center justify-center">
@@ -139,7 +134,7 @@ export function AddPeritos() {
               return (
                 <div
                   data-aos="zoom-in"
-                  className="group mb-4 flex h-20 w-full items-center justify-around rounded-md border-2 border-principal px-4 shadow-md"
+                  className="group mb-4 flex h-20 w-full items-center justify-around rounded-md border-2 border-principal bg-white px-4 shadow-md"
                   key={index}
                 >
                   <div className="cardInfoContainer">
@@ -157,7 +152,7 @@ export function AddPeritos() {
                     <br />
                     <span className="text-xs">{i.cargo}</span>
                   </div>
-                  <PersonRemove
+                  <I.personDelete
                     className="w-[25px] text-error transition hover:cursor-pointer hover:text-secondary group-hover:animate-pulse"
                     onClick={() =>
                       currentActa.estado !== "en creacion"
@@ -174,7 +169,7 @@ export function AddPeritos() {
         <NavLink className="basicBtnNoPadding px-10 py-2" onClick={() => navigate(-1)} to="#">
           Volver
         </NavLink>
-        {currentActa.estado === "en creacion" && currentPeritos.length <= 0 ? (
+        {currentActa.estado === "en creacion" && currentPeritos?.length <= 0 ? (
           <>
             {perito.nombreYApellido && perito.legajo ? (
               <NavLink
@@ -184,7 +179,7 @@ export function AddPeritos() {
                 onClick={() => handleAddPerito()}
                 to="#"
               >
-                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                <I.personAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
                 Agregar a {perito.nombreYApellido.split(" ")[0]}
               </NavLink>
             ) : (
@@ -209,11 +204,11 @@ export function AddPeritos() {
                 onClick={() => handleAddPerito()}
                 to="#"
               >
-                <PersonAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
+                <I.personAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
                 Agregar a {perito.nombreYApellido.split(" ")[0]}
               </NavLink>
             )}
-            {peritos.length > currentPeritos.length ? (
+            {peritos?.length > currentPeritos?.length ? (
               <NavLink className={"basicBtnNoPadding px-10 py-2"} onClick={() => handleSubmitPeritos()} to="#">
                 Siguente
               </NavLink>

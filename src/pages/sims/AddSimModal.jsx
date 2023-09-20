@@ -1,13 +1,14 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { Input, Select, TipoExtracciones } from "components/fields";
 
 export function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       localStorage.setItem("currentSim", null);
     };
   });
 
-  const [sim, setSim] = React.useState(
+  const [sim, setSim] = useState(
     JSON.parse(localStorage.getItem("currentSim")) || {
       empresaSim: "",
       serialSim: "",
@@ -36,48 +37,26 @@ export function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
   };
   return (
     <>
-      <header className="modalHeader">
-        <span data-aos="fade-down">{sim.edit ? "Editar Sim" : "Agregar SIM"}</span>
-      </header>
-      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSimSubmit}>
-        <div className="modalInputContainer">
-          <label className="basicLabel !text-white">Empresa Sim</label>
-          <input
-            className="formModalInput"
-            type="text"
-            name="empresa sim"
-            value={sim.empresaSim}
-            placeholder="Empresa Sim"
-            onChange={(e) => setSim({ ...sim, empresaSim: e.target.value.toUpperCase() })}
-          />
-        </div>
-        <div className="modalInputContainer">
-          <label className="basicLabel !text-white">Serial Sim</label>
-          <input
-            className="formModalInput"
-            type="text"
-            name="serial sim"
-            value={sim.serialSim}
-            placeholder="Serial Sim"
-            onChange={(e) => setSim({ ...sim, serialSim: e.target.value.toUpperCase() })}
-          />
-        </div>
-        <div className="modalInputContainer">
-          <label className="basicLabel !text-white">*Extracción</label>
-          <select
-            className="formModalSelect"
-            value={sim.tipoExtraccionSim}
-            onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}
-          >
-            <option value="">Tipo de Extracción</option>
-            <option value="en proceso">Pendiente</option>
-            <option value="ninguna">Ninguna</option>
-            <option value="física">Física</option>
-            <option value="lógica ">Logica</option>
-            <option value="sistema de archivos">Sitema de Archivos</option>
-            <option value="lógica  avanzada">Logica Avanzada</option>
-          </select>
-        </div>
+      <header className="modalHeader">{sim.edit ? "Editar Sim" : "Agregar SIM"}</header>
+      <form className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSimSubmit}>
+        <Input
+          label={"Empresa Sim"}
+          value={sim.empresaSim}
+          placeholder="Empresa Sim"
+          onChange={(e) => setSim({ ...sim, empresaSim: e.target.value.toUpperCase() })}
+        />
+        <Input
+          label={"Serial Sim"}
+          value={sim.serialSim}
+          placeholder="Serial Sim"
+          onChange={(e) => setSim({ ...sim, serialSim: e.target.value.toUpperCase() })}
+        />
+        <Select
+          label={"*Extracción"}
+          options={<TipoExtracciones />}
+          value={sim.tipoExtraccionSim}
+          onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}
+        />
         <div className="mt-2 flex w-full items-center justify-around">
           <input className="submitBtn " type="submit" value="Guardar" />
         </div>

@@ -96,10 +96,8 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
 
   return (
     <>
-      <header className="modalHeader" data-aos="fade-down">
-        Agregar Extracciones
-      </header>
-      <form data-aos="zoom-in" className="flex h-full w-full flex-col justify-center p-5 pt-0" onSubmit={handleExtraccionSubmit}>
+      <header className="modalHeader">Agregar Extracciones</header>
+      <form className="flex h-full w-full flex-col justify-center p-5 pt-0" onSubmit={handleExtraccionSubmit}>
         <Select
           label="software"
           value={extraccion.herramientaSoft}

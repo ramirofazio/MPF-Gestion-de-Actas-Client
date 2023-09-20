@@ -23,7 +23,10 @@ export function ActasCards({ allActas, typeOfCard }) {
 
   return (
     <>
-      <div data-aos="fade-down" className="flex w-full items-center justify-between border-b-[3px] border-t-[3px] border-principal px-14">
+      <div
+        data-aos="fade-down"
+        className="flex w-full items-center justify-between border-b-[3px] border-t-[3px] border-principal bg-white/50 px-14"
+      >
         <ActasFilters />
         {typeOfCard !== "remove" && (
           <Link className="basicBtnNoPadding group flex px-4 py-2" to="/actas/crear/1">

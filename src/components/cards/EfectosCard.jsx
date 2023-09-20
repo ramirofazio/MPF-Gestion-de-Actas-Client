@@ -1,14 +1,5 @@
 import React from "react";
-//* Styles
-import { PcHorizontal, PcDisplay, DeviceHddFill, SimFill, DeviceSsdFill, DeviceHdd } from "styled-icons/bootstrap";
-import { Smartphone } from "@styled-icons/material-outlined/Smartphone";
-import { UDisk } from "@styled-icons/remix-line/UDisk";
-import { Tablet } from "@styled-icons/entypo/Tablet";
-import { Computer } from "@styled-icons/material-outlined/Computer";
-import { SdCardMini } from "@styled-icons/remix-fill/SdCardMini";
-import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
-import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
-import { DeviceUnknown } from "@styled-icons/material-outlined/DeviceUnknown";
+import { Icons as I } from "assets";
 import { toast } from "react-toastify";
 
 export function EfectosCard({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
@@ -39,35 +30,35 @@ export function EfectosCard({ efecto, currentBolsas, handleRemoveEfecto, estadoA
   const selectIcon = (tipoDeElemento) => {
     switch (tipoDeElemento) {
       case "no peritable": {
-        return <DeviceUnknown data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+        return <I.deviceUnknown data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "celular": {
-        return <Smartphone data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+        return <I.smartphone data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "tablet": {
-        return <Tablet data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+        return <I.tablet data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "unidad de almacenamiento": {
-        return <UDisk data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+        return <I.uDisk data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "gabinete": {
-        return <PcDisplay data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+        return <I.pcDisplay data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "notebook": {
-        return <Computer data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+        return <I.computer data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "disco": {
         if (efecto.tipoDeDisco === "Disco Rigido") {
-          return <DeviceHddFill data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+          return <I.hdd data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
         } else {
-          return <DeviceSsdFill data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+          return <I.ssd data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
         }
       }
       case "dvr": {
-        return <PcHorizontal data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
+        return <I.pcHorizontal data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-secondary" />;
       }
       case "sim": {
-        return <SimFill data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-seconadary" />;
+        return <I.simCard data-tooltip-id="my-tooltip" data-tooltip-content={tipoDeElemento} size={25} className="text-seconadary" />;
       }
       default: {
         return;
@@ -239,26 +230,26 @@ export function EfectosCard({ efecto, currentBolsas, handleRemoveEfecto, estadoA
 
       <div className="cardInfoContainer" style={{ flex: 0.5, marginRight: "10px" }}>
         {efecto.Sims.length !== 0 && (
-          <SimFill
+          <I.simCard
             size={25}
             className={`${efecto.Sims.some((s) => s.tipoExtraccionSim === "en proceso") ? "text-process" : "text-secondary"}`}
           />
         )}
         {efecto.Discos.length !== 0 && (
-          <DeviceHdd
+          <I.hdd
             size={25}
             className={`${efecto.Discos.some((s) => s.tipoExtraccionDisco === "en proceso") ? "text-process" : "text-secondary"}`}
           />
         )}
         {efecto.Sds.length !== 0 && (
-          <SdCardMini
+          <I.sdCard
             size={25}
             className={`${efecto.Sds.some((s) => s.tipoExtraccionSd === "en proceso") ? "text-process" : "text-secondary"}`}
           />
         )}
       </div>
       {estadoBolsa !== "cerrada" && (
-        <DocumentEdit
+        <I.documentEdit
           data-tooltip-id="my-tooltip"
           data-tooltip-content="Editar"
           size={25}
@@ -267,7 +258,7 @@ export function EfectosCard({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         />
       )}
       {estadoActa === "en creacion" && (
-        <Delete
+        <I.trashCan
           data-tooltip-id="my-tooltip"
           data-tooltip-content="Eliminar"
           size={25}

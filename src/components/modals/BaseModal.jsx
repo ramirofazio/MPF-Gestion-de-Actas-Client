@@ -1,29 +1,17 @@
 import Modal from "react-modal";
 import { Icons as I } from "assets/index";
 
-const modalStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "#006473",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-    overflowX: "hidden",
-    padding: "0",
-    minWidth: "40%",
-  },
-};
-
 export function BaseModal({ isOpen, close, content }) {
   return (
-    <Modal isOpen={isOpen} style={modalStyles} ariaHideApp={false}>
+    <Modal
+      isOpen={isOpen}
+      ariaHideApp={false}
+      className="bgTools relative mx-auto mt-[20vh] flex w-[40%] flex-col items-center justify-center rounded-md"
+    >
       <I.close className="closeModalIcon" onClick={() => close(false)} />
-      {content}
+      <div data-aos="zoom-in" className="w-full">
+        {content}
+      </div>
     </Modal>
   );
 }

@@ -1,27 +1,23 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-//* Redux
 import { createActa } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { Select } from "components/fields";
+
+const fecha = new Date();
+const horas = fecha.getHours().toString().padStart(2, "0");
+const minutos = fecha.getMinutes().toString().padStart(2, "0");
+let mes = new Intl.DateTimeFormat("es-ES", { month: "long" }).format(fecha);
 
 export function AddActa() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const fecha = new Date();
-  const horas = fecha.getHours().toString().padStart(2, "0");
-  const minutos = fecha.getMinutes().toString().padStart(2, "0");
-  let mes = new Intl.DateTimeFormat("es-ES", { month: "long" }).format(fecha);
-
   const currentUser = useSelector((s) => JSON.parse(localStorage.getItem("currentUser")) || s.currentUser);
 
-  const [acta, setActa] = React.useState("");
-  const [tipoDeActa, setTipoDeActa] = React.useState("");
-  const [comeBack, setComeBack] = React.useState(false);
-
-  React.useEffect(() => {
-    getLocalStorageOrState();
-  }, []);
+  const [acta, setActa] = useState("");
+  const [tipoDeActa, setTipoDeActa] = useState("");
+  const [comeBack, setComeBack] = useState(false);
 
   const getLocalStorageOrState = () => {
     const currentActa = localStorage.getItem("currentActa");
@@ -49,8 +45,11 @@ export function AddActa() {
     }
   };
 
+  useEffect(() => {
+    getLocalStorageOrState();
+  }, []);
+
   const handleComplete = () => {
-    //* Logica para habilitar el boton cuando esta todo completado
     const { solicitante, mpfOrDen, cij, dil, coop, nroCausa } = acta;
     if (tipoDeActa === "MPF/DEN") {
       if (solicitante && mpfOrDen && cij && dil) {
@@ -75,10 +74,8 @@ export function AddActa() {
 
   return (
     <div className="paddingLeftContainer">
-      <header className="header">
-        <span data-aos="zoom-in" className="headerTitle">
-          Creación de Acta
-        </span>
+      <header className="header headerTitle" data-aos="zoom-in">
+        Creación de Acta
       </header>
       <form className="flex min-h-[80%] w-full flex-col items-center justify-center overflow-y-scroll border-t-[3px] border-principal px-[30%] pt-5">
         <div data-aos="fade-down" className="inputContainer flex-col">

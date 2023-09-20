@@ -34,10 +34,8 @@ export function CloseBagsCompleted({ closeModal, dispatch, selectedBag, updateBo
 
   return (
     <>
-      <header className="modalHeader">
-        <span data-aos="fade-down">Agregar Precinto Blanco</span>
-      </header>
-      <form data-aos="zoom-in" className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleCompleteSubmit}>
+      <header className="modalHeader">Agregar Precinto Blanco</header>
+      <form className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleCompleteSubmit}>
         {show && (
           <>
             <div className="modalInputContainer">

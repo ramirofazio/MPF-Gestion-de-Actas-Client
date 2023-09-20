@@ -3,7 +3,7 @@ const getUrl = () => {
   const nodeEnv = process.env.NODE_ENV;
 
   if (staging) {
-    return "http://10.190.12.161:3001";
+    return "http://10.190.15.57:3001";
   } else if (nodeEnv === "production") {
     return "http://10.190.15.142:3001";
   } else {

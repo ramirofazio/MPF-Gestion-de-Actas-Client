@@ -1,10 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeExtraccion } from "../../redux/actions";
-import { PlusSquareDotted } from "@styled-icons/bootstrap/PlusSquareDotted";
-import { DocumentEdit } from "@styled-icons/fluentui-system-regular/DocumentEdit";
-import { AppsAddIn } from "@styled-icons/fluentui-system-regular/AppsAddIn";
-import { Delete } from "@styled-icons/fluentui-system-filled/Delete";
+import { Icons as I } from "assets";
 import { toast } from "react-toastify";
 
 export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccionModal, extracciones, renderAddExtraccionModal }) {
@@ -35,10 +31,10 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
 
   return (
     <>
-      <header className="modalHeader" data-aos="fade-down">
+      <header className="modalHeader">
         Agregar o Editar Extracciones
       </header>
-      <div data-aos="zoom-in" className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
+      <div  className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {thisExtracciones.map((e, index) => (
           <div className={`mb-4 flex h-14 w-full items-center rounded-md border-2 border-white bg-white`} key={index}>
             <div className="cardInfoContainer">
@@ -51,19 +47,19 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
               <br />
               {e.TipoExtraccions.length}
             </div>
-            <DocumentEdit className="icons mr-4 w-6" onClick={() => handleEditExtraccion(e)} />
-            <Delete onClick={() => handleRemoveExtraccion(e)} size={20} className="icons mr-4" />
+            <I.documentEdit className="icons mr-4 w-6" onClick={() => handleEditExtraccion(e)} />
+            <I.trashCan onClick={() => handleRemoveExtraccion(e)} size={20} className="icons mr-4" />
           </div>
         ))}
         {thisExtracciones.length === 0 && (
           <div className="flex h-full w-[50%] flex-col items-center justify-center">
             <span className="text-white">¡No hay extracciones, agrega una!</span>
-            <AppsAddIn className="mt-2 w-10 text-white" />
+            <I.appsAddIn className="mt-2 w-10 text-white" />
           </div>
         )}
       </div>
       <div className="my-2 self-center">
-        <PlusSquareDotted
+        <I.plusDotted
           data-aos="zoom-in"
           className="icons !text-white hover:!text-secondary"
           size={35}
