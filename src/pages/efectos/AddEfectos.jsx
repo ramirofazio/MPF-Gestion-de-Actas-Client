@@ -394,18 +394,16 @@ export function AddEfectos({ alternModal, selectedBag }) {
             </button>
           )}
 
-          {efecto.elementoFallado !== "si" &&
-            efecto.tipoDeElemento &&
-            (efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
-              <button
-                type="button"
-                className="submitBtn !px-3"
-                onClick={() => (efecto.edit ? setEditExtraccionesModal(true) : setAddExtraccionesModal(true))}
-                value="add extraccion"
-              >
-                {efecto.edit ? "Editar" : "Agregar"} Extracciones
-              </button>
-            )}
+          {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
+            <button
+              type="button"
+              className="submitBtn !px-3"
+              onClick={() => (efecto.edit ? setEditExtraccionesModal(true) : setAddExtraccionesModal(true))}
+              value="add extraccion"
+            >
+              {efecto.edit ? "Editar" : "Agregar"} Extracciones
+            </button>
+          )}
           <input className="submitBtn !px-3" type="submit" value="Guardar" />
         </div>
       </form>
