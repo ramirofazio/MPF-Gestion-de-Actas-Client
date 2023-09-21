@@ -35,4 +35,5 @@ export const Icons = {
   warning: fluentui.Warning,
   eye: bootstrap.EyeFill,
   fileLock: bootstrap.FileEarmarkLock,
+  sadFace: fluentui.EmojiSad,
 };
