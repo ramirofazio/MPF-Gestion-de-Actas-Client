@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { closeProcessActa } from "redux/actions";
 import ClipLoader from "react-spinners/ClipLoader";
-import { getSavedActa } from "utils/index";
+import { getOfStorage, getSavedActa } from "utils/index";
 import { CloseBagsModal, AddBolsasModal } from "pages/index";
 import { BolsaCard, BaseModal } from "components/index";
 
@@ -13,11 +13,13 @@ export function AddBolsas() {
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas);
+  const currentEfectos = useSelector((s) => getOfStorage("currentEfectos") || s.currentEfectos);
 
   const [loading, setLoading] = useState(false);
   const [addBolsasModal, setAddBolsasModal] = useState(false);
   const [closeBagsModal, setCloseBagsModal] = useState(false);
   const [selectedBag, setSelectedBag] = useState({ id: "", nroPrecinto: "", estado: "" });
+  const [allEfectosCompleted, setAllEfectosCompleted] = useState(false);
 
   const handleCloseProcessActa = () => {
     const res = confirm("¿Estas seguro que quieres completar el acta?");
@@ -26,6 +28,12 @@ export function AddBolsas() {
       dispatch(closeProcessActa(currentActa.id, navigate));
     }
   };
+
+  useEffect(() => {
+    currentEfectos.map((e) => {
+      e.estado === "completo" ? setAllEfectosCompleted(true) : setAllEfectosCompleted(false);
+    });
+  }, [currentEfectos]);
 
   return (
     <div className="paddingLeftContainer">
@@ -65,7 +73,7 @@ export function AddBolsas() {
             >
               Imprimir Acta en Proceso
             </NavLink>
-            {!loading && (
+            {!loading && allEfectosCompleted && (
               <NavLink
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Cambia los estados a completo para agregar los precintos blancos a las bolsas"
