@@ -60,8 +60,8 @@ export function AddBolsasModal({ alternModal, acta_id }) {
         </div>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">De su interior se extrae:</label>
-          <input
-            className="formModalInput"
+          <textarea
+            className="formModalInput !h-40 px-4"
             type="text"
             name="Observaciones/Descripcion de la Bolsa"
             value={bolsa.observaciones}
