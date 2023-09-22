@@ -207,9 +207,9 @@ export function AddEfectos({ alternModal, selectedBag }) {
             )}
             <Input
               label={"Descripción"}
-              value={efecto.descripcion}
+              value={efecto.descripcionElemento}
               placeholder="Descripción del elemento"
-              onChange={(e) => setEfecto({ ...efecto, descripcion: e.target.value })}
+              onChange={(e) => setEfecto({ ...efecto, descripcionElemento: e.target.value })}
             />
           </>
         )}

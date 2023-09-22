@@ -18,6 +18,8 @@ export function ActasCards({ allActas, typeOfCard }) {
     } else {
       actas = allActas.filter((a) => a.estado !== "deprecada");
     }
+
+    actas = actas.filter((a) => a.estado !== "deprecada");
     setActasToRender(actas);
   }, [allActas]);
 
