@@ -31,10 +31,8 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
 
   return (
     <>
-      <header className="modalHeader">
-        Agregar o Editar Extracciones
-      </header>
-      <div  className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
+      <header className="modalHeader">Agregar o Editar Extracciones</header>
+      <div className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {thisExtracciones.map((e, index) => (
           <div className={`mb-4 flex h-14 w-full items-center rounded-md border-2 border-white bg-white`} key={index}>
             <div className="cardInfoContainer">
@@ -58,7 +56,7 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
           </div>
         )}
       </div>
-      <div className="my-2 self-center">
+      <div className="my-2 text-center">
         <I.plusDotted
           data-aos="zoom-in"
           className="icons !text-white hover:!text-secondary"
