@@ -11,9 +11,7 @@ export function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
 
   return (
     <>
-      <header className="modalHeader" >Ah o
-        Extracciones de {nombre}
-      </header>
+      <header className="modalHeader">Extracciones de {nombre}</header>
       <form
         className="flex h-full w-full flex-col justify-center p-5 pt-0"
         onSubmit={(e) => handleTipoExtraccionSubmit(e, tipoDeExtraccion)}
@@ -26,7 +24,14 @@ export function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
         />
         <Select
           label={"*Estado"}
-          options={<States />}
+          options={
+            <>
+              <States />
+              <option value="fallo" className="text-error">
+                Fallo
+              </option>
+            </>
+          }
           value={tipoDeExtraccion.estado}
           onChange={(e) => setTipoDeExtraccion({ ...tipoDeExtraccion, estado: e.target.value })}
         />

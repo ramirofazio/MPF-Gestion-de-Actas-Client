@@ -110,8 +110,11 @@ export function TipoExtracciones() {
       <option value="ninguna">Ninguna</option>
       <option value="física">Física</option>
       <option value="lógica">Lógica</option>
-      <option value="sistema de archivos">Sistema de Archivos</option>
       <option value="lógica  avanzada">Logica Avanzada</option>
+      <option value="sistema de archivos">Sistema de Archivos</option>
+      <option value="sistema de archivos parcial">Sistema de archivos Parcial</option>
+      <option value="android backup">Android BackUp</option>
+      <option value="apk downgrade">APK Downgrade</option>
     </>
   );
 }
@@ -121,7 +124,7 @@ export function SuccessOrFail() {
     <>
       <option value="">Con Exito / Fallo</option>
       <option value="con exito">Con Exito</option>
-      <option value="fallo">Fallo</option>{" "}
+      <option value="fallo">Fallo</option>
     </>
   );
 }
