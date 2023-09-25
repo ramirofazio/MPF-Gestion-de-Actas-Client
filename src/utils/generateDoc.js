@@ -17,7 +17,7 @@ export function generateDoc() {
   const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula } = currentActa; //* Desestructuramos el acta
 
   if (currentActa.processToComplete === "false") {
-    //? Si es la primera vez que se imprime, inyecto prop en true
+    //? Si es la primera vez que se imprime, inyecto prop `processToComplete` en true
     axios.put(serverUrl + `/addPropsToActa`, { id: currentActa.id }).catch((err) => {
       console.log(err);
     });
@@ -26,6 +26,11 @@ export function generateDoc() {
   let bagsInProcess = false;
 
   Bolsas.map((bolsa) => {
+    //? Si es la primera vez que se imprime, inyecto prop `processToCompleteBolsa` en true
+    axios.put(serverUrl + `/addPropsToBolsa/2`, { id: bolsa.id }).catch((err) => {
+      console.log(err);
+    });
+
     if (bolsa.estado === "cerrada en proceso") {
       bagsInProcess = true;
     }

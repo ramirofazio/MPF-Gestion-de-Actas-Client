@@ -8,6 +8,12 @@ export function AddBolsasModal({ alternModal, acta_id }) {
 
   const [bolsa, setBolsa] = React.useState({
     acta_id: acta_id,
+    fecha: new Date().toLocaleDateString("es-ES", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }),
     colorPrecinto: "",
     nroPrecinto: "",
     observaciones: "",
