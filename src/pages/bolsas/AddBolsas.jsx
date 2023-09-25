@@ -66,9 +66,7 @@ export function AddBolsas() {
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Imprime el acta en el estado actual con leyendas de que queda en proceso"
               className="basicBtnNoPadding px-10 py-2"
-              onClick={() =>
-                currentActa.observaciones !== "" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
-              }
+              onClick={() => getSavedActa(currentActa.id, navigate)}
               to="#"
             >
               Imprimir Acta en Proceso

@@ -6,6 +6,8 @@ import expressions from "angular-expressions";
 import { assign } from "lodash";
 import { toast } from "react-toastify";
 import template from "assets/template.docx";
+import axios from "axios";
+import { serverUrl } from "./index";
 
 export function generateDoc() {
   const currentActa = JSON.parse(localStorage.getItem("finalActa")); //* Nos traemos el acta del local storage
@@ -19,6 +21,13 @@ export function generateDoc() {
   Bolsas.map((bolsa) => {
     if (bolsa.estado === "cerrada en proceso") {
       bagsInProcess = true;
+    }
+    //! TAMBIEN HAY QUE VALIDAR SI EL ACTA YA FUE IMPRESA, SI ES LA PRIMERA VEZ INJECTO PROP, SINO NO HAGO NADA
+    if (bolsa.nroPrecintoBlanco) {
+      //! ACA HAY QUE INJECTAR A LAS BOLSAS QUE SE IMPRIMEN PRECINTADAS PARA QUE NO SE REPITAN
+      axios.put(serverUrl + `/addPropsToBolsa`, { id: bolsa.id }).catch((err) => {
+        console.log(err);
+      });
     }
     //* Mapeo de las bolsas
     return bolsa.Efectos.map((efecto) => {
