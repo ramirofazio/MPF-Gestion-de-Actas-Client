@@ -57,7 +57,7 @@ export function EditDiscoModal({ setEditDiscosModal, setAddDiscosModal, discos, 
           </div>
         )}
       </div>
-      <div className="my-2 self-center">
+      <div className="my-2 text-center">
         <I.plusDotted
           data-aos="zoom-in"
           className="icons !text-white hover:!text-secondary"
