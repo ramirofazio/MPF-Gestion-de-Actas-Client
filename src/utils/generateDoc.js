@@ -16,13 +16,20 @@ export function generateDoc() {
   const { Bolsas, Peritos, Integrantes, dias, mes, anio, hora, processToComplete } = currentActa; //* Sacamos las bolsas y los integrantes del acta
   const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula } = currentActa; //* Desestructuramos el acta
 
+  if (currentActa.processToComplete === "false") {
+    //? Si es la primera vez que se imprime, inyecto prop en true
+    axios.put(serverUrl + `/addPropsToActa`, { id: currentActa.id }).catch((err) => {
+      console.log(err);
+    });
+  }
   const Efectos = []; //* Array con todos los efectos con sus nroPrecintoBolsa
   let bagsInProcess = false;
+
   Bolsas.map((bolsa) => {
     if (bolsa.estado === "cerrada en proceso") {
       bagsInProcess = true;
     }
-    //! TAMBIEN HAY QUE VALIDAR SI EL ACTA YA FUE IMPRESA, SI ES LA PRIMERA VEZ INJECTO PROP, SINO NO HAGO NADA
+
     if (bolsa.nroPrecintoBlanco) {
       //! ACA HAY QUE INJECTAR A LAS BOLSAS QUE SE IMPRIMEN PRECINTADAS PARA QUE NO SE REPITAN
       axios.put(serverUrl + `/addPropsToBolsa`, { id: bolsa.id }).catch((err) => {
