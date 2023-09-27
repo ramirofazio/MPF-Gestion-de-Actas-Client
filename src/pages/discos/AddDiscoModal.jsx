@@ -61,8 +61,8 @@ export function AddDiscoModal({ discos, setDiscos, setAddDiscoModal, toast }) {
             value={disco.tipoDeDisco}
             onChange={(e) => setDisco({ ...disco, tipoDeDisco: e.target.value })}
           >
-            <option value="">Rigido / Solido</option>
-            <option value="Disco Rigido">Disco Rigido</option>
+            <option value="">Rígido / Solido</option>
+            <option value="Disco Rígido">Disco Rígido</option>
             <option value="Disco Solido">Disco Solido</option>
             <option value="Disco Solido en Formato M.2">Disco Solido M.2</option>
             <option value="Disco Solido en Formato NVMe">Disco Solido NVMe</option>
