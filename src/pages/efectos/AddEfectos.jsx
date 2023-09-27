@@ -205,12 +205,17 @@ export function AddEfectos({ alternModal, selectedBag }) {
                 />
               </>
             )}
-            <Input
-              label={"Descripción"}
-              value={efecto.descripcionElemento}
-              placeholder="Descripción del elemento"
-              onChange={(e) => setEfecto({ ...efecto, descripcionElemento: e.target.value })}
-            />
+
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">Descripción</label>
+              <textarea
+                className="formModalInput !h-14 px-4"
+                type="text"
+                value={efecto.descripcionElemento}
+                placeholder="Descripción del elemento"
+                onChange={(e) => setEfecto({ ...efecto, descripcionElemento: e.target.value })}
+              />
+            </div>
           </>
         )}
         {efecto.tipoDeElemento === "celular" && (

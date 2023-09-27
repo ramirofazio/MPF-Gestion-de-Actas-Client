@@ -50,7 +50,7 @@ export function AddBolsas() {
             selectedBag={selectedBag}
             setCloseBagsModal={setCloseBagsModal}
             closeBagsModal={closeBagsModal}
-          />
+          />   
         ))}
       </div>
       <div className="flex h-full w-full items-center justify-around">

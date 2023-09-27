@@ -36,4 +36,5 @@ export const Icons = {
   eye: bootstrap.EyeFill,
   fileLock: bootstrap.FileEarmarkLock,
   sadFace: fluentui.EmojiSad,
+  check: bootstrap.Check2,
 };
