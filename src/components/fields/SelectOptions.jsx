@@ -95,10 +95,11 @@ export function TipoSeguridad() {
     <>
       <option value="">Tipo de Seguridad</option>
       <option value="ninguna">Ninguna</option>
-      <option value="patron">Patron</option>
+      <option value="patron">Patrón</option>
       <option value="PIN (Numérico)">Pin (Numérico)</option>
       <option value="PIN (Alfanumérico)">Pin (Alfanumérico)</option>
-      <option value="huella">Huella</option>
+      <option value="Cifrado de Inicio (PIN Numérico)">Cifrado de Inicio (PIN Numérico)</option>
+      <option value="Cifrado de Inicio (Patrón)">Cifrado de Inicio (Patrón)</option>
     </>
   );
 }

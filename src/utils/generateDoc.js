@@ -42,12 +42,13 @@ export function generateDoc() {
       });
     }
     //* Mapeo de las bolsas
-    return bolsa.Efectos.map((efecto) => {
+    return bolsa.Efectos.map((efecto, index) => {
       //* Mapeo de los efectos
       efecto.nroPrecintoBolsa = bolsa.nroPrecinto;
+      efecto.index = index + 1;
       Efectos.push(efecto);
       /*
-       * Inyecto el nroPrecintoBolsa en cada efecto
+       * Inyecto el props en cada efecto
        */
     });
   });

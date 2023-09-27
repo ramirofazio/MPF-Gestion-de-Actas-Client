@@ -35,6 +35,26 @@ export function AddBolsas() {
   //     });
   //   }, [currentEfectos]);
 
+  const handlePrintActa = () => {
+    const res = confirm("¿Estas seguro que quieres imprimir el acta ahora?");
+
+    if (res) {
+      if (currentActa.estado === "completa") {
+        getSavedActa(currentActa.id, navigate);
+      } else {
+        setCloseBagsModal(!closeBagsModal);
+      }
+    }
+  };
+
+  const handlePrintActaInProcess = () => {
+    const res = confirm("¿Estas seguro que quieres imprimir el acta EN PROCESO ahora?");
+
+    if (res) {
+      getSavedActa(currentActa.id, navigate);
+    }
+  };
+
   return (
     <div className="paddingLeftContainer">
       <header className="header headerTitle" data-aos="zoom-in">
@@ -50,7 +70,7 @@ export function AddBolsas() {
             selectedBag={selectedBag}
             setCloseBagsModal={setCloseBagsModal}
             closeBagsModal={closeBagsModal}
-          />   
+          />
         ))}
       </div>
       <div className="flex h-full w-full items-center justify-around">
@@ -66,7 +86,7 @@ export function AddBolsas() {
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Imprime el acta en el estado actual con leyendas de que queda en proceso"
               className="basicBtnNoPadding px-10 py-2"
-              onClick={() => getSavedActa(currentActa.id, navigate)}
+              onClick={() => handlePrintActaInProcess()}
               to="#"
             >
               Imprimir Acta en Proceso
@@ -96,9 +116,7 @@ export function AddBolsas() {
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Imprime el acta terminada"
               className="basicBtnNoPadding px-10 py-2"
-              onClick={() =>
-                currentActa.estado === "completa" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
-              }
+              onClick={() => handlePrintActa()}
               to="#"
             >
               Imprimir Acta

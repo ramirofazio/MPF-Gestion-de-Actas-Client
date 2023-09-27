@@ -450,7 +450,14 @@ export function createUsers() {
   return function () {
     axios.post(serverUrl + "/addUser", [
       { id: 1, nombreYApellido: "", legajo: 0, cargo: "", username: "admin", password: "GIDSI12345" },
-      { id: 2, nombreYApellido: "Esteban Diego Armando Bucci", legajo: 6004, cargo: "Oficial", username: "ebucci", password: "Ebucci6004" },
+      {
+        id: 2,
+        nombreYApellido: "Esteban Diego Armando Bucci",
+        legajo: 6004,
+        cargo: "Oficial",
+        username: "ebucci",
+        password: "Ebucci6004",
+      },
       {
         id: 3,
         nombreYApellido: "Federico Martin Palacios",
