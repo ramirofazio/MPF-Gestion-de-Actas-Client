@@ -83,6 +83,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
       unidadAlmacenamientoDetalle: "",
       adquisicion: "",
       herramientaSoft: "",
+      herramientaSoftVersion: "",
     }
   );
 
@@ -343,6 +344,15 @@ export function AddEfectos({ alternModal, selectedBag }) {
               options={<TipoExtracciones />}
             />
           </>
+        )}
+
+        {efecto.herramientaSoft && (
+          <Input
+            label={"Versión Herramienta"}
+            value={efecto.herramientaSoftVersion}
+            placeholder={"V0.00"}
+            onChange={(e) => setEfecto({ ...efecto, herramientaSoftVersion: e.target.value })}
+          />
         )}
         {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && efecto.herramientaSoft !== "" && (
           <Select
