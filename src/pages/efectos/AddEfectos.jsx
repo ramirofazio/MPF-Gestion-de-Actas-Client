@@ -314,6 +314,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
                     <option value="uso de software">Uso de Software</option>
                     <option value="prueba aleatoria">Prueba Aleatoria</option>
                     <option value="aportado">Aportado</option>
+                    <option value="no se desbloqueo">No se Desbloqueo</option>
                   </>
                 }
               />
