@@ -16,6 +16,7 @@ export {
   TipoExtracciones,
   SuccessOrFail,
   States,
+  FormaDesbloqueo,
 } from "./fields/index";
 export { BaseModal } from "./modals";
 export { Header } from "./Header";

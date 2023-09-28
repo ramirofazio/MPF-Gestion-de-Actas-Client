@@ -27,6 +27,7 @@ import {
   SuccessOrFail,
   States,
   BaseModal,
+  FormaDesbloqueo,
 } from "components/index";
 
 export function AddEfectos({ alternModal, selectedBag }) {
@@ -308,15 +309,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
                 label={"¿Forma Desbloqueo?"}
                 value={efecto.desbloqueo}
                 onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}
-                options={
-                  <>
-                    <option value="">¿Como se Desbloqueo?</option>
-                    <option value="uso de software">Uso de Software</option>
-                    <option value="prueba aleatoria">Prueba Aleatoria</option>
-                    <option value="aportado">Aportado</option>
-                    <option value="no se desbloqueo">No se Desbloqueo</option>
-                  </>
-                }
+                options={<FormaDesbloqueo />}
               />
             )}
         {efecto.encendido === "no" && (
