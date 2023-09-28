@@ -88,6 +88,7 @@ export function FormaDesbloqueo() {
       <option value="prueba aleatoria">Prueba Aleatoria</option>
       <option value="aportado">Aportado</option>
       <option value="no se desbloqueo">No se Desbloqueo</option>
+      <option value="papel con credenciales">Papel con Credenciales en Elemento</option>
     </>
   );
 }
