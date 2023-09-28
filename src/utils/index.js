@@ -11,7 +11,7 @@ const getUrl = () => {
   }
 };
 
-export const serverUrl = "http://10.190.15.57:3001";
+export const serverUrl = getUrl();
 export const modalStyles = {
   content: {
     top: "50%",
