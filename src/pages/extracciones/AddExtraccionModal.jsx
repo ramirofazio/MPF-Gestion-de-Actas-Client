@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { removeTipoExtraccion } from "redux/actions";
+import { completeTExtraccion, removeTipoExtraccion } from "redux/actions";
 import { useDispatch } from "react-redux";
 import { AddTipoExtraccionModal } from "./index";
 import { Icons as I } from "assets/index";
@@ -92,7 +92,17 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
     });
   };
 
-  console.log(extraccion);
+  const handleCompleteTExtraccion = (id) => {
+    dispatch(completeTExtraccion(id));
+    const newExtraccions = tiposDeExtraccion.map((t) => {
+      if (t.id === id) {
+        t.estado = "completo";
+      }
+      return t;
+    });
+
+    setTiposDeExtraccion(newExtraccions);
+  };
 
   return (
     <>
@@ -121,6 +131,14 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
               <CardElement title={"tipo"} value={tEx.nombre} />
               <CardElement title={"estado"} value={tEx.estado} />
               {tEx.estado === "fallo" && <CardElement title={"observacion"} value={tEx.observacionFalla} />}
+              {tEx.estado === "en proceso" && tEx.id && (
+                <I.check
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Completar Extracción"
+                  className="icons mr-2 w-6 !text-success"
+                  onClick={() => handleCompleteTExtraccion(tEx.id)}
+                />
+              )}
               <I.trashCan onClick={() => handleRemoveTipoExtraccion(tEx)} className="icons mr-2 w-4 text-white" />
             </div>
           ))}

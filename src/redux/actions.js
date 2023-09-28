@@ -18,6 +18,15 @@ import {
   SET_CURRENT_USER,
 } from "./variables";
 
+export function completeTExtraccion(id) {
+  return function () {
+    axios.put(serverUrl + `/completeTExtraccion/?id=${id}`).catch((err) => {
+      console.log(err);
+      toast.error("¡Error al completar extraccion!");
+    });
+  };
+}
+
 export function removeExtraccion(id) {
   return function () {
     axios.delete(serverUrl + `/removeExtraccion/?id=${id}`).catch((err) => {
