@@ -22,6 +22,7 @@ export function generateDoc() {
       console.log(err);
     });
   }
+
   const Efectos = []; //* Array con todos los efectos con sus nroPrecintoBolsa
   let bagsInProcess = false;
 
@@ -47,6 +48,13 @@ export function generateDoc() {
       efecto.nroPrecintoBolsa = bolsa.nroPrecinto;
       efecto.index = index + 1;
       Efectos.push(efecto);
+
+      if (efecto.processToCompleteEfecto !== "true") {
+        //? Si es la primera vez que imprime el efecto le inyecto prop en true
+        axios.put(serverUrl + `/addPropsToEfecto/2`, { id: efecto.id }).catch((e) => {
+          console.log(e);
+        });
+      }
 
       efecto.Sims.map((s) => {
         //? Si es la primera vez que imprime la sim inyecto prop en true
