@@ -47,9 +47,27 @@ export function generateDoc() {
       efecto.nroPrecintoBolsa = bolsa.nroPrecinto;
       efecto.index = index + 1;
       Efectos.push(efecto);
-      /*
-       * Inyecto el props en cada efecto
-       */
+
+      efecto.Sims.map((s) => {
+        //? Si es la primera vez que imprime la sim inyecto prop en true
+        axios.put(serverUrl + `/addPropsToEfecto`, { id: s.id, type: "sim" }).catch((e) => {
+          console.log(e);
+        });
+      });
+
+      efecto.Sds.map((s) => {
+        //? Si es la primera vez que imprime la sd inyecto prop en true
+        axios.put(serverUrl + `/addPropsToEfecto`, { id: s.id, type: "sd" }).catch((e) => {
+          console.log(e);
+        });
+      });
+
+      efecto.Discos.map((d) => {
+        //? Si es la primera vez que imprime el disco inyecto prop en true
+        axios.put(serverUrl + `/addPropsToEfecto`, { id: d.id, type: "disco" }).catch((e) => {
+          console.log(e);
+        });
+      });
     });
   });
 
