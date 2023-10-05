@@ -183,7 +183,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
         )}
         {efecto.tipoDeElemento === "sim" && (
           <Input
-            label={"*Empresa"}
+            label={"Empresa"}
             value={efecto.empresa}
             placeholder="Empresa"
             onChange={(e) => setEfecto({ ...efecto, empresa: e.target.value.toUpperCase() })}
