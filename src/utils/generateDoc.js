@@ -49,32 +49,37 @@ export function generateDoc() {
       efecto.index = index + 1;
       Efectos.push(efecto);
 
-      if (efecto.processToCompleteEfecto !== "true") {
-        //? Si es la primera vez que imprime el efecto le inyecto prop en true
+      if (efecto.processToCompleteEfecto !== "true" && efecto.estado === "completo") {
+        //? Si es la primera vez que imprime el efecto completado le inyecto prop en true
         axios.put(serverUrl + `/addPropsToEfecto/2`, { id: efecto.id }).catch((e) => {
           console.log(e);
         });
       }
 
       efecto.Sims.map((s) => {
-        //? Si es la primera vez que imprime la sim inyecto prop en true
-        axios.put(serverUrl + `/addPropsToEfecto`, { id: s.id, type: "sim" }).catch((e) => {
-          console.log(e);
-        });
+        //? Si es la primera vez que imprime la sim con extraccion inyecto prop en true
+        if (s.tipoExtraccionSim !== "en proceso")
+          axios.put(serverUrl + `/addPropsToEfecto`, { id: s.id, type: "sim" }).catch((e) => {
+            console.log(e);
+          });
       });
 
       efecto.Sds.map((s) => {
-        //? Si es la primera vez que imprime la sd inyecto prop en true
-        axios.put(serverUrl + `/addPropsToEfecto`, { id: s.id, type: "sd" }).catch((e) => {
-          console.log(e);
-        });
+        //? Si es la primera vez que imprime la sd con extraccion inyecto prop en true
+        if (s.tipoExtraccionSd !== "en proceso") {
+          axios.put(serverUrl + `/addPropsToEfecto`, { id: s.id, type: "sd" }).catch((e) => {
+            console.log(e);
+          });
+        }
       });
 
       efecto.Discos.map((d) => {
-        //? Si es la primera vez que imprime el disco inyecto prop en true
-        axios.put(serverUrl + `/addPropsToEfecto`, { id: d.id, type: "disco" }).catch((e) => {
-          console.log(e);
-        });
+        //? Si es la primera vez que imprime el disco completo inyecto prop en true
+        if (d.estado === "completo") {
+          axios.put(serverUrl + `/addPropsToEfecto`, { id: d.id, type: "disco" }).catch((e) => {
+            console.log(e);
+          });
+        }
       });
     });
   });

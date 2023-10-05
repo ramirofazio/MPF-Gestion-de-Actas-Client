@@ -62,7 +62,12 @@ export function AddSdModal({ sds, setSds, setAddSdModal, toast }) {
         />
         <Select
           label={"*Extracción"}
-          options={<TipoExtracciones />}
+          options={
+            <>
+              <TipoExtracciones />
+              <option value="en proceso">En Proceso</option>
+            </>
+          }
           value={sd.tipoExtraccionSd}
           onChange={(e) => setSd({ ...sd, tipoExtraccionSd: e.target.value })}
         />
