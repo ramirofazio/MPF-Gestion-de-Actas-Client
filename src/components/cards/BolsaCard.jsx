@@ -24,7 +24,11 @@ export function BolsaCard({ bolsa, currentBolsas, currentActa, setSelectedBag, s
   const askBolsasHasEfectos = (bolsa) => {
     let res = false;
     if (bolsa) {
-      if (bolsa.estado === "abierta con efectos en proceso" || bolsa.estado === "abierta con efectos completos") {
+      if (
+        bolsa.estado === "abierta con efectos en proceso" ||
+        bolsa.estado === "abierta con efectos completos" ||
+        bolsa.estado === "abierta en proceso con elementos completos"
+      ) {
         res = true;
       }
       if (bolsa.estado === "abierta sin efectos") {
@@ -105,7 +109,7 @@ export function BolsaCard({ bolsa, currentBolsas, currentActa, setSelectedBag, s
             />
           ) : (
             askBolsasHasEfectos(bolsa) &&
-            bolsa.estado === "abierta con efectos completos" && (
+            bolsa.estado !== "cerrada" && (
               <I.documentCheckMarck
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Abre ventana para agregar el precinto blanco ahora o despues"

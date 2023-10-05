@@ -27,7 +27,7 @@ export function CloseBagsCompleted({ closeModal, dispatch, selectedBag, updateBo
   };
 
   React.useEffect(() => {
-    if (actaEstado === "para completar") {
+    if (actaEstado === "para completar" || selectedBag.estado === "abierta en proceso con elementos completos") {
       setShow(true);
     }
   }, []);

@@ -8,7 +8,7 @@ export function CloseBagsModal({ closeModal, selectedBag }) {
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
 
-  if (selectedBag.estado === "abierta con efectos completos") {
+  if (selectedBag.estado === "abierta con efectos completos" || selectedBag.estado === "abierta en proceso con elementos completos") {
     return (
       <CloseBagsCompleted
         closeModal={closeModal}
