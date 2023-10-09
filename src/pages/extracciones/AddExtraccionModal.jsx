@@ -35,7 +35,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
 
   const handleExtraccionSubmit = (e) => {
     e.preventDefault();
-    if (extraccion.herramientaSoft && extraccion.TipoExtraccions?.length > 0) {
+    if (extraccion.herramientaSoft && extraccion.herramientaSoftVersion) {
       setAddExtraccionModal(false);
       setExtracciones([
         ...extracciones,
@@ -47,12 +47,12 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
         TipoExtraccions: tiposDeExtraccion,
       });
       if (extraccion.edit) {
-        toast.success("¡Extracción editada con éxito!");
+        toast.success("Herramienta editada con éxito!");
       } else {
-        toast.success("¡Extracción guardada con éxito!");
+        toast.success("Herramienta guardada con éxito!");
       }
     } else {
-      toast.error("¡Faltan datos necesarios para la extracción!");
+      toast.error("¡Faltan datos necesarios para guardar la herramienta!");
     }
   };
 
@@ -106,7 +106,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
 
   return (
     <>
-      <header className="modalHeader">Agregar Extracciones</header>
+      <header className="modalHeader">Agregar Herramienta</header>
       <form className="flex h-full w-full flex-col justify-center p-5 pt-0" onSubmit={handleExtraccionSubmit}>
         <Select
           label="software"
@@ -125,7 +125,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
           onChange={(e) => handleOnChangeExtraccion(e)}
         />
         <div className="flex w-full flex-1 flex-col items-center">
-          <span className="basicLabel !text-md mb-8 !self-center !text-white">Extracciones</span>
+          <span className="basicLabel !text-md mb-8 !self-center !text-white">Agregar Extracción</span>
           {tiposDeExtraccion.map((tEx) => (
             <div key={tEx.fakeId || tEx.id} className="mb-3 flex h-16 w-full items-center justify-around rounded-md bg-base p-2 text-black">
               <CardElement title={"tipo"} value={tEx.nombre} />
@@ -149,7 +149,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
             onClick={() =>
               extraccion.herramientaSoft && extraccion.herramientaSoftVersion
                 ? handleAddTipoExtraccionButtonClick()
-                : toast.warning("¡Primero debe seleccionar una heramienta de software y Versión!")
+                : toast.warning("¡Primero debe seleccionar una herramienta y Versión!")
             }
           />
         </div>

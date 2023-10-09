@@ -11,7 +11,7 @@ export function AddTipoExtraccionModal({ nombre, handleTipoExtraccionSubmit }) {
 
   return (
     <>
-      <header className="modalHeader">Extracciones de {nombre}</header>
+      <header className="modalHeader">Extracción de {nombre}</header>
       <form
         className="flex h-full w-full flex-col justify-center p-5 pt-0"
         onSubmit={(e) => handleTipoExtraccionSubmit(e, tipoDeExtraccion)}

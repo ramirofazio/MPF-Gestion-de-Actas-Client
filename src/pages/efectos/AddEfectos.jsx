@@ -410,7 +410,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
               onClick={() => (efecto.edit ? setEditExtraccionesModal(true) : setAddExtraccionesModal(true))}
               value="add extraccion"
             >
-              {efecto.edit ? "Editar" : "Agregar"} Extracciones
+              {efecto.edit ? "Editar" : "Agregar"} Herramientas
             </button>
           )}
           <input className="submitBtn !px-3" type="submit" value="Guardar" />

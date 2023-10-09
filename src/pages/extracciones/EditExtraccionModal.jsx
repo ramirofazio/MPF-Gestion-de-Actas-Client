@@ -31,7 +31,7 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
 
   return (
     <>
-      <header className="modalHeader">Agregar o Editar Extracciones</header>
+      <header className="modalHeader">Agregar o Editar Herramientas</header>
       <div className="flex h-64 max-h-[50%] w-full flex-col items-center overflow-y-scroll p-4">
         {thisExtracciones.map((e, index) => (
           <div className={`mb-4 flex h-14 w-full items-center rounded-md border-2 border-white bg-white`} key={index}>
@@ -51,7 +51,7 @@ export function EditExtraccionModal({ setEditExtraccionesModal, setAddExtraccion
         ))}
         {thisExtracciones.length === 0 && (
           <div className="flex h-full w-[50%] flex-col items-center justify-center">
-            <span className="text-white">¡No hay extracciones, agrega una!</span>
+            <span className="text-white">¡No hay herramientas, agrega una!</span>
             <I.appsAddIn className="mt-2 w-10 text-white" />
           </div>
         )}
