@@ -49,7 +49,7 @@ export function EditSimModal({ setEditSimsModal, setAddSimsModal, sims, renderAd
           </div>
         )}
       </div>
-      <div className="my-2 self-center">
+      <div className="my-2 text-center">
         <I.plusDotted className="icons !text-white hover:!text-secondary" size={35} onClick={(e) => handleAddAnotherSim(e)} />
       </div>
     </>

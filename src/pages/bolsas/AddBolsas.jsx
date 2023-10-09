@@ -1,29 +1,57 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { closeProcessActa } from "redux/actions";
-import ClipLoader from "react-spinners/ClipLoader";
+import { useSelector } from "react-redux";
+//import { closeProcessActa } from "redux/actions";
+//import ClipLoader from "react-spinners/ClipLoader";
 import { getSavedActa } from "utils/index";
 import { CloseBagsModal, AddBolsasModal } from "pages/index";
 import { BolsaCard, BaseModal } from "components/index";
 
 export function AddBolsas() {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const currentActa = useSelector((s) => JSON.parse(localStorage.getItem("currentActa")) || s.currentActa);
   const currentBolsas = useSelector((s) => JSON.parse(localStorage.getItem("currentBolsas")) || s.currentBolsas);
+  //const currentEfectos = useSelector((s) => getOfStorage("currentEfectos") || s.currentEfectos);
 
-  const [loading, setLoading] = useState(false);
+  //const [loading, setLoading] = useState(false);
   const [addBolsasModal, setAddBolsasModal] = useState(false);
   const [closeBagsModal, setCloseBagsModal] = useState(false);
   const [selectedBag, setSelectedBag] = useState({ id: "", nroPrecinto: "", estado: "" });
+  //const [allEfectosCompleted, setAllEfectosCompleted] = useState(false);
 
-  const handleCloseProcessActa = () => {
-    const res = confirm("¿Estas seguro que quieres completar el acta?");
+  //   const handleCloseProcessActa = () => {
+  //     const res = confirm("¿Estas seguro que quieres completar el acta?");
+  //     if (res) {
+  //       setLoading(true);
+  //       dispatch(closeProcessActa(currentActa.id, navigate));
+  //     }
+  //   };
+
+  //   useEffect(() => {
+  //     currentEfectos.map((e) => {
+  //       e.estado === "completo" ? setAllEfectosCompleted(true) : setAllEfectosCompleted(false);
+  //     });
+  //   }, [currentEfectos]);
+
+  const handlePrintActa = () => {
+    const res = confirm("¿Estas seguro que quieres imprimir el acta ahora?");
+
     if (res) {
-      setLoading(true);
-      dispatch(closeProcessActa(currentActa.id, navigate));
+      if (currentActa.estado === "completa") {
+        getSavedActa(currentActa.id, navigate);
+      } else {
+        setCloseBagsModal(!closeBagsModal);
+      }
+    }
+  };
+
+  const handlePrintActaInProcess = () => {
+    const res = confirm("¿Estas seguro que quieres imprimir el acta EN PROCESO ahora?");
+
+    if (res) {
+      getSavedActa(currentActa.id, navigate);
     }
   };
 
@@ -58,14 +86,12 @@ export function AddBolsas() {
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Imprime el acta en el estado actual con leyendas de que queda en proceso"
               className="basicBtnNoPadding px-10 py-2"
-              onClick={() =>
-                currentActa.observaciones !== "" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
-              }
+              onClick={() => handlePrintActaInProcess()}
               to="#"
             >
               Imprimir Acta en Proceso
             </NavLink>
-            {!loading && (
+            {/* {!loading && allEfectosCompleted && (
               <NavLink
                 data-tooltip-id="my-tooltip"
                 data-tooltip-content="Cambia los estados a completo para agregar los precintos blancos a las bolsas"
@@ -81,7 +107,7 @@ export function AddBolsas() {
                 Completando elementos y bolsas
                 <ClipLoader color={"black"} size={18} cssOverride={{ marginBottom: "-2%", marginLeft: "10px" }} loading={true} />
               </NavLink>
-            )}
+            )} */}
           </>
         )}
         {currentActa.estado === "completa" && (
@@ -90,9 +116,7 @@ export function AddBolsas() {
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Imprime el acta terminada"
               className="basicBtnNoPadding px-10 py-2"
-              onClick={() =>
-                currentActa.estado === "completa" ? getSavedActa(currentActa.id, navigate) : setCloseBagsModal(!closeBagsModal)
-              }
+              onClick={() => handlePrintActa()}
               to="#"
             >
               Imprimir Acta

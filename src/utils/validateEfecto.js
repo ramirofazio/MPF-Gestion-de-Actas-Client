@@ -9,7 +9,7 @@ export function validateEfecto(efecto) {
       break;
     }
     case "sim": {
-      if (bolsa_id && estado && empresa && herramientaSoft) {
+      if (bolsa_id && estado && herramientaSoft) {
         return true;
       }
       break;

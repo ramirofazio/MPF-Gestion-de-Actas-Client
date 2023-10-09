@@ -6,6 +6,8 @@ import expressions from "angular-expressions";
 import { assign } from "lodash";
 import { toast } from "react-toastify";
 import template from "assets/template.docx";
+import axios from "axios";
+import { serverUrl } from "./index";
 
 export function generateDoc() {
   const currentActa = JSON.parse(localStorage.getItem("finalActa")); //* Nos traemos el acta del local storage
@@ -14,20 +16,71 @@ export function generateDoc() {
   const { Bolsas, Peritos, Integrantes, dias, mes, anio, hora, processToComplete } = currentActa; //* Sacamos las bolsas y los integrantes del acta
   const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula } = currentActa; //* Desestructuramos el acta
 
+  if (currentActa.processToComplete === "false") {
+    //? Si es la primera vez que se imprime, inyecto prop `processToComplete` en true
+    axios.put(serverUrl + `/addPropsToActa`, { id: currentActa.id }).catch((err) => {
+      console.log(err);
+    });
+  }
+
   const Efectos = []; //* Array con todos los efectos con sus nroPrecintoBolsa
   let bagsInProcess = false;
+
   Bolsas.map((bolsa) => {
+    //? Si es la primera vez que se imprime, inyecto prop `processToCompleteBolsa` en true
+    axios.put(serverUrl + `/addPropsToBolsa/2`, { id: bolsa.id }).catch((err) => {
+      console.log(err);
+    });
+
     if (bolsa.estado === "cerrada en proceso") {
       bagsInProcess = true;
     }
+
+    if (bolsa.nroPrecintoBlanco) {
+      //! ACA HAY QUE INJECTAR A LAS BOLSAS QUE SE IMPRIMEN PRECINTADAS PARA QUE NO SE REPITAN
+      axios.put(serverUrl + `/addPropsToBolsa`, { id: bolsa.id }).catch((err) => {
+        console.log(err);
+      });
+    }
     //* Mapeo de las bolsas
-    return bolsa.Efectos.map((efecto) => {
+    return bolsa.Efectos.map((efecto, index) => {
       //* Mapeo de los efectos
       efecto.nroPrecintoBolsa = bolsa.nroPrecinto;
+      efecto.index = index + 1;
       Efectos.push(efecto);
-      /*
-       * Inyecto el nroPrecintoBolsa en cada efecto
-       */
+
+      if (efecto.processToCompleteEfecto !== "true" && efecto.estado === "completo") {
+        //? Si es la primera vez que imprime el efecto completado le inyecto prop en true
+        axios.put(serverUrl + `/addPropsToEfecto/2`, { id: efecto.id }).catch((e) => {
+          console.log(e);
+        });
+      }
+
+      efecto.Sims.map((s) => {
+        //? Si es la primera vez que imprime la sim con extraccion inyecto prop en true
+        if (s.tipoExtraccionSim !== "en proceso")
+          axios.put(serverUrl + `/addPropsToEfecto`, { id: s.id, type: "sim" }).catch((e) => {
+            console.log(e);
+          });
+      });
+
+      efecto.Sds.map((s) => {
+        //? Si es la primera vez que imprime la sd con extraccion inyecto prop en true
+        if (s.tipoExtraccionSd !== "en proceso") {
+          axios.put(serverUrl + `/addPropsToEfecto`, { id: s.id, type: "sd" }).catch((e) => {
+            console.log(e);
+          });
+        }
+      });
+
+      efecto.Discos.map((d) => {
+        //? Si es la primera vez que imprime el disco completo inyecto prop en true
+        if (d.estado === "completo") {
+          axios.put(serverUrl + `/addPropsToEfecto`, { id: d.id, type: "disco" }).catch((e) => {
+            console.log(e);
+          });
+        }
+      });
     });
   });
 

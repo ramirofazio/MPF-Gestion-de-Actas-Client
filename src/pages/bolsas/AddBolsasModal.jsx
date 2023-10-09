@@ -8,9 +8,15 @@ export function AddBolsasModal({ alternModal, acta_id }) {
 
   const [bolsa, setBolsa] = React.useState({
     acta_id: acta_id,
+    fecha: new Date().toLocaleDateString("es-ES", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }),
     colorPrecinto: "",
     nroPrecinto: "",
-    observaciones: "",
+    observaciones: "    ",
   });
 
   const handleSubmitBolsa = (e) => {
@@ -60,8 +66,8 @@ export function AddBolsasModal({ alternModal, acta_id }) {
         </div>
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">De su interior se extrae:</label>
-          <input
-            className="formModalInput"
+          <textarea
+            className="formModalInput !h-40 px-4"
             type="text"
             name="Observaciones/Descripcion de la Bolsa"
             value={bolsa.observaciones}

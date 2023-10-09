@@ -18,6 +18,8 @@ export function ActasCards({ allActas, typeOfCard }) {
     } else {
       actas = allActas.filter((a) => a.estado !== "deprecada");
     }
+
+    actas = actas.filter((a) => a.estado !== "deprecada");
     setActasToRender(actas);
   }, [allActas]);
 
@@ -28,7 +30,7 @@ export function ActasCards({ allActas, typeOfCard }) {
         className="flex w-full items-center justify-between border-b-[3px] border-t-[3px] border-principal bg-white/50 px-14"
       >
         <ActasFilters />
-        {typeOfCard !== "remove" && (
+        {typeOfCard !== "remove" && actasToRender.length > 0 && (
           <Link className="basicBtnNoPadding group flex px-4 py-2" to="/actas/crear/1">
             Crear Acta
             <I.plusDotted className="icons ml-4 w-[25px] group-hover:text-black" />
@@ -39,6 +41,21 @@ export function ActasCards({ allActas, typeOfCard }) {
         {typeOfCard === "remove"
           ? allActas.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)
           : actasToRender.map((acta) => <ActaCard acta={acta} type={typeOfCard} key={acta.id} />)}
+        {!actasToRender.length && (
+          <div className="mt-40 grid w-80 place-items-center gap-6 rounded-xl bg-principal p-8">
+            <I.sadFace className="w-20 text-white" />
+            <h1 className="text-white">¡No hay Actas!</h1>
+            {typeOfCard !== "remove" && (
+              <Link
+                className="basicBtnNoPadding group flex px-4 py-2 hover:border-2 hover:border-white hover:text-white"
+                to="/actas/crear/1"
+              >
+                Crear Acta
+                <I.plusDotted className="icons ml-4 w-[25px] group-hover:animate-pulse group-hover:text-white" />
+              </Link>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

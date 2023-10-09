@@ -53,7 +53,12 @@ export function AddSimModal({ sims, setSims, setAddSimsModal, toast }) {
         />
         <Select
           label={"*Extracción"}
-          options={<TipoExtracciones />}
+          options={
+            <>
+              <TipoExtracciones />
+              <option value="en proceso">En Proceso</option>
+            </>
+          }
           value={sim.tipoExtraccionSim}
           onChange={(e) => setSim({ ...sim, tipoExtraccionSim: e.target.value })}
         />

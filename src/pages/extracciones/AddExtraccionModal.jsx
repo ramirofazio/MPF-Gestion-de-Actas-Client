@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { removeTipoExtraccion } from "redux/actions";
+import { completeTExtraccion, removeTipoExtraccion } from "redux/actions";
 import { useDispatch } from "react-redux";
 import { AddTipoExtraccionModal } from "./index";
 import { Icons as I } from "assets/index";
@@ -35,7 +35,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
 
   const handleExtraccionSubmit = (e) => {
     e.preventDefault();
-    if (extraccion.herramientaSoft && extraccion.TipoExtraccions?.length > 0) {
+    if (extraccion.herramientaSoft && extraccion.herramientaSoftVersion) {
       setAddExtraccionModal(false);
       setExtracciones([
         ...extracciones,
@@ -47,12 +47,12 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
         TipoExtraccions: tiposDeExtraccion,
       });
       if (extraccion.edit) {
-        toast.success("¡Extracción editada con éxito!");
+        toast.success("Herramienta editada con éxito!");
       } else {
-        toast.success("¡Extracción guardada con éxito!");
+        toast.success("Herramienta guardada con éxito!");
       }
     } else {
-      toast.error("¡Faltan datos necesarios para la extracción!");
+      toast.error("¡Faltan datos necesarios para guardar la herramienta!");
     }
   };
 
@@ -92,11 +92,21 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
     });
   };
 
-  console.log(extraccion);
+  const handleCompleteTExtraccion = (id) => {
+    dispatch(completeTExtraccion(id));
+    const newExtraccions = tiposDeExtraccion.map((t) => {
+      if (t.id === id) {
+        t.estado = "completo";
+      }
+      return t;
+    });
+
+    setTiposDeExtraccion(newExtraccions);
+  };
 
   return (
     <>
-      <header className="modalHeader">Agregar Extracciones</header>
+      <header className="modalHeader">Agregar Herramienta</header>
       <form className="flex h-full w-full flex-col justify-center p-5 pt-0" onSubmit={handleExtraccionSubmit}>
         <Select
           label="software"
@@ -115,12 +125,20 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
           onChange={(e) => handleOnChangeExtraccion(e)}
         />
         <div className="flex w-full flex-1 flex-col items-center">
-          <span className="basicLabel !text-md mb-8 !self-center !text-white">Extracciones</span>
+          <span className="basicLabel !text-md mb-8 !self-center !text-white">Agregar Extracción</span>
           {tiposDeExtraccion.map((tEx) => (
             <div key={tEx.fakeId || tEx.id} className="mb-3 flex h-16 w-full items-center justify-around rounded-md bg-base p-2 text-black">
               <CardElement title={"tipo"} value={tEx.nombre} />
               <CardElement title={"estado"} value={tEx.estado} />
               {tEx.estado === "fallo" && <CardElement title={"observacion"} value={tEx.observacionFalla} />}
+              {tEx.estado === "en proceso" && tEx.id && (
+                <I.check
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Completar Extracción"
+                  className="icons mr-2 w-6 !text-success"
+                  onClick={() => handleCompleteTExtraccion(tEx.id)}
+                />
+              )}
               <I.trashCan onClick={() => handleRemoveTipoExtraccion(tEx)} className="icons mr-2 w-4 text-white" />
             </div>
           ))}
@@ -131,7 +149,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
             onClick={() =>
               extraccion.herramientaSoft && extraccion.herramientaSoftVersion
                 ? handleAddTipoExtraccionButtonClick()
-                : toast.warning("¡Primero debe seleccionar una heramienta de software y Versión!")
+                : toast.warning("¡Primero debe seleccionar una herramienta y Versión!")
             }
           />
         </div>

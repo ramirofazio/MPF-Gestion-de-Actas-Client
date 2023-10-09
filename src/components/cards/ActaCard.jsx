@@ -74,7 +74,7 @@ export function ActaCard({ acta, type }) {
           {acta.Bolsas.length}
         </span>
         <span className="cardInfoContainer">
-          <span className="cardTitle">Efectos</span>
+          <span className="cardTitle">Elementos</span>
           <br />
           {totalEfectos}
         </span>

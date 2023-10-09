@@ -80,6 +80,20 @@ export function Colors() {
   );
 }
 
+export function FormaDesbloqueo() {
+  return (
+    <>
+      <option value="">¿Como se Desbloqueo?</option>
+      <option value="papel con credenciales">Papel con Credenciales en Elemento</option>
+      <option value="no se desbloqueo">No se Desbloqueo</option>
+      <option value="prueba aleatoria">Prueba Aleatoria</option>
+      <option value="aportado">Aportado</option>
+      <option value="uso de software en proceso">Uso de Software en proceso</option>
+      <option value="uso de software">Uso de Software</option>
+    </>
+  );
+}
+
 export function YesOrNo() {
   return (
     <>
@@ -95,10 +109,11 @@ export function TipoSeguridad() {
     <>
       <option value="">Tipo de Seguridad</option>
       <option value="ninguna">Ninguna</option>
-      <option value="patron">Patron</option>
+      <option value="patron">Patrón</option>
       <option value="PIN (Numérico)">Pin (Numérico)</option>
       <option value="PIN (Alfanumérico)">Pin (Alfanumérico)</option>
-      <option value="huella">Huella</option>
+      <option value="Cifrado de Inicio (PIN Numérico)">Cifrado de Inicio (PIN Numérico)</option>
+      <option value="Cifrado de Inicio (Patrón)">Cifrado de Inicio (Patrón)</option>
     </>
   );
 }
@@ -110,8 +125,11 @@ export function TipoExtracciones() {
       <option value="ninguna">Ninguna</option>
       <option value="física">Física</option>
       <option value="lógica">Lógica</option>
-      <option value="sistema de archivos">Sistema de Archivos</option>
       <option value="lógica  avanzada">Logica Avanzada</option>
+      <option value="sistema de archivos">Sistema de Archivos</option>
+      <option value="sistema de archivos parcial">Sistema de archivos Parcial</option>
+      <option value="android backup">Android BackUp</option>
+      <option value="apk downgrade">APK Downgrade</option>
     </>
   );
 }
@@ -121,7 +139,7 @@ export function SuccessOrFail() {
     <>
       <option value="">Con Exito / Fallo</option>
       <option value="con exito">Con Exito</option>
-      <option value="fallo">Fallo</option>{" "}
+      <option value="fallo">Fallo</option>
     </>
   );
 }

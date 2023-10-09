@@ -18,6 +18,15 @@ import {
   SET_CURRENT_USER,
 } from "./variables";
 
+export function completeTExtraccion(id) {
+  return function () {
+    axios.put(serverUrl + `/completeTExtraccion/?id=${id}`).catch((err) => {
+      console.log(err);
+      toast.error("¡Error al completar extraccion!");
+    });
+  };
+}
+
 export function removeExtraccion(id) {
   return function () {
     axios.delete(serverUrl + `/removeExtraccion/?id=${id}`).catch((err) => {
@@ -450,7 +459,14 @@ export function createUsers() {
   return function () {
     axios.post(serverUrl + "/addUser", [
       { id: 1, nombreYApellido: "", legajo: 0, cargo: "", username: "admin", password: "GIDSI12345" },
-      { id: 2, nombreYApellido: "Esteban Diego Armando Bucci", legajo: 6004, cargo: "Oficial", username: "ebucci", password: "Ebucci6004" },
+      {
+        id: 2,
+        nombreYApellido: "Esteban Diego Armando Bucci",
+        legajo: 6004,
+        cargo: "Oficial",
+        username: "ebucci",
+        password: "Ebucci6004",
+      },
       {
         id: 3,
         nombreYApellido: "Federico Martin Palacios",

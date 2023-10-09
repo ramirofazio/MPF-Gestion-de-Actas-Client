@@ -27,6 +27,7 @@ import {
   SuccessOrFail,
   States,
   BaseModal,
+  FormaDesbloqueo,
 } from "components/index";
 
 export function AddEfectos({ alternModal, selectedBag }) {
@@ -82,6 +83,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
       unidadAlmacenamientoDetalle: "",
       adquisicion: "",
       herramientaSoft: "",
+      herramientaSoftVersion: "",
     }
   );
 
@@ -181,7 +183,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
         )}
         {efecto.tipoDeElemento === "sim" && (
           <Input
-            label={"*Empresa"}
+            label={"Empresa"}
             value={efecto.empresa}
             placeholder="Empresa"
             onChange={(e) => setEfecto({ ...efecto, empresa: e.target.value.toUpperCase() })}
@@ -205,12 +207,17 @@ export function AddEfectos({ alternModal, selectedBag }) {
                 />
               </>
             )}
-            <Input
-              label={"Descripción"}
-              value={efecto.descripcion}
-              placeholder="Descripción del elemento"
-              onChange={(e) => setEfecto({ ...efecto, descripcion: e.target.value })}
-            />
+
+            <div className="modalInputContainer">
+              <label className="basicLabel !text-white">Descripción</label>
+              <textarea
+                className="formModalInput !h-14 px-4"
+                type="text"
+                value={efecto.descripcionElemento}
+                placeholder="Descripción del elemento"
+                onChange={(e) => setEfecto({ ...efecto, descripcionElemento: e.target.value })}
+              />
+            </div>
           </>
         )}
         {efecto.tipoDeElemento === "celular" && (
@@ -303,14 +310,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
                 label={"¿Forma Desbloqueo?"}
                 value={efecto.desbloqueo}
                 onChange={(e) => setEfecto({ ...efecto, desbloqueo: e.target.value })}
-                options={
-                  <>
-                    <option value="">¿Como se Desbloqueo?</option>
-                    <option value="uso de software">Uso de Software</option>
-                    <option value="prueba aleatoria">Prueba Aleatoria</option>
-                    <option value="aportado">Aportado</option>
-                  </>
-                }
+                options={<FormaDesbloqueo />}
               />
             )}
         {efecto.encendido === "no" && (
@@ -344,6 +344,15 @@ export function AddEfectos({ alternModal, selectedBag }) {
               options={<TipoExtracciones />}
             />
           </>
+        )}
+
+        {efecto.herramientaSoft && (
+          <Input
+            label={"Versión Herramienta"}
+            value={efecto.herramientaSoftVersion}
+            placeholder={"V0.00"}
+            onChange={(e) => setEfecto({ ...efecto, herramientaSoftVersion: e.target.value })}
+          />
         )}
         {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && efecto.herramientaSoft !== "" && (
           <Select
@@ -401,7 +410,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
               onClick={() => (efecto.edit ? setEditExtraccionesModal(true) : setAddExtraccionesModal(true))}
               value="add extraccion"
             >
-              {efecto.edit ? "Editar" : "Agregar"} Extracciones
+              {efecto.edit ? "Editar" : "Agregar"} Herramientas
             </button>
           )}
           <input className="submitBtn !px-3" type="submit" value="Guardar" />
