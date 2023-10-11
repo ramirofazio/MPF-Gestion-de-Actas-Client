@@ -90,7 +90,7 @@ export function EfectosCard({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         <br />
         {nroPrecintoBolsa}
       </div>
-      {efecto.unidadAlmacenamientoDetalle !== "disco optico" && efecto.unidadAlmacenamientoDetalle !== "disquete" ? (
+      {efecto.unidadAlmacenamientoDetalle !== "discos opticos" && efecto.unidadAlmacenamientoDetalle !== "disquete" ? (
         <>
           {efecto.tipoDeElemento === "sim" && (
             <>

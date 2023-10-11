@@ -50,7 +50,7 @@ export function DetalleUnidad() {
       <option value="">Seleccione</option>
       <option value="Pendrive">Pendrive</option>
       <option value="Tarjeta SD">Tarjeta SD</option>
-      <option value="disco optico">Disco Óptico</option>
+      <option value="discos opticos">Disco Óptico</option>
       <option value="disquete">Disquete</option>
     </>
   );
