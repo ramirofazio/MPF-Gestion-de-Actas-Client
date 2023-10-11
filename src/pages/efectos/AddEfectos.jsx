@@ -224,6 +224,18 @@ export function AddEfectos({ alternModal, selectedBag }) {
             </>
           )}
 
+        {(efecto.unidadAlmacenamientoDetalle === "Tarjeta SD" || efecto.unidadAlmacenamientoDetalle === "Pendrive") && (
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Descripción</label>
+            <textarea
+              className="formModalInput !h-14 px-4"
+              type="text"
+              value={efecto.descripcionElemento}
+              placeholder="Descripción del elemento"
+              onChange={(e) => setEfecto({ ...efecto, descripcionElemento: e.target.value })}
+            />
+          </div>
+        )}
         {efecto.tipoDeElemento === "sim" && (
           <Input
             label={"Empresa"}
@@ -252,7 +264,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
                   />
                 </>
               )}
-            {efecto.interes === "si" && (
+            {(efecto.tipoDeElemento !== "unidad de almacenamiento" || efecto.interes === "si") && (
               <div className="modalInputContainer">
                 <label className="basicLabel !text-white">Descripción</label>
                 <textarea
@@ -266,6 +278,7 @@ export function AddEfectos({ alternModal, selectedBag }) {
             )}
           </>
         )}
+
         {efecto.tipoDeElemento === "celular" && (
           <Input label={"IMEI"} value={efecto.imei} placeholder="Imei" onChange={(e) => setEfecto({ ...efecto, imei: e.target.value })} />
         )}
