@@ -61,7 +61,7 @@ export function AddIntegrantes() {
     <div className="paddingLeftContainer">
       <header className="header">
         <span data-aos="zoom-in" className="headerTitle">
-          Creación de Integrantes
+          Peritos de Parte
         </span>
       </header>
       <div className="flex min-h-[80%] w-full items-center justify-center  border-t-[3px] border-principal">

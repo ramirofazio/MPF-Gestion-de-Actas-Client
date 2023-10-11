@@ -16,7 +16,7 @@ export function AddBolsasModal({ alternModal, acta_id }) {
     }),
     colorPrecinto: "",
     nroPrecinto: "",
-    observaciones: "    ",
+    observaciones: "",
   });
 
   const handleSubmitBolsa = (e) => {

@@ -137,8 +137,6 @@ export function generateDoc() {
       parser: angularParser,
     });
 
-    console.log(bagsInProcess);
-
     doc.setData({
       encabezadoFlag: actaFlag,
       dias: dias,
