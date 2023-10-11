@@ -1,6 +1,7 @@
 import React from "react";
 import { Icons as I } from "assets";
 import { toast } from "react-toastify";
+import { CardElement } from ".";
 
 export function EfectosCard({ efecto, currentBolsas, handleRemoveEfecto, estadoActa, renderAddEfectosModal, setAddEfectosModal }) {
   const [nroPrecintoBolsa, setNroPrecintoBolsa] = React.useState();
@@ -89,145 +90,154 @@ export function EfectosCard({ efecto, currentBolsas, handleRemoveEfecto, estadoA
         <br />
         {nroPrecintoBolsa}
       </div>
-      {efecto.tipoDeElemento === "sim" && (
+      {efecto.unidadAlmacenamientoDetalle !== "disco optico" && efecto.unidadAlmacenamientoDetalle !== "disquete" ? (
         <>
-          <div className="cardInfoContainer">
-            <span className="cardTitle">Empresa</span>
-            <br />
-            {efecto.empresa || "No Visible"}
-          </div>
-          <div className="cardInfoContainer">
-            <span className="cardTitle">Software</span>
-            <br />
-            {efecto.herramientaSoft || "No Visible"}
-          </div>
-          <div className="cardInfoContainer">
-            <span className="cardTitle">Extraccion</span>
-            <br />
-            {efecto.tipoExtraccion || "En Proceso"}
-          </div>
-        </>
-      )}
-      {efecto.tipoDeElemento === "no peritable" && (
-        <div className="cardInfoContainer">
-          <span className="cardTitle">Descripcion</span>
-          <br />
-          {efecto.descripcionElemento}
-        </div>
-      )}
-      {efecto.tipoDeElemento !== "sim" && efecto.tipoDeElemento !== "no peritable" && (
-        <>
-          <div className="cardInfoContainer">
-            <span className="cardTitle">Marca</span>
-            <br />
-            {efecto.marca || "No Visible"}
-          </div>
-          <div className="cardInfoContainer">
-            <span className="cardTitle">Modelo</span>
-            <br />
-            {efecto.modelo || "No Visible"}
-          </div>
-        </>
-      )}
-      {efecto.encendido === "no" && (
-        <>
-          <div className="cardInfoContainer">
-            <span className="cardTitle">Encendido</span>
-            <br />
-            {efecto.encendido}
-          </div>
-          <div className="cardInfoContainer">
-            <span className="cardTitle">Observacion</span>
-            <br />
-            {truncateText(efecto.observacionEncendido || "", 30)}
-          </div>
-        </>
-      )}
-      {(efecto.encendido === "si" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
-        <>
-          {efecto.elementoFallado === "si" ? (
+          {efecto.tipoDeElemento === "sim" && (
             <>
               <div className="cardInfoContainer">
-                <span className="cardTitle">Falla</span>
+                <span className="cardTitle">Empresa</span>
                 <br />
-                {efecto.elementoFallado}
+                {efecto.empresa || "No Visible"}
+              </div>
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Software</span>
+                <br />
+                {efecto.herramientaSoft || "No Visible"}
+              </div>
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Extraccion</span>
+                <br />
+                {efecto.tipoExtraccion || "En Proceso"}
+              </div>
+            </>
+          )}
+          {efecto.tipoDeElemento === "no peritable" && (
+            <div className="cardInfoContainer">
+              <span className="cardTitle">Descripcion</span>
+              <br />
+              {efecto.descripcionElemento}
+            </div>
+          )}
+          {efecto.tipoDeElemento !== "sim" && efecto.tipoDeElemento !== "no peritable" && (
+            <>
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Marca</span>
+                <br />
+                {efecto.marca || "No Visible"}
+              </div>
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Modelo</span>
+                <br />
+                {efecto.modelo || "No Visible"}
+              </div>
+            </>
+          )}
+          {efecto.encendido === "no" && (
+            <>
+              <div className="cardInfoContainer">
+                <span className="cardTitle">Encendido</span>
+                <br />
+                {efecto.encendido}
               </div>
               <div className="cardInfoContainer">
                 <span className="cardTitle">Observacion</span>
                 <br />
-                {truncateText(efecto.observacionFalla || "", 40)}
+                {truncateText(efecto.observacionEncendido || "", 30)}
               </div>
             </>
-          ) : (
+          )}
+          {(efecto.encendido === "si" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
             <>
-              {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
+              {efecto.elementoFallado === "si" ? (
                 <>
                   <div className="cardInfoContainer">
-                    <span className="cardTitle">S/N</span>
+                    <span className="cardTitle">Falla</span>
                     <br />
-                    {efecto.serialNumber || "No Visible"}
+                    {efecto.elementoFallado}
                   </div>
                   <div className="cardInfoContainer">
-                    <span className="cardTitle">Almacenamiento</span>
+                    <span className="cardTitle">Observacion</span>
                     <br />
-                    {efecto.almacenamiento || "No visible"}
-                  </div>
-                  <div className="cardInfoContainer capitalize">
-                    <span className="cardTitle">Adquisicion</span>
-                    <br />
-                    {efecto.adquisicion}
+                    {truncateText(efecto.observacionFalla || "", 40)}
                   </div>
                 </>
-              )}
-
-              {(efecto.desbloqueo || efecto.extraccion) && (
+              ) : (
                 <>
-                  {efecto.tipoDeElemento !== "unidad de almacenamiento" && (
-                    <div className="cardInfoContainer">
-                      <span className="cardTitle">Seguridad</span>
-                      <br />
-                      {efecto.tipoSeguridad}
-                    </div>
+                  {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
+                    <>
+                      <div className="cardInfoContainer">
+                        <span className="cardTitle">S/N</span>
+                        <br />
+                        {efecto.serialNumber || "No Visible"}
+                      </div>
+                      <div className="cardInfoContainer">
+                        <span className="cardTitle">Almacenamiento</span>
+                        <br />
+                        {efecto.almacenamiento || "No visible"}
+                      </div>
+                      <div className="cardInfoContainer capitalize">
+                        <span className="cardTitle">Adquisicion</span>
+                        <br />
+                        {efecto.adquisicion}
+                      </div>
+                    </>
                   )}
-                  <div className="cardInfoContainer">
-                    <span className="cardTitle">Extracciones</span>
-                    <br />
-                    {efecto.Extraccions.length}
-                  </div>
-                  {efecto.desbloqueo === "no" && (
-                    <div className="cardInfoContainer">
-                      <span className="cardTitle">Desbloqueo</span>
-                      <br />
-                      {efecto.desbloqueo}
-                    </div>
+
+                  {(efecto.desbloqueo || efecto.extraccion) && (
+                    <>
+                      {efecto.tipoDeElemento !== "unidad de almacenamiento" && (
+                        <div className="cardInfoContainer">
+                          <span className="cardTitle">Seguridad</span>
+                          <br />
+                          {efecto.tipoSeguridad}
+                        </div>
+                      )}
+                      <div className="cardInfoContainer">
+                        <span className="cardTitle">Extracciones</span>
+                        <br />
+                        {efecto.Extraccions.length}
+                      </div>
+                      {efecto.desbloqueo === "no" && (
+                        <div className="cardInfoContainer">
+                          <span className="cardTitle">Desbloqueo</span>
+                          <br />
+                          {efecto.desbloqueo}
+                        </div>
+                      )}
+                    </>
                   )}
                 </>
               )}
             </>
           )}
-        </>
-      )}
 
-      {(efecto.tipoDeElemento === "notebook" ||
-        efecto.tipoDeElemento === "pc" ||
-        efecto.tipoDeElemento === "dvr" ||
-        efecto.tipoDeElemento === "sim") && (
-        <>
-          <div className="cardInfoContainer">
-            <span className="cardTitle">S/N</span>
-            <br />
-            {efecto.serialNumber || "No Visible"}
-          </div>
-          {efecto.tipoDeElemento !== "sim" && (
-            <div className="cardInfoContainer">
-              <span className="cardTitle">Discos</span>
-              <br />
-              {efecto.Discos.length}
-            </div>
+          {(efecto.tipoDeElemento === "notebook" ||
+            efecto.tipoDeElemento === "pc" ||
+            efecto.tipoDeElemento === "dvr" ||
+            efecto.tipoDeElemento === "sim") && (
+            <>
+              <div className="cardInfoContainer">
+                <span className="cardTitle">S/N</span>
+                <br />
+                {efecto.serialNumber || "No Visible"}
+              </div>
+              {efecto.tipoDeElemento !== "sim" && (
+                <div className="cardInfoContainer">
+                  <span className="cardTitle">Discos</span>
+                  <br />
+                  {efecto.Discos.length}
+                </div>
+              )}
+            </>
           )}
         </>
+      ) : (
+        <>
+          <CardElement title={"Cantidad Total"} value={efecto.cantidadTotal} />
+          <CardElement title={"Interes"} value={efecto.interes} />
+          {efecto.interes === "si" && <CardElement title={"Cantidad Interes"} value={efecto.cantidadInteres} />}
+        </>
       )}
-
       <div className="cardInfoContainer" style={{ flex: 0.5, marginRight: "10px" }}>
         {efecto.Sims.length !== 0 && (
           <I.simCard

@@ -84,6 +84,9 @@ export function AddEfectos({ alternModal, selectedBag }) {
       adquisicion: "",
       herramientaSoft: "",
       herramientaSoftVersion: "",
+      cantidadTotal: "",
+      cantidadInteres: "",
+      interes: "",
     }
   );
 
@@ -181,6 +184,34 @@ export function AddEfectos({ alternModal, selectedBag }) {
             options={<DetalleUnidad />}
           />
         )}
+        {(efecto.unidadAlmacenamientoDetalle === "disco optico" || efecto.unidadAlmacenamientoDetalle === "disquete") && (
+          <Input
+            type={"number"}
+            label={"*Cantidad Total"}
+            value={efecto.cantidadTotal}
+            placeholder="Cantidad"
+            onChange={(e) => setEfecto({ ...efecto, cantidadTotal: e.target.value })}
+          />
+        )}
+        {(efecto.unidadAlmacenamientoDetalle === "disco optico" || efecto.unidadAlmacenamientoDetalle === "disquete") && (
+          <Select
+            label={"*Interes"}
+            value={efecto.interes}
+            onChange={(e) => setEfecto({ ...efecto, interes: e.target.value })}
+            options={<YesOrNo />}
+          />
+        )}
+        {(efecto.unidadAlmacenamientoDetalle === "disco optico" || efecto.unidadAlmacenamientoDetalle === "disquete") &&
+          efecto.interes === "si" && (
+            <Input
+              type={"number"}
+              label={"*Cantidad Interes"}
+              value={efecto.cantidadInteres}
+              placeholder="Cantidad"
+              onChange={(e) => setEfecto({ ...efecto, cantidadInteres: e.target.value })}
+            />
+          )}
+
         {efecto.tipoDeElemento === "sim" && (
           <Input
             label={"Empresa"}
@@ -191,22 +222,24 @@ export function AddEfectos({ alternModal, selectedBag }) {
         )}
         {efecto.tipoDeElemento !== "sim" && (
           <>
-            {efecto.tipoDeElemento !== "no peritable" && (
-              <>
-                <Input
-                  label={"Marca"}
-                  value={efecto.marca}
-                  placeholder="Marca"
-                  onChange={(e) => setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })}
-                />
-                <Input
-                  label={"Modelo"}
-                  value={efecto.modelo}
-                  placeholder="Modelo"
-                  onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
-                />
-              </>
-            )}
+            {efecto.tipoDeElemento !== "no peritable" &&
+              efecto.unidadAlmacenamientoDetalle !== "disco optico" &&
+              efecto.unidadAlmacenamientoDetalle !== "disquete" && (
+                <>
+                  <Input
+                    label={"Marca"}
+                    value={efecto.marca}
+                    placeholder="Marca"
+                    onChange={(e) => setEfecto({ ...efecto, marca: e.target.value.toUpperCase() })}
+                  />
+                  <Input
+                    label={"Modelo"}
+                    value={efecto.modelo}
+                    placeholder="Modelo"
+                    onChange={(e) => setEfecto({ ...efecto, modelo: e.target.value.toUpperCase() })}
+                  />
+                </>
+              )}
 
             <div className="modalInputContainer">
               <label className="basicLabel !text-white">Descripción</label>
@@ -226,7 +259,9 @@ export function AddEfectos({ alternModal, selectedBag }) {
         {efecto.tipoDeElemento !== "sim" &&
           efecto.tipoDeElemento !== "dvr" &&
           efecto.tipoDeElemento !== "disco" &&
-          efecto.tipoDeElemento !== "no peritable" && (
+          efecto.tipoDeElemento !== "no peritable" &&
+          efecto.unidadAlmacenamientoDetalle !== "disco optico" &&
+          efecto.unidadAlmacenamientoDetalle !== "disquete" && (
             <Select
               label={"*Color"}
               value={efecto.color}
@@ -240,22 +275,26 @@ export function AddEfectos({ alternModal, selectedBag }) {
           efecto.tipoDeElemento === "gabinete" ||
           efecto.tipoDeElemento === "dvr" ||
           efecto.tipoDeElemento === "disco" ||
-          efecto.tipoDeElemento === "sim") && (
-          <Input
-            label={"Serial N°"}
-            value={efecto.serialNumber}
-            placeholder="123456789"
-            onChange={(e) => setEfecto({ ...efecto, serialNumber: e.target.value.toUpperCase() })}
-          />
-        )}
-        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") && (
-          <Input
-            label={"Almacenamiento"}
-            value={efecto.almacenamiento}
-            placeholder="500 GB / 1 TB"
-            onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value.toUpperCase() })}
-          />
-        )}
+          efecto.tipoDeElemento === "sim") &&
+          efecto.unidadAlmacenamientoDetalle !== "disco optico" &&
+          efecto.unidadAlmacenamientoDetalle !== "disquete" && (
+            <Input
+              label={"Serial N°"}
+              value={efecto.serialNumber}
+              placeholder="123456789"
+              onChange={(e) => setEfecto({ ...efecto, serialNumber: e.target.value.toUpperCase() })}
+            />
+          )}
+        {(efecto.tipoDeElemento === "disco" || efecto.tipoDeElemento === "unidad de almacenamiento") &&
+          efecto.unidadAlmacenamientoDetalle !== "disco optico" &&
+          efecto.unidadAlmacenamientoDetalle !== "disquete" && (
+            <Input
+              label={"Almacenamiento"}
+              value={efecto.almacenamiento}
+              placeholder="500 GB / 1 TB"
+              onChange={(e) => setEfecto({ ...efecto, almacenamiento: e.target.value.toUpperCase() })}
+            />
+          )}
         {(efecto.tipoDeElemento === "celular" || efecto.tipoDeElemento === "tablet") && (
           <Select
             label={"*¿Enciende?"}
@@ -264,14 +303,16 @@ export function AddEfectos({ alternModal, selectedBag }) {
             options={<YesOrNo />}
           />
         )}
-        {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") && (
-          <Select
-            label={"¿Falla?"}
-            value={efecto.elementoFallado}
-            onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}
-            options={<YesOrNo />}
-          />
-        )}
+        {(efecto.tipoDeElemento === "unidad de almacenamiento" || efecto.tipoDeElemento === "disco") &&
+          efecto.unidadAlmacenamientoDetalle !== "disco optico" &&
+          efecto.unidadAlmacenamientoDetalle !== "disquete" && (
+            <Select
+              label={"¿Falla?"}
+              value={efecto.elementoFallado}
+              onChange={(e) => setEfecto({ ...efecto, elementoFallado: e.target.value })}
+              options={<YesOrNo />}
+            />
+          )}
         {efecto.encendido === "si" && (
           <Select
             label={"¿Falla?"}

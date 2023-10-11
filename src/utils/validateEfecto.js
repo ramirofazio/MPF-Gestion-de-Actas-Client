@@ -1,5 +1,5 @@
 export function validateEfecto(efecto) {
-  const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color, empresa, herramientaSoft, descripcionElemento } = efecto;
+  const { bolsa_id, tipoDeDisco, tipoDeElemento, estado, encendido, color, herramientaSoft, descripcionElemento } = efecto;
 
   switch (tipoDeElemento) {
     case "no peritable": {
@@ -39,7 +39,7 @@ export function validateEfecto(efecto) {
       break;
     }
     case "unidad de almacenamiento": {
-      if (bolsa_id && estado && color) {
+      if (bolsa_id && estado) {
         return true;
       }
       break;

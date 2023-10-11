@@ -50,11 +50,18 @@ export function DetalleUnidad() {
       <option value="">Seleccione</option>
       <option value="Pendrive">Pendrive</option>
       <option value="Tarjeta SD">Tarjeta SD</option>
-      <option value="DVD">Disco DVD</option>
-      <option value="CD">Disco CD</option>
+      <option value="disco optico">Disco Óptico</option>
+      <option value="disquete">Disquete</option>
     </>
   );
 }
+
+/*
+    cantidad total Nro
+    de interes: Si o No
+    cantidad Interes aparece solo en SI
+    descripcion siempre aparece
+ */
 
 export function Colors() {
   return (
