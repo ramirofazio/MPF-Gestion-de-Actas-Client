@@ -25,6 +25,17 @@ export function generateDoc() {
 
   const Efectos = []; //* Array con todos los efectos con sus nroPrecintoBolsa
   let bagsInProcess = false;
+  let integranteNoRepeatLeyend = false;
+
+  Integrantes.map((integrante) => {
+    //? Mapeo los integrantes para saber si todos tienen locacion === presencial y mostrar una sola vez la leyenda
+    if (Integrantes.length > 1) {
+      const match = integrante.locacion === "presencial";
+      if (match) {
+        integranteNoRepeatLeyend = true;
+      }
+    }
+  });
 
   Bolsas.map((bolsa) => {
     //? Si es la primera vez que se imprime, inyecto prop `processToCompleteBolsa` en true
@@ -155,6 +166,7 @@ export function generateDoc() {
       observaciones: observaciones,
       processToComplete: processToComplete,
       bagsInProcess: bagsInProcess,
+      integranteNoRepeatLeyend: integranteNoRepeatLeyend,
     });
     try {
       doc.render();
