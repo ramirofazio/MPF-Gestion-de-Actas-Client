@@ -30,7 +30,7 @@ export function generateDoc() {
   Integrantes.map((integrante) => {
     //? Mapeo los integrantes para saber si todos tienen locacion === presencial y mostrar una sola vez la leyenda
     if (Integrantes.length > 1) {
-      const match = integrante.locacion === "presencial";
+      const match = integrante.locacion === "presencial" || integrante.locacion === "videollamada";
       if (match) {
         integranteNoRepeatLeyend = true;
       }
