@@ -461,7 +461,7 @@ export function createUsers() {
       { id: 1, nombreYApellido: "", legajo: 0, cargo: "", username: "admin", password: "GIDSI12345" },
       {
         id: 2,
-        nombreYApellido: "Esteban Diego Armando Bucci",
+        nombreYApellido: "Ing. Esteban Diego Armando Bucci",
         legajo: 6004,
         cargo: "Oficial",
         username: "ebucci",
@@ -469,7 +469,7 @@ export function createUsers() {
       },
       {
         id: 3,
-        nombreYApellido: "Federico Martin Palacios",
+        nombreYApellido: "Tec. Federico Martin Palacios",
         legajo: 7069,
         cargo: "Auxiliar",
         username: "fpalacios",
@@ -477,7 +477,7 @@ export function createUsers() {
       },
       {
         id: 4,
-        nombreYApellido: "Pablo Javier Marques",
+        nombreYApellido: "Tec. Pablo Javier Marques",
         legajo: 6330,
         cargo: "Escribiente",
         username: "pmarques",
@@ -485,7 +485,7 @@ export function createUsers() {
       },
       {
         id: 5,
-        nombreYApellido: "Leandro Antonio Pollastrini",
+        nombreYApellido: "Lic. Leandro Antonio Pollastrini",
         legajo: 6003,
         cargo: "Escribiente",
         username: "lpollastrini",
@@ -517,7 +517,7 @@ export function createUsers() {
       },
       {
         id: 9,
-        nombreYApellido: "Juan Ignacio Burgos",
+        nombreYApellido: "Tec. Juan Ignacio Burgos",
         legajo: 20381,
         cargo: "",
         username: "jburgos",

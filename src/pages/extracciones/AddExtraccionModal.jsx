@@ -35,7 +35,7 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
 
   const handleExtraccionSubmit = (e) => {
     e.preventDefault();
-    if (extraccion.herramientaSoft && extraccion.herramientaSoftVersion) {
+    if (extraccion.herramientaSoft) {
       setAddExtraccionModal(false);
       setExtracciones([
         ...extracciones,
@@ -147,9 +147,9 @@ export function AddExtraccionModal({ extracciones, setExtracciones, setAddExtrac
               extraccion.herramientaSoft && extraccion.herramientaSoftVersion ? "hover:!text-secondary" : "!text-secondary"
             }`}
             onClick={() =>
-              extraccion.herramientaSoft && extraccion.herramientaSoftVersion
+              extraccion.herramientaSoft
                 ? handleAddTipoExtraccionButtonClick()
-                : toast.warning("¡Primero debe seleccionar una herramienta y Versión!")
+                : toast.warning("¡Primero debe seleccionar una herramienta!")
             }
           />
         </div>

@@ -56,13 +56,6 @@ export function DetalleUnidad() {
   );
 }
 
-/*
-    cantidad total Nro
-    de interes: Si o No
-    cantidad Interes aparece solo en SI
-    descripcion siempre aparece
- */
-
 export function Colors() {
   return (
     <>
@@ -135,6 +128,7 @@ export function TipoExtracciones() {
       <option value="lógica  avanzada">Logica Avanzada</option>
       <option value="sistema de archivos">Sistema de Archivos</option>
       <option value="sistema de archivos parcial">Sistema de archivos Parcial</option>
+      <option value="sistema de archivos completo">Sistema de Archivos Completo</option>
       <option value="android backup">Android BackUp</option>
       <option value="apk downgrade">APK Downgrade</option>
     </>
@@ -157,7 +151,6 @@ export function States() {
       <option value="">Seleccione el Estado</option>
       <option value="completo">Completo</option>
       <option value="en proceso">En Proceso</option>
-      <option value="peritado">Peritado</option>
     </>
   );
 }

@@ -247,8 +247,8 @@ export function AddEfectos({ alternModal, selectedBag }) {
         {efecto.tipoDeElemento !== "sim" && (
           <>
             {efecto.tipoDeElemento !== "no peritable" &&
-              efecto.unidadAlmacenamientoDetalle !== "disco opticos" &&
-              efecto.unidadAlmacenamientoDetalle !== "disquetes" && (
+              efecto.unidadAlmacenamientoDetalle !== "discos opticos" &&
+              efecto.unidadAlmacenamientoDetalle !== "disquete" && (
                 <>
                   <Input
                     label={"Marca"}
