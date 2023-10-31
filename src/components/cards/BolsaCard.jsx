@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { removeEfecto, removeBolsa } from "redux/actions";
 import { truncateText } from "utils/index";
 import { EfectosCard, CardElement, BaseModal } from "components/index";
-import { AddEfectos } from "pages/index";
+import { AddEfectos, UpdatePrecintoBlanco } from "pages/index";
 import { Icons as I } from "assets/index";
 
 export function BolsaCard({ bolsa, currentBolsas, currentActa, setSelectedBag, selectedBag, setCloseBagsModal, closeBagsModal }) {
@@ -11,8 +11,10 @@ export function BolsaCard({ bolsa, currentBolsas, currentActa, setSelectedBag, s
 
   const [bolsaIdShowEfectos, setBolsaIdShowEfectos] = useState(false);
   const [addEfectosModal, setAddEfectosModal] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const handleRemoveBolsa = (bolsaId) => {
+    setModal(!modal);
     dispatch(removeBolsa(bolsaId, currentActa.id));
   };
 
@@ -127,6 +129,14 @@ export function BolsaCard({ bolsa, currentBolsas, currentActa, setSelectedBag, s
               onClick={() => handleClickBolsaContainer(bolsa.id)}
             />
           )}
+          {bolsa.estado === "cerrada" && (
+            <I.tagReset
+              className="icons h-8 w-8"
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Editar Nro Precinto Blanco"
+              onClick={() => setModal(true)}
+            />
+          )}
         </div>
       </div>
       {bolsaIdShowEfectos === bolsa.id && (
@@ -146,6 +156,11 @@ export function BolsaCard({ bolsa, currentBolsas, currentActa, setSelectedBag, s
         </div>
       )}
       {renderAddEfectosModal()}
+      <BaseModal
+        close={() => setModal(false)}
+        isOpen={modal}
+        content={<UpdatePrecintoBlanco bolsaId={bolsa.id} closeModal={() => setModal(false)} />}
+      />
     </div>
   );
 }

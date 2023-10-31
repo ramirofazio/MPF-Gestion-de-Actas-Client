@@ -37,4 +37,5 @@ export const Icons = {
   fileLock: bootstrap.FileEarmarkLock,
   sadFace: fluentui.EmojiSad,
   check: bootstrap.Check2,
+  tagReset: fluentui.TagReset,
 };

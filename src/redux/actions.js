@@ -18,6 +18,20 @@ import {
   SET_CURRENT_USER,
 } from "./variables";
 
+export function updatePrecintoBlanco({ bolsaId, nroPrecintoBlanco }) {
+  return function () {
+    axios
+      .put(serverUrl + `/updateWhiteTag`, { bolsaId, nroPrecintoBlanco })
+      .then((res) => {
+        if (res.status === 200) toast.success("Precinto actualizado con exito");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("¡Error al editar precinto!");
+      });
+  };
+}
+
 export function completeTExtraccion(id) {
   return function () {
     axios.put(serverUrl + `/completeTExtraccion/?id=${id}`).catch((err) => {
