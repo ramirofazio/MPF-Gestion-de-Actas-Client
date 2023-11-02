@@ -13,7 +13,7 @@ export function generateDoc() {
   const currentActa = JSON.parse(localStorage.getItem("finalActa")); //* Nos traemos el acta del local storage
   const actaFlag = localStorage.getItem("actaFlag"); //* Nos traemos la flag del local storage
 
-  const { Bolsas, Peritos, Integrantes, dias, mes, anio, hora, processToComplete } = currentActa; //* Sacamos las bolsas y los integrantes del acta
+  const { Bolsas, Peritos, Integrantes, dias, mes, anio, hora, processToComplete, id } = currentActa; //* Sacamos las bolsas y los integrantes del acta
   const { observaciones, solicitante, nro_mpf, nro_coop, nro_causa, caratula } = currentActa; //* Desestructuramos el acta
 
   if (currentActa.processToComplete === "false") {
@@ -149,6 +149,7 @@ export function generateDoc() {
     });
 
     doc.setData({
+      actaId: id,
       encabezadoFlag: actaFlag,
       dias: dias,
       mes: mes,
