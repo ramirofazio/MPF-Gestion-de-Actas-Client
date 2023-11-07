@@ -180,7 +180,7 @@ export function AddPeritos() {
                 to="#"
               >
                 <I.personAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
-                Agregar a {perito.nombreYApellido.split(" ")[0]}
+                Agregar a {perito.nombreYApellido.split(" ").slice(0, 2).join(" ")}
               </NavLink>
             ) : (
               <NavLink
@@ -205,7 +205,7 @@ export function AddPeritos() {
                 to="#"
               >
                 <I.personAdd className="mr-4 w-[25px] text-secondary transition group-hover:text-black" />
-                Agregar a {perito.nombreYApellido.split(" ")[0]}
+                Agregar a {perito.nombreYApellido.split(" ").slice(0, 2).join(" ")}
               </NavLink>
             )}
             {peritos?.length > currentPeritos?.length ? (

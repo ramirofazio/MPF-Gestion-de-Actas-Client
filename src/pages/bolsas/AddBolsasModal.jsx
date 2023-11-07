@@ -1,10 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createBolsas } from "../../redux/actions";
 import { toast } from "react-toastify";
 
 export function AddBolsasModal({ alternModal, acta_id }) {
   const dispatch = useDispatch();
+
+  const currentUser = useSelector((state) => state.currentUser);
 
   const [bolsa, setBolsa] = React.useState({
     acta_id: acta_id,
@@ -36,10 +38,27 @@ export function AddBolsasModal({ alternModal, acta_id }) {
     }
   };
 
+  const handleDateChange = (e) => {
+    const fecha = new Date(e.target.value).toLocaleDateString("es-ES", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    setBolsa({ ...bolsa, fecha: fecha });
+  };
+
   return (
     <>
       <header className="modalHeader">Agregar Bolsa</header>
       <form className="flex w-full flex-col justify-center p-5 pt-0" onSubmit={handleSubmitBolsa}>
+        {currentUser.username === "admin" && (
+          <div className="modalInputContainer">
+            <label className="basicLabel !text-white">Fecha</label>
+            <input type="date" className="formModalInput" onChange={handleDateChange} />
+          </div>
+        )}
         <div className="modalInputContainer">
           <label className="basicLabel !text-white">*Precinto de Apertura</label>
           <select

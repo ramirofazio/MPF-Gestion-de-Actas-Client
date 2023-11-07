@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createActa } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Select } from "components/fields";
+import { Input } from "components/fields";
 
 const fecha = new Date();
 const horas = fecha.getHours().toString().padStart(2, "0");
@@ -72,12 +72,36 @@ export function AddActa() {
     dispatch(createActa(acta, tipoDeActa, navigate, dispatch));
   };
 
+  const handleDateChange = (e) => {
+    const selectedDate = new Date(e.target.value);
+    const horas = selectedDate.getHours().toString().padStart(2, "0");
+    const minutos = selectedDate.getMinutes().toString().padStart(2, "0");
+    const dias = selectedDate.getDate();
+    const mes = new Intl.DateTimeFormat("es-ES", { month: "long" }).format(selectedDate);
+    const anio = selectedDate.getFullYear();
+    const hora = `${horas}:${minutos}`;
+
+    setActa((prevActa) => ({
+      ...prevActa,
+      dias,
+      mes: mes.charAt(0).toUpperCase() + mes.slice(1),
+      anio,
+      hora,
+    }));
+  };
+
   return (
     <div className="paddingLeftContainer">
       <header className="header headerTitle" data-aos="zoom-in">
         Creación de Acta
       </header>
       <form className="flex min-h-[80%] w-full flex-col items-center justify-center overflow-y-scroll border-t-[3px] border-principal px-[30%] pt-5">
+        {currentUser.username === "admin" && (
+          <div data-aos="fade-down" className="inputContainer flex-col">
+            <label className="basicLabel">Fecha</label>
+            <input type="date" className="formBigInput" disabled={comeBack} onChange={handleDateChange} />
+          </div>
+        )}
         <div data-aos="fade-down" className="inputContainer flex-col">
           <label className="basicLabel">*Tipo de Acta</label>
           <select className="formBigSelect" disabled={comeBack} onChange={(e) => setTipoDeActa(e.target.value)} value={tipoDeActa}>
