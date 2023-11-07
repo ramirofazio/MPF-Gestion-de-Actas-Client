@@ -26,7 +26,7 @@ let initialState = {
   currentBolsas: JSON.parse(localStorage.getItem("currentBolsas")) || [],
   currentEfectos: JSON.parse(localStorage.getItem("currentEfectos")) || [],
   bugsReports: [],
-  users: [],
+  users: JSON.parse(localStorage.getItem("users")) || [],
   currentUser: [],
 };
 

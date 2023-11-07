@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import logo2 from "assets/logo2.png";
 import { getUsers, setCurrentUser, admin, createUsers } from "./redux/actions";
 import { Fallback, NavBar, NotFound } from "components/index";
-import { Home, AddActa, AddPeritos, AddIntegrantes, AddBolsas, ActaRemove, AdminHome } from "pages/index";
+import { Home, AddActa, AddPeritos, AddIntegrantes, AddBolsas, ActaRemove, AdminHome, UserDashboard } from "pages/index";
 
 function App() {
   const dispatch = useDispatch();
@@ -119,6 +119,7 @@ function App() {
               <>
                 <Route path="/admin" element={<AdminHome />} />
                 <Route path="/admin/eliminarActa" element={<ActaRemove />} />
+                <Route path="/admin/users" element={<UserDashboard />} />
               </>
             )}
           </Routes>

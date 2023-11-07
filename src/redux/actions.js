@@ -469,6 +469,19 @@ export function setCurrentUser(currentUser) {
   };
 }
 
+export function updateUser(body) {
+  return function (dispatch) {
+    axios.put(serverUrl + "/addUser", body).then((res) => {
+      if (res.status === 200) {
+        toast.success("Usuario editado con exito");
+        dispatch({
+          type: GET_USERS,
+          payload: res.data,
+        });
+      }
+    });
+  };
+}
 export function createUsers() {
   return function () {
     axios.post(serverUrl + "/addUser", [

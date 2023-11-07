@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 export function AddBolsasModal({ alternModal, acta_id }) {
   const dispatch = useDispatch();
 
-  const currentUser = useSelector((state) => state.currentUser);
+  const currentUser = useSelector((state) => state.currentUser || JSON.parse(localStorage.getItem("currentUser")));
 
   const [bolsa, setBolsa] = React.useState({
     acta_id: acta_id,

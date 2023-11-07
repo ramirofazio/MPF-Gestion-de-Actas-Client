@@ -21,6 +21,10 @@ export function Home() {
           <span className="text-xl text-secondary group-hover:text-principal">Eliminar un Acta</span>
           <I.fileRemove className="icons w-8 group-hover:text-principal" />
         </NavLink>
+        <NavLink data-aos="zoom-in" className="adminCards group" to="/admin/users">
+          <span className="text-xl text-secondary group-hover:text-principal">Gestionar Usuarios</span>
+          <I.personAdd className="icons w-8 group-hover:text-principal" />
+        </NavLink>
       </div>
     </div>
   );

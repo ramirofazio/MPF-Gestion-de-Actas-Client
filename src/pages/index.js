@@ -1,6 +1,6 @@
 export { Home } from "./Home";
 export { AddActa } from "./acta/AddActa";
-export { Home as AdminHome, ActaRemove } from "./admin/index";
+export { Home as AdminHome, ActaRemove, UserDashboard } from "./admin/index";
 export { AddBolsas, AddBolsasModal, CloseBagsCompleted, CloseBagsInProcess, CloseBagsModal, UpdatePrecintoBlanco } from "./bolsas/index";
 export { AddDiscoModal, EditDiscoModal } from "./discos/index";
 export { AddEfectos } from "./efectos/AddEfectos";
