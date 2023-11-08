@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { BaseModal, CardElement } from "components/index";
 import { Icons as I } from "assets/index";
 import EditUser from "./EditUser";
+import { toast } from "react-toastify";
 
 export function UserDashboard() {
   const users = useSelector((s) => s.users || JSON.parse(localStorage.getItem("users")));
@@ -13,6 +14,7 @@ export function UserDashboard() {
   const handleUserClick = (user) => {
     setModal(true);
     setSelectedUser(user);
+    toast.warning("¡CUIDADO, ESTA INFORMACION SE ACTUALIZA EN EL MOMENTO!", { position: "top-center" });
   };
   return (
     <div className="paddingLeftContainer">
