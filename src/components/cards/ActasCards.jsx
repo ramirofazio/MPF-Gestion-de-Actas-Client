@@ -6,14 +6,14 @@ import { getOfStorage } from "utils";
 import { Icons as I } from "assets";
 
 export function ActasCards({ allActas, typeOfCard }) {
-  const { username, nombreYApellido } = useSelector((s) => getOfStorage("currentUser") || s.currentUser);
+  const { username, legajo } = useSelector((s) => getOfStorage("currentUser") || s.currentUser);
   const [actasToRender, setActasToRender] = useState([]);
 
   useEffect(() => {
     let actas = [];
     if (username !== "admin") {
       actas = allActas.filter(({ Peritos }) => {
-        return Peritos.some((p) => p.nombreYApellido === nombreYApellido);
+        return Peritos.some((p) => p.legajo === legajo);
       });
     } else {
       actas = allActas.filter((a) => a.estado !== "deprecada");
