@@ -14,12 +14,16 @@ export function Home() {
   return (
     <div className="paddingLeftContainer">
       <header data-aos="fade-down" className="header">
-        <span className="headerTitle">Panel de Administrador</span>
+        <span className="headerTitle">Panel de Administrador test mode</span>
       </header>
       <div className="flex h-[85vh] w-full flex-col items-center justify-center overflow-x-hidden overflow-y-scroll border-t-[3px] border-t-principal">
         <NavLink data-aos="zoom-in" className="adminCards group" to="/admin/eliminarActa">
           <span className="text-xl text-secondary group-hover:text-principal">Eliminar un Acta</span>
           <I.fileRemove className="icons w-8 group-hover:text-principal" />
+        </NavLink>
+        <NavLink data-aos="zoom-in" className="adminCards group" to="/admin/users">
+          <span className="text-xl text-secondary group-hover:text-principal">Gestionar Usuarios</span>
+          <I.personAdd className="icons w-8 group-hover:text-principal" />
         </NavLink>
       </div>
     </div>
