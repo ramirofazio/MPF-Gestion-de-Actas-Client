@@ -14,7 +14,7 @@ export function Home() {
   return (
     <div className="paddingLeftContainer">
       <header data-aos="fade-down" className="header">
-        <span className="headerTitle">Panel de Administrador</span>
+        <span className="headerTitle">Panel de Administrador test mode</span>
       </header>
       <div className="flex h-[85vh] w-full flex-col items-center justify-center overflow-x-hidden overflow-y-scroll border-t-[3px] border-t-principal">
         <NavLink data-aos="zoom-in" className="adminCards group" to="/admin/eliminarActa">
